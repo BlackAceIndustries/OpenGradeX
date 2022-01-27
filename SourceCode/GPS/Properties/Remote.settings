@@ -1,0 +1,60 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="OpenGrade.Properties" GeneratedClassName="Remote">
+  <Profiles />
+  <Settings>
+    <Setting Name="aBtnFunc" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Toggle Auto Cut</Value>
+    </Setting>
+    <Setting Name="bBtnFunc" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Open Gps Data</Value>
+    </Setting>
+    <Setting Name="xBtnFunc" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Toggle Survey</Value>
+    </Setting>
+    <Setting Name="yBtnFunc" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Reset Blade Offset</Value>
+    </Setting>
+    <Setting Name="upBtnFunc" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Increase Blade Offset</Value>
+    </Setting>
+    <Setting Name="downBtnFunc" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Decrease Blade Offset</Value>
+    </Setting>
+    <Setting Name="rightBtnFunc" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Toggle Tabs</Value>
+    </Setting>
+    <Setting Name="leftBtnFunc" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Save Cut</Value>
+    </Setting>
+    <Setting Name="startBtnFunc" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Open Job</Value>
+    </Setting>
+    <Setting Name="aBtn" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="bBtn" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">8</Value>
+    </Setting>
+    <Setting Name="xBtn" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="yBtn" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">5</Value>
+    </Setting>
+    <Setting Name="upBtn" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">3</Value>
+    </Setting>
+    <Setting Name="downBtn" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">4</Value>
+    </Setting>
+    <Setting Name="leftBtn" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">6</Value>
+    </Setting>
+    <Setting Name="rightBtn" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="startBtn" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">7</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

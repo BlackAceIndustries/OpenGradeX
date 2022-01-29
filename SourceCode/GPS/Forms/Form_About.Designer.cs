@@ -123,19 +123,19 @@
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.label1.Location = new System.Drawing.Point(12, 24);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(133, 29);
+            this.label1.Size = new System.Drawing.Size(147, 29);
             this.label1.TabIndex = 13;
-            this.label1.Text = "OpenGrade";
+            this.label1.Text = "OpenGradeX";
             // 
             // linkLabelGit
             // 
             this.linkLabelGit.AutoSize = true;
             this.linkLabelGit.Location = new System.Drawing.Point(14, 198);
             this.linkLabelGit.Name = "linkLabelGit";
-            this.linkLabelGit.Size = new System.Drawing.Size(303, 13);
+            this.linkLabelGit.Size = new System.Drawing.Size(258, 13);
             this.linkLabelGit.TabIndex = 11;
             this.linkLabelGit.TabStop = true;
-            this.linkLabelGit.Text = "https://github.com/BlackAceIndustries/BlackAce_OpenGrade";
+            this.linkLabelGit.Text = "https://github.com/BlackAceIndustries/OpenGradeX\r\n";
             this.linkLabelGit.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelGit_LinkClicked);
             // 
             // linkLabelCombineForum

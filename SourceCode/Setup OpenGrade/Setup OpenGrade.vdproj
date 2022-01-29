@@ -21,8 +21,14 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_082781C6B88F235C4912B75A962E3D03"
+        "MsmKey" = "8:_05497455CD9C396ED8CF4284AD9BEFFA"
         "OwnerKey" = "8:_1B2202DCCC83418286E1630C10EAE729"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_05497455CD9C396ED8CF4284AD9BEFFA"
+        "OwnerKey" = "8:_5AD7DBAD12B50FD820DC233C40D67864"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -45,20 +51,20 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_48914F41DFFA9F68EDCA33F9C95E1149"
+        "MsmKey" = "8:_573B4CC1435E4A7A92B218A2B23A9CA3"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_5AD7DBAD12B50FD820DC233C40D67864"
         "OwnerKey" = "8:_1B2202DCCC83418286E1630C10EAE729"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_48914F41DFFA9F68EDCA33F9C95E1149"
-        "OwnerKey" = "8:_082781C6B88F235C4912B75A962E3D03"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_573B4CC1435E4A7A92B218A2B23A9CA3"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_6E7457F1D74F7889CB628B9019B0A80F"
+        "OwnerKey" = "8:_1B2202DCCC83418286E1630C10EAE729"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -75,7 +81,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_9F603A4BED4DD6B4CD278FACDA543126"
+        "MsmKey" = "8:_8708EA68EE9E9F78C2F17591FC0418F8"
         "OwnerKey" = "8:_1B2202DCCC83418286E1630C10EAE729"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -87,24 +93,24 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_B7E2069C4CD44731869611C20EFD92D0"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C822B2BBE187393F469A2C69B1957E7B"
+        "OwnerKey" = "8:_1B2202DCCC83418286E1630C10EAE729"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_EEEB5C64A8894364A5EEE7A8E19A9DB2"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_F6B4679608D27DACB085BF7CB1B3664B"
-        "OwnerKey" = "8:_1B2202DCCC83418286E1630C10EAE729"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_F9D61E6D9C28B1C4D180020B3F1CD85A"
-        "OwnerKey" = "8:_1B2202DCCC83418286E1630C10EAE729"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_1B2202DCCC83418286E1630C10EAE729"
         "MsmSig" = "8:_UNDEFINED"
@@ -112,31 +118,31 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_F6B4679608D27DACB085BF7CB1B3664B"
+        "OwnerKey" = "8:_C822B2BBE187393F469A2C69B1957E7B"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_082781C6B88F235C4912B75A962E3D03"
+        "OwnerKey" = "8:_5AD7DBAD12B50FD820DC233C40D67864"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_48914F41DFFA9F68EDCA33F9C95E1149"
+        "OwnerKey" = "8:_05497455CD9C396ED8CF4284AD9BEFFA"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_9F603A4BED4DD6B4CD278FACDA543126"
+        "OwnerKey" = "8:_6E7457F1D74F7889CB628B9019B0A80F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_F9D61E6D9C28B1C4D180020B3F1CD85A"
+        "OwnerKey" = "8:_8708EA68EE9E9F78C2F17591FC0418F8"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -254,20 +260,20 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_082781C6B88F235C4912B75A962E3D03"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_05497455CD9C396ED8CF4284AD9BEFFA"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:SharpGL.WinForms, Version=0.0.0.0, Culture=neutral, PublicKeyToken=27fc851303210b27, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:SharpGL, Version=0.0.0.0, Culture=neutral, PublicKeyToken=27fc851303210b27, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_082781C6B88F235C4912B75A962E3D03"
+                    "_05497455CD9C396ED8CF4284AD9BEFFA"
                     {
-                    "Name" = "8:SharpGL.WinForms.dll"
+                    "Name" = "8:SharpGL.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:SharpGL.WinForms.dll"
+            "SourcePath" = "8:SharpGL.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_86ED91299E5F48BFAADE9FAA016E1332"
@@ -325,37 +331,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_48914F41DFFA9F68EDCA33F9C95E1149"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:SharpGL, Version=0.0.0.0, Culture=neutral, PublicKeyToken=27fc851303210b27, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_48914F41DFFA9F68EDCA33F9C95E1149"
-                    {
-                    "Name" = "8:SharpGL.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:SharpGL.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_86ED91299E5F48BFAADE9FAA016E1332"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_573B4CC1435E4A7A92B218A2B23A9CA3"
             {
             "SourcePath" = "8:..\\..\\Application\\Help_files\\colorschememapping.xml"
@@ -374,6 +349,68 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5AD7DBAD12B50FD820DC233C40D67864"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:SharpGL.WinForms, Version=0.0.0.0, Culture=neutral, PublicKeyToken=27fc851303210b27, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_5AD7DBAD12B50FD820DC233C40D67864"
+                    {
+                    "Name" = "8:SharpGL.WinForms.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:SharpGL.WinForms.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_86ED91299E5F48BFAADE9FAA016E1332"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_6E7457F1D74F7889CB628B9019B0A80F"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:RepeatButtonControl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_6E7457F1D74F7889CB628B9019B0A80F"
+                    {
+                    "Name" = "8:RepeatButtonControl.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:RepeatButtonControl.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_86ED91299E5F48BFAADE9FAA016E1332"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_70922EF0632040D4B99BFD2E0DBE9E06"
@@ -416,20 +453,20 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9F603A4BED4DD6B4CD278FACDA543126"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_8708EA68EE9E9F78C2F17591FC0418F8"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:RepeatButtonControl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:ProgBar, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_9F603A4BED4DD6B4CD278FACDA543126"
+                    "_8708EA68EE9E9F78C2F17591FC0418F8"
                     {
-                    "Name" = "8:RepeatButtonControl.dll"
+                    "Name" = "8:ProgBar.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:RepeatButtonControl.dll"
+            "SourcePath" = "8:ProgBar.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_86ED91299E5F48BFAADE9FAA016E1332"
@@ -467,10 +504,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EEEB5C64A8894364A5EEE7A8E19A9DB2"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B7E2069C4CD44731869611C20EFD92D0"
             {
-            "SourcePath" = "8:..\\GPS\\btnImages\\Grade64Icon.ico"
-            "TargetName" = "8:Grade64Icon.ico"
+            "SourcePath" = "8:..\\GPS\\btnImages\\OGX.ico"
+            "TargetName" = "8:OGX.ico"
             "Tag" = "8:"
             "Folder" = "8:_86ED91299E5F48BFAADE9FAA016E1332"
             "Condition" = "8:"
@@ -487,14 +524,14 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F6B4679608D27DACB085BF7CB1B3664B"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C822B2BBE187393F469A2C69B1957E7B"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:WebEye.Controls.WinForms.WebCameraControl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_F6B4679608D27DACB085BF7CB1B3664B"
+                    "_C822B2BBE187393F469A2C69B1957E7B"
                     {
                     "Name" = "8:WebEye.Controls.WinForms.WebCameraControl.dll"
                     "Attributes" = "3:512"
@@ -518,21 +555,10 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F9D61E6D9C28B1C4D180020B3F1CD85A"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EEEB5C64A8894364A5EEE7A8E19A9DB2"
             {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:ProgBar, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_F9D61E6D9C28B1C4D180020B3F1CD85A"
-                    {
-                    "Name" = "8:ProgBar.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:ProgBar.dll"
-            "TargetName" = "8:"
+            "SourcePath" = "8:..\\GPS\\btnImages\\Grade64Icon.ico"
+            "TargetName" = "8:Grade64Icon.ico"
             "Tag" = "8:"
             "Folder" = "8:_86ED91299E5F48BFAADE9FAA016E1332"
             "Condition" = "8:"
@@ -546,7 +572,7 @@
             "PackageAs" = "3:1"
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
         }
@@ -639,7 +665,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:OpenGrade V3"
         "ProductCode" = "8:{13AB9E27-7025-4313-A7F5-9876C6948A8C}"
-        "PackageCode" = "8:{9B738A85-57D5-4A6A-B65B-4AAEB3263B26}"
+        "PackageCode" = "8:{78CBE5B9-4543-40DF-815F-F160431EA762}"
         "UpgradeCode" = "8:{E1B3A056-56F7-4594-B6F2-82DF14334C04}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"

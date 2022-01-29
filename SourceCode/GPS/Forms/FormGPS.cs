@@ -1085,6 +1085,23 @@ namespace OpenGrade
             SendAntennaUDPMessage(IMU_HEADER + "," + 0 + "," + 0 + "," + 0);
         }
 
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void fullscreenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.FormBorderStyle == FormBorderStyle.None){
+                this.FormBorderStyle = FormBorderStyle.Sizable;
+                this.Padding = new Padding(5);
+            }
+            else {this.FormBorderStyle = FormBorderStyle.None;
+                this.Padding = new Padding(5);
+            }
+            
+        }
+
         private void toolStripDropDownBtnFuncs_Click(object sender, EventArgs e)
         {
 

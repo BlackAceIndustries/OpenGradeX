@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("OpenGrade")]
+[assembly: AssemblyTitle("OpenGradeX")]
 [assembly: AssemblyDescription("Ag Land Levelling Program")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("OpenGrade")]
-[assembly: AssemblyProduct("OpenGrade")]
+[assembly: AssemblyCompany("Black Ace Industries")]
+[assembly: AssemblyProduct("OpenGradeX")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

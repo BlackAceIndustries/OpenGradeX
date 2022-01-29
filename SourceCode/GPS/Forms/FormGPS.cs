@@ -961,12 +961,16 @@ namespace OpenGrade
 
         private void fullscreenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (this.FormBorderStyle == FormBorderStyle.None){
+            if (this.FormBorderStyle == FormBorderStyle.None && this.WindowState != FormWindowState.Normal)
+            {
                 this.FormBorderStyle = FormBorderStyle.Sizable;
+                this.WindowState = FormWindowState.Normal;
                 this.Padding = new Padding(5);
             }
-            else {this.FormBorderStyle = FormBorderStyle.None;
-                this.Padding = new Padding(5);
+            else {
+                this.FormBorderStyle = FormBorderStyle.None;
+                this.Padding = new Padding(5);                
+                this.WindowState = FormWindowState.Maximized;
             }
             
         }

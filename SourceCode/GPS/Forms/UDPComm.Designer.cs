@@ -22,6 +22,10 @@ namespace OpenGrade
         public const int GPS_HEADER = 10003;
         public const int IMU_HEADER = 10004;
 
+        public const int RESET_HEADER = 10100;
+
+
+
         public long udpDataTimeout = 0;
         public long udpGPSTimeout = 0;
         public long udpIMUTimeout = 0;

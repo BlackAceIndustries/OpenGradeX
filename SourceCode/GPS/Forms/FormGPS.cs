@@ -684,8 +684,9 @@ namespace OpenGrade
             // Show Gps Form
             if (keyData == (Keys.D4))
             {
-                Form form = new FormGPSData(this);
-                form.Show();
+                //Form form = new FormGPSData(this);
+                //form.Show();
+                btnZeroIMU.PerformClick(); 
                 return true;    // indicate that you handled this keystroke
             }
 
@@ -712,8 +713,8 @@ namespace OpenGrade
             {
                 int tab = tabGradeControl.SelectedIndex;
                 tab++;
-                if (tab > 1) tab = 0;                
-
+                if (tab > tabGradeControl.TabCount - 1) tab = 0;
+               
                 tabGradeControl.SelectTab(tab);
                 return true;    // indicate that you handled this keystroke
             }
@@ -813,8 +814,8 @@ namespace OpenGrade
             ToolTip1.SetToolTip(btnABLine, "Set and configure\n an ABLine");
 
             if (Settings.Default.setF_workingDirectory == "Default")
-                baseDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\OpenGrade\\";
-            else baseDirectory = Settings.Default.setF_workingDirectory + "\\OpenGrade\\";
+                baseDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\OpenGradeX\\";
+            else baseDirectory = Settings.Default.setF_workingDirectory + "\\OpenGradeX\\";
 
             //get the fields directory, if not exist, create
             fieldsDirectory = baseDirectory + "Fields\\";
@@ -900,6 +901,8 @@ namespace OpenGrade
 
             // load all the gui elements in gui.designer.cs
             LoadGUI();
+            //SendUDPMessage(RESET_HEADER + "," + 0);
+            //SendAntennaUDPMessage(RESET_HEADER + "," + 0);
         }
 
         private void lblCutDelta_Click(object sender, EventArgs e)
@@ -931,6 +934,29 @@ namespace OpenGrade
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void resetModulesToolStripMenuItem_Click(object sender, EventArgs e)
+        {   
+            
+           
+        }
+
+        private void resetAntennaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SendAntennaUDPMessage(RESET_HEADER + "," + 0);
+
+        }
+
+        private void resetGradeControlToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SendUDPMessage(RESET_HEADER + "," + 0);
+        }
+
+        private void resetAllToolStripMenuItem1_Click(object sender, EventArgs e)
+        {   
+            SendUDPMessage(RESET_HEADER + "," + 0);
+            SendAntennaUDPMessage(RESET_HEADER + "," + 0 );
         }
 
         private void fullscreenToolStripMenuItem_Click(object sender, EventArgs e)

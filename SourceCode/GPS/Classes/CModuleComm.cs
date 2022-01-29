@@ -77,7 +77,7 @@ namespace OpenGrade
             GradeControlData[gcDeltaDir] = 0;
             GradeControlData[gcCutDelta] = 0;
             GradeControlData[gcisAutoActive] = 0;                       
-            mf.GradeControlDataOutToPort();
+            
             //mf.SendUDPMessage(10001);
             mf.SendUDPMessage("10001" + "," + GradeControlData[gcDeltaDir] + "," +
                 GradeControlData[gcCutDelta] + "," + GradeControlData[gcCutDelta] + "\r\n");
@@ -90,7 +90,7 @@ namespace OpenGrade
             gradeControlSettings[gsRetDeadband] = Properties.Settings.Default.set_RetDeadband;
             gradeControlSettings[gsExtDeadband] = Properties.Settings.Default.set_ExtDeadband;
             gradeControlSettings[gsValveType] = Properties.Settings.Default.set_ValveType;
-            mf.GradeControlSettingsOutToPort();
+            
             //mf.SendUDPMessage(10002);
             mf.SendUDPMessage("10002" + "," + gradeControlSettings[gsKpGain] + "," + gradeControlSettings[gsKiGain] + "," + gradeControlSettings[gsKdGain]
                         + "," + gradeControlSettings[gsRetDeadband] + "," + gradeControlSettings[gsExtDeadband] + "," + gradeControlSettings[gsValveType] + "\r\n");
@@ -103,7 +103,7 @@ namespace OpenGrade
             autoSteerData[sdDistanceLo] = 20;
             autoSteerData[sdSteerAngleHi] = (125); // PGN - 32020
             autoSteerData[sdSteerAngleLo] = 20;
-            mf.AutoSteerDataOutToPort();
+           
 
             autoSteerSettings[ssHeaderHi] = 127;// PGN - 32764 as header
             autoSteerSettings[ssHeaderLo] = 252;
@@ -115,7 +115,7 @@ namespace OpenGrade
             autoSteerSettings[ssMinPWM] = Properties.Settings.Default.setAS_minSteerPWM;
             autoSteerSettings[ssMaxIntegral] = Properties.Settings.Default.setAS_maxIntegral;
             autoSteerSettings[ssCountsPerDegree] = Properties.Settings.Default.setAS_countsPerDegree;
-            mf.AutoSteerSettingsOutToPort();
+            
         }
     }
 }

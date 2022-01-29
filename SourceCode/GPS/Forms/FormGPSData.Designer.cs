@@ -49,19 +49,19 @@
             this.label9 = new System.Windows.Forms.Label();
             this.lblHDOP = new System.Windows.Forms.Label();
             this.tboxNMEASerial = new System.Windows.Forms.TextBox();
-            this.tboxSerialFromGradeControl = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.lblZone = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.txtBoxSendGradeControl = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.tboxSerialFromAutoSteer = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.tboxSerialToAutoSteer = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
+            this.tboxSerialFromAutoSteer = new System.Windows.Forms.TextBox();
+            this.tboxSerialToAutoSteer = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.txtBoxSendGradeControl = new System.Windows.Forms.TextBox();
+            this.tboxSerialFromGradeControl = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // timer1
@@ -301,20 +301,6 @@
             this.tboxNMEASerial.Size = new System.Drawing.Size(453, 60);
             this.tboxNMEASerial.TabIndex = 107;
             // 
-            // tboxSerialFromGradeControl
-            // 
-            this.tboxSerialFromGradeControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tboxSerialFromGradeControl.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.tboxSerialFromGradeControl.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tboxSerialFromGradeControl.ForeColor = System.Drawing.Color.Yellow;
-            this.tboxSerialFromGradeControl.Location = new System.Drawing.Point(61, 394);
-            this.tboxSerialFromGradeControl.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.tboxSerialFromGradeControl.Name = "tboxSerialFromGradeControl";
-            this.tboxSerialFromGradeControl.ReadOnly = true;
-            this.tboxSerialFromGradeControl.Size = new System.Drawing.Size(398, 27);
-            this.tboxSerialFromGradeControl.TabIndex = 108;
-            // 
             // label10
             // 
             this.label10.AutoSize = true;
@@ -325,17 +311,6 @@
             this.label10.Size = new System.Drawing.Size(112, 23);
             this.label10.TabIndex = 110;
             this.label10.Text = "NMEA Serial";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label12.Location = new System.Drawing.Point(2, 401);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(43, 23);
-            this.label12.TabIndex = 112;
-            this.label12.Text = "Frm";
             // 
             // label11
             // 
@@ -361,6 +336,78 @@
             this.lblZone.Text = "Zone";
             this.lblZone.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label17.Location = new System.Drawing.Point(126, 240);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(121, 23);
+            this.label17.TabIndex = 122;
+            this.label17.Text = "Antenna/IMU";
+            // 
+            // tboxSerialFromAutoSteer
+            // 
+            this.tboxSerialFromAutoSteer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tboxSerialFromAutoSteer.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.tboxSerialFromAutoSteer.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tboxSerialFromAutoSteer.ForeColor = System.Drawing.Color.Yellow;
+            this.tboxSerialFromAutoSteer.Location = new System.Drawing.Point(61, 298);
+            this.tboxSerialFromAutoSteer.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.tboxSerialFromAutoSteer.Name = "tboxSerialFromAutoSteer";
+            this.tboxSerialFromAutoSteer.ReadOnly = true;
+            this.tboxSerialFromAutoSteer.Size = new System.Drawing.Size(397, 27);
+            this.tboxSerialFromAutoSteer.TabIndex = 119;
+            // 
+            // tboxSerialToAutoSteer
+            // 
+            this.tboxSerialToAutoSteer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tboxSerialToAutoSteer.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.tboxSerialToAutoSteer.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tboxSerialToAutoSteer.ForeColor = System.Drawing.Color.Yellow;
+            this.tboxSerialToAutoSteer.Location = new System.Drawing.Point(61, 266);
+            this.tboxSerialToAutoSteer.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.tboxSerialToAutoSteer.Name = "tboxSerialToAutoSteer";
+            this.tboxSerialToAutoSteer.ReadOnly = true;
+            this.tboxSerialToAutoSteer.Size = new System.Drawing.Size(398, 27);
+            this.tboxSerialToAutoSteer.TabIndex = 117;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label15.Location = new System.Drawing.Point(12, 274);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(31, 23);
+            this.label15.TabIndex = 118;
+            this.label15.Text = "To";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label14.Location = new System.Drawing.Point(2, 302);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(43, 23);
+            this.label14.TabIndex = 120;
+            this.label14.Text = "Frm";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label12.Location = new System.Drawing.Point(2, 401);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(43, 23);
+            this.label12.TabIndex = 112;
+            this.label12.Text = "Frm";
+            // 
             // label13
             // 
             this.label13.AutoSize = true;
@@ -371,6 +418,17 @@
             this.label13.Size = new System.Drawing.Size(31, 23);
             this.label13.TabIndex = 116;
             this.label13.Text = "To";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label16.Location = new System.Drawing.Point(126, 337);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(120, 23);
+            this.label16.TabIndex = 121;
+            this.label16.Text = "GradeControl";
             // 
             // txtBoxSendGradeControl
             // 
@@ -387,77 +445,19 @@
             this.txtBoxSendGradeControl.TabIndex = 115;
             this.txtBoxSendGradeControl.TextChanged += new System.EventHandler(this.tboxSerialToGradeControl_TextChanged);
             // 
-            // label14
+            // tboxSerialFromGradeControl
             // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label14.Location = new System.Drawing.Point(2, 302);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(43, 23);
-            this.label14.TabIndex = 120;
-            this.label14.Text = "Frm";
-            // 
-            // tboxSerialFromAutoSteer
-            // 
-            this.tboxSerialFromAutoSteer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.tboxSerialFromGradeControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tboxSerialFromAutoSteer.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.tboxSerialFromAutoSteer.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tboxSerialFromAutoSteer.ForeColor = System.Drawing.Color.Yellow;
-            this.tboxSerialFromAutoSteer.Location = new System.Drawing.Point(61, 298);
-            this.tboxSerialFromAutoSteer.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.tboxSerialFromAutoSteer.Name = "tboxSerialFromAutoSteer";
-            this.tboxSerialFromAutoSteer.ReadOnly = true;
-            this.tboxSerialFromAutoSteer.Size = new System.Drawing.Size(397, 27);
-            this.tboxSerialFromAutoSteer.TabIndex = 119;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label15.Location = new System.Drawing.Point(12, 274);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(31, 23);
-            this.label15.TabIndex = 118;
-            this.label15.Text = "To";
-            // 
-            // tboxSerialToAutoSteer
-            // 
-            this.tboxSerialToAutoSteer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tboxSerialToAutoSteer.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.tboxSerialToAutoSteer.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tboxSerialToAutoSteer.ForeColor = System.Drawing.Color.Yellow;
-            this.tboxSerialToAutoSteer.Location = new System.Drawing.Point(61, 266);
-            this.tboxSerialToAutoSteer.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.tboxSerialToAutoSteer.Name = "tboxSerialToAutoSteer";
-            this.tboxSerialToAutoSteer.ReadOnly = true;
-            this.tboxSerialToAutoSteer.Size = new System.Drawing.Size(398, 27);
-            this.tboxSerialToAutoSteer.TabIndex = 117;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label16.Location = new System.Drawing.Point(126, 337);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(120, 23);
-            this.label16.TabIndex = 121;
-            this.label16.Text = "GradeControl";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label17.Location = new System.Drawing.Point(126, 240);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(92, 23);
-            this.label17.TabIndex = 122;
-            this.label17.Text = "AutoSteer";
+            this.tboxSerialFromGradeControl.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.tboxSerialFromGradeControl.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tboxSerialFromGradeControl.ForeColor = System.Drawing.Color.Yellow;
+            this.tboxSerialFromGradeControl.Location = new System.Drawing.Point(61, 394);
+            this.tboxSerialFromGradeControl.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.tboxSerialFromGradeControl.Name = "tboxSerialFromGradeControl";
+            this.tboxSerialFromGradeControl.ReadOnly = true;
+            this.tboxSerialFromGradeControl.Size = new System.Drawing.Size(398, 27);
+            this.tboxSerialFromGradeControl.TabIndex = 108;
             // 
             // FormGPSData
             // 
@@ -532,18 +532,18 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label lblHDOP;
         private System.Windows.Forms.TextBox tboxNMEASerial;
-        private System.Windows.Forms.TextBox tboxSerialFromGradeControl;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label lblZone;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox txtBoxSendGradeControl;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TextBox tboxSerialFromAutoSteer;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.TextBox tboxSerialToAutoSteer;
-        private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TextBox tboxSerialFromAutoSteer;
+        private System.Windows.Forms.TextBox tboxSerialToAutoSteer;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox txtBoxSendGradeControl;
+        private System.Windows.Forms.TextBox tboxSerialFromGradeControl;
     }
 }

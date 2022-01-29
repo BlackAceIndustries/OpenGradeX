@@ -94,9 +94,7 @@
             this.stripEqWidth = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolstripUDPConfig = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolstripUSBPortsConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.toolstripVehicleConfig = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolstripAutoSteerConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.stripTopoLocation = new System.Windows.Forms.ToolStripStatusLabel();
             this.stripOnlineGPS = new System.Windows.Forms.ToolStripProgressBar();
             this.stripOnlineAutoSteer = new System.Windows.Forms.ToolStripProgressBar();
@@ -303,7 +301,6 @@
             this.txtDistanceOffABLine.TabIndex = 7;
             this.txtDistanceOffABLine.Text = "00000";
             this.txtDistanceOffABLine.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtDistanceOffABLine.TextChanged += new System.EventHandler(this.txtDistanceOffABLine_TextChanged);
             // 
             // openGLControlBack
             // 
@@ -326,7 +323,6 @@
             this.openGLControlBack.OpenGLInitialized += new System.EventHandler(this.openGLControlBack_OpenGLInitialized);
             this.openGLControlBack.OpenGLDraw += new SharpGL.RenderEventHandler(this.openGLControlBack_OpenGLDraw);
             this.openGLControlBack.Resized += new System.EventHandler(this.openGLControlBack_Resized);
-            this.openGLControlBack.Load += new System.EventHandler(this.openGLControlBack_Load);
             this.openGLControlBack.MouseClick += new System.Windows.Forms.MouseEventHandler(this.openGLControlBack_MouseClick);
             this.openGLControlBack.MouseMove += new System.Windows.Forms.MouseEventHandler(this.openGLControlBack_MouseMove);
             // 
@@ -341,8 +337,8 @@
             this.saveVehicleToolStripMenuItem,
             this.toolStripSeparator8,
             this.fieldToolStripMenuItem,
-            this.exitToolStripMenuItem,
-            this.fullscreenToolStripMenuItem});
+            this.fullscreenToolStripMenuItem,
+            this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -768,7 +764,6 @@
             this.stripMinMax.Size = new System.Drawing.Size(450, 41);
             this.stripMinMax.Text = "Min:Max";
             this.stripMinMax.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.stripMinMax.Click += new System.EventHandler(this.stripMinMax_Click);
             // 
             // toolStripDropDownBtnFuncs
             // 
@@ -786,7 +781,6 @@
             this.toolStripDropDownBtnFuncs.Size = new System.Drawing.Size(82, 39);
             this.toolStripDropDownBtnFuncs.Text = "Start";
             this.toolStripDropDownBtnFuncs.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
-            this.toolStripDropDownBtnFuncs.Click += new System.EventHandler(this.toolStripDropDownBtnFuncs_Click);
             // 
             // toolstripField
             // 
@@ -838,9 +832,7 @@
             this.toolStripDropDownButton2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.toolStripDropDownButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolstripUDPConfig,
-            this.toolstripUSBPortsConfig,
-            this.toolstripVehicleConfig,
-            this.toolstripAutoSteerConfig});
+            this.toolstripVehicleConfig});
             this.toolStripDropDownButton2.Font = new System.Drawing.Font("Tahoma", 18F);
             this.toolStripDropDownButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton2.Image")));
             this.toolStripDropDownButton2.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -860,21 +852,9 @@
             this.toolstripUDPConfig.Image = ((System.Drawing.Image)(resources.GetObject("toolstripUDPConfig.Image")));
             this.toolstripUDPConfig.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolstripUDPConfig.Name = "toolstripUDPConfig";
-            this.toolstripUDPConfig.Size = new System.Drawing.Size(292, 86);
+            this.toolstripUDPConfig.Size = new System.Drawing.Size(247, 86);
             this.toolstripUDPConfig.Text = "UDP";
             this.toolstripUDPConfig.Click += new System.EventHandler(this.toolstripUDPConfig_Click);
-            // 
-            // toolstripUSBPortsConfig
-            // 
-            this.toolstripUSBPortsConfig.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.toolstripUSBPortsConfig.Font = new System.Drawing.Font("Tahoma", 22F);
-            this.toolstripUSBPortsConfig.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.toolstripUSBPortsConfig.Image = ((System.Drawing.Image)(resources.GetObject("toolstripUSBPortsConfig.Image")));
-            this.toolstripUSBPortsConfig.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolstripUSBPortsConfig.Name = "toolstripUSBPortsConfig";
-            this.toolstripUSBPortsConfig.Size = new System.Drawing.Size(292, 86);
-            this.toolstripUSBPortsConfig.Text = "Ports";
-            this.toolstripUSBPortsConfig.Click += new System.EventHandler(this.toolstripUSBPortsConfig_Click);
             // 
             // toolstripVehicleConfig
             // 
@@ -884,22 +864,9 @@
             this.toolstripVehicleConfig.Image = global::OpenGrade.Properties.Resources.Settings64;
             this.toolstripVehicleConfig.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolstripVehicleConfig.Name = "toolstripVehicleConfig";
-            this.toolstripVehicleConfig.Size = new System.Drawing.Size(292, 86);
+            this.toolstripVehicleConfig.Size = new System.Drawing.Size(247, 86);
             this.toolstripVehicleConfig.Text = "Vehicle";
             this.toolstripVehicleConfig.Click += new System.EventHandler(this.toolstripVehicleConfig_Click);
-            // 
-            // toolstripAutoSteerConfig
-            // 
-            this.toolstripAutoSteerConfig.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.toolstripAutoSteerConfig.Font = new System.Drawing.Font("Tahoma", 22F);
-            this.toolstripAutoSteerConfig.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.toolstripAutoSteerConfig.Image = ((System.Drawing.Image)(resources.GetObject("toolstripAutoSteerConfig.Image")));
-            this.toolstripAutoSteerConfig.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.toolstripAutoSteerConfig.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolstripAutoSteerConfig.Name = "toolstripAutoSteerConfig";
-            this.toolstripAutoSteerConfig.Size = new System.Drawing.Size(292, 86);
-            this.toolstripAutoSteerConfig.Text = "Auto Steer";
-            this.toolstripAutoSteerConfig.Click += new System.EventHandler(this.toolstripAutoSteerConfig_Click);
             // 
             // stripTopoLocation
             // 
@@ -909,7 +876,6 @@
             this.stripTopoLocation.Name = "stripTopoLocation";
             this.stripTopoLocation.Size = new System.Drawing.Size(200, 41);
             this.stripTopoLocation.Text = "-- : -----";
-            this.stripTopoLocation.Click += new System.EventHandler(this.stripTopoLocation_Click);
             // 
             // stripOnlineGPS
             // 
@@ -918,7 +884,6 @@
             this.stripOnlineGPS.Name = "stripOnlineGPS";
             this.stripOnlineGPS.Size = new System.Drawing.Size(16, 35);
             this.stripOnlineGPS.Value = 1;
-            this.stripOnlineGPS.Click += new System.EventHandler(this.stripOnlineGPS_Click);
             // 
             // stripOnlineAutoSteer
             // 
@@ -928,7 +893,6 @@
             this.stripOnlineAutoSteer.Size = new System.Drawing.Size(16, 35);
             this.stripOnlineAutoSteer.ToolTipText = "Arduino";
             this.stripOnlineAutoSteer.Value = 1;
-            this.stripOnlineAutoSteer.Click += new System.EventHandler(this.stripOnlineAutoSteer_Click);
             // 
             // lblSpeed
             // 
@@ -1044,7 +1008,6 @@
             this.lblSpeedUnits.TabIndex = 139;
             this.lblSpeedUnits.Text = "kmh";
             this.lblSpeedUnits.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.lblSpeedUnits.Click += new System.EventHandler(this.lblSpeedUnits_Click);
             // 
             // lblHeading
             // 
@@ -1402,7 +1365,6 @@
             this.pbarCutBelow.Size = new System.Drawing.Size(72, 150);
             this.pbarCutBelow.TabIndex = 223;
             this.pbarCutBelow.TextFormat = "Process {1}% Done";
-            this.pbarCutBelow.Load += new System.EventHandler(this.pbarCutBelow_Load);
             this.pbarCutBelow.Click += new System.EventHandler(this.pbarCutBelow_Click);
             // 
             // pbarCutAbove
@@ -1442,7 +1404,6 @@
             this.pbarCutAbove.Size = new System.Drawing.Size(72, 150);
             this.pbarCutAbove.TabIndex = 224;
             this.pbarCutAbove.TextFormat = "Process {1}% Done";
-            this.pbarCutAbove.Load += new System.EventHandler(this.pbarCutAbove_Load);
             this.pbarCutAbove.Click += new System.EventHandler(this.pbarCutAbove_Click);
             // 
             // lblBarGraphMax
@@ -1537,7 +1498,6 @@
             this.label6.Size = new System.Drawing.Size(99, 19);
             this.label6.TabIndex = 227;
             this.label6.Text = "Push to Zero";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // lblCutDelta
             // 
@@ -1678,7 +1638,6 @@
             this.SettingsPage.Padding = new System.Windows.Forms.Padding(3);
             this.SettingsPage.Size = new System.Drawing.Size(601, 255);
             this.SettingsPage.TabIndex = 0;
-            this.SettingsPage.Click += new System.EventHandler(this.configPage1_Click);
             // 
             // label13
             // 
@@ -1690,7 +1649,6 @@
             this.label13.Size = new System.Drawing.Size(112, 29);
             this.label13.TabIndex = 165;
             this.label13.Text = "Modules";
-            this.label13.Click += new System.EventHandler(this.label13_Click_8);
             // 
             // ledGradeControl
             // 
@@ -1725,7 +1683,6 @@
             this.lblAntennaConnected.Size = new System.Drawing.Size(137, 23);
             this.lblAntennaConnected.TabIndex = 162;
             this.lblAntennaConnected.Text = "GradeControl";
-            this.lblAntennaConnected.Click += new System.EventHandler(this.label13_Click_7);
             // 
             // lblUdpConnected
             // 
@@ -1737,7 +1694,6 @@
             this.lblUdpConnected.Size = new System.Drawing.Size(89, 23);
             this.lblUdpConnected.TabIndex = 161;
             this.lblUdpConnected.Text = "Antenna";
-            this.lblUdpConnected.Click += new System.EventHandler(this.label13_Click_6);
             // 
             // btnFileExplorer
             // 
@@ -1890,7 +1846,6 @@
             this.alt.Size = new System.Drawing.Size(38, 23);
             this.alt.TabIndex = 189;
             this.alt.Text = "Alt:";
-            this.alt.Click += new System.EventHandler(this.label13_Click_5);
             // 
             // lblAltitude2
             // 
@@ -2198,7 +2153,6 @@
             this.lblMaxDepth.TabIndex = 228;
             this.lblMaxDepth.Text = "-Max Cut Depth";
             this.lblMaxDepth.Visible = false;
-            this.lblMaxDepth.Click += new System.EventHandler(this.label13_Click_1);
             // 
             // lblMinCover
             // 
@@ -2212,7 +2166,6 @@
             this.lblMinCover.TabIndex = 229;
             this.lblMinCover.Text = "-Min Cover Depth";
             this.lblMinCover.Visible = false;
-            this.lblMinCover.Click += new System.EventHandler(this.label13_Click_2);
             // 
             // sqrMinCover
             // 
@@ -2250,7 +2203,6 @@
             this.sqrCutLine1.TabIndex = 233;
             this.sqrCutLine1.UseVisualStyleBackColor = false;
             this.sqrCutLine1.Visible = false;
-            this.sqrCutLine1.Click += new System.EventHandler(this.button1_Click);
             // 
             // lblCutLine
             // 
@@ -2344,7 +2296,6 @@
             this.btnZoomIn.Size = new System.Drawing.Size(69, 52);
             this.btnZoomIn.TabIndex = 120;
             this.btnZoomIn.UseVisualStyleBackColor = false;
-            this.btnZoomIn.Click += new System.EventHandler(this.btnZoomIn_Click);
             this.btnZoomIn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnZoomIn_MouseDown);
             // 
             // btnTiltDown
@@ -2358,7 +2309,6 @@
             this.btnTiltDown.Size = new System.Drawing.Size(69, 52);
             this.btnTiltDown.TabIndex = 122;
             this.btnTiltDown.UseVisualStyleBackColor = false;
-            this.btnTiltDown.Click += new System.EventHandler(this.btnTiltDown_Click);
             this.btnTiltDown.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnTiltDown_MouseDown);
             // 
             // btnZoomOut
@@ -2373,7 +2323,6 @@
             this.btnZoomOut.Size = new System.Drawing.Size(69, 52);
             this.btnZoomOut.TabIndex = 119;
             this.btnZoomOut.UseVisualStyleBackColor = false;
-            this.btnZoomOut.Click += new System.EventHandler(this.btnZoomOut_Click);
             this.btnZoomOut.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnZoomOut_MouseDown);
             // 
             // btnTiltUp
@@ -2387,7 +2336,6 @@
             this.btnTiltUp.Size = new System.Drawing.Size(69, 52);
             this.btnTiltUp.TabIndex = 123;
             this.btnTiltUp.UseVisualStyleBackColor = false;
-            this.btnTiltUp.Click += new System.EventHandler(this.btnTiltUp_Click);
             this.btnTiltUp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnTiltUp_MouseDown);
             // 
             // btnManualOffOn
@@ -2462,7 +2410,6 @@
             this.lblMaxVoltage.Size = new System.Drawing.Size(37, 19);
             this.lblMaxVoltage.TabIndex = 237;
             this.lblMaxVoltage.Text = "EXT";
-            this.lblMaxVoltage.Click += new System.EventHandler(this.label13_Click_3);
             // 
             // lblMinVoltage
             // 
@@ -2475,7 +2422,6 @@
             this.lblMinVoltage.Size = new System.Drawing.Size(38, 19);
             this.lblMinVoltage.TabIndex = 238;
             this.lblMinVoltage.Text = "RET";
-            this.lblMinVoltage.Click += new System.EventHandler(this.label13_Click_4);
             // 
             // lblFloatVoltage
             // 
@@ -2488,7 +2434,6 @@
             this.lblFloatVoltage.Size = new System.Drawing.Size(20, 19);
             this.lblFloatVoltage.TabIndex = 239;
             this.lblFloatVoltage.Text = "N";
-            this.lblFloatVoltage.Click += new System.EventHandler(this.label14_Click);
             // 
             // lblBladeOffset
             // 
@@ -2696,9 +2641,7 @@
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownBtnFuncs;
         private System.Windows.Forms.Label sqrCutLine;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton2;
-        private System.Windows.Forms.ToolStripMenuItem toolstripUSBPortsConfig;
         private System.Windows.Forms.ToolStripMenuItem toolstripVehicleConfig;
-        private System.Windows.Forms.ToolStripMenuItem toolstripAutoSteerConfig;
         private System.Windows.Forms.ToolStripMenuItem toolstripResetTrip;
         private System.Windows.Forms.ToolStripMenuItem toolstripField;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;

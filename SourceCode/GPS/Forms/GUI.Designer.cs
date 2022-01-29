@@ -336,18 +336,7 @@ namespace OpenGrade
         }
         private void btnAutoSteerConfig_Click(object sender, EventArgs e)
         {
-            //check if window already exists
-            Form fc = Application.OpenForms["FormSteer"];
-
-            if (fc != null)
-            {
-                fc.Focus();
-                return;
-            }
-
-            //
-            Form form = new FormSteer(this);
-            form.Show();
+            
         }
         private void btnFileExplorer_Click(object sender, EventArgs e)
         {
@@ -879,18 +868,7 @@ namespace OpenGrade
         //taskbar buttons
         private void toolstripAutoSteerConfig_Click(object sender, EventArgs e)
         {
-            //check if window already exists
-            Form fc = Application.OpenForms["FormSteer"];
-
-            if (fc != null)
-            {
-                fc.Focus();
-                return;
-            }
-
-            //
-            Form form = new FormSteer(this);
-            form.Show();
+           
         }
         private void toolstripVehicleConfig_Click(object sender, EventArgs e)
         {

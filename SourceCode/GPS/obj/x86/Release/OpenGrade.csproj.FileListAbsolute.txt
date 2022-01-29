@@ -56,18 +56,15 @@ C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\Application
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\Application\OpenGrade.exe.config
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\Application\OpenGrade.exe
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\Application\OpenGrade.pdb
-C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.csproj.AssemblyReference.cache
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.FormCutDir.resources
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.FormFieldDir.resources
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.FormABLine.resources
-C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.FormCommSet.resources
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.FormGPSData.resources
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.FormGPS.resources
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.FormJob.resources
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.FormRemote.resources
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.FormSaveOrNot.resources
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.FormSettings.resources
-C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.FormSteer.resources
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.FormTimedMessage.resources
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.FormWebCam.resources
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.FormUDP.resources
@@ -79,3 +76,4 @@ C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.csproj.CopyComplete
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.exe
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.pdb
+C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.csproj.AssemblyReference.cache

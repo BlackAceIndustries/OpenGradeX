@@ -19,12 +19,12 @@ namespace OpenGrade
             if (Mutex.WaitOne(TimeSpan.Zero, true))
             {
                 //opening the subkey  
-                RegistryKey regKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\OpenGrade");
+                RegistryKey regKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\OpenGradeX");
 
                 //create default keys if not existing
                 if (regKey == null)
                 {
-                    RegistryKey Key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\OpenGrade");
+                    RegistryKey Key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\OpenGradeX");
 
                     //storing the values  
                     Key.SetValue("Language", "en");
@@ -55,7 +55,7 @@ namespace OpenGrade
             }
             else
             {
-                MessageBox.Show("OpenGrade is Already Running");
+                MessageBox.Show("OpenGradeX is Already Running");
             }
         }
 

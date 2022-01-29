@@ -54,6 +54,7 @@
             this.nudGradeControlPort = new System.Windows.Forms.NumericUpDown();
             this.tboxGradeControlIP = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.choiceWiFi = new System.Windows.Forms.ComboBox();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudThisPort)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudAutoSteerPort)).BeginInit();
@@ -408,6 +409,22 @@
             this.groupBox1.Text = "Module Address and Ports";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
+            // choiceWiFi
+            // 
+            this.choiceWiFi.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.choiceWiFi.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.choiceWiFi.FormattingEnabled = true;
+            this.choiceWiFi.ItemHeight = 19;
+            this.choiceWiFi.Items.AddRange(new object[] {
+            "No WiFi Available"});
+            this.choiceWiFi.Location = new System.Drawing.Point(23, 386);
+            this.choiceWiFi.Name = "choiceWiFi";
+            this.choiceWiFi.Size = new System.Drawing.Size(269, 27);
+            this.choiceWiFi.TabIndex = 92;
+            this.choiceWiFi.Text = "Select Wifi";
+            this.choiceWiFi.Visible = false;
+            this.choiceWiFi.SelectedIndexChanged += new System.EventHandler(this.choiceWiFi_SelectedIndexChanged);
+            // 
             // FormUDP
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
@@ -415,6 +432,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.ClientSize = new System.Drawing.Size(590, 501);
             this.ControlBox = false;
+            this.Controls.Add(this.choiceWiFi);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.groupBox4);
@@ -468,5 +486,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tboxHostName;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.ComboBox choiceWiFi;
     }
 }

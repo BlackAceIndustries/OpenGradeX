@@ -467,7 +467,7 @@ namespace OpenGrade
                 if (fixHeading < 0) fixHeading += glm.twoPI;
 
                 //send out initial zero settings
-                if (isGPSPositionInitialized) AutoSteerSettingsOutToPort();
+                if (isGPSPositionInitialized) 
 
                 return;
             }

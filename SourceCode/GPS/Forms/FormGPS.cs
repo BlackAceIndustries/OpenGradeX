@@ -856,23 +856,6 @@ namespace OpenGrade
             //dir = Path.GetDirectoryName(fieldsDirectory);
             //if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir)) { Directory.CreateDirectory(dir); }
 
-            //set baud and port from last time run
-            baudRateGPS = Settings.Default.setPort_baudRate;
-            portNameGPS = Settings.Default.setPort_portNameGPS;
-
-            //try and open
-            SerialPortOpenGPS();
-
-            //same for SectionRelay port
-            portNameGradeControl = Settings.Default.setPort_portNameGradeControl;
-            wasGradeControlConnectedLastRun = Settings.Default.setPort_wasRateRelayConnected;
-            if (wasGradeControlConnectedLastRun) SerialPortGradeControlOpen();
-
-            //same for AutoSteer port
-            portNameAutoSteer = Settings.Default.setPort_portNameAutoSteer;
-            wasAutoSteerConnectedLastRun = Settings.Default.setPort_wasAutoSteerConnected;
-            if (wasAutoSteerConnectedLastRun) SerialPortAutoSteerOpen();
-
             //start udp server
             StartUDPServer();
 
@@ -932,151 +915,11 @@ namespace OpenGrade
             }
         }
 
-        private void configPage1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void stripOnlineAutoSteer_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void stripOnlineGPS_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblSpeedUnits_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void stripTopoLocation_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void openGLControlBack_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cboxRecLastOnOff_CheckedChanged(object sender, EventArgs e)
-        {
-           
-        }
-
-        private void cboxLastPass_CheckedChanged(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void label13_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label13_Click_2(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtDistanceOffABLine_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnZoomOut_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnTiltUp_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnTiltDown_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnZoomIn_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void progBarPlus2_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label13_Click_3(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label13_Click_4(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label14_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pbarCutAbove_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pbarCutBelow_Load(object sender, EventArgs e)
-        {
-
-        }
-
 
         private void remoteConfigurationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form form = new FormRemote(this);
             form.Show();
-        }
-
-        private void stripMinMax_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label13_Click_5(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label13_Click_6(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label13_Click_7(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label13_Click_8(object sender, EventArgs e)
-        {
-
         }
        
 
@@ -1101,11 +944,7 @@ namespace OpenGrade
             }
             
         }
-
-        private void toolStripDropDownBtnFuncs_Click(object sender, EventArgs e)
-        {
-
-        }
+                
 
         private void btnSaveCut_Click_1(object sender, EventArgs e)
         {
@@ -1389,16 +1228,7 @@ namespace OpenGrade
         //show the communications window
         private void SettingsCommunications()
         {
-            using (var form = new FormCommSet(this))
-            {
-                var result = form.ShowDialog();
-                if (result == DialogResult.OK)
-                {
-                    fixUpdateTime = 1 / (double)fixUpdateHz;
-                }
-            }
-
-            AutoSteerSettingsOutToPort();
+            
         }
 
         //show the UDP ethernet settings page
@@ -1421,7 +1251,7 @@ namespace OpenGrade
         //request a new job
         public void JobNew()
         {
-            AutoSteerSettingsOutToPort();
+            
             isJobStarted = true;
             startCounter = 0;
 

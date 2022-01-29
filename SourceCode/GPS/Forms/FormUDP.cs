@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Net;
 using System.Windows.Forms;
+using System.Windows;
 
 namespace OpenGrade
 {
@@ -99,6 +100,11 @@ namespace OpenGrade
         private void groupBox1_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void choiceWiFi_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }

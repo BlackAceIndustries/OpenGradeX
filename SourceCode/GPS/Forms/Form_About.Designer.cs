@@ -65,7 +65,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Tahoma", 11.25F);
             this.label6.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label6.Location = new System.Drawing.Point(14, 175);
+            this.label6.Location = new System.Drawing.Point(14, 186);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(129, 18);
             this.label6.TabIndex = 16;
@@ -111,9 +111,9 @@
             this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.label2.Location = new System.Drawing.Point(167, 33);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(117, 18);
+            this.label2.Size = new System.Drawing.Size(140, 18);
             this.label2.TabIndex = 14;
-            this.label2.Text = "v3.0.1 Dec 2021";
+            this.label2.Text = "v1.1.1  January  22\'";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label1
@@ -130,7 +130,7 @@
             // linkLabelGit
             // 
             this.linkLabelGit.AutoSize = true;
-            this.linkLabelGit.Location = new System.Drawing.Point(14, 198);
+            this.linkLabelGit.Location = new System.Drawing.Point(14, 209);
             this.linkLabelGit.Name = "linkLabelGit";
             this.linkLabelGit.Size = new System.Drawing.Size(258, 13);
             this.linkLabelGit.TabIndex = 11;
@@ -190,10 +190,10 @@
             this.label12.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.label12.Location = new System.Drawing.Point(14, 275);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(310, 39);
+            this.label12.Size = new System.Drawing.Size(317, 39);
             this.label12.TabIndex = 29;
-            this.label12.Text = "Any use of OpenGrade on real physical equipment is not allowed\r\nand is not recomm" +
-    "ended in any way, neither off road or on road. \r\n\r\n";
+            this.label12.Text = "Any use of OpenGradeX on real physical equipment is not allowed\r\nand is not recom" +
+    "mended in any way, neither off road or on road. \r\n\r\n";
             // 
             // label13
             // 

@@ -185,7 +185,7 @@
         "DisplayName" = "8:Release"
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:TRUE"
-        "OutputFilename" = "8:..\\..\\Installer\\Setup OpenGrade.msi"
+        "OutputFilename" = "8:..\\..\\Installer\\Setup OpenGradeX.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -637,7 +637,7 @@
                 {
                     "{9EF0B969-E518-4E46-987F-47570745A589}:_88CFEEEDF92D47659FD831F519583F8C"
                     {
-                    "Name" = "8:OpenGrade"
+                    "Name" = "8:OpenGradeX"
                     "AlwaysCreate" = "11:FALSE"
                     "Condition" = "8:"
                     "Transitive" = "11:FALSE"
@@ -665,7 +665,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:OpenGrade V3"
         "ProductCode" = "8:{13AB9E27-7025-4313-A7F5-9876C6948A8C}"
-        "PackageCode" = "8:{78CBE5B9-4543-40DF-815F-F160431EA762}"
+        "PackageCode" = "8:{166AA7FC-6193-4E4E-839D-6BE1C1198145}"
         "UpgradeCode" = "8:{E1B3A056-56F7-4594-B6F2-82DF14334C04}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
@@ -801,7 +801,7 @@
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_821CE56489BA463C8FA542625258949C"
             {
-            "Name" = "8:OpenGrade"
+            "Name" = "8:OpenGradeX"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"

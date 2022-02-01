@@ -55,6 +55,10 @@
             this.tboxGradeControlIP = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.choiceWiFi = new System.Windows.Forms.ComboBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.lblGCVersion = new System.Windows.Forms.TextBox();
+            this.lblAntennaVersion = new System.Windows.Forms.TextBox();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudThisPort)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudAutoSteerPort)).BeginInit();
@@ -417,13 +421,61 @@
             this.choiceWiFi.ItemHeight = 19;
             this.choiceWiFi.Items.AddRange(new object[] {
             "No WiFi Available"});
-            this.choiceWiFi.Location = new System.Drawing.Point(23, 386);
+            this.choiceWiFi.Location = new System.Drawing.Point(9, 337);
             this.choiceWiFi.Name = "choiceWiFi";
             this.choiceWiFi.Size = new System.Drawing.Size(269, 27);
             this.choiceWiFi.TabIndex = 92;
             this.choiceWiFi.Text = "Select Wifi";
             this.choiceWiFi.Visible = false;
             this.choiceWiFi.SelectedIndexChanged += new System.EventHandler(this.choiceWiFi_SelectedIndexChanged);
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.SystemColors.InfoText;
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.ForeColor = System.Drawing.Color.Yellow;
+            this.textBox1.Location = new System.Drawing.Point(18, 433);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(163, 20);
+            this.textBox1.TabIndex = 93;
+            this.textBox1.Text = "GradeControl Version";
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBox2
+            // 
+            this.textBox2.BackColor = System.Drawing.SystemColors.InfoText;
+            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox2.ForeColor = System.Drawing.Color.Yellow;
+            this.textBox2.Location = new System.Drawing.Point(18, 459);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(163, 20);
+            this.textBox2.TabIndex = 94;
+            this.textBox2.Text = "Antenna Version";
+            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // lblGCVersion
+            // 
+            this.lblGCVersion.BackColor = System.Drawing.SystemColors.InfoText;
+            this.lblGCVersion.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lblGCVersion.ForeColor = System.Drawing.SystemColors.InactiveBorder;
+            this.lblGCVersion.Location = new System.Drawing.Point(187, 433);
+            this.lblGCVersion.Name = "lblGCVersion";
+            this.lblGCVersion.Size = new System.Drawing.Size(52, 20);
+            this.lblGCVersion.TabIndex = 95;
+            this.lblGCVersion.Text = "-------";
+            this.lblGCVersion.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // lblAntennaVersion
+            // 
+            this.lblAntennaVersion.BackColor = System.Drawing.SystemColors.InfoText;
+            this.lblAntennaVersion.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lblAntennaVersion.ForeColor = System.Drawing.SystemColors.InactiveBorder;
+            this.lblAntennaVersion.Location = new System.Drawing.Point(187, 460);
+            this.lblAntennaVersion.Name = "lblAntennaVersion";
+            this.lblAntennaVersion.Size = new System.Drawing.Size(52, 20);
+            this.lblAntennaVersion.TabIndex = 96;
+            this.lblAntennaVersion.Text = "-------";
+            this.lblAntennaVersion.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // FormUDP
             // 
@@ -432,6 +484,10 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.ClientSize = new System.Drawing.Size(590, 501);
             this.ControlBox = false;
+            this.Controls.Add(this.lblAntennaVersion);
+            this.Controls.Add(this.lblGCVersion);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.choiceWiFi);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label7);
@@ -487,5 +543,9 @@
         private System.Windows.Forms.TextBox tboxHostName;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ComboBox choiceWiFi;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox lblGCVersion;
+        private System.Windows.Forms.TextBox lblAntennaVersion;
     }
 }

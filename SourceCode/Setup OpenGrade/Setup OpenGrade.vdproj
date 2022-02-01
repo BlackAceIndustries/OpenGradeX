@@ -39,6 +39,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_1EB3B776B405438BB76BFF813EFA5DBC"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_1FCDB9700AB24F8AAB7D0AD90213DD87"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -289,6 +295,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1EB3B776B405438BB76BFF813EFA5DBC"
+            {
+            "SourcePath" = "8:..\\GPS\\Error Log.txt"
+            "TargetName" = "8:Error Log.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_86ED91299E5F48BFAADE9FAA016E1332"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1FCDB9700AB24F8AAB7D0AD90213DD87"
@@ -664,15 +690,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:OpenGradeX"
-        "ProductCode" = "8:{AC87971C-AE39-4C50-9336-0A8FA43A4686}"
-        "PackageCode" = "8:{C533B44A-333E-4995-B1C4-1057E9F9E6BA}"
+        "ProductCode" = "8:{2E511A7C-1561-49AB-BC85-BDD553B1A388}"
+        "PackageCode" = "8:{51CC20C2-A788-403C-B579-27E5C182C548}"
         "UpgradeCode" = "8:{E1B3A056-56F7-4594-B6F2-82DF14334C04}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.1.4"
+        "ProductVersion" = "8:1.1.5"
         "Manufacturer" = "8:AOG/BlackAce"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"

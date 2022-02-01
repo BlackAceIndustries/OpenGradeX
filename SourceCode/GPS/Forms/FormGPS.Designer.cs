@@ -30,12 +30,12 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormGPS));
-            ProgBar.cBlendItems cBlendItems7 = new ProgBar.cBlendItems();
-            ProgBar.cFocalPoints cFocalPoints7 = new ProgBar.cFocalPoints();
-            ProgBar.cBlendItems cBlendItems8 = new ProgBar.cBlendItems();
-            ProgBar.cFocalPoints cFocalPoints8 = new ProgBar.cFocalPoints();
-            ProgBar.cBlendItems cBlendItems9 = new ProgBar.cBlendItems();
-            ProgBar.cFocalPoints cFocalPoints9 = new ProgBar.cFocalPoints();
+            ProgBar.cBlendItems cBlendItems1 = new ProgBar.cBlendItems();
+            ProgBar.cFocalPoints cFocalPoints1 = new ProgBar.cFocalPoints();
+            ProgBar.cBlendItems cBlendItems2 = new ProgBar.cBlendItems();
+            ProgBar.cFocalPoints cFocalPoints2 = new ProgBar.cFocalPoints();
+            ProgBar.cBlendItems cBlendItems3 = new ProgBar.cBlendItems();
+            ProgBar.cFocalPoints cFocalPoints3 = new ProgBar.cFocalPoints();
             this.openGLControl = new SharpGL.OpenGLControl();
             this.contextMenuStripOpenGL = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.deleteFlagToolOpenGLContextMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -85,6 +85,9 @@
             this.aboutToolStripMenuHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuHelpHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.resetModulesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetAntennaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetGradeControlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetAllToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tmrWatchdog = new System.Windows.Forms.Timer(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.stripMinMax = new System.Windows.Forms.ToolStripStatusLabel();
@@ -210,9 +213,6 @@
             this.lblBladeOffset = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.btnZeroIMU = new System.Windows.Forms.Button();
-            this.resetAntennaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.resetGradeControlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.resetAllToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.openGLControl)).BeginInit();
             this.contextMenuStripOpenGL.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.openGLControlBack)).BeginInit();
@@ -746,6 +746,33 @@
             this.resetModulesToolStripMenuItem.Size = new System.Drawing.Size(360, 40);
             this.resetModulesToolStripMenuItem.Text = "Reset Modules";
             this.resetModulesToolStripMenuItem.Click += new System.EventHandler(this.resetModulesToolStripMenuItem_Click);
+            // 
+            // resetAntennaToolStripMenuItem
+            // 
+            this.resetAntennaToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.resetAntennaToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.resetAntennaToolStripMenuItem.Name = "resetAntennaToolStripMenuItem";
+            this.resetAntennaToolStripMenuItem.Size = new System.Drawing.Size(348, 40);
+            this.resetAntennaToolStripMenuItem.Text = "Reset Antenna";
+            this.resetAntennaToolStripMenuItem.Click += new System.EventHandler(this.resetAntennaToolStripMenuItem_Click);
+            // 
+            // resetGradeControlToolStripMenuItem
+            // 
+            this.resetGradeControlToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.resetGradeControlToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.resetGradeControlToolStripMenuItem.Name = "resetGradeControlToolStripMenuItem";
+            this.resetGradeControlToolStripMenuItem.Size = new System.Drawing.Size(348, 40);
+            this.resetGradeControlToolStripMenuItem.Text = "Reset GradeControl";
+            this.resetGradeControlToolStripMenuItem.Click += new System.EventHandler(this.resetGradeControlToolStripMenuItem_Click);
+            // 
+            // resetAllToolStripMenuItem1
+            // 
+            this.resetAllToolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.resetAllToolStripMenuItem1.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.resetAllToolStripMenuItem1.Name = "resetAllToolStripMenuItem1";
+            this.resetAllToolStripMenuItem1.Size = new System.Drawing.Size(348, 40);
+            this.resetAllToolStripMenuItem1.Text = "Reset All";
+            this.resetAllToolStripMenuItem1.Click += new System.EventHandler(this.resetAllToolStripMenuItem1_Click);
             // 
             // tmrWatchdog
             // 
@@ -1349,13 +1376,13 @@
             // 
             this.pbarCutBelow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.pbarCutBelow.BarBackColor = System.Drawing.Color.Black;
-            cBlendItems7.iColor = new System.Drawing.Color[] {
+            cBlendItems1.iColor = new System.Drawing.Color[] {
         System.Drawing.Color.Navy,
         System.Drawing.Color.Blue};
-            cBlendItems7.iPoint = new float[] {
+            cBlendItems1.iPoint = new float[] {
         0F,
         1F};
-            this.pbarCutBelow.BarColorBlend = cBlendItems7;
+            this.pbarCutBelow.BarColorBlend = cBlendItems1;
             this.pbarCutBelow.BarColorSolid = System.Drawing.Color.Black;
             this.pbarCutBelow.BarColorSolidB = System.Drawing.Color.Red;
             this.pbarCutBelow.BarLengthValue = ((short)(40));
@@ -1373,9 +1400,9 @@
             this.pbarCutBelow.CylonInterval = ((short)(1));
             this.pbarCutBelow.CylonMove = 5F;
             this.pbarCutBelow.FillDirection = ProgBar.ProgBarPlus.eFillDirection.Down_Left;
-            cFocalPoints7.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints7.CenterPoint")));
-            cFocalPoints7.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints7.FocusScales")));
-            this.pbarCutBelow.FocalPoints = cFocalPoints7;
+            cFocalPoints1.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints1.CenterPoint")));
+            cFocalPoints1.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints1.FocusScales")));
+            this.pbarCutBelow.FocalPoints = cFocalPoints1;
             this.pbarCutBelow.Location = new System.Drawing.Point(1226, 488);
             this.pbarCutBelow.Name = "pbarCutBelow";
             this.pbarCutBelow.Orientation = ProgBar.ProgBarPlus.eOrientation.Vertical;
@@ -1389,13 +1416,13 @@
             // 
             this.pbarCutAbove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pbarCutAbove.BarBackColor = System.Drawing.Color.Black;
-            cBlendItems8.iColor = new System.Drawing.Color[] {
+            cBlendItems2.iColor = new System.Drawing.Color[] {
         System.Drawing.Color.Navy,
         System.Drawing.Color.Blue};
-            cBlendItems8.iPoint = new float[] {
+            cBlendItems2.iPoint = new float[] {
         0F,
         1F};
-            this.pbarCutAbove.BarColorBlend = cBlendItems8;
+            this.pbarCutAbove.BarColorBlend = cBlendItems2;
             this.pbarCutAbove.BarColorSolid = System.Drawing.Color.Black;
             this.pbarCutAbove.BarColorSolidB = System.Drawing.Color.LimeGreen;
             this.pbarCutAbove.BarLengthValue = ((short)(40));
@@ -1412,9 +1439,9 @@
             this.pbarCutAbove.Corners.UpperRight = ((short)(0));
             this.pbarCutAbove.CylonInterval = ((short)(1));
             this.pbarCutAbove.CylonMove = 5F;
-            cFocalPoints8.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints8.CenterPoint")));
-            cFocalPoints8.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints8.FocusScales")));
-            this.pbarCutAbove.FocalPoints = cFocalPoints8;
+            cFocalPoints2.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints2.CenterPoint")));
+            cFocalPoints2.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints2.FocusScales")));
+            this.pbarCutAbove.FocalPoints = cFocalPoints2;
             this.pbarCutAbove.Location = new System.Drawing.Point(1226, 348);
             this.pbarCutAbove.Name = "pbarCutAbove";
             this.pbarCutAbove.Orientation = ProgBar.ProgBarPlus.eOrientation.Vertical;
@@ -2378,17 +2405,17 @@
             this.voltageBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.voltageBar.BarBackColor = System.Drawing.Color.Black;
-            cBlendItems9.iColor = new System.Drawing.Color[] {
+            cBlendItems3.iColor = new System.Drawing.Color[] {
         System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))),
         System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))),
         System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(0))))),
         System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))))};
-            cBlendItems9.iPoint = new float[] {
+            cBlendItems3.iPoint = new float[] {
         0F,
         0.4378882F,
         0.5031056F,
         1F};
-            this.voltageBar.BarColorBlend = cBlendItems9;
+            this.voltageBar.BarColorBlend = cBlendItems3;
             this.voltageBar.BarColorSolid = System.Drawing.Color.RoyalBlue;
             this.voltageBar.BarColorSolidB = System.Drawing.Color.RoyalBlue;
             this.voltageBar.BarLength = ProgBar.ProgBarPlus.eBarLength.Fixed;
@@ -2406,9 +2433,9 @@
             this.voltageBar.Corners.UpperRight = ((short)(0));
             this.voltageBar.CylonInterval = ((short)(1));
             this.voltageBar.CylonMove = 1F;
-            cFocalPoints9.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints9.CenterPoint")));
-            cFocalPoints9.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints9.FocusScales")));
-            this.voltageBar.FocalPoints = cFocalPoints9;
+            cFocalPoints3.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints3.CenterPoint")));
+            cFocalPoints3.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints3.FocusScales")));
+            this.voltageBar.FocalPoints = cFocalPoints3;
             this.voltageBar.Location = new System.Drawing.Point(1205, 348);
             this.voltageBar.Max = 500;
             this.voltageBar.Name = "voltageBar";
@@ -2495,33 +2522,6 @@
             this.btnZeroIMU.UseVisualStyleBackColor = false;
             this.btnZeroIMU.Click += new System.EventHandler(this.btnZeroIMU_Click);
             // 
-            // resetAntennaToolStripMenuItem
-            // 
-            this.resetAntennaToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.resetAntennaToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.resetAntennaToolStripMenuItem.Name = "resetAntennaToolStripMenuItem";
-            this.resetAntennaToolStripMenuItem.Size = new System.Drawing.Size(348, 40);
-            this.resetAntennaToolStripMenuItem.Text = "Reset Antenna";
-            this.resetAntennaToolStripMenuItem.Click += new System.EventHandler(this.resetAntennaToolStripMenuItem_Click);
-            // 
-            // resetGradeControlToolStripMenuItem
-            // 
-            this.resetGradeControlToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.resetGradeControlToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.resetGradeControlToolStripMenuItem.Name = "resetGradeControlToolStripMenuItem";
-            this.resetGradeControlToolStripMenuItem.Size = new System.Drawing.Size(348, 40);
-            this.resetGradeControlToolStripMenuItem.Text = "Reset GradeControl";
-            this.resetGradeControlToolStripMenuItem.Click += new System.EventHandler(this.resetGradeControlToolStripMenuItem_Click);
-            // 
-            // resetAllToolStripMenuItem1
-            // 
-            this.resetAllToolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.resetAllToolStripMenuItem1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.resetAllToolStripMenuItem1.Name = "resetAllToolStripMenuItem1";
-            this.resetAllToolStripMenuItem1.Size = new System.Drawing.Size(348, 40);
-            this.resetAllToolStripMenuItem1.Text = "Reset All";
-            this.resetAllToolStripMenuItem1.Click += new System.EventHandler(this.resetAllToolStripMenuItem1_Click);
-            // 
             // FormGPS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -2576,7 +2576,6 @@
             this.Controls.Add(this.openGLControlBack);
             this.Font = new System.Drawing.Font("Tahoma", 12F);
             this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(520, 600);

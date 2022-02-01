@@ -52,6 +52,9 @@ namespace OpenGrade
         public int rollRaw=9999; //inclinometer ?
 
         public float headingIMU = 9999, prevHeadingIMU = 9999, rollIMU = 9999, pitchIMU = 9999;
+        
+        public string gcFirmware;
+        public string atFirmware;
 
         
 
@@ -61,6 +64,10 @@ namespace OpenGrade
             mf = _f;
             serialRecvAutoSteerStr = "Oops";
             serialRecvGradeControlStr = "Oops";
+            gcFirmware = "Oops";
+            atFirmware = "Oops";
+
+
 
             //WorkSwitch logic
             isWorkSwitchEnabled = false;
@@ -76,11 +83,11 @@ namespace OpenGrade
             GradeControlData[gcHeaderLo] = 250;
             GradeControlData[gcDeltaDir] = 0;
             GradeControlData[gcCutDelta] = 0;
-            GradeControlData[gcisAutoActive] = 0;                       
-            
-            //mf.SendUDPMessage(10001);
-            mf.SendUDPMessage("10001" + "," + GradeControlData[gcDeltaDir] + "," +
-                GradeControlData[gcCutDelta] + "," + GradeControlData[gcCutDelta] + "\r\n");
+            GradeControlData[gcisAutoActive] = 0;
+
+
+            mf.SendGradeControlUDPMessage("10001" + "," + GradeControlData[gcDeltaDir] + "," +
+             GradeControlData[gcCutDelta] + "," + GradeControlData[gcCutDelta] + "\r\n");
 
             gradeControlSettings[gsHeaderHi] = 127; // PGN - 32762
             gradeControlSettings[gsHeaderLo] = 248;
@@ -90,9 +97,12 @@ namespace OpenGrade
             gradeControlSettings[gsRetDeadband] = Properties.Settings.Default.set_RetDeadband;
             gradeControlSettings[gsExtDeadband] = Properties.Settings.Default.set_ExtDeadband;
             gradeControlSettings[gsValveType] = Properties.Settings.Default.set_ValveType;
-            
-            //mf.SendUDPMessage(10002);
-            mf.SendUDPMessage("10002" + "," + gradeControlSettings[gsKpGain] + "," + gradeControlSettings[gsKiGain] + "," + gradeControlSettings[gsKdGain]
+
+            //mf.SendUDPMessage(10002, mf.epGradeControl);
+            //mf.SendUDPMessage(FormGPS.SETTINGS_HEADER, mf.epGradeControl);
+
+
+            mf.SendGradeControlUDPMessage("10002" + "," + gradeControlSettings[gsKpGain] + "," + gradeControlSettings[gsKiGain] + "," + gradeControlSettings[gsKdGain]
                         + "," + gradeControlSettings[gsRetDeadband] + "," + gradeControlSettings[gsExtDeadband] + "," + gradeControlSettings[gsValveType] + "\r\n");
 
             autoSteerData[sdHeaderHi] = 127; // PGN - 32766

@@ -182,11 +182,9 @@ namespace OpenGrade
             Properties.Settings.Default.Save();
             Properties.Vehicle.Default.Save();
             
-            mf.GradeControlSettingsOutToPort();
-
-           // mf.SendUDPMessage(10002);
-            mf.SendUDPMessage("10002" + "," + mf.mc.gradeControlSettings[mf.mc.gsKpGain] + "," + mf.mc.gradeControlSettings[mf.mc.gsKiGain] + "," + mf.mc.gradeControlSettings[mf.mc.gsKdGain]
-            + "," + mf.mc.gradeControlSettings[mf.mc.gsRetDeadband] + "," + mf.mc.gradeControlSettings[mf.mc.gsExtDeadband] + "," + mf.mc.gradeControlSettings[mf.mc.gsValveType] + "\r\n");
+            
+            mf.SendGradeControlUDPMessage("10002" + "," + mf.mc.gradeControlSettings[mf.mc.gsKpGain] + "," + mf.mc.gradeControlSettings[mf.mc.gsKiGain] + "," + mf.mc.gradeControlSettings[mf.mc.gsKdGain]
+             + "," + mf.mc.gradeControlSettings[mf.mc.gsRetDeadband] + "," + mf.mc.gradeControlSettings[mf.mc.gsExtDeadband] + "," + mf.mc.gradeControlSettings[mf.mc.gsValveType] + "\r\n");
 
             //back to FormGPS
             DialogResult = DialogResult.OK;

@@ -1246,12 +1246,20 @@ namespace OpenGrade
                 }
                 else stripOnlineGPS.Value = 100;
 
-                GradeControlDataOutToPort();
-                //mf.SendUDPMessage(10001);
+                if (isSendConnected)
+                {
+                    
 
-                SendUDPMessage("10001" + "," + mc.GradeControlData[mc.gcDeltaDir] +","+ mc.GradeControlData[mc.gcisAutoActive]
-                    + "," + Math.Abs(cutDelta) + "\r\n");
-               
+                }
+                
+                //mf.SendUDPMessage(10001, epGradeControl);
+
+
+                //if (mf.epGradeControl.                
+
+                SendGradeControlUDPMessage("10001" + "," + mc.GradeControlData[mc.gcDeltaDir] +","+ mc.GradeControlData[mc.gcisAutoActive]
+                + "," + Math.Abs(cutDelta) + "\r\n");
+
             }
             
 

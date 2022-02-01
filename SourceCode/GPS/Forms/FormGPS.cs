@@ -98,6 +98,8 @@ namespace OpenGrade
 
         private int fiveSecondCounter = 0;
 
+        public string gcVerison, atVersion;
+
         //used in altitude window for gain
         private double altitudeWindowGain = 10.0;
 
@@ -928,7 +930,8 @@ namespace OpenGrade
 
         private void btnZeroIMU_Click(object sender, EventArgs e)
         {
-            SendAntennaUDPMessage(IMU_HEADER + "," + 0 + "," + 0 + "," + 0);
+            //SendUDPMessage(IMU_HEADER, epAntennaModule);
+            SendAntennaUDPMessage(IMU_HEADER + "," + 0);
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -944,19 +947,22 @@ namespace OpenGrade
 
         private void resetAntennaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SendAntennaUDPMessage(RESET_HEADER + "," + 0);
 
+            SendAntennaUDPMessage(RESET_HEADER + "," + 0);
         }
 
         private void resetGradeControlToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SendUDPMessage(RESET_HEADER + "," + 0);
+            SendGradeControlUDPMessage(RESET_HEADER + "," + 0);
         }
 
         private void resetAllToolStripMenuItem1_Click(object sender, EventArgs e)
-        {   
-            SendUDPMessage(RESET_HEADER + "," + 0);
-            SendAntennaUDPMessage(RESET_HEADER + "," + 0 );
+        {
+             SendGradeControlUDPMessage(RESET_HEADER + "," + 0);
+            SendAntennaUDPMessage(RESET_HEADER + "," + 0);
+           
+           
+            
         }
 
         private void fullscreenToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1221,6 +1227,7 @@ namespace OpenGrade
                 //IP address and port of Antenna server
                 IPAddress epIP = IPAddress.Parse(Properties.Settings.Default.setIP_AntennaIP);
                 epAntennaModule = new IPEndPoint(epIP, Properties.Settings.Default.setIP_AntennaPort);
+                
 
                 //IP address and port of GradeControl server
                 IPAddress gcIP = IPAddress.Parse(Properties.Settings.Default.setIP_gradeControlIP);
@@ -1471,6 +1478,11 @@ namespace OpenGrade
                 //set up file and folder if it doesn't exist
                 const string strFileName = "Error Log.txt";
                 string strPath = Application.StartupPath;
+                //if (!File.Exists(strPath + "\\" + strFileName))
+                //{
+                //    File.Create(strPath + "\\" + strFileName);
+                //}
+
 
                 //Write out the error appending to existing
                 File.AppendAllText(strPath + "\\" + strFileName, strErrorText + " - " +
@@ -1478,7 +1490,7 @@ namespace OpenGrade
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error in WriteErrorLog: " + ex.Message, "Error Logging", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                //MessageBox.Show("Error in WriteErrorLog: " + ex.Message, "Error Logging", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 

@@ -48,6 +48,9 @@ namespace OpenGrade
 
             tboxGradeControlIP.Text = Properties.Settings.Default.setIP_gradeControlIP;
             nudGradeControlPort.Value = Properties.Settings.Default.setIP_gradeControlPort;
+
+            lblAntennaVersion.Text = mf.mc.atFirmware;
+            lblGCVersion.Text = mf.mc.gcFirmware;
         }
 
         public Boolean CheckIPValid(String strIP)

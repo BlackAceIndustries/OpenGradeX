@@ -62,7 +62,7 @@ namespace OpenGrade
             valveType = Properties.Settings.Default.set_ValveType;
 
             valveSelectChoice.Text = Properties.Settings.Default.set_ValveName;
-
+           
             toolWidth = Properties.Vehicle.Default.setVehicle_toolWidth;
             minSlope = Properties.Vehicle.Default.setVehicle_minSlope * 100;
             
@@ -319,6 +319,11 @@ namespace OpenGrade
         }
 
         private void nudMaxDitchCut_ValueChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
         {
 
         }

@@ -170,5 +170,8 @@
     <Setting Name="set_ValveName" Type="System.String" Scope="User">
       <Value Profile="(Default)">CNH</Value>
     </Setting>
+    <Setting Name="set_AutoDepth" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

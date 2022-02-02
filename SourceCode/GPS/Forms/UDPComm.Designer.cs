@@ -227,16 +227,19 @@ namespace OpenGrade
             switch (tempHeader) {
 
                 case DATA_HEADER:
-                    if (temp < 4)
+                    if (temp < 5)
                     {
                         udpDataTimeout = 0;
                         ledGradeControl.BackColor = Color.Lime;
                         voltageBar.BarColorSolid = Color.RoyalBlue;
+                        voltageBar2.BarColorSolid = Color.RoyalBlue;
 
                         int.TryParse(words[1], out mc.autoState);
                         double.TryParse(words[2], out mc.voltage);
+                        double.TryParse(words[3], out mc.voltage2);
+
                     }
-                    else if ((temp > 4))
+                    else if ((temp > 5))
                     {
                         udpDataTimeout = 0;
                         ledGradeControl.BackColor = Color.Lime;

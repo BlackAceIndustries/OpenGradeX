@@ -694,5 +694,17 @@ namespace OpenGrade.Properties {
                 this["set_ValveName"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int set_AutoDepth {
+            get {
+                return ((int)(this["set_AutoDepth"]));
+            }
+            set {
+                this["set_AutoDepth"] = value;
+            }
+        }
     }
 }

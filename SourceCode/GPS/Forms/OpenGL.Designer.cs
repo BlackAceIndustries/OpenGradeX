@@ -13,9 +13,12 @@ namespace OpenGrade
         public double[] frustum = new double[24];
 
         //difference between blade tip and guide line
-        public double cutDelta;
+        public double cutDelta, distFromLastPass, distToTarget;
+        public double autoCutDepth = 0;
         private double minDist;
         public int bladeOffset;
+        public bool isAutoCutOn;
+
         
 
         //the point in the real world made from clicked screen coords
@@ -409,6 +412,8 @@ namespace OpenGrade
 
             //reset cut delta for frame
             cutDelta = 9999;
+            distToTarget = 9999;
+            distFromLastPass = 9999;
             bladeOffset = Int16.Parse(lblBladeOffset.Text);
 
             int closestPoint = 0;
@@ -505,8 +510,7 @@ namespace OpenGrade
                             gl.Vertex(i, ((((ct.ptList[i].altitude - vehicle.minTileCover) - centerY) * altitudeWindowGain) + centerY), 0);
                         }
                         gl.End();
-                    }
-
+                    }                    
 
                     //cut line drawn in full
                     int cutPts = ct.ptList.Count;
@@ -721,17 +725,40 @@ namespace OpenGrade
                         //double temp = (double)closestPoint / (double)count2;
                         if (ct.ptList[closestPoint].cutAltitude > 0)
                         {
-                            //in cm
-                            cutDelta = ((pn.altitude - ct.ptList[closestPoint].cutAltitude)*100)- bladeOffset;
+                            //in cm                            
+                            distFromLastPass = ((pn.altitude - ct.ptList[closestPoint].lastPassAltitude) * 100) - bladeOffset;
+                            distToTarget = ((pn.altitude - ct.ptList[closestPoint].cutAltitude) * 100) - bladeOffset;                          
                             
+                            
+                            if (isAutoCutOn)
+                            {                                
+                                if (distToTarget < 0)//  && cutDepth < -5
+                                {
+                                    cutDelta = distToTarget;
+                                }
+                                else
+                                {
+                                    cutDelta = distFromLastPass - autoCutDepth;
+                                }
+                                
+                            }
+                            else
+                            {
+                                cutDelta = distToTarget;
+                            }
+
+
                         }
                     }
                 }
-                
+               
+
             }
             else
             {           
-                cutDelta = ((pn.altitude - ct.zeroAltitude)*100)-bladeOffset;                
+                cutDelta = ((pn.altitude - ct.zeroAltitude)*100)-bladeOffset;
+                distToTarget = ((pn.altitude - ct.zeroAltitude) * 100) - bladeOffset;                
+
             }
         }
 

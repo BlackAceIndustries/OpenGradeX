@@ -1055,7 +1055,9 @@ namespace OpenGrade
             if (udpDataTimeout > 50) {
                 ledGradeControl.BackColor = Color.Black;
                 voltageBar.BarColorSolid = Color.Red;
+                voltageBar2.BarColorSolid = Color.Red;
                 voltageBar.Value = 0;
+                voltageBar2.Value = 0;
             }
             if (udpIMUTimeout > 50)  { 
                 ledAntenna.BackColor = Color.Black;
@@ -1112,7 +1114,7 @@ namespace OpenGrade
                     stripDistance.Text = Convert.ToString((UInt16)(userDistance)) + " m";
                     lblAltitude.Text = Altitude;
                     lblAltitude2.Text = Altitude;
-                    btnZeroAltitude.Text = (pn.altitude - ct.zeroAltitude).ToString("N2");
+                    //btnZeroAltitude.Text = (pn.altitude - ct.zeroAltitude).ToString("N2");
                 }
                 else  //Imperial Measurements
                 {
@@ -1123,14 +1125,14 @@ namespace OpenGrade
                     stripDistance.Text = Convert.ToString((UInt16)(userDistance * 3.28084)) + " ft";
                     lblAltitude.Text = AltitudeFeet;
                     lblAltitude2.Text = AltitudeFeet;
-                    btnZeroAltitude.Text = ((pn.altitude - ct.zeroAltitude) * glm.m2ft).ToString("N2");
+                    //btnZeroAltitude.Text = ((pn.altitude - ct.zeroAltitude) * glm.m2ft).ToString("N2");
                 }
 
                 //not Metric/Standard units sensitive
                 lblHeading.Text = Heading;
                 btnABLine.Text = PassNumber;
                 sqrCutLine.Text = PureSteerAngle;
-                
+
                 /*if (mc.gradeControlSettings[mc.gsValveType] == 2)
                 {
                     voltageBar.Max = 1200;
@@ -1144,15 +1146,108 @@ namespace OpenGrade
                     
 
                 }
-                */
+                */              
 
-                        
-                        
-                 voltageBar.Value = ((int)(mc.voltage * 100)) + 12;                    
-                 lblDiagnostics.Text = (mc.voltage).ToString() + "Volts";       
-                       
+
+                voltageBar.Value = ((int)(mc.voltage * 100)) + 12;
+                voltageBar2.Value = ((int)(mc.voltage2 * 100)) + 12;
+
+                lblDiagnostics.Text = (mc.voltage).ToString() + "Volts";
+
+                // Update Vut Values
+                if (distFromLastPass == 9999)
+                {
+                    lblCurrentCutDepth.Text = "--";
+                    lblCurrentCutDepth.BackColor = Color.Black;                   
+
+                }
+                else
+                {
+                    if (isMetric)  //metric or imperial
+                    {
+                        lblCurrentCutDepth.Text = distFromLastPass.ToString("N1");                        
+                    }
+                    else{
+                        lblCurrentCutDepth.Text = (0.3937 * distFromLastPass).ToString("N2");                            
+                    }
+
+                    if (distFromLastPass < 0)
+                    {
+                        lblCurrentCutDepth.BackColor = Color.Tomato;
+                    }
+                    else
+                    {                        
+                        lblCurrentCutDepth.BackColor = Color.Lime;
+                    }
+                }
+
+
+                if (distToTarget == 9999)
+                {
+                    lblDistToTarget.Text = "--";
+                    lblDistToTarget.BackColor = Color.Black;
+
+                }
+                else
+                {
+                    if (isMetric)  //metric or imperial
+                    {
+                        lblDistToTarget.Text = distToTarget.ToString("N1");
+                    }
+                    else
+                    {
+                        lblDistToTarget.Text = (0.3937 * distToTarget).ToString("N2");
+                    }
+
+                    if (distToTarget < 0)
+                    {
+                        lblDistToTarget.BackColor = Color.Tomato;
+                    }
+                    else
+                    {
+                        lblDistToTarget.BackColor = Color.Lime;
+                    }
                 
+                }
 
+
+
+
+
+
+
+                if (isMetric)  //metric or imperial
+                {
+
+                    if (cutDelta > 0)
+                    {
+                        // Black Ace Industries
+                        lblCurrentCutDepth.Text = distFromLastPass.ToString("N1");
+
+                    }
+                    else
+                    {
+                        // Black Ace Industries                           
+                        lblCutDelta.Text = cutDelta.ToString("N1");
+                        mc.GradeControlData[mc.gcDeltaDir] = 0;
+
+                    }
+
+                }
+                else
+                {
+                    if (cutDelta > 0)
+                    {
+                        mc.GradeControlData[mc.gcCutDelta] = (byte)cutDelta;
+                        lblCutDelta.Text = (0.3937 * cutDelta).ToString("N2");
+                        mc.GradeControlData[mc.gcDeltaDir] = 1;
+                    }
+                    else
+                    {
+                        lblCutDelta.Text = (0.3937 * cutDelta).ToString("N2");
+                        mc.GradeControlData[mc.gcDeltaDir] = 0;
+                    }
+                }
 
                 if (cutDelta == 9999)
                 {

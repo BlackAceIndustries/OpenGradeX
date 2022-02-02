@@ -31,7 +31,7 @@ namespace OpenGrade
         public string fieldsDirectory, currentFieldDirectory, cutName;
 
         // Cutlines directory
-        public string cutDirectory;                    
+        public string cutDirectory;
 
         //ABLines directory
         public string ablinesDirectory;
@@ -204,10 +204,10 @@ namespace OpenGrade
             public int dwID;    // gesture ID
             public int dwWant;  // settings related to gesture ID that are to be
 
-                                // turned on
+            // turned on
             public int dwBlock; // settings related to gesture ID that are to be
 
-                                // turned off
+            // turned off
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -230,14 +230,14 @@ namespace OpenGrade
         {
             public int cbSize;           // size, in bytes, of this structure
 
-                                         // (including variable length Args
-                                         // field)
+            // (including variable length Args
+            // field)
             public int dwFlags;          // see GF_* flags
 
             public int dwID;             // gesture ID, see GID_* defines
             public IntPtr hwndTarget;    // handle to window targeted by this
 
-                                         // gesture
+            // gesture
             [MarshalAs(UnmanagedType.Struct)]
             internal POINTS ptsLocation; // current location of this gesture
 
@@ -245,10 +245,10 @@ namespace OpenGrade
             public int dwSequenceID;     // internally used
             public Int64 ullArguments;   // arguments for gestures whose
 
-                                         // arguments fit in 8 BYTES
+            // arguments fit in 8 BYTES
             public int cbExtraArgs;      // size, in bytes, of extra arguments,
 
-                                         // if any, that accompany this gesture
+            // if any, that accompany this gesture
         }
 
         // Currently touch/multitouch access is done through unmanaged code
@@ -551,7 +551,7 @@ namespace OpenGrade
         }
 
         //keystrokes for easy and quick startup
-        
+
         // Keyboard shortCuts
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
@@ -652,7 +652,7 @@ namespace OpenGrade
             /// Remote Keystrokes
             ///
 
-            
+
             // Open to Options
             if (keyData == (Keys.D0))
             {
@@ -661,10 +661,10 @@ namespace OpenGrade
             }
 
             // start/Stop Survey
-            if (keyData == (Keys.D1)){
-            
-                btnManualOffOn.PerformClick();   
-            
+            if (keyData == (Keys.D1)) {
+
+                btnManualOffOn.PerformClick();
+
                 return true;    // indicate that you handled this keystroke
             }
 
@@ -674,7 +674,7 @@ namespace OpenGrade
                 btnGradeControl.PerformClick();
                 return true;    // indicate that you handled this keystroke
             }
-            
+
             // Reset Blade Offset 
             if (keyData == (Keys.D3))
             {
@@ -688,16 +688,16 @@ namespace OpenGrade
             {
                 //Form form = new FormGPSData(this);
                 //form.Show();
-                btnZeroIMU.PerformClick(); 
+                zeroIMUToolStripMenuItem.PerformClick();
                 return true;    // indicate that you handled this keystroke
             }
 
             // Increase Blade Offset
             if (keyData == (Keys.Left))
-            {                
+            {
                 bladeOffset++;
                 if (bladeOffset > 50) bladeOffset = 50;
-                lblBladeOffset.Text = bladeOffset.ToString();                
+                lblBladeOffset.Text = bladeOffset.ToString();
                 return true;    // indicate that you handled this keystroke
             }
 
@@ -716,7 +716,7 @@ namespace OpenGrade
                 int tab = tabGradeControl.SelectedIndex;
                 tab++;
                 if (tab > tabGradeControl.TabCount - 1) tab = 0;
-               
+
                 tabGradeControl.SelectTab(tab);
                 return true;    // indicate that you handled this keystroke
             }
@@ -727,8 +727,8 @@ namespace OpenGrade
                 btnSaveCut.PerformClick();
                 return true;    // indicate that you handled this keystroke
             }
-            
-            
+
+
             /*
             if (keyData == (Keys.D0))  // start Btn
             {
@@ -800,7 +800,7 @@ namespace OpenGrade
                 return true;    // indicate that you handled this keystroke
             }
             */
-            
+
 
 
 
@@ -926,7 +926,7 @@ namespace OpenGrade
             Form form = new FormRemote(this);
             form.Show();
         }
-       
+
 
         private void btnZeroIMU_Click(object sender, EventArgs e)
         {
@@ -940,9 +940,9 @@ namespace OpenGrade
         }
 
         private void resetModulesToolStripMenuItem_Click(object sender, EventArgs e)
-        {   
-            
-           
+        {
+
+
         }
 
         private void resetAntennaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -956,13 +956,65 @@ namespace OpenGrade
             SendGradeControlUDPMessage(RESET_HEADER + "," + 0);
         }
 
+        private void label15_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAutoCut_Click(object sender, EventArgs e)
+        {
+            if (isJobStarted)
+            {
+                if (!isAutoCutOn)
+                {
+                    isAutoCutOn = true;
+                    btnAutoCut.BackColor = Color.Green;
+                    btnAutoCut.ForeColor = Color.Black;
+                    btnIncCut.Visible = true;
+                    btnDecCut.Visible = true;
+                    lblAutoCutDepth.Visible = true;
+                    lblPassDepth.Visible = true;
+                }
+                else
+                {
+                    isAutoCutOn = false;
+                    btnAutoCut.BackColor = Color.Black;
+                    btnAutoCut.Text = "Auto\nCut";
+                    btnAutoCut.ForeColor = Color.White;
+                    btnIncCut.Visible = false;
+                    btnDecCut.Visible = false;
+                    lblAutoCutDepth.Visible = false;
+                    lblPassDepth.Visible = false;
+                }
+
+
+
+            }
+
+        }
+
+        private void zeroIMUToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SendAntennaUDPMessage(IMU_HEADER + "," + 0);
+        }
+
+        private void btnIncCut_Click(object sender, EventArgs e)
+        {
+            lblAutoCutDepth.Text = autoCutDepth++.ToString();
+        }
+
+        private void btnDecCut_Click(object sender, EventArgs e)
+        {
+            lblAutoCutDepth.Text = autoCutDepth--.ToString();
+        }
+
         private void resetAllToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-             SendGradeControlUDPMessage(RESET_HEADER + "," + 0);
+            SendGradeControlUDPMessage(RESET_HEADER + "," + 0);
             SendAntennaUDPMessage(RESET_HEADER + "," + 0);
-           
-           
-            
+
+
+
         }
 
         private void fullscreenToolStripMenuItem_Click(object sender, EventArgs e)
@@ -975,12 +1027,12 @@ namespace OpenGrade
             }
             else {
                 this.FormBorderStyle = FormBorderStyle.None;
-                this.Padding = new Padding(5);                
+                this.Padding = new Padding(5);
                 this.WindowState = FormWindowState.Maximized;
             }
-            
+
         }
-                
+
 
         private void btnSaveCut_Click_1(object sender, EventArgs e)
         {
@@ -991,7 +1043,7 @@ namespace OpenGrade
         }
 
         private void btnAutoDrain_Click(object sender, EventArgs e)
-        {            
+        {
             AutoDrain();
         }
 
@@ -1002,7 +1054,7 @@ namespace OpenGrade
 
         private void btnSurface_Click_1(object sender, EventArgs e)
         {
-            
+
 
             if (isSurfaceModeOn)
             {
@@ -1021,7 +1073,7 @@ namespace OpenGrade
                 isPipeModeOn = true;
                 btnSurface.Image = Properties.Resources.pipeBtn;
                 //GradeControlOutToPort("Pipe Mode Active \n");
-                   //light Blue
+                //light Blue
                 sqrMaxDepth.BackColor = Color.Red; //light Blue Max Depth
             }
             else if (isPipeModeOn)
@@ -1047,7 +1099,7 @@ namespace OpenGrade
             if (isLevelOn)
             {
                 isLevelOn = false;
-                btnSurface.Enabled = true;                
+                btnSurface.Enabled = true;
                 btnLevel.Image = Properties.Resources.levelOffBtn;
 
                 lblMaxDepth.Visible = false;
@@ -1059,12 +1111,19 @@ namespace OpenGrade
                 lblDitchCutLine.Visible = false;
                 sqrDitchCutLine.Visible = false;
 
-                if (!isJobStarted) btnGradeControl.Enabled = false;
+                if (isJobStarted)
+                {
+                    btnAutoCut.Visible = true;                  
 
+                }
+                else
+                {
+                    btnGradeControl.Enabled = false;
+                }
             }
+
             else
             {
-
                 lblMaxDepth.Visible = false;
                 sqrMaxDepth.Visible = false;
                 lblMinCover.Visible = false;
@@ -1074,14 +1133,19 @@ namespace OpenGrade
                 lblDitchCutLine.Visible = false;
                 sqrDitchCutLine.Visible = false;
 
+
+                btnAutoCut.Visible = false;
+                btnIncCut.Visible = false;
+                btnDecCut.Visible = false;
+                lblAutoCutDepth.Visible = false;
+                lblPassDepth.Visible = false;
+
                 isLevelOn = true;
                 btnSurface.Enabled = false;
                 btnLevel.Image = Properties.Resources.levelBtn;
                 ct.zeroAltitude = pn.altitude;
 
                 btnGradeControl.Enabled = true;
-
-                
             }
         }
 
@@ -1209,7 +1273,7 @@ namespace OpenGrade
                 // Initialise the socket
                 sendSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
                 recvSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-                
+
                 // Initialise the IPEndPoint for the server and listen on port 9999
                 //IPEndPoint recv = new IPEndPoint(new IPAddress(ipAddress), Properties.Settings.Default.setIP_thisPort);
                 IPEndPoint recv = new IPEndPoint(IPAddress.Any, Properties.Settings.Default.setIP_thisPort);
@@ -1227,7 +1291,7 @@ namespace OpenGrade
                 //IP address and port of Antenna server
                 IPAddress epIP = IPAddress.Parse(Properties.Settings.Default.setIP_AntennaIP);
                 epAntennaModule = new IPEndPoint(epIP, Properties.Settings.Default.setIP_AntennaPort);
-                
+
 
                 //IP address and port of GradeControl server
                 IPAddress gcIP = IPAddress.Parse(Properties.Settings.Default.setIP_gradeControlIP);
@@ -1265,7 +1329,7 @@ namespace OpenGrade
         //show the communications window
         private void SettingsCommunications()
         {
-            
+
         }
 
         //show the UDP ethernet settings page
@@ -1288,7 +1352,7 @@ namespace OpenGrade
         //request a new job
         public void JobNew()
         {
-            
+
             isJobStarted = true;
             startCounter = 0;
 
@@ -1302,6 +1366,11 @@ namespace OpenGrade
 
             btnFlag.Enabled = true;
 
+
+            if (!isLevelOn) btnAutoCut.Visible = true;
+
+
+
             ct.isContourBtnOn = false;
             ct.isContourOn = false;
             ct.ptList.Clear();
@@ -1311,7 +1380,7 @@ namespace OpenGrade
             lblCutFillRatio.Text = "*";
             lblDrawSlope.Text = "*";
 
-            
+
 
             //update the menu
             fieldToolStripMenuItem.Text = gStr.gsCloseField;
@@ -1324,6 +1393,7 @@ namespace OpenGrade
             manualBtnState = btnStates.Off;
             btnManualOffOn.Image = Properties.Resources.SurveyStart;
 
+
             //job is closed
             isJobStarted = false;
 
@@ -1332,7 +1402,7 @@ namespace OpenGrade
 
             //clear the flags
             flagPts.Clear();
-            btnFlag.Enabled = false;            
+            btnFlag.Enabled = false;
 
             //reset the buttons
             btnABLine.Enabled = false;
@@ -1340,8 +1410,15 @@ namespace OpenGrade
             btnGradeControl.Enabled = false;
             isGradeControlBtnOn = false;
 
+            btnAutoCut.Visible = false;
+            btnIncCut.Visible = false;
+            btnDecCut.Visible = false;
+            lblAutoCutDepth.Visible = false;
+            lblPassDepth.Visible = false;
+
+
             ct.isContourBtnOn = false;
-            ct.isContourOn = false;            
+            ct.isContourOn = false;
             ct.ptList.Clear();
             ct.drawList.Clear();
             lblCut.Text = "*";
@@ -1349,7 +1426,7 @@ namespace OpenGrade
             lblCutFillRatio.Text = "*";
             lblDrawSlope.Text = "*";
             Text = "OpenGrade - Press Start To Begin";
-            
+
 
             //change images to reflect on off
             btnABLine.Image = Properties.Resources.ABLineOff;
@@ -1372,7 +1449,7 @@ namespace OpenGrade
 
         //bring up field dialog for new/open/resume
         public void JobNewOpenResume()
-        {        
+        {
             if (!isJobStarted)
             {
                 if (stripOnlineGPS.Value == 1)
@@ -1394,19 +1471,19 @@ namespace OpenGrade
                 }
                 Text = "OpenGrade - " + currentFieldDirectory;
 
-            }            
+            }
             else
             {
                 using (var form = new FormJob(this))
                 {
                     var result = form.ShowDialog();
                 }
-                
-                              
+
+
             }
         }
 
-        
+
         //take the distance from object and convert to camera data
         private void SetZoom()
         {
@@ -1500,8 +1577,11 @@ namespace OpenGrade
             var form = new FormTimedMessage(timeout, s1, s2);
             form.Show();
         }
-    }//class FormGPS
-}//namespace OpenGrade
+        //class FormGPS
+
+    }
+}
+//namespace OpenGrade
 
 /*The order is:
  *

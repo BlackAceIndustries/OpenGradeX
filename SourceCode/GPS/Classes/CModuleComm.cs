@@ -21,6 +21,7 @@ namespace OpenGrade
 
         public int autoState = 0, bladeOffset = 0; //public byte autoState = 0;        
         public double voltage = 0;
+        public double voltage2 = 0;
 
         // PGN - 32760 - 127.248
         public static int numGradeControlSettingsItems = 8;

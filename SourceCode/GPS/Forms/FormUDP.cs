@@ -109,5 +109,10 @@ namespace OpenGrade
         {
             
         }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

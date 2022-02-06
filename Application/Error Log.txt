@@ -26371,3 +26371,14 @@ UDP Recv data System.InvalidOperationException: Invoke or BeginInvoke cannot be 
    at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
    at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 208 - 2/5/2022 10:13:52 PM
 
+UDP Recv data System.NullReferenceException: Object reference not set to an instance of an object.
+   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 208 - 2/5/2022 10:25:15 PM
+
+UDP Recv data System.ObjectDisposedException: Cannot access a disposed object.
+Object name: 'FormGPS'.
+   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 208 - 2/5/2022 10:25:18 PM
+

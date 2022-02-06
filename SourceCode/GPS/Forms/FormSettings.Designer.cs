@@ -57,6 +57,10 @@
             this.label5 = new System.Windows.Forms.Label();
             this.nudKp = new System.Windows.Forms.NumericUpDown();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.nudMinShoreSlope = new System.Windows.Forms.NumericUpDown();
+            this.label10 = new System.Windows.Forms.Label();
+            this.nudMinSlope = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
             this.lblMinDitchCut = new System.Windows.Forms.Label();
             this.nudMinDitchCut = new System.Windows.Forms.NumericUpDown();
             this.lblMinTileCover = new System.Windows.Forms.Label();
@@ -69,8 +73,6 @@
             this.lblInchesCm = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.bntOK = new System.Windows.Forms.Button();
-            this.nudMinSlope = new System.Windows.Forms.NumericUpDown();
-            this.label1 = new System.Windows.Forms.Label();
             this.tabOpenGrade.SuspendLayout();
             this.tabVehicle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudPlowHeight)).BeginInit();
@@ -83,11 +85,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudKi)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudKp)).BeginInit();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMinShoreSlope)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMinSlope)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinDitchCut)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinTileCover)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMaxTileCut)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMaxDitchCut)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMinSlope)).BeginInit();
             this.SuspendLayout();
             // 
             // tabOpenGrade
@@ -392,6 +395,8 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            this.tabPage1.Controls.Add(this.nudMinShoreSlope);
+            this.tabPage1.Controls.Add(this.label10);
             this.tabPage1.Controls.Add(this.nudMinSlope);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.lblMinDitchCut);
@@ -404,6 +409,74 @@
             this.tabPage1.Controls.Add(this.lblMaxTileCut);
             resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Name = "tabPage1";
+            // 
+            // nudMinShoreSlope
+            // 
+            this.nudMinShoreSlope.BackColor = System.Drawing.SystemColors.MenuText;
+            this.nudMinShoreSlope.DecimalPlaces = 2;
+            resources.ApplyResources(this.nudMinShoreSlope, "nudMinShoreSlope");
+            this.nudMinShoreSlope.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.nudMinShoreSlope.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.nudMinShoreSlope.Maximum = new decimal(new int[] {
+            80,
+            0,
+            0,
+            0});
+            this.nudMinShoreSlope.Minimum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            -2147483648});
+            this.nudMinShoreSlope.Name = "nudMinShoreSlope";
+            this.nudMinShoreSlope.Value = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            // 
+            // label10
+            // 
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label10.Name = "label10";
+            // 
+            // nudMinSlope
+            // 
+            this.nudMinSlope.BackColor = System.Drawing.SystemColors.MenuText;
+            this.nudMinSlope.DecimalPlaces = 2;
+            resources.ApplyResources(this.nudMinSlope, "nudMinSlope");
+            this.nudMinSlope.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.nudMinSlope.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.nudMinSlope.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.nudMinSlope.Minimum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            -2147483648});
+            this.nudMinSlope.Name = "nudMinSlope";
+            this.nudMinSlope.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            -2147418112});
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label1.Name = "label1";
             // 
             // lblMinDitchCut
             // 
@@ -531,40 +604,6 @@
             this.bntOK.UseVisualStyleBackColor = false;
             this.bntOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
-            // nudMinSlope
-            // 
-            this.nudMinSlope.BackColor = System.Drawing.SystemColors.MenuText;
-            this.nudMinSlope.DecimalPlaces = 2;
-            resources.ApplyResources(this.nudMinSlope, "nudMinSlope");
-            this.nudMinSlope.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.nudMinSlope.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.nudMinSlope.Maximum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-            this.nudMinSlope.Minimum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            -2147483648});
-            this.nudMinSlope.Name = "nudMinSlope";
-            this.nudMinSlope.Value = new decimal(new int[] {
-            2,
-            0,
-            0,
-            -2147418112});
-            // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label1.Name = "label1";
-            // 
             // FormSettings
             // 
             resources.ApplyResources(this, "$this");
@@ -596,11 +635,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudKp)).EndInit();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMinShoreSlope)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMinSlope)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinDitchCut)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinTileCover)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMaxTileCut)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMaxDitchCut)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMinSlope)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -650,5 +690,7 @@
         private System.Windows.Forms.NumericUpDown nudPlowHeight;
         private System.Windows.Forms.NumericUpDown nudMinSlope;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NumericUpDown nudMinShoreSlope;
+        private System.Windows.Forms.Label label10;
     }
 }

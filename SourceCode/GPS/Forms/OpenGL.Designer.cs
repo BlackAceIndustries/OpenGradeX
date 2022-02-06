@@ -17,7 +17,7 @@ namespace OpenGrade
         public double autoCutDepth = 0;
         private double minDist;
         public int bladeOffset;
-        public bool isAutoCutOn;
+        public bool isAutoCutOn = false, isAutoShoreOn = false;
 
         
 
@@ -192,9 +192,10 @@ namespace OpenGrade
                         string dist;
                         txtDistanceOffABLine.Visible = true;
                         //lblDelta.Visible = true;
-                        if (ct.distanceFromCurrentLine == 32000) ct.distanceFromCurrentLine = 0;
+                        if (ct.distanceFromCurrentLine == 3200000) ct.distanceFromCurrentLine = 0;
 
                         DrawLightBar(openGLControl.Width, openGLControl.Height, ct.distanceFromCurrentLine * 0.1);
+
                         if ((ct.distanceFromCurrentLine) < 0.0)
                         {
                             txtDistanceOffABLine.ForeColor = Color.Green;
@@ -214,7 +215,7 @@ namespace OpenGrade
                         //if (guidanceLineHeadingDelta < 0) lblDelta.ForeColor = Color.Red;
                         //else lblDelta.ForeColor = Color.Green;
 
-                        if (guidanceLineDistanceOff == 32020 | guidanceLineDistanceOff == 32000) btnGradeControl.Text = "-";
+                        if (guidanceLineDistanceOff == 3200020 | guidanceLineDistanceOff == 3200000) btnGradeControl.Text = "-";
                         else btnGradeControl.Text = "Y";
                     }
 
@@ -727,9 +728,9 @@ namespace OpenGrade
                         {
                             //in cm                            
                             distFromLastPass = ((pn.altitude - ct.ptList[closestPoint].lastPassAltitude) * 100) - bladeOffset;
-                            distToTarget = ((pn.altitude - ct.ptList[closestPoint].cutAltitude) * 100) - bladeOffset;                          
-                            
-                            
+                            distToTarget = ((pn.altitude - ct.ptList[closestPoint].cutAltitude) * 100) - bladeOffset;
+
+                            //AutoCut Active
                             if (isAutoCutOn)
                             {                                
                                 if (distToTarget < 0)//  && cutDepth < -5
@@ -749,6 +750,18 @@ namespace OpenGrade
 
 
                         }
+
+                        //AutoShore Active
+                        if (isAutoShoreOn)
+                        {
+                            double x;                          
+
+                            x = (Math.Tan(glm.toRadians(vehicle.minShoreSlope)) * ct.distanceFromCurrentLine);
+                            
+                            cutDelta += x;
+
+                        }
+                        
                     }
                 }
                

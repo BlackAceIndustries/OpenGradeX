@@ -455,9 +455,12 @@ namespace OpenGrade
             //gl.Vertex(boxA.easting, boxA.northing, 0);
             //gl.End();
 
+            DrawShoreLines();
+
+
             ////draw the guidance line
             int ptCount = ptList.Count;
-            gl.LineWidth(2);
+            gl.LineWidth(3);
             gl.Color(0.98f, 0.2f, 0.0f);
             gl.Begin(OpenGL.GL_LINE_STRIP);
             for (int h = 0; h < ptCount; h++) gl.Vertex(ptList[h].easting, ptList[h].northing, 0);
@@ -488,22 +491,47 @@ namespace OpenGrade
                 }
             }
 
-            //ptCount = conList.Count;
-            //if (ptCount > 0)
-            //{
-            ////draw closest point and side of line points
-            //gl.Color(0.5f, 0.900f, 0.90f);
-            //gl.PointSize(4.0f);
-            //gl.Begin(OpenGL.GL_POINTS);
-            //for (int i = 0; i < ptCount; i++)  gl.Vertex(conList[i].x, conList[i].z, 0);
-            //gl.End();
+           //if (mf.isAutoShoreOn)
+           // {
+           //     gl.LineWidth(2);
+           //     gl.Color(0.98f, 0.2f, 0.0f);
+           //     gl.Begin(OpenGL.GL_LINE_STRIP);
+           //     for (int h = 0; h < ptCount; h++) gl.Vertex(ptList[h].easting + 10, ptList[h].northing + 50, 0);
+           //     gl.End();
 
-            //gl.Color(0.35f, 0.30f, 0.90f);
-            //gl.PointSize(6.0f);
-            //gl.Begin(OpenGL.GL_POINTS);
-            //gl.Vertex(conList[closestRefPoint].x, conList[closestRefPoint].z, 0);
-            //gl.End();
-            //}
+           //     gl.PointSize(4.0f);
+           //     gl.Begin(OpenGL.GL_POINTS);
+
+           //     gl.Color(0.97f, 0.42f, 0.45f);
+           //     for (int h = 0; h < ptCount; h++) gl.Vertex(ptList[h].easting + 10, ptList[h].northing + 50, 0);
+
+           //     gl.End();
+           //     gl.PointSize(1.0f);
+
+           //     //draw the reference line
+           //     gl.PointSize(3.0f);
+           //     //if (isContourBtnOn)
+           //     {
+           //         ptCount = ptList.Count;
+           //         if (ptCount > 0)
+           //         {
+           //             gl.Begin(OpenGL.GL_POINTS);
+           //             for (int i = 0; i < ptCount; i++)
+           //             {
+           //                 gl.Vertex(ptList[i].easting, ptList[i].northing, 0);
+           //             }
+           //             gl.End();
+           //         }
+           //     }
+
+
+
+
+           // }
+            
+
+            
+
             if (mf.isPureDisplayOn)
             {
                 const int numSegments = 100;
@@ -544,6 +572,91 @@ namespace OpenGrade
                     gl.End();
                     gl.PointSize(1.0f);
                 }
+            }
+        }
+        public void DrawShoreLines()
+        {
+
+            ////draw the guidance line
+            int ptCount = ptList.Count;
+            double diff, y, shoreDist;
+
+            //if (mf.isAutoShoreOn)
+            //{
+            //    gl.LineWidth(2);
+            //    gl.Color(0.01f, 0.45f, 0.80f);
+            //    gl.Begin(OpenGL.GL_POLYGON);
+            //    for (int h = 0; h < ptCount; h++)
+            //    {
+            //        if (ptList[h].cutAltitude != -1)
+            //        {
+            //            diff = (ptList[h].cutAltitude * 100) - (ptList[h].altitude * 100);                        
+            //            shoreDist = (diff / Math.Tan(glm.toRadians(mf.vehicle.minShoreSlope)));
+            //            gl.Vertex(ptList[h].easting + (shoreDist / 100), ptList[h].northing, 0);
+            //        }
+
+
+            //    }
+
+            //    ///gl.End();
+            //    //gl.LineWidth(2);
+            //    //gl.Color(0.01f, 0.45f, 0.80f);
+            //    //gl.Begin(OpenGL.GL_LINE_STRIP);
+            //    for (int h = 0; h < ptCount; h++)
+            //    {
+            //        if (ptList[h].cutAltitude != -1)
+            //        {
+            //            diff = (ptList[h].cutAltitude * 100) - (ptList[h].altitude * 100);                        
+            //            shoreDist = (diff / Math.Tan(glm.toRadians(mf.vehicle.minShoreSlope)));
+            //            gl.Vertex(ptList[h].easting - (shoreDist / 100), ptList[h].northing, 0);
+
+            //        }
+            //    }
+
+            //    gl.End();
+            //}
+
+
+
+            if (mf.isAutoShoreOn)
+            {
+                gl.LineWidth(2);
+                gl.Color(0.01f, 0.45f, 0.80f);
+                gl.Begin(OpenGL.GL_LINE_STRIP);
+                for (int h = 0; h < ptCount; h++)
+                {
+                    if (ptList[h].cutAltitude != -1)
+                    {
+                        diff = (ptList[h].cutAltitude * 100) - (ptList[h].altitude * 100);
+                        //if (diff > 50 || diff > -50) diff = 0;
+                        shoreDist = (diff / Math.Tan(glm.toRadians(mf.vehicle.minShoreSlope)));
+                        gl.Vertex(ptList[h].easting + (shoreDist / 100), ptList[h].northing, 0);
+                    }
+
+
+                }
+
+                gl.End();
+                gl.LineWidth(2);
+                gl.Color(0.01f, 0.45f, 0.80f);
+                gl.Begin(OpenGL.GL_LINE_STRIP);
+                for (int h = 0; h < ptCount; h++)
+                {
+                    if (ptList[h].cutAltitude != -1)
+                    {
+                        diff = (ptList[h].cutAltitude * 100) - (ptList[h].altitude * 100);
+                        //if (diff > 50 || diff > -50) diff = 0;
+                        shoreDist = (diff / Math.Tan(glm.toRadians(mf.vehicle.minShoreSlope)));
+                        gl.Vertex(ptList[h].easting - (shoreDist / 100), ptList[h].northing, 0);
+
+                    }
+                }
+
+
+                gl.End();
+
+
+
             }
         }
 

@@ -41,5 +41,8 @@
     <Setting Name="setVehicle_minTileCover" Type="System.Double" Scope="User">
       <Value Profile="(Default)">20</Value>
     </Setting>
+    <Setting Name="setVehicle_minShoreSlope" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">15</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

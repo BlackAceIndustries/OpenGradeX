@@ -97,6 +97,25 @@ namespace OpenGrade
             }
         }
 
+        //// Em-biggen the map
+        //public void FullScreenElevation()
+        //{
+
+        //    // openGLControlBack  -- Elevation
+        //    // openGLControl -- Map
+
+        //    if (openGLControlBack.Height == 289)
+        //    {                
+        //        openGLControlBack.Height = this.Height;
+        //        openGLControlBack.Width = this.Width;                
+        //    }
+        //    else
+        //    {
+        //        openGLControlBack.Height = 289;
+        //        openGLControlBack.Width = 1218;               
+        //    }
+        //}
+
         //Open the dialog of tabbed settings
         private void SettingsPageOpen(int page)
         {
@@ -895,7 +914,7 @@ namespace OpenGrade
         //batman to maximize GPS mapping - hide tab control
         private void btnHideTabs_Click(object sender, EventArgs e)
         {
-            HideTabControl();
+            //HideTabControl();
         }
 
         //Sim controls
@@ -1153,8 +1172,12 @@ namespace OpenGrade
                 voltageBar2.Value = ((int)(mc.voltage2 * 100)) + 12;
 
                 lblDiagnostics.Text = (mc.voltage).ToString() + "Volts";
+                
+                //
+                // Update all DRO's
+                //
 
-                // Update Vut Values
+                //Check distFromLastPass and Set DRO's
                 if (distFromLastPass == 9999)
                 {
                     lblCurrentCutDepth.Text = "--";
@@ -1181,7 +1204,7 @@ namespace OpenGrade
                     }
                 }
 
-
+                //Check distoTaget and Set DRO's
                 if (distToTarget == 9999)
                 {
                     lblDistToTarget.Text = "--";
@@ -1208,12 +1231,7 @@ namespace OpenGrade
                         lblDistToTarget.BackColor = Color.Lime;
                     }
                 
-                }
-
-
-
-
-
+                }  
 
 
                 if (isMetric)  //metric or imperial

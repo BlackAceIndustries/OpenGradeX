@@ -297,6 +297,7 @@ namespace OpenGrade
 
                         vehicle.toolWidth = Properties.Vehicle.Default.setVehicle_toolWidth;
                         vehicle.minSlope = Properties.Vehicle.Default.setVehicle_minSlope;
+                        vehicle.minShoreSlope = Properties.Vehicle.Default.setVehicle_minShoreSlope;
 
                         vehicle.maxAngularVelocity = Properties.Vehicle.Default.setVehicle_maxAngularVelocity;
                         vehicle.maxSteerAngle = Properties.Vehicle.Default.setVehicle_maxSteerAngle;

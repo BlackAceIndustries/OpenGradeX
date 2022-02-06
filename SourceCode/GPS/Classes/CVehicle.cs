@@ -14,7 +14,7 @@ namespace OpenGrade
         public bool isPivotBehindAntenna;
         public double antennaPivot;
         public double wheelbase;
-        public double minSlope;
+        public double minSlope, minShoreSlope;
 
         // Black Ace Industries
         public double antennaHeight, plowHeight, maxDitchCut, minDitchCut, maxTileCut, minTileCover;
@@ -57,6 +57,7 @@ namespace OpenGrade
             maxAngularVelocity = Properties.Vehicle.Default.setVehicle_maxAngularVelocity;
             maxSteerAngle = Properties.Vehicle.Default.setVehicle_maxSteerAngle;
             minSlope = Properties.Vehicle.Default.setVehicle_minSlope;
+            minShoreSlope = Properties.Vehicle.Default.setVehicle_minShoreSlope;
         }
         
         public void DrawVehicle()        {

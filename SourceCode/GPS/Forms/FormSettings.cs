@@ -11,7 +11,7 @@ namespace OpenGrade
        //class variables
         private readonly FormGPS mf = null;
 
-        private double antennaHeight, plowHeight, minSlope, toolWidth, maxTileCut, 
+        private double antennaHeight, plowHeight, minSlope,minShoreSlope, toolWidth, maxTileCut, 
             maxDitchCut, minTileCover, minDitchCut,viewDistAboveGnd, viewDistUnderGnd;
         private byte KpGain, KiGain, KdGain, retDeadband, extDeadband, valveType;
       
@@ -65,7 +65,11 @@ namespace OpenGrade
            
             toolWidth = Properties.Vehicle.Default.setVehicle_toolWidth;
             minSlope = Properties.Vehicle.Default.setVehicle_minSlope * 100;
-            
+            minShoreSlope = Properties.Vehicle.Default.setVehicle_minShoreSlope;
+
+
+
+
 
             nudAntennaHeight.ValueChanged -= nudAntennaHeight_ValueChanged;
             nudAntennaHeight.Value = (decimal)(antennaHeight * m2MetImp);
@@ -122,6 +126,10 @@ namespace OpenGrade
             nudMinSlope.ValueChanged -= nudMinSlope_ValueChanged;
             nudMinSlope.Value = (decimal)(minSlope);
             nudMinSlope.ValueChanged += nudMinSlope_ValueChanged;
+
+            nudMinShoreSlope.ValueChanged -= nudMinShoreSlope_ValueChanged;
+            nudMinShoreSlope.Value = (decimal)(minShoreSlope);
+            nudMinShoreSlope.ValueChanged += nudMinShoreSlope_ValueChanged;
         }
 
         private void btnOK_Click(object sender, EventArgs e)
@@ -129,6 +137,10 @@ namespace OpenGrade
             //Vehicle settings -------------------------------------------------------------------------------
             mf.vehicle.minSlope = minSlope/100;
             Properties.Vehicle.Default.setVehicle_minSlope = mf.vehicle.minSlope;
+
+            mf.vehicle.minShoreSlope = minShoreSlope;
+            Properties.Vehicle.Default.setVehicle_minShoreSlope = mf.vehicle.minShoreSlope;
+
 
             mf.vehicle.plowHeight = plowHeight;
             Properties.Vehicle.Default.setVehicle_plowHeight = mf.vehicle.plowHeight;
@@ -326,7 +338,7 @@ namespace OpenGrade
         private void label3_Click(object sender, EventArgs e)
         {
 
-        }
+        }       
 
         private void label9_Click(object sender, EventArgs e)
         {
@@ -383,7 +395,7 @@ namespace OpenGrade
         private void nudKi_ValueChanged(object sender, EventArgs e)
         {
             KiGain = (byte)nudKi.Value;
-            mf.GradeControlSettingsOutToPort();
+            
             
         }
         private void nudKd_ValueChanged(object sender, EventArgs e)
@@ -407,6 +419,13 @@ namespace OpenGrade
         {
             minSlope = (double)nudMinSlope.Value;
         }
+
+        private void nudMinShoreSlope_ValueChanged(object sender, EventArgs e)
+        {
+            minShoreSlope = (double)nudMinShoreSlope.Value;
+        }
+
+
         private void nudToolWidth_ValueChanged(object sender, EventArgs e)
         {
             toolWidth = (double)nudToolWidth.Value * metImp2m;

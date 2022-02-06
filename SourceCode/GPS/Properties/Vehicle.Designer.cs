@@ -178,5 +178,17 @@ namespace OpenGrade.Properties {
                 this["setVehicle_minTileCover"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("15")]
+        public double setVehicle_minShoreSlope {
+            get {
+                return ((double)(this["setVehicle_minShoreSlope"]));
+            }
+            set {
+                this["setVehicle_minShoreSlope"] = value;
+            }
+        }
     }
 }

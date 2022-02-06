@@ -974,6 +974,7 @@ namespace OpenGrade
                     btnDecCut.Visible = true;
                     lblAutoCutDepth.Visible = true;
                     lblPassDepth.Visible = true;
+                        
                 }
                 else
                 {
@@ -985,6 +986,7 @@ namespace OpenGrade
                     btnDecCut.Visible = false;
                     lblAutoCutDepth.Visible = false;
                     lblPassDepth.Visible = false;
+                    
                 }
 
 
@@ -992,7 +994,38 @@ namespace OpenGrade
             }
 
         }
+        private void btnAutoShore_Click(object sender, EventArgs e)
+        {
+            if (isJobStarted)
+            {
+                if (!isAutoShoreOn)
+                {
+                    isAutoShoreOn = true;
+                    btnAutoShore.BackColor = Color.Green;
+                    btnAutoShore.Text = "Auto\nShore";
+                    btnAutoShore.ForeColor = Color.Black;
+                    //btnIncCut.Visible = true;
+                    //btnDecCut.Visible = true;
+                    //lblAutoCutDepth.Visible = true;
+                    //lblPassDepth.Visible = true;
+                }
+                else
+                {
+                    isAutoShoreOn = false;
+                    btnAutoShore.BackColor = Color.Black;
+                    btnAutoShore.Text = "Auto\nShore";
+                    btnAutoShore.ForeColor = Color.White;
+                    //btnIncCut.Visible = false;
+                    //btnDecCut.Visible = false;
+                    //lblAutoCutDepth.Visible = false;
+                    //lblPassDepth.Visible = false;
+                }
 
+
+
+            }
+
+        }
         private void zeroIMUToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SendAntennaUDPMessage(IMU_HEADER + "," + 0);
@@ -1006,6 +1039,31 @@ namespace OpenGrade
         private void btnDecCut_Click(object sender, EventArgs e)
         {
             lblAutoCutDepth.Text = autoCutDepth--.ToString();
+        }
+
+        private void toolStripDropDownBtnFuncs_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void openGLControl_Load(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void stripEqWidth_Click(object sender, EventArgs e)
+        {
+            HideTabControl();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //FullScreenElevation();
         }
 
         private void resetAllToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -1063,6 +1121,8 @@ namespace OpenGrade
                 isDitchModeOn = true;
                 isPipeModeOn = false;
                 btnSurface.Image = Properties.Resources.ditchBtn;
+                btnAutoShore.Visible = false;
+                isAutoShoreOn = false;
                 //GradeControlOutToPort("Ditch Mode Active \n");
             }
             else if (isDitchModeOn)
@@ -1072,6 +1132,7 @@ namespace OpenGrade
                 isDitchModeOn = false;
                 isPipeModeOn = true;
                 btnSurface.Image = Properties.Resources.pipeBtn;
+                btnAutoShore.Visible = false;
                 //GradeControlOutToPort("Pipe Mode Active \n");
                 //light Blue
                 sqrMaxDepth.BackColor = Color.Red; //light Blue Max Depth
@@ -1083,6 +1144,7 @@ namespace OpenGrade
                 isDitchModeOn = false;
                 isPipeModeOn = false;
                 btnSurface.Image = Properties.Resources.surfaceBtn;
+                btnAutoShore.Visible = true;
                 //GradeControlOutToPort("Surface Mode Active \n");
             }
             //CheckMaxCut();
@@ -1113,7 +1175,8 @@ namespace OpenGrade
 
                 if (isJobStarted)
                 {
-                    btnAutoCut.Visible = true;                  
+                    btnAutoCut.Visible = true;
+                    if (isSurfaceModeOn) btnAutoShore.Visible = true;
 
                 }
                 else
@@ -1135,6 +1198,8 @@ namespace OpenGrade
 
 
                 btnAutoCut.Visible = false;
+                btnAutoShore.Visible = false;
+
                 btnIncCut.Visible = false;
                 btnDecCut.Visible = false;
                 lblAutoCutDepth.Visible = false;
@@ -1367,11 +1432,16 @@ namespace OpenGrade
             btnFlag.Enabled = true;
 
 
-            if (!isLevelOn) btnAutoCut.Visible = true;
+            if (!isLevelOn)
+            {
+                btnAutoCut.Visible = true;
+                btnAutoShore.Visible = true;
+            }
 
 
 
-            ct.isContourBtnOn = false;
+
+                ct.isContourBtnOn = false;
             ct.isContourOn = false;
             ct.ptList.Clear();
             ct.drawList.Clear();
@@ -1411,6 +1481,7 @@ namespace OpenGrade
             isGradeControlBtnOn = false;
 
             btnAutoCut.Visible = false;
+            btnAutoShore.Visible = false;
             btnIncCut.Visible = false;
             btnDecCut.Visible = false;
             lblAutoCutDepth.Visible = false;

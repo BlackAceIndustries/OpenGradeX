@@ -296,7 +296,7 @@ namespace OpenGrade
 
 
                         vehicle.toolWidth = Properties.Vehicle.Default.setVehicle_toolWidth;
-                        vehicle.minSlope = Properties.Vehicle.Default.setVehicle_minSlope;
+                        vehicle.minSlope = -Properties.Vehicle.Default.setVehicle_minSlope;
                         vehicle.minShoreSlope = Properties.Vehicle.Default.setVehicle_minShoreSlope;
 
                         vehicle.maxAngularVelocity = Properties.Vehicle.Default.setVehicle_maxAngularVelocity;
@@ -1072,16 +1072,16 @@ namespace OpenGrade
                 sw.Write(@"    <name>");
                 sw.Write(currentFieldDirectory);
                 sw.WriteLine(@" </name> ");
-                sw.WriteLine(@"    <Style><LineStyle><color>FFFF00FF</color><width>3.0</width></LineStyle></Style>");
-                sw.WriteLine(@"    <LineString><extrude>false</extrude><tessellate>true</tessellate><altitudeMode>clampToGround</altitudeMode>");
+                sw.WriteLine(@"    <Style><LineStyle><color>FFFF00FF</color><width>3.0</width></LineStyle></Style>");                
+                sw.WriteLine(@"     <LineString><extrude>false</extrude><tessellate>true</tessellate><altitudeMode>absolute</altitudeMode>");
                 sw.WriteLine(@"       <coordinates>");
 
                 if (cnt > 0)
                 {
                     for (int i = 0; i < cnt; i++)
-                        sw.Write(Convert.ToString(ct.ptList[i].longitude) + ',' + Convert.ToString(ct.ptList[i].latitude) + ",0 ");
+                        sw.Write(Convert.ToString(ct.ptList[i].longitude) + ',' + Convert.ToString(ct.ptList[i].latitude) + ',' + Convert.ToString(ct.ptList[i].altitude));
                 }
-                else sw.Write(Convert.ToString(pn.longitude) + ',' + Convert.ToString(pn.latitude) + ",0 ");
+                else sw.Write(Convert.ToString(pn.longitude) + ',' + Convert.ToString(pn.latitude) + ',' + Convert.ToString(pn.altitude));
 
                 sw.WriteLine(@"       </coordinates>");
                 sw.WriteLine(@"    </LineString>");

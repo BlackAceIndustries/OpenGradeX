@@ -1,3 +1,13 @@
+/*
+  * UDP Grade Control Module Code
+  * For OpenGradeX   ONLY WORKS WITH OPENGRADEX NOT REGULAR OPENGRADE
+  * 4 Feb 2022, Black Ace 
+  * Like all Arduino code - copied from somewhere else
+  * So don't claim it as your own
+  *
+  * Huge Thanks to Brian Tischler For doing all the legwork to make projects like this possible  
+  * Check out his Git-Hub https://github.com/farmerbriantee   
+*/
 #include <Arduino.h>
 #include <WiFi.h>
 #include <WiFiUdp.h>
@@ -8,19 +18,28 @@
 #include <SPI.h>
 #include <Wire.h>
 
+///
+/// BUILD VERSION
+///
+const char *version = "V1.1.6";
+
 // Function STUBS for Platform IO
-bool SetupGradeController();
+
+// GRADECONTROL
+bool SetupGradeControlModule();
 bool SetAutoState();
-void GetGradeControlData();
 void SetOutput();
 void SetValveLimits();
 
 // UDP
-void ConnectToOG();
-void Reconnect();
 bool SetupUdp();
-bool SendUdpData(const char *_dataHeader);
+bool SendUdpData(int _header);
 bool RecvUdpData();
+
+// WIFI
+void ConnectToOGX();
+void ReconnectToOGX();
+
 
 /// UDP Variables
 WiFiUDP UdpGradeControl;  // Creation of wifi UdpGradeControl instance
@@ -47,14 +66,16 @@ IPAddress senderIP;
 #define RXD2 16  // Diagnostic RX
 #define TXD2 17 // Diagnostic TX
 #define CONST_180_DIVIDED_BY_PI 57.2957795130823
+#define DEBUG Serial
+#define RTK Serial1
 
 //UDP HEADERS
 #define DATA_HEADER 10001
 #define SETTINGS_HEADER 10002
 #define GPS_HEADER 10003
-#define DEBUG Serial
-#define RTK Serial1
-
+#define IMU_HEADER 10004
+#define RESET_HEADER 10100
+#define SYSTEM_HEADER 10101
 
 // Valve Definitions
 #define VALVE_FLOAT 2048
@@ -68,23 +89,22 @@ IPAddress senderIP;
 #define DANFOSS_MIN .26
 #define DANFOSS_MAX .74
 
-const char *dataHeader = "DATA";
-const char *gpsHeader = "GPS";
-const char *settingsHeader = "SETTINGS";
-const char *imuHeader = "IMU";
-
-//////////////SETTINGS////////////
+/////////// PID SETTINGS////////////
 float Kp=45; //Mine was 38
 float Ki=.02; //Mine was 0.02
 float Kd=3100; //Mine was 2800
 float delta_setpoint = 0;  
+
+/////////////PID VALUES/////////////
+float PID_p, PID_i, PID_d, PID_total;
+float delta_previous_error, delta_error;
 
 /////////////IMU///////////////
 char *OG_data[255];
 int16_t dataSize = sizeof(OG_data);
 
 
-///////////// Com Bytes///////////////////////
+///////////// Com Bytes///////////////
 byte b_Ki, b_Kp, b_Kd;
 byte b_autoState = 0, b_deltaDir = 0, b_cutDelta = 0;
 byte b_bladeOffsetOut = 0;
@@ -94,15 +114,12 @@ byte b_valveType = 255;   // 0= CNH    1= Deere     2= Danfoss
 byte b_deadband = 2;
 
 
-///////////////////PID/////////////////////////
-float PID_p, PID_i, PID_d, PID_total;
-float delta_previous_error, delta_error;
-
 /////////////// CNH Valve /////////////////////////
 uint16_t analogOutput1 = VALVE_FLOAT; //send to MCP4725
 uint16_t analogOutput2 = VALVE_FLOAT; //send to MCP4725
 int cut1 = -1;
 double voltage = 0; // diagnostic Voltage
+double voltage2 = 0;
 int retDeadband = 1845;
 int extDeadband = 2250;
 int retMin = (0.11 * 4096);   //450.56  CNH 
@@ -111,9 +128,9 @@ bool isAutoActive = false;
 bool isCutting = false;
 
 //loop time variables in milliseconds
-const byte LOOP_TIME = 50; //20hz  
-const unsigned int LOOP_TIME2 = 30000; //.033HZ    
-const byte LOOP_TIME3 = 500; //2HZ  
+const u16_t LOOP_TIME = 50; //20hz  
+const u16_t LOOP_TIME2 = 30000; //.033HZ    
+const u16_t LOOP_TIME3 = 500; //2HZ  
 
 unsigned long lastTime = LOOP_TIME;
 unsigned long lastTime2 = LOOP_TIME2;
@@ -122,7 +139,7 @@ unsigned long currentTime = 0;
 
 //Communication with OpenGrade
 bool isDataFound = false, isSettingFound = false;
-int header = 0, tempHeader = 0, temp;
+int header = 0, tempHeader = 0;
 
 ///////////////////////Initalize Objects///////////////////////
 // I2C
@@ -133,12 +150,24 @@ Adafruit_MCP4725 Dac2 = Adafruit_MCP4725();
 
 void setup()
 {  
+  pinMode(BUILTIN_LED, OUTPUT);  // Initialize the BUILTIN_LED pin as an output
   esp.begin(SDA_PIN , SCL_PIN);
-  SetupGradeController();
-  SetupUdp(); 
 
+  //set the baud rate
+  DEBUG.begin(SERIAL_BAUD);    
+
+  digitalWrite(2, HIGH); delay(500); digitalWrite(2, LOW); delay(500); digitalWrite(2, HIGH); delay(500);
+  digitalWrite(2, LOW); delay(500); digitalWrite(2, HIGH); delay(500); digitalWrite(2, LOW); delay(500);
+
+  
+  Dac1.begin(0x62, &esp);
+  Dac2.begin(0x63, &esp);
+  
+  ConnectToOGX();
+  SetupUdp();  
+  
   Dac1.setVoltage(VALVE_FLOAT, false);
-  Dac2.setVoltage(VALVE_FLOAT, false);
+  Dac2.setVoltage(VALVE_FLOAT, false); 
 }
   
 
@@ -147,47 +176,53 @@ void loop(){  //Loop triggers every 50 msec (20hz) and sends back offsets Pid ec
   currentTime = millis();  
   SetOutput();  // Run PID Controller
   SetAutoState();  // Set Flags
-  RecvUdpData();  // Read Udp Data if Available
-   
+  RecvUdpData();  // Read Udp Data if Available  
+  (WiFi.status() == WL_CONNECTED) ? digitalWrite(BUILTIN_LED, HIGH) : digitalWrite(BUILTIN_LED, LOW);
   
-  if (currentTime - lastTime >= LOOP_TIME)
+  if (currentTime - lastTime >= LOOP_TIME) // 10 HZ
   {  
     lastTime = currentTime;    
-    SendUdpData(dataHeader);    
+    SendUdpData(DATA_HEADER);  // Send Data To OpenGradeX    
   }
   
-  if (currentTime - lastTime2 >= LOOP_TIME2){ // Recv Data from OG 
+  if (currentTime - lastTime2 >= LOOP_TIME2){ // .33 HZ
     lastTime2 = currentTime;
-    Reconnect();
+    ReconnectToOGX();
+    SendUdpData(SYSTEM_HEADER);  // Send System info to OenGradeX
   }
   
-  if (currentTime - lastTime3 >= LOOP_TIME3){ // READ IMU data
+  if (currentTime - lastTime3 >= LOOP_TIME3){ // 2 HZ
     lastTime3 = currentTime;
   }
 }
 
-///
-/// Functions
-///
+////////////////
+//GRADECONTROL// 
+////////////////
 
-
-bool SetupGradeController()
+bool SetupGradeControlModule()
 {
+
+  pinMode(BUILTIN_LED, OUTPUT);  // Initialize the BUILTIN_LED pin as an output
+  esp.begin(SDA_PIN , SCL_PIN);
+
   //set the baud rate
-  DEBUG.begin(SERIAL_BAUD);  
-  RTK.begin(115200, SERIAL_8N1, RXD2, TXD2); 
+  DEBUG.begin(SERIAL_BAUD);    
 
   digitalWrite(2, HIGH); delay(500); digitalWrite(2, LOW); delay(500); digitalWrite(2, HIGH); delay(500);
   digitalWrite(2, LOW); delay(500); digitalWrite(2, HIGH); delay(500); digitalWrite(2, LOW); delay(500);
 
   
   Dac1.begin(0x62, &esp);
-  Dac2.begin(0x63, &esp); 
+  Dac2.begin(0x63, &esp);
+
+  SetupUdp(); 
+
+   
 
   return true;
 
 }
-
 
 bool SetAutoState(){
   if (b_deltaDir == 3){
@@ -255,12 +290,18 @@ void SetOutput()
     
     Dac1.setVoltage(analogOutput1, false);  
     voltage = ((double)analogOutput1/4096) * 5.0;
+    //voltage2 = voltage + .1;
+    voltage2 =((double)analogOutput2/4096) * 5.0;
+    
     delta_previous_error = delta_error;
   }
   else{
     analogOutput1 = VALVE_FLOAT;   
     Dac1.setVoltage(analogOutput1, false);
-    voltage = ((double)analogOutput1/4096) * 5.0;                          
+    voltage = ((double)analogOutput1/4096) * 5.0;
+    //voltage2 = voltage + 1;
+    voltage2 =((double)analogOutput2/4096) * 5.0;
+                              
   }  
     
 }
@@ -299,76 +340,88 @@ void SetValveLimits(){
   }
 }
 
+///////
+//UDP// 
+///////
 
-///
-/// UDP Stuff
-///
-
-bool SetupUdp(){  
+bool SetupUdp(){ 
   
-  ConnectToOG();  
-  UdpGradeControl.begin(gradeControlIP, gradeControlPort);
+    
+  UdpGradeControl.begin(gradeControlIP, gradeControlPort); //  this UDP address and port
   
   return true;
 }
 
-void ConnectToOG() {
-  WiFi.mode(WIFI_STA);
-  WiFi.config(gradeControlIP , gatewayIP, Subnet);
-  WiFi.begin(ssid);
-  Serial.print("Connecting to WiFi ..");
-  while (WiFi.status() != WL_CONNECTED) {
-    Serial.print('.');
-    delay(1000);
+bool SendUdpData(int _header)
+{ 
+  switch (_header){
+    case DATA_HEADER:
+      //SENDING
+      UdpGradeControl.beginPacket(openGradeIP,openGradePort);   //Initiate transmission of data
+      UdpGradeControl.print(_header);
+      UdpGradeControl.print(",");
+      UdpGradeControl.print(b_autoState);
+      UdpGradeControl.print(",");    
+      UdpGradeControl.print(voltage);
+      UdpGradeControl.print(",");    
+      UdpGradeControl.print(voltage2);     
+      UdpGradeControl.print("\r\n");   // End segment    
+      UdpGradeControl.endPacket();  // Close communication        
+      break;
+
+    case SETTINGS_HEADER:
+    
+        break;
+
+    case GPS_HEADER:
+        
+        break;
+
+    case IMU_HEADER:
+        
+        break;
+
+    case RESET_HEADER:
+        break;
+
+    case SYSTEM_HEADER:
+      UdpGradeControl.beginPacket(openGradeIP,openGradePort);   //Initiate transmission of data
+      UdpGradeControl.print(_header);
+      UdpGradeControl.print(",");
+      UdpGradeControl.print(255);
+      UdpGradeControl.print(",");
+      UdpGradeControl.print(version);     
+      UdpGradeControl.print("\r\n");   // End segment    
+      UdpGradeControl.endPacket();  // Close communication
+
+      DEBUG.printf("Version sent V%s", version);       
+      DEBUG.println();
+        break;
+
+
+    default:
+        break; 
   }
-  Serial.println(WiFi.localIP());
-}
-
-void Reconnect(){
-  if (WiFi.status() != WL_CONNECTED) {
-    DEBUG.print(millis());
-    DEBUG.println("Reconnecting to WiFi...");
-    WiFi.disconnect();
-    WiFi.reconnect();   
-  }
-}
-
-
-bool SendUdpData(const char * _dataType)
-{  
-  //SENDING
-  UdpGradeControl.beginPacket(openGradeIP,openGradePort);   //Initiate transmission of data
-  UdpGradeControl.print(_dataType);
-  UdpGradeControl.print(",");
-  UdpGradeControl.print(b_autoState);
-  UdpGradeControl.print(",");    
-  UdpGradeControl.print(voltage);     
-  UdpGradeControl.print("\r\n");   // End segment    
-  UdpGradeControl.endPacket();  // Close communication
 
   return true;
 }
 
 bool RecvUdpData()
 { 
-  //DEBUG.print("RECV Func Called-> ");
+  
   char *strings[20];
   char *ptr = NULL;  
 
   //RECEPTION
   int packetSize = UdpGradeControl.parsePacket();   // Size of packet to receive
-  
-  //if (!packetSize) DEBUG.println("Nothing Recieved");
-
-  senderIP = UdpGradeControl.remoteIP();  //Sent from IP
-  senderPort = UdpGradeControl.remotePort();  //Sent from IP
-
+  DEBUG.println(packetSize);
   if (packetSize) {       // If we received a package
-    //DEBUG.print("UDP Message Recieved Bytes to Read->");
-    UdpGradeControl.read(packetBuffer, sizeof(packetBuffer));  
+    senderIP = UdpGradeControl.remoteIP();  //Sent from IP
+    senderPort = UdpGradeControl.remotePort();  //Sent from IP
+    //DEBUG.printf("Message Received from IP-> %s Port-> %u ", senderIP.toString(), senderPort);
     
-    //DEBUG.println(packetBuffer);
-
+    UdpGradeControl.read(packetBuffer, sizeof(packetBuffer));  
+   
     byte index = 0;
     ptr = strtok(packetBuffer, ",");  // takes a list of delimiters    
     
@@ -413,6 +466,11 @@ bool RecvUdpData()
         return true;
       break;
 
+      case RESET_HEADER:
+        ESP.restart(); 
+        return true;
+      break;
+
       default:
       break;
     }  
@@ -420,4 +478,28 @@ bool RecvUdpData()
     return true;
   }
   return false;
+}
+
+////////
+//WIFI//
+////////
+void ConnectToOGX() {
+  WiFi.mode(WIFI_STA);
+  WiFi.config(gradeControlIP , gatewayIP, Subnet);
+  WiFi.begin(ssid);
+  Serial.print("Connecting to WiFi ..");
+  while (WiFi.status() != WL_CONNECTED) {
+    Serial.print('.');
+    delay(1000);
+  }
+  Serial.println(WiFi.localIP());
+}
+
+void ReconnectToOGX(){
+  if (WiFi.status() != WL_CONNECTED) {
+    DEBUG.print(millis());
+    DEBUG.println("Reconnecting to WiFi...");
+    WiFi.disconnect();
+    WiFi.reconnect();   
+  }
 }

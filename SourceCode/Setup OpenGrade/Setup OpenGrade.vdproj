@@ -51,6 +51,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_2D286757F6AA4E1D98B64A54721F2314"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_3412864ECFF1422887E680435B8A893A"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -323,6 +329,26 @@
             "TargetName" = "8:themedata.thmx"
             "Tag" = "8:"
             "Folder" = "8:_17D35D9B1BC6484BA17E6A070C17DE3F"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2D286757F6AA4E1D98B64A54721F2314"
+            {
+            "SourcePath" = "8:..\\GPS\\OGX2Icon.ico"
+            "TargetName" = "8:OGX2Icon.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_86ED91299E5F48BFAADE9FAA016E1332"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -690,15 +716,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:OpenGradeX"
-        "ProductCode" = "8:{700D41B9-7347-4E4A-B701-5FE5514BF990}"
-        "PackageCode" = "8:{E3608D36-69D5-4A33-AAEF-B04DE7109D93}"
+        "ProductCode" = "8:{07307908-953C-4AE7-BDF0-F1521992BD44}"
+        "PackageCode" = "8:{18BB642D-12C3-450B-96F4-FF4BE70FD4A1}"
         "UpgradeCode" = "8:{E1B3A056-56F7-4594-B6F2-82DF14334C04}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.1.6"
+        "ProductVersion" = "8:1.2.1"
         "Manufacturer" = "8:AOG/BlackAce"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -708,7 +734,7 @@
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:OpenGradeX"
         "ARPURLINFOABOUT" = "8:"
-        "ARPPRODUCTICON" = "8:_3412864ECFF1422887E680435B8A893A"
+        "ARPPRODUCTICON" = "8:_2D286757F6AA4E1D98B64A54721F2314"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
@@ -836,7 +862,7 @@
             "Target" = "8:_1B2202DCCC83418286E1630C10EAE729"
             "Folder" = "8:_8164F02ACD5F4307B3842B4B31577312"
             "WorkingFolder" = "8:_86ED91299E5F48BFAADE9FAA016E1332"
-            "Icon" = "8:_3412864ECFF1422887E680435B8A893A"
+            "Icon" = "8:_2D286757F6AA4E1D98B64A54721F2314"
             "Feature" = "8:"
             }
         }
@@ -1240,7 +1266,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_1B2202DCCC83418286E1630C10EAE729"
             {
-            "SourcePath" = "8:..\\GPS\\obj\\x86\\Release\\OpenGrade.exe"
+            "SourcePath" = "8:..\\GPS\\obj\\x86\\Release\\OpenGradeX.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_86ED91299E5F48BFAADE9FAA016E1332"

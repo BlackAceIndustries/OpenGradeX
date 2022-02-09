@@ -25,8 +25,10 @@ namespace OpenGrade
 
         public const int RESET_HEADER = 10100;
         public const int SYSTEM_HEADER = 10101;
+        public const int WIFI_HEADER = 10102;
 
-
+        public string[] SSID = new string[] {"-", "-", "-", "-" };
+        public string[] SSID_PASS = new string[25];
 
         public long udpDataTimeout = 0;
         public long udpGPSTimeout = 0;
@@ -38,9 +40,9 @@ namespace OpenGrade
         private static int antennaPort = 8888; // Antenna Port
         private static int senderPort;
         ///Ip Addresses
-        private static byte[] openGrade = new byte[] { 192, 168, 1, 0 };
-        private static byte[] gradeControl = new byte[] { 192, 168, 1, 255 };
-        private static byte[] antennaModule = new byte[] { 192, 168, 1, 155 };
+        private static byte[] openGrade = new byte[] { 192, 168, 0, 156 };
+        private static byte[] gradeControl = new byte[] { 192, 168, 0, 255 };
+        private static byte[] antennaModule = new byte[] { 192, 168, 0, 155 };
 
         private static IPAddress openGradeIP = new IPAddress(openGrade);   //OpenGradeX Server
         private static IPAddress gradeControlIP = new IPAddress(gradeControl);   // GradeControl Module IP
@@ -80,7 +82,7 @@ namespace OpenGrade
                {
                    WriteErrorLog("Sending UDP Message" + e.ToString());
 
-                   //MessageBox.Show("Send Error: " + e.Message, "UDP Client", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                   MessageBox.Show("Send Error: " + e.Message, "UDP Client", MessageBoxButtons.OK, MessageBoxIcon.Error);
                }
            }
        }
@@ -285,17 +287,28 @@ namespace OpenGrade
 
                     if (mod == 255)
                     {
-                        mf.mc.gcFirmware = words[2];
+                        Properties.Settings.Default.set_GcModVersion = words[2];
+                        //mf.mc.gcFirmware = words[1];
 
                     }
                     if (mod == 155)
                     {
-                        mf.mc.atFirmware = words[2];                        
+                        Properties.Settings.Default.set_AntModVersion = words[2];
+                        //mf.mc.atFirmware = words[1];                        
 
                     }
                     break;
 
+                case WIFI_HEADER:
 
+                    for (int i = 1; i < temp-1; ++i)
+                    {
+                      SSID[i-1] = words[i];
+                      
+                    } 
+                    break;
+
+                    
                 default:
                     break;
                     

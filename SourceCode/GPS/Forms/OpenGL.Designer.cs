@@ -426,7 +426,7 @@ namespace OpenGrade
             {
                 if (ptCnt > 0)
                 {
-                    minDist = 1000000;
+                    minDist = 50000000;
                     int ptCount = ct.ptList.Count - 1;//
 
                     //find the closest point to current fix
@@ -678,7 +678,7 @@ namespace OpenGrade
                                 gl.Vertex(ct.drawList[i].easting, (((ct.drawList[i].northing - centerY) * altitudeWindowGain) + centerY), 0);
                             gl.End();
 
-                            if (slopeDraw < vehicle.minSlope) gl.Color(0.25f, 0.970f, 0.350f); // lighter green when slope is clicked 
+                            if (slopeDraw < -vehicle.minSlope) gl.Color(0.25f, 0.970f, 0.350f); // lighter green when slope is clicked 
                             else gl.Color(0.915f, 0.0f, 0.970f); // purple when above slope line
                             gl.Begin(OpenGL.GL_LINES);
                             //for (int i = 0; i < cutCnt; i++)
@@ -695,7 +695,7 @@ namespace OpenGrade
                         }
                     }
 
-                    if (minDist < 15)
+                    if (minDist < 500)
                     {
                         //draw the actual elevation lines and blade
                         gl.LineWidth(8);
@@ -754,11 +754,38 @@ namespace OpenGrade
                         //AutoShore Active
                         if (isAutoShoreOn)
                         {
-                            double x;                          
 
-                            x = (Math.Tan(glm.toRadians(vehicle.minShoreSlope)) * ct.distanceFromCurrentLine);
+                            //double X1 = 0, X2, X3 ;
+                            //double Y1 = 0, Y2, Y3 ;
+                            //double distFromCutCenter;
+
+
+                            //Y2 = Y1 + (Math.Tan(glm.toRadians(vehicle.minShoreSlope)) * ct.distanceFromCurrentLine);
+                            //X2 = X1 - ct.distanceFromCurrentLine;
+
+
+                            //Y2 = Y1 + (ct.ptList[closestPoint].cutAltitude * 100) - (ct.ptList[closestPoint].altitude * 100);
                             
+                            //X2 = (Y2 / Math.Tan(glm.toRadians(mf.vehicle.minShoreSlope)));
+
+
+                            //gl.Vertex(ct.ptList[closestPoint].easting + (X2 / 100), ct.ptList[closestPoint].northing, 0);
+
+
+
+                            double x = (Math.Tan(glm.toRadians(vehicle.minShoreSlope)) * ct.distanceFromCurrentLine);                            
                             cutDelta += x;
+
+
+
+
+
+
+
+
+
+                            //double x = (Math.Tan(glm.toRadians(vehicle.minShoreSlope)) * ct.distanceFromCurrentLine);
+                            //cutDelta += x;
 
                         }
                         
@@ -790,6 +817,8 @@ namespace OpenGrade
 
             if (ct.isDrawingRefLine)
             {
+                lblDrawSlope.Visible = true;
+                label2.Visible = true;
                 int cnt = ct.drawList.Count;
                 if (cnt > 0)
                 {
@@ -799,6 +828,13 @@ namespace OpenGrade
 
                     CalculateCutFillWhileMouseMove();
                 }
+            }
+            else
+            {
+                lblDrawSlope.Visible = false;
+                label2.Visible = false;
+
+
             }
         }
 
@@ -852,7 +888,7 @@ namespace OpenGrade
             int drawPts;
             int ptCnt = ct.ptList.Count;
             double minDeltaHt = 0;
-            double angle = (vehicle.minSlope) * 180;
+            double angle = (-vehicle.minSlope) * 180;
             int startPt = 0;
             int endPt = -1;
             int lowestPt = 0;

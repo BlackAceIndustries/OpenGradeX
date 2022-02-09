@@ -60,12 +60,19 @@
             this.lblGCVersion = new System.Windows.Forms.TextBox();
             this.lblAntennaVersion = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnRefreshWifi = new System.Windows.Forms.Button();
+            this.btnHotSpotConnect = new System.Windows.Forms.Button();
+            this.choicePassword = new System.Windows.Forms.ComboBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.lblProgramName = new System.Windows.Forms.Label();
+            this.lblOGXVersion = new System.Windows.Forms.Label();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudThisPort)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudAutoSteerPort)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudGradeControlPort)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox4
@@ -80,7 +87,7 @@
             this.groupBox4.Controls.Add(this.label2);
             this.groupBox4.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.groupBox4.Location = new System.Drawing.Point(23, 62);
+            this.groupBox4.Location = new System.Drawing.Point(23, 42);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(248, 232);
             this.groupBox4.TabIndex = 72;
@@ -209,7 +216,7 @@
             this.btnSerialCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnSerialCancel.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSerialCancel.Image = global::OpenGrade.Properties.Resources.Cancel64;
-            this.btnSerialCancel.Location = new System.Drawing.Point(310, 414);
+            this.btnSerialCancel.Location = new System.Drawing.Point(299, 469);
             this.btnSerialCancel.Name = "btnSerialCancel";
             this.btnSerialCancel.Size = new System.Drawing.Size(88, 76);
             this.btnSerialCancel.TabIndex = 71;
@@ -223,7 +230,7 @@
             this.btnSerialOK.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSerialOK.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnSerialOK.Image = ((System.Drawing.Image)(resources.GetObject("btnSerialOK.Image")));
-            this.btnSerialOK.Location = new System.Drawing.Point(422, 414);
+            this.btnSerialOK.Location = new System.Drawing.Point(419, 469);
             this.btnSerialOK.Name = "btnSerialOK";
             this.btnSerialOK.Size = new System.Drawing.Size(156, 76);
             this.btnSerialOK.TabIndex = 70;
@@ -407,9 +414,9 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.groupBox1.Location = new System.Drawing.Point(318, 62);
+            this.groupBox1.Location = new System.Drawing.Point(299, 42);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(257, 319);
+            this.groupBox1.Size = new System.Drawing.Size(276, 319);
             this.groupBox1.TabIndex = 91;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Module Address and Ports";
@@ -423,36 +430,34 @@
             this.choiceWiFi.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.choiceWiFi.FormattingEnabled = true;
             this.choiceWiFi.ItemHeight = 19;
-            this.choiceWiFi.Items.AddRange(new object[] {
-            "No WiFi Available"});
-            this.choiceWiFi.Location = new System.Drawing.Point(13, 94);
+            this.choiceWiFi.Location = new System.Drawing.Point(11, 34);
             this.choiceWiFi.Name = "choiceWiFi";
             this.choiceWiFi.Size = new System.Drawing.Size(226, 27);
             this.choiceWiFi.TabIndex = 92;
-            this.choiceWiFi.Text = "Select Wifi";
+            this.choiceWiFi.Text = "Wifi Network";
             this.choiceWiFi.Visible = false;
             this.choiceWiFi.SelectedIndexChanged += new System.EventHandler(this.choiceWiFi_SelectedIndexChanged);
             // 
             // textBox1
             // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.InfoText;
+            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox1.ForeColor = System.Drawing.Color.Yellow;
-            this.textBox1.Location = new System.Drawing.Point(13, 29);
+            this.textBox1.Location = new System.Drawing.Point(2, 42);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(163, 20);
+            this.textBox1.Size = new System.Drawing.Size(163, 16);
             this.textBox1.TabIndex = 93;
             this.textBox1.Text = "GradeControl ";
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox2
             // 
-            this.textBox2.BackColor = System.Drawing.SystemColors.InfoText;
+            this.textBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox2.ForeColor = System.Drawing.Color.Yellow;
-            this.textBox2.Location = new System.Drawing.Point(13, 55);
+            this.textBox2.Location = new System.Drawing.Point(2, 65);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(163, 20);
+            this.textBox2.Size = new System.Drawing.Size(163, 16);
             this.textBox2.TabIndex = 94;
             this.textBox2.Text = "Antenna";
             this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -462,10 +467,11 @@
             // 
             this.lblGCVersion.BackColor = System.Drawing.SystemColors.InfoText;
             this.lblGCVersion.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lblGCVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblGCVersion.ForeColor = System.Drawing.SystemColors.InactiveBorder;
-            this.lblGCVersion.Location = new System.Drawing.Point(182, 29);
+            this.lblGCVersion.Location = new System.Drawing.Point(181, 40);
             this.lblGCVersion.Name = "lblGCVersion";
-            this.lblGCVersion.Size = new System.Drawing.Size(52, 20);
+            this.lblGCVersion.Size = new System.Drawing.Size(57, 17);
             this.lblGCVersion.TabIndex = 95;
             this.lblGCVersion.Text = "-------";
             this.lblGCVersion.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -474,37 +480,121 @@
             // 
             this.lblAntennaVersion.BackColor = System.Drawing.SystemColors.InfoText;
             this.lblAntennaVersion.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lblAntennaVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAntennaVersion.ForeColor = System.Drawing.SystemColors.InactiveBorder;
-            this.lblAntennaVersion.Location = new System.Drawing.Point(182, 56);
+            this.lblAntennaVersion.Location = new System.Drawing.Point(181, 64);
             this.lblAntennaVersion.Name = "lblAntennaVersion";
-            this.lblAntennaVersion.Size = new System.Drawing.Size(52, 20);
+            this.lblAntennaVersion.Size = new System.Drawing.Size(57, 17);
             this.lblAntennaVersion.TabIndex = 96;
             this.lblAntennaVersion.Text = "-------";
             this.lblAntennaVersion.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btnRefreshWifi);
+            this.groupBox2.Controls.Add(this.btnHotSpotConnect);
+            this.groupBox2.Controls.Add(this.choicePassword);
             this.groupBox2.Controls.Add(this.choiceWiFi);
-            this.groupBox2.Controls.Add(this.lblAntennaVersion);
-            this.groupBox2.Controls.Add(this.textBox2);
-            this.groupBox2.Controls.Add(this.lblGCVersion);
-            this.groupBox2.Controls.Add(this.textBox1);
             this.groupBox2.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.groupBox2.Location = new System.Drawing.Point(21, 306);
+            this.groupBox2.Location = new System.Drawing.Point(21, 286);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(249, 162);
+            this.groupBox2.Size = new System.Drawing.Size(249, 251);
             this.groupBox2.TabIndex = 97;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Updater";
+            this.groupBox2.Text = "HotSpot Connection";
+            // 
+            // btnRefreshWifi
+            // 
+            this.btnRefreshWifi.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnRefreshWifi.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRefreshWifi.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnRefreshWifi.Location = new System.Drawing.Point(12, 147);
+            this.btnRefreshWifi.Name = "btnRefreshWifi";
+            this.btnRefreshWifi.Size = new System.Drawing.Size(225, 25);
+            this.btnRefreshWifi.TabIndex = 99;
+            this.btnRefreshWifi.Text = "Find  Available Wifi Networks";
+            this.btnRefreshWifi.UseVisualStyleBackColor = false;
+            this.btnRefreshWifi.Visible = false;
+            this.btnRefreshWifi.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // btnHotSpotConnect
+            // 
+            this.btnHotSpotConnect.BackColor = System.Drawing.Color.LimeGreen;
+            this.btnHotSpotConnect.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHotSpotConnect.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnHotSpotConnect.Location = new System.Drawing.Point(12, 178);
+            this.btnHotSpotConnect.Name = "btnHotSpotConnect";
+            this.btnHotSpotConnect.Size = new System.Drawing.Size(225, 56);
+            this.btnHotSpotConnect.TabIndex = 98;
+            this.btnHotSpotConnect.Text = "Connect To WiFi";
+            this.btnHotSpotConnect.UseVisualStyleBackColor = false;
+            this.btnHotSpotConnect.Visible = false;
+            this.btnHotSpotConnect.Click += new System.EventHandler(this.btnHotSpotConnect_Click);
+            // 
+            // choicePassword
+            // 
+            this.choicePassword.AllowDrop = true;
+            this.choicePassword.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.choicePassword.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.choicePassword.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.choicePassword.FormattingEnabled = true;
+            this.choicePassword.ItemHeight = 19;
+            this.choicePassword.Location = new System.Drawing.Point(11, 67);
+            this.choicePassword.Name = "choicePassword";
+            this.choicePassword.Size = new System.Drawing.Size(226, 27);
+            this.choicePassword.TabIndex = 97;
+            this.choicePassword.Text = "Wifi Password";
+            this.choicePassword.Visible = false;
+            this.choicePassword.SelectedIndexChanged += new System.EventHandler(this.choicePassword_SelectedIndexChanged);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.lblProgramName);
+            this.groupBox3.Controls.Add(this.lblOGXVersion);
+            this.groupBox3.Controls.Add(this.textBox2);
+            this.groupBox3.Controls.Add(this.textBox1);
+            this.groupBox3.Controls.Add(this.lblAntennaVersion);
+            this.groupBox3.Controls.Add(this.lblGCVersion);
+            this.groupBox3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.groupBox3.Location = new System.Drawing.Point(299, 367);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(276, 91);
+            this.groupBox3.TabIndex = 98;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "OpenGradeX Version";
+            // 
+            // lblProgramName
+            // 
+            this.lblProgramName.ForeColor = System.Drawing.Color.Yellow;
+            this.lblProgramName.Location = new System.Drawing.Point(2, 17);
+            this.lblProgramName.Name = "lblProgramName";
+            this.lblProgramName.Size = new System.Drawing.Size(163, 20);
+            this.lblProgramName.TabIndex = 1;
+            this.lblProgramName.Text = "OpenGradeX";
+            this.lblProgramName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblOGXVersion
+            // 
+            this.lblOGXVersion.BackColor = System.Drawing.Color.Black;
+            this.lblOGXVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOGXVersion.Location = new System.Drawing.Point(180, 19);
+            this.lblOGXVersion.Name = "lblOGXVersion";
+            this.lblOGXVersion.Size = new System.Drawing.Size(58, 16);
+            this.lblOGXVersion.TabIndex = 0;
+            this.lblOGXVersion.Text = "-------";
+            this.lblOGXVersion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // FormUDP
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
-            this.ClientSize = new System.Drawing.Size(590, 501);
+            this.ClientSize = new System.Drawing.Size(603, 578);
             this.ControlBox = false;
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label7);
@@ -528,7 +618,8 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -561,11 +652,17 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tboxHostName;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.ComboBox choiceWiFi;
+        public System.Windows.Forms.ComboBox choiceWiFi;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox lblGCVersion;
         private System.Windows.Forms.TextBox lblAntennaVersion;
         private System.Windows.Forms.GroupBox groupBox2;
+        public System.Windows.Forms.ComboBox choicePassword;
+        private System.Windows.Forms.Button btnHotSpotConnect;
+        private System.Windows.Forms.Button btnRefreshWifi;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label lblOGXVersion;
+        private System.Windows.Forms.Label lblProgramName;
     }
 }

@@ -53,9 +53,6 @@ C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\BlackAce_Op
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\BlackAce_OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.exe
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\BlackAce_OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.pdb
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\Application\Dependencies\Landscape.png
-C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\Application\OpenGrade.exe.config
-C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\Application\OpenGrade.exe
-C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\Application\OpenGrade.pdb
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.FormCutDir.resources
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.FormFieldDir.resources
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.FormABLine.resources
@@ -74,6 +71,9 @@ C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.csproj.GenerateResource.cache
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.csproj.CoreCompileInputs.cache
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.csproj.CopyComplete
-C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.exe
-C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.pdb
+C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\Application\OpenGradeX.exe.config
+C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\Application\OpenGradeX.exe
+C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\Application\OpenGradeX.pdb
+C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGradeX.exe
+C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGradeX.pdb
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.csproj.AssemblyReference.cache

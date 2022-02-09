@@ -121,6 +121,7 @@
             this.tabVehicle.Controls.Add(this.label18);
             this.tabVehicle.Controls.Add(this.nudAntennaHeight);
             this.tabVehicle.Name = "tabVehicle";
+            this.tabVehicle.UseVisualStyleBackColor = true;
             this.tabVehicle.Click += new System.EventHandler(this.tabVehicle_Click);
             // 
             // label4
@@ -470,7 +471,7 @@
             2,
             0,
             0,
-            -2147418112});
+            65536});
             // 
             // label1
             // 

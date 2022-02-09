@@ -173,5 +173,11 @@
     <Setting Name="set_AutoDepth" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
+    <Setting Name="set_GcModVersion" Type="System.String" Scope="User">
+      <Value Profile="(Default)">V-.-.-</Value>
+    </Setting>
+    <Setting Name="set_AntModVersion" Type="System.String" Scope="User">
+      <Value Profile="(Default)">V-.-.-</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

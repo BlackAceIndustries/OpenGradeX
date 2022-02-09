@@ -1,3 +1,13 @@
+/*
+  * UDP Antenna Module Code
+  * For OpenGradeX   ONLY WORKS WITH OPENGRADEX NOT REGULAR OPENGRADE
+  * 4 Feb 2022, Black Ace 
+  * Like all Arduino code - copied from somewhere else
+  * So don't claim it as your own
+  *
+  * Huge Thanks to Brian Tischler For doing all the legwork to make projects like this possible  
+  * Check out his Git-Hub https://github.com/farmerbriantee   
+*/
 #include <Arduino.h>
 #include <WiFi.h>
 #include <WiFiUdp.h>
@@ -7,9 +17,7 @@
 #include <utility/imumaths.h>
 #include <SPI.h>
 #include <Wire.h>
-
-
-/* Board layout:
+/* IMU Board layout:
             Front
          +----------+
          |         *| RST   PITCH  ROLL  HEADING
@@ -21,36 +29,42 @@
          +----------+
 */
 
+/////////////////
+//BUILD VERSION//
+/////////////////
+const char *version = "V1.1.6";
 
-// Function STUBS for Platform IO
+//Function STUBS for Platform IO
 
-//GRADE CONTROL
-// bool SetAutoState();
-// void GetGradeControlData();
-// void SetOutput();
-// void SetValveLimits();
-
-//SERIAL
-bool SetupGradeController();
-void RecvSerialPortData();
-void SendDataToPort();
-void ClearSerialBuff();
+// ANTENNA MODULE
+bool SetupAntennaModule();
 // IMU
 bool SetupIMU();
 void GetIMUData();
 // UDP
-void RecvGPSDAta();
-void SendGPSOverUDP();
 bool SetupUdp();
-bool SendUdpData(const char *_dataHeader);
+void RelayGPSData();
+bool SendUdpData(int _header);
 bool RecvUdpData();
+// WIFI
+bool SetupAP();
+void ConnectToHotSpot(); 
+int ScanForWifi();
+
 
 /// UDP Variables
 WiFiUDP UdpAntenna;  // Creation of wifi UdpAntenna instance
+
+
 const char *ssid = {"OpenGradeX"};
+char *hotspotSSID = {"Telus07FE"}; 
+char *hotspotSSID_Pass = {"JQ8EHZJ5L6"};
 char buff[1025];
 char GNGGA[1000];
 char GNVTG[1000];
+String SSID[25];
+String RSSI[25];
+String SSID_PASS[25];
 char packetBuffer[255];
 
 ///Ports
@@ -75,35 +89,41 @@ IPAddress senderIP;
 #define SDA_PIN 21      // I2C SCL PIN
 #define RXD2 16  // Diagnostic RX
 #define TXD2 17 // Diagnostic TX
+#define DEBUG Serial
+#define RTK Serial1
 #define IMU_ID 1200
 #define CONST_180_DIVIDED_BY_PI 57.2957795130823
 #define BNO055_SAMPLERATE_DELAY_MS (95)
+
 //UDP HEADERS
 #define DATA_HEADER 10001
 #define SETTINGS_HEADER 10002
 #define GPS_HEADER 10003
 #define IMU_HEADER 10004
-#define DEBUG Serial
-#define RTK Serial1
+#define RESET_HEADER 10100
+#define SYSTEM_HEADER 10101
+#define WIFI_HEADER 10102
 
-const char *dataHeader = "DATA";
-const char *gpsHeader = "GPS";
-const char *settingsHeader = "SETTINGS";
-const char *imuHeader = "IMU";
 
 /////////////IMU///////////////
 char *OG_data[255];
 int16_t dataSize = sizeof(OG_data);
+float rawHeadingIMU = 0;
+float rawRollIMU = 0;
+float rawPitchIMU = 0;
 float headingIMU = 0;
 float rollIMU = 0;
 float pitchIMU = 0;
-int16_t bno08xHeading10x = 0;
-int16_t bno08xRoll10x = 0;
+float headingIMUSetPos= 0;
+float rollIMUSetPos = 0;
+float pitchIMUSetPos = 0;
+
+////////////TIMING//////////
 
 //loop time variables in milliseconds
-const byte LOOP_TIME = 50; //20hz  Send Serial Loop 
-const byte LOOP_TIME2 = 5; //100HZ    Recv Serial Loop
-const byte LOOP_TIME3 = BNO055_SAMPLERATE_DELAY_MS; //10HZ  Poll IMU Loop
+const long LOOP_TIME = 50; //20hz  Send Serial Loop 
+const long LOOP_TIME2 = 15000; //100HZ    Recv Serial Loop
+const long LOOP_TIME3 = BNO055_SAMPLERATE_DELAY_MS; //10HZ  Poll IMU Loop
 
 unsigned long lastTime = LOOP_TIME;
 unsigned long lastTime2 = LOOP_TIME2;
@@ -122,20 +142,16 @@ Adafruit_BNO055 bnoIMU = Adafruit_BNO055(IMU_ID, 0x28, &esp);
 
 
 void setup()
-{  
-  esp.begin(SDA_PIN , SCL_PIN);
-  SetupGradeController();
-  SetupUdp();
-  SetupIMU();
-
+{   
+  SetupAntennaModule();
 }
   
 
-void loop(){  //Loop triggers every 50 msec (20hz) and sends back offsets Pid ect
+void loop(){ 
 
-  currentTime = millis();  // Send GradeControl Data to OG  
-  RecvGPSDAta();
-  RecvUdpData();
+  currentTime = millis();  //  
+  RelayGPSData();  // Relay serial to UDP
+  RecvUdpData();  // Receive commands from OPENGRADEX
   
   
   if (currentTime - lastTime >= LOOP_TIME)
@@ -143,14 +159,15 @@ void loop(){  //Loop triggers every 50 msec (20hz) and sends back offsets Pid ec
     lastTime = currentTime;
   }
   
-  if (currentTime - lastTime2 >= LOOP_TIME2){ // Recv Data from OG 
+  if (currentTime - lastTime2 >= LOOP_TIME2){ // every 15 seconds
     lastTime2 = currentTime;
+    SendUdpData(SYSTEM_HEADER);
   }
   
-  if (currentTime - lastTime3 >= LOOP_TIME3){ // READ IMU data
+  if (currentTime - lastTime3 >= LOOP_TIME3){ // READ IMU data 10hz
     lastTime3 = currentTime;
     GetIMUData();
-    SendUdpData(imuHeader);
+    SendUdpData(IMU_HEADER);
 
   }
 }
@@ -160,8 +177,15 @@ void loop(){  //Loop triggers every 50 msec (20hz) and sends back offsets Pid ec
 ///
 
 
-bool SetupGradeController()
+/////////////////
+//ANTENNAMODULE// 
+/////////////////
+
+bool SetupAntennaModule()
 {
+  
+  pinMode(BUILTIN_LED, OUTPUT);  // Initialize the BUILTIN_LED pin as an output
+  esp.begin(SDA_PIN , SCL_PIN);
   //set the baud rate
   DEBUG.begin(SERIAL_BAUD);  
   RTK.begin(115200, SERIAL_8N1, RXD2, TXD2); 
@@ -169,10 +193,17 @@ bool SetupGradeController()
   digitalWrite(2, HIGH); delay(500); digitalWrite(2, LOW); delay(500); digitalWrite(2, HIGH); delay(500);
   digitalWrite(2, LOW); delay(500); digitalWrite(2, HIGH); delay(500); digitalWrite(2, LOW); delay(500);
  
+  SetupAP();
+  SetupUdp();
+  SetupIMU();
 
   return true;
 
 }
+
+///////
+//IMU//
+///////
 
 bool SetupIMU()
 {  
@@ -194,17 +225,20 @@ void GetIMUData()
   sensors_event_t event;
   bnoIMU.getEvent(&event);  
   
-  headingIMU = (360 - (float)event.orientation.x); // YAW  
-  pitchIMU = ((float)event.orientation.y); // PITCH
-  rollIMU = ((float)event.orientation.z); // ROLL   
+  rawHeadingIMU = (360 - (float)event.orientation.x); // YAW  
+  rawPitchIMU = ((float)event.orientation.y); // PITCH
+  rawRollIMU = ((float)event.orientation.z); // ROLL
+
+  headingIMU = rawHeadingIMU - headingIMUSetPos; // YAW  
+  pitchIMU = rawPitchIMU - pitchIMUSetPos; // PITCH
+  rollIMU = rawRollIMU -rollIMUSetPos; // ROLL 
 }
 
+///////
+//UDP// 
+///////
 
-///
-/// UDP Stuff
-///
-
-void RecvGPSDAta(){
+void RelayGPSData(){
     
   if(RTK.available()){   
     
@@ -225,61 +259,111 @@ void RecvGPSDAta(){
     memset(buff, 0, sizeof(buff)); // clear buff 
 
     //SENDING
-    SendGPSOverUDP();
+    SendUdpData(GPS_HEADER);
     
   }
 }
 
 
-void SendGPSOverUDP(){
-  
-  UdpAntenna.beginPacket(openGradeIP,openGradePort);   //Initiate transmission of data
-  UdpAntenna.print(gpsHeader);
-  UdpAntenna.print(",");
-  UdpAntenna.print(GNGGA);
-  UdpAntenna.print(GNVTG);
-  UdpAntenna.print("\r\n"); // End segment    
-  UdpAntenna.endPacket();  // Close communication
-  
-  memset(buff, 0, sizeof(buff));
-  memset(GNGGA, 0, sizeof(GNGGA));
-  memset(GNGGA, 0, sizeof(GNGGA)); // clear buff
-
-}
-
-bool SetupUdp(){  
-  
-  WiFi.mode(WIFI_AP);
-  WiFi.softAP(ssid);
-  delay(100);
-  
-  WiFi.softAPConfig(antennaIP, gatewayIP, Subnet);  
-
-  DEBUG.println(ssid);
-  DEBUG.println(WiFi.softAPIP());
-  
+bool SetupUdp(){
   UdpAntenna.begin(antennaIP, antennaPort);
-  
  
   return true;
 }
 
-bool SendUdpData(const char * _dataType)
-{  
-  //SENDING
-  UdpAntenna.beginPacket(openGradeIP,openGradePort);   //Initiate transmission of data
-  UdpAntenna.print(_dataType);  
-  UdpAntenna.print(",");
-  UdpAntenna.print(headingIMU);
-  UdpAntenna.print(",");
-  UdpAntenna.print(pitchIMU);
-  UdpAntenna.print(",");
-  UdpAntenna.print(rollIMU);      
-  UdpAntenna.print("\r\n");   // End segment    
-  UdpAntenna.endPacket();  // Close communication
+
+bool SendUdpData(int _header)
+{ 
+  switch (_header){
+    case DATA_HEADER:      
+      
+      break;
+
+
+    case SETTINGS_HEADER:
+    
+        break;
+
+    case GPS_HEADER:
+        bool sent;
+        UdpAntenna.beginPacket(openGradeIP,openGradePort);   //Initiate transmission of data
+        UdpAntenna.print(_header);
+        UdpAntenna.print(",");
+        UdpAntenna.print(GNGGA);
+        UdpAntenna.print(GNVTG);
+        UdpAntenna.print("\r\n"); // End segment    
+        sent = UdpAntenna.endPacket();  // Close communication
+        
+        while (RTK.available()){
+          RTK.read();
+        }
+
+        if (!sent && errno == 5){
+          ESP.restart();    
+        } 
+        
+        memset(buff, 0, sizeof(buff));
+        memset(GNGGA, 0, sizeof(GNGGA));
+        memset(GNVTG, 0, sizeof(GNVTG)); // clear buff
+              
+        break;
+
+    case IMU_HEADER:
+      //SENDING
+      UdpAntenna.beginPacket(openGradeIP,openGradePort);   //Initiate transmission of data
+      UdpAntenna.print(_header);  
+      UdpAntenna.print(",");
+      UdpAntenna.print(headingIMU);
+      UdpAntenna.print(",");
+      UdpAntenna.print(pitchIMU);
+      UdpAntenna.print(",");
+      UdpAntenna.print(rollIMU);      
+      UdpAntenna.print("\r\n");   // End segment    
+      UdpAntenna.endPacket();  // Close communication
+        
+        break;
+
+    case RESET_HEADER:
+        break;
+
+    case SYSTEM_HEADER:
+      UdpAntenna.beginPacket(openGradeIP,openGradePort);   //Initiate transmission of data
+      UdpAntenna.print(_header);
+      UdpAntenna.print(",");
+      UdpAntenna.print(155);
+      UdpAntenna.print(",");
+      UdpAntenna.print(version);     
+      UdpAntenna.print("\r\n");   // End segment    
+      UdpAntenna.endPacket();  // Close communication       
+
+        break;
+
+    case WIFI_HEADER:    
+      
+      //int n = sizeof(SSID);
+      UdpAntenna.beginPacket(openGradeIP,openGradePort);   //Initiate transmission of data
+      UdpAntenna.print(_header);
+      DEBUG.print(_header);
+      for (int i = 0; i < 4; ++i) {      
+        UdpAntenna.print(",");
+        UdpAntenna.print(SSID[i]);
+        DEBUG.print(",");
+        DEBUG.print(SSID[i]); 
+      }
+      DEBUG.print("END\r\n"); 
+      UdpAntenna.print("\r\n");   // End segment    
+      UdpAntenna.endPacket();  // Close communication  
+      
+    break;
+
+
+    //default:
+      //break; 
+  }
 
   return true;
 }
+
 
 bool RecvUdpData()
 { 
@@ -332,7 +416,10 @@ bool RecvUdpData()
       break;
 
       case IMU_HEADER:
-        DEBUG.println("IMU FOUND!"); 
+        DEBUG.println("IMU FOUND!");
+        headingIMUSetPos = rawHeadingIMU;
+        pitchIMUSetPos = rawPitchIMU;
+        rollIMUSetPos = rawRollIMU; 
         return true;
       break;
 
@@ -341,11 +428,151 @@ bool RecvUdpData()
         return true;
       break;
 
-      default:
+      case RESET_HEADER:
+        ESP.restart(); 
+        return true;
       break;
+
+      case SYSTEM_HEADER:     
+        
+        SendUdpData(SYSTEM_HEADER);
+        
+        //(atoi(OG_data[1]) == 1) ? SendUdpData(SYSTEM_HEADER) : DEBUG.print("no Version");     
+
+      break;
+
+      case WIFI_HEADER:
+        int selection = 0;
+        //int n = sizeof(OG_data)/sizeof(OG_data[0]);
+        
+        switch (atoi(OG_data[1])){
+          
+          case 1:          
+            ScanForWifi();
+            SendUdpData(WIFI_HEADER);
+          break;
+          
+          case 2:
+
+            // DEBUG.print(hotspotSSID);
+            // DEBUG.print("\t");
+            // DEBUG.println(hotspotSSID_Pass);
+
+            // //hotspotSSID = OG_data[2]; 
+            // //hotspotSSID_Pass = OG_data[3];
+
+            // DEBUG.print("Received \t");
+            // DEBUG.print(OG_data[2]);
+            // DEBUG.print("\t");
+            // DEBUG.println(OG_data[3]);
+
+            // selection = atoi(OG_data[2]);
+            // strcpy(hotspotSSID, SSID[selection].c_str());
+            // strcpy(hotspotSSID_Pass, SSID_PASS[selection].c_str());          
+            //ConnectToHotSpot();         
+
+
+            // selection = atoi(OG_data[2]);
+            // strcpy(hotspotSSID, SSID[selection].c_str());
+            // strcpy(hotspotSSID_Pass, SSID_PASS[selection].c_str());          
+            ConnectToHotSpot();         
+
+          break;
+          
+
+
+        }          
+        
+      break;
+
+      //default:
+      //break;
     }
     return true;
   }
   return false;
 }
+
+////////
+//WIFI//
+////////
+
+bool SetupAP(){  
+  
+  WiFi.mode(WIFI_AP_STA);
+  WiFi.softAP(ssid);
+  delay(100);
+  
+  if (WiFi.softAPConfig(antennaIP, gatewayIP, Subnet)){
+    digitalWrite(BUILTIN_LED, HIGH); // Turn the LED on (Note that LOW is the voltage level but actually the LED is on; this is because it is active low on the ESP-01)
+  }  
+
+  DEBUG.println(ssid);
+  DEBUG.println(WiFi.softAPIP()); 
+  
+  return true;
+}
+
+void ConnectToHotSpot() {  
+
+  //WiFi.setHostname(ssid);  
+  WiFi.begin(hotspotSSID, hotspotSSID_Pass);  
+  while (WiFi.status() != WL_CONNECTED) {
+    Serial.print('.');
+    delay(1000);
+  }
+  
+}
+int ScanForWifi(){
+  // WiFi.scanNetworks will return the number of networks found
+  int n = WiFi.scanNetworks();
+  
+  if (n != 0) {    
+    
+    for (int i = 0; i < n; ++i) {      
+      SSID[i] = WiFi.SSID(i);      
+      RSSI[i] = WiFi.RSSI(i);     
+    }
+    
+  }  
+  return n;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+bool SetupAP(){  
+  
+  WiFi.mode(WIFI_AP);
+  WiFi.softAP(ssid);
+  delay(100);
+  
+  if (WiFi.softAPConfig(antennaIP, gatewayIP, Subnet)){
+    digitalWrite(BUILTIN_LED, HIGH); // Turn the LED on (Note that LOW is the voltage level but actually the LED is on; this is because it is active low on the ESP-01)
+  }  
+
+  DEBUG.println(ssid);
+  DEBUG.println(WiFi.softAPIP()); 
+  
+  return true;
+}
+*/
+
+
 

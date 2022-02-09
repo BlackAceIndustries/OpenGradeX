@@ -706,5 +706,29 @@ namespace OpenGrade.Properties {
                 this["set_AutoDepth"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("V-.-.-")]
+        public string set_GcModVersion {
+            get {
+                return ((string)(this["set_GcModVersion"]));
+            }
+            set {
+                this["set_GcModVersion"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("V-.-.-")]
+        public string set_AntModVersion {
+            get {
+                return ((string)(this["set_AntModVersion"]));
+            }
+            set {
+                this["set_AntModVersion"] = value;
+            }
+        }
     }
 }

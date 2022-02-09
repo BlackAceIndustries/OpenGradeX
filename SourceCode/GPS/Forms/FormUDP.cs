@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Net;
 using System.Windows.Forms;
+using System.Reflection;
 using System.Windows;
 
 namespace OpenGrade
@@ -49,8 +50,28 @@ namespace OpenGrade
             tboxGradeControlIP.Text = Properties.Settings.Default.setIP_gradeControlIP;
             nudGradeControlPort.Value = Properties.Settings.Default.setIP_gradeControlPort;
 
-            lblAntennaVersion.Text = mf.mc.atFirmware;
-            lblGCVersion.Text = mf.mc.gcFirmware;
+            lblAntennaVersion.Text = Properties.Settings.Default.set_AntModVersion; 
+            lblGCVersion.Text = Properties.Settings.Default.set_GcModVersion;
+
+
+
+            //lblOGXVersion.Text = Assembly.GetEntryAssembly().GetName().Version;
+            lblProgramName.Text = Assembly.GetEntryAssembly().GetName().Name;
+            lblOGXVersion.Text = Assembly.GetEntryAssembly().GetName().Version.ToString();
+
+
+
+
+            //for (int i = 0; i <= 9; i++)
+            //{
+            //mf.SSID[i] = "Item" + i;
+            //}
+
+            //choiceWiFi.Items.AddRange(mf.SSID);
+            //choicePassword.Items.AddRange(mf.SSID_PASS);
+
+
+
         }
 
         public Boolean CheckIPValid(String strIP)
@@ -111,6 +132,40 @@ namespace OpenGrade
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnHotSpotConnect_Click(object sender, EventArgs e)
+        {
+            
+            //choiceWiFi.Items.Clear();
+            //choiceWiFi.Items.AddRange(mf.SSID);      
+            
+            
+            //mf.SendAntennaUDPMessage("10102," + 2 + choiceWiFi.SelectedIndex + choicePassword.SelectedText + "\n\r");
+            
+            //choicePassword.Items.Add(choicePassword.Text);
+            //choiceWiFi.Items.AddRange(mf.SSID);
+            //choicePassword.Items.AddRange(mf.SSID_PASS);
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            mf.SendAntennaUDPMessage("10102," + 1 + "\n\r");
+            
+            choiceWiFi.Items.Clear();
+            choiceWiFi.Items.AddRange(mf.SSID);
+
+            //choiceWiFi.Items.Add(mf.SSID[0]);
+            ;
+            
+            //choicePassword.Items.AddRange(mf.SSID_PASS);
+
+        }
+
+        private void choicePassword_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

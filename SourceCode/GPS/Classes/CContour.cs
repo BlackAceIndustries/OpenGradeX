@@ -581,64 +581,26 @@ namespace OpenGrade
             int ptCount = ptList.Count;
             double diff, y, shoreDist;
 
-            //if (mf.isAutoShoreOn)
-            //{
-            //    gl.LineWidth(2);
-            //    gl.Color(0.01f, 0.45f, 0.80f);
-            //    gl.Begin(OpenGL.GL_POLYGON);
-            //    for (int h = 0; h < ptCount; h++)
-            //    {
-            //        if (ptList[h].cutAltitude != -1)
-            //        {
-            //            diff = (ptList[h].cutAltitude * 100) - (ptList[h].altitude * 100);                        
-            //            shoreDist = (diff / Math.Tan(glm.toRadians(mf.vehicle.minShoreSlope)));
-            //            gl.Vertex(ptList[h].easting + (shoreDist / 100), ptList[h].northing, 0);
-            //        }
-
-
-            //    }
-
-            //    ///gl.End();
-            //    //gl.LineWidth(2);
-            //    //gl.Color(0.01f, 0.45f, 0.80f);
-            //    //gl.Begin(OpenGL.GL_LINE_STRIP);
-            //    for (int h = 0; h < ptCount; h++)
-            //    {
-            //        if (ptList[h].cutAltitude != -1)
-            //        {
-            //            diff = (ptList[h].cutAltitude * 100) - (ptList[h].altitude * 100);                        
-            //            shoreDist = (diff / Math.Tan(glm.toRadians(mf.vehicle.minShoreSlope)));
-            //            gl.Vertex(ptList[h].easting - (shoreDist / 100), ptList[h].northing, 0);
-
-            //        }
-            //    }
-
-            //    gl.End();
-            //}
-
-
-
+            
             if (mf.isAutoShoreOn)
             {
-                gl.LineWidth(2);
-                gl.Color(0.01f, 0.45f, 0.80f);
+                gl.LineWidth(4);
+                gl.Color(0.01f, 0.7f, 0.01f);
                 gl.Begin(OpenGL.GL_LINE_STRIP);
                 for (int h = 0; h < ptCount; h++)
                 {
                     if (ptList[h].cutAltitude != -1)
                     {
-                        diff = (ptList[h].cutAltitude * 100) - (ptList[h].altitude * 100);
-                        //if (diff > 50 || diff > -50) diff = 0;
+                        diff = (ptList[h].cutAltitude * 100) - (ptList[h].altitude * 100);                        
                         shoreDist = (diff / Math.Tan(glm.toRadians(mf.vehicle.minShoreSlope)));
                         gl.Vertex(ptList[h].easting + (shoreDist / 100), ptList[h].northing, 0);
                     }
 
 
                 }
-
                 gl.End();
-                gl.LineWidth(2);
-                gl.Color(0.01f, 0.45f, 0.80f);
+                gl.LineWidth(4);
+                gl.Color(0.01f, 0.7f, 0.01f);
                 gl.Begin(OpenGL.GL_LINE_STRIP);
                 for (int h = 0; h < ptCount; h++)
                 {
@@ -651,13 +613,10 @@ namespace OpenGrade
 
                     }
                 }
-
-
                 gl.End();
-
-
-
             }
+            
+            
         }
 
         //Reset the contour to zip
@@ -668,9 +627,6 @@ namespace OpenGrade
 
 
     }
-
-
-
 }
  //class
  //namespace

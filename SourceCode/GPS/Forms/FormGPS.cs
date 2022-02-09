@@ -828,7 +828,7 @@ namespace OpenGrade
             vehiclesDirectory = baseDirectory + "Vehicles\\";
             dir = Path.GetDirectoryName(vehiclesDirectory);
             if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir)) { Directory.CreateDirectory(dir); }
-
+            
             //make sure current field directory exists, null if not
             currentFieldDirectory = Settings.Default.setF_CurrentDir;
 
@@ -1064,6 +1064,16 @@ namespace OpenGrade
         private void button2_Click(object sender, EventArgs e)
         {
             //FullScreenElevation();
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblBladeOffset_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void resetAllToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -1496,7 +1506,7 @@ namespace OpenGrade
             lblFill.Text = "*";
             lblCutFillRatio.Text = "*";
             lblDrawSlope.Text = "*";
-            Text = "OpenGrade - Press Start To Begin";
+            Text = "OpenGradeX - Press Start To Begin";
 
 
             //change images to reflect on off
@@ -1540,7 +1550,7 @@ namespace OpenGrade
                         { form2.ShowDialog(); }
                     }
                 }
-                Text = "OpenGrade - " + currentFieldDirectory;
+                Text = "OpenGradeX - " + currentFieldDirectory;
 
             }
             else

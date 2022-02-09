@@ -9,7 +9,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>OpenGrade</RootNamespace>
-    <AssemblyName>OpenGrade</AssemblyName>
+    <AssemblyName>OpenGradeX</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -55,7 +55,7 @@
     </NoWarn>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Grade64Icon.ico</ApplicationIcon>
+    <ApplicationIcon>OGX2Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
@@ -242,6 +242,7 @@
     </Compile>
     <EmbeddedResource Include="Forms\FormCutDir.resx">
       <DependentUpon>FormCutDir.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormFieldDir.resx">
       <DependentUpon>FormFieldDir.cs</DependentUpon>
@@ -341,6 +342,8 @@
     <Content Include="AppIcon.ico" />
     <Content Include="AppIcon64.ico" />
     <Content Include="aChangeLog.txt" />
+    <Content Include="OGX2Icon.ico" />
+    <Content Include="OGXicon.ico" />
     <None Include="btnImages\GradeControlOn1.png" />
     <None Include="btnImages\GradeControlOff1.png" />
     <None Include="btnImages\surfaceBtn.png" />

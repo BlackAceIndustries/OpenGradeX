@@ -62,7 +62,7 @@ namespace OpenGrade
         public int ringCounter = 0;
         
         //IMU 
-        double rollCorrectionDistance = 0;
+        double rollCorrectionDistance = 0, rollCorrectionAltitude = 0;
         public double rollZero = 0, pitchZero = 0;
         public double gyroDelta, gyroCorrection, gyroRaw, gyroCorrected, turnDelta, turnDelta2;
 
@@ -139,17 +139,22 @@ namespace OpenGrade
             {
                 //calculate how far the antenna moves based on sidehill roll
                 double roll = Math.Sin(glm.toRadians(mc.rollIMU/16.0));
+                double roll2 = Math.Cos(glm.toRadians(mc.rollIMU / 16.0));
+
                 rollCorrectionDistance = Math.Abs(roll * vehicle.antennaHeight);
+                rollCorrectionAltitude = Math.Abs(roll * vehicle.antennaHeight);
 
                 // tilt to left is positive  **** important!!
                 if (roll > 0)
                 {
                     pn.easting = (Math.Cos(fixHeading) * rollCorrectionDistance) + pn.easting;
+                    pn.altitude = (Math.Tan(fixHeading) * rollCorrectionDistance) - pn.altitude;
                     pn.northing = (Math.Sin(fixHeading) * -rollCorrectionDistance) + pn.northing;
                 }
                 else
                 {
                     pn.easting = (Math.Cos(fixHeading) * -rollCorrectionDistance) + pn.easting;
+                    pn.altitude = (Math.Tan(fixHeading) * rollCorrectionDistance) - pn.altitude;
                     pn.northing = (Math.Sin(fixHeading) * rollCorrectionDistance) + pn.northing;
                 }
             }

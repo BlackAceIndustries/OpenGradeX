@@ -717,7 +717,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:OpenGradeX"
         "ProductCode" = "8:{07307908-953C-4AE7-BDF0-F1521992BD44}"
-        "PackageCode" = "8:{18BB642D-12C3-450B-96F4-FF4BE70FD4A1}"
+        "PackageCode" = "8:{9FDA579B-CA8D-4CA1-852F-F4E4460F1406}"
         "UpgradeCode" = "8:{E1B3A056-56F7-4594-B6F2-82DF14334C04}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
@@ -848,7 +848,7 @@
             "Target" = "8:_1B2202DCCC83418286E1630C10EAE729"
             "Folder" = "8:_88CFEEEDF92D47659FD831F519583F8C"
             "WorkingFolder" = "8:_86ED91299E5F48BFAADE9FAA016E1332"
-            "Icon" = "8:_3412864ECFF1422887E680435B8A893A"
+            "Icon" = "8:_2D286757F6AA4E1D98B64A54721F2314"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_821CE56489BA463C8FA542625258949C"

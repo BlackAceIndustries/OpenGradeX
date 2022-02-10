@@ -64,7 +64,7 @@ namespace OpenGrade
             valveSelectChoice.Text = Properties.Settings.Default.set_ValveName;
            
             toolWidth = Properties.Vehicle.Default.setVehicle_toolWidth;
-            minSlope = Properties.Vehicle.Default.setVehicle_minSlope * 100;
+            minSlope = Math.Abs(Properties.Vehicle.Default.setVehicle_minSlope * 100);
             minShoreSlope = Properties.Vehicle.Default.setVehicle_minShoreSlope;
 
 

@@ -45,62 +45,62 @@
             this.label18 = new System.Windows.Forms.Label();
             this.nudAntennaHeight = new System.Windows.Forms.NumericUpDown();
             this.tabDisplay = new System.Windows.Forms.TabPage();
-            this.valveSelectChoice = new System.Windows.Forms.ComboBox();
-            this.label9 = new System.Windows.Forms.Label();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.nudExtDeadband = new System.Windows.Forms.NumericUpDown();
-            this.label8 = new System.Windows.Forms.Label();
             this.nudRetDeadband = new System.Windows.Forms.NumericUpDown();
-            this.label7 = new System.Windows.Forms.Label();
+            this.valveSelectChoice = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.nudKd = new System.Windows.Forms.NumericUpDown();
-            this.label6 = new System.Windows.Forms.Label();
-            this.nudKi = new System.Windows.Forms.NumericUpDown();
-            this.label5 = new System.Windows.Forms.Label();
             this.nudKp = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
+            this.nudKi = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.nudMinShoreSlope = new System.Windows.Forms.NumericUpDown();
-            this.label10 = new System.Windows.Forms.Label();
-            this.nudMinSlope = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
-            this.lblMinDitchCut = new System.Windows.Forms.Label();
+            this.nudMinSlope = new System.Windows.Forms.NumericUpDown();
+            this.label10 = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.nudMaxDitchCut = new System.Windows.Forms.NumericUpDown();
+            this.lblMaxDitchCut = new System.Windows.Forms.Label();
             this.nudMinDitchCut = new System.Windows.Forms.NumericUpDown();
+            this.lblMinDitchCut = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lblMinTileCover = new System.Windows.Forms.Label();
             this.nudMinTileCover = new System.Windows.Forms.NumericUpDown();
             this.nudMaxTileCut = new System.Windows.Forms.NumericUpDown();
-            this.lblMaxDitchCut = new System.Windows.Forms.Label();
-            this.nudMaxDitchCut = new System.Windows.Forms.NumericUpDown();
             this.lblMaxTileCut = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.lblInchesCm = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.bntOK = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.tabOpenGrade.SuspendLayout();
             this.tabVehicle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudPlowHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudToolWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudAntennaHeight)).BeginInit();
             this.tabDisplay.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudExtDeadband)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudRetDeadband)).BeginInit();
+            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudKd)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudKi)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudKp)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudKi)).BeginInit();
             this.tabPage1.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinShoreSlope)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinSlope)).BeginInit();
+            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMaxDitchCut)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinDitchCut)).BeginInit();
+            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinTileCover)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMaxTileCut)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMaxDitchCut)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabOpenGrade
@@ -259,25 +259,18 @@
             resources.ApplyResources(this.tabDisplay, "tabDisplay");
             this.tabDisplay.Name = "tabDisplay";
             // 
-            // valveSelectChoice
+            // groupBox5
             // 
-            this.valveSelectChoice.BackColor = System.Drawing.SystemColors.InfoText;
-            resources.ApplyResources(this.valveSelectChoice, "valveSelectChoice");
-            this.valveSelectChoice.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.valveSelectChoice.FormattingEnabled = true;
-            this.valveSelectChoice.Items.AddRange(new object[] {
-            resources.GetString("valveSelectChoice.Items"),
-            resources.GetString("valveSelectChoice.Items1"),
-            resources.GetString("valveSelectChoice.Items2")});
-            this.valveSelectChoice.Name = "valveSelectChoice";
-            this.valveSelectChoice.SelectedIndexChanged += new System.EventHandler(this.valveSelectChoice_SelectedIndexChanged);
-            // 
-            // label9
-            // 
-            resources.ApplyResources(this.label9, "label9");
-            this.label9.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label9.Name = "label9";
-            this.label9.Click += new System.EventHandler(this.label9_Click);
+            this.groupBox5.Controls.Add(this.nudExtDeadband);
+            this.groupBox5.Controls.Add(this.nudRetDeadband);
+            this.groupBox5.Controls.Add(this.valveSelectChoice);
+            this.groupBox5.Controls.Add(this.label8);
+            this.groupBox5.Controls.Add(this.label9);
+            resources.ApplyResources(this.groupBox5, "groupBox5");
+            this.groupBox5.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Enter += new System.EventHandler(this.groupBox5_Enter);
             // 
             // nudExtDeadband
             // 
@@ -297,13 +290,6 @@
             0});
             this.nudExtDeadband.ValueChanged += new System.EventHandler(this.numericUpDown2_ValueChanged);
             // 
-            // label8
-            // 
-            resources.ApplyResources(this.label8, "label8");
-            this.label8.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label8.Name = "label8";
-            this.label8.Click += new System.EventHandler(this.label8_Click);
-            // 
             // nudRetDeadband
             // 
             this.nudRetDeadband.BackColor = System.Drawing.SystemColors.MenuText;
@@ -322,11 +308,46 @@
             0});
             this.nudRetDeadband.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
-            // label7
+            // valveSelectChoice
             // 
-            resources.ApplyResources(this.label7, "label7");
-            this.label7.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label7.Name = "label7";
+            this.valveSelectChoice.BackColor = System.Drawing.SystemColors.InfoText;
+            resources.ApplyResources(this.valveSelectChoice, "valveSelectChoice");
+            this.valveSelectChoice.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.valveSelectChoice.FormattingEnabled = true;
+            this.valveSelectChoice.Items.AddRange(new object[] {
+            resources.GetString("valveSelectChoice.Items"),
+            resources.GetString("valveSelectChoice.Items1"),
+            resources.GetString("valveSelectChoice.Items2")});
+            this.valveSelectChoice.Name = "valveSelectChoice";
+            this.valveSelectChoice.SelectedIndexChanged += new System.EventHandler(this.valveSelectChoice_SelectedIndexChanged);
+            // 
+            // label8
+            // 
+            resources.ApplyResources(this.label8, "label8");
+            this.label8.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label8.Name = "label8";
+            this.label8.Click += new System.EventHandler(this.label8_Click);
+            // 
+            // label9
+            // 
+            resources.ApplyResources(this.label9, "label9");
+            this.label9.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label9.Name = "label9";
+            this.label9.Click += new System.EventHandler(this.label9_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.nudKd);
+            this.groupBox1.Controls.Add(this.nudKp);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.nudKi);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.label7);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // nudKd
             // 
@@ -346,11 +367,29 @@
             0});
             this.nudKd.ValueChanged += new System.EventHandler(this.nudKd_ValueChanged_1);
             // 
-            // label6
+            // nudKp
             // 
-            resources.ApplyResources(this.label6, "label6");
-            this.label6.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label6.Name = "label6";
+            this.nudKp.BackColor = System.Drawing.SystemColors.MenuText;
+            resources.ApplyResources(this.nudKp, "nudKp");
+            this.nudKp.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.nudKp.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.nudKp.Name = "nudKp";
+            this.nudKp.Value = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            this.nudKp.ValueChanged += new System.EventHandler(this.nudKp_ValueChanged_1);
+            // 
+            // label5
+            // 
+            resources.ApplyResources(this.label5, "label5");
+            this.label5.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label5.Name = "label5";
             // 
             // nudKi
             // 
@@ -370,29 +409,17 @@
             0});
             this.nudKi.ValueChanged += new System.EventHandler(this.nudKi_ValueChanged_1);
             // 
-            // label5
+            // label6
             // 
-            resources.ApplyResources(this.label5, "label5");
-            this.label5.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label5.Name = "label5";
+            resources.ApplyResources(this.label6, "label6");
+            this.label6.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label6.Name = "label6";
             // 
-            // nudKp
+            // label7
             // 
-            this.nudKp.BackColor = System.Drawing.SystemColors.MenuText;
-            resources.ApplyResources(this.nudKp, "nudKp");
-            this.nudKp.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.nudKp.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.nudKp.Name = "nudKp";
-            this.nudKp.Value = new decimal(new int[] {
-            8,
-            0,
-            0,
-            0});
-            this.nudKp.ValueChanged += new System.EventHandler(this.nudKp_ValueChanged_1);
+            resources.ApplyResources(this.label7, "label7");
+            this.label7.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label7.Name = "label7";
             // 
             // tabPage1
             // 
@@ -402,6 +429,17 @@
             this.tabPage1.Controls.Add(this.groupBox2);
             resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Name = "tabPage1";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.nudMinShoreSlope);
+            this.groupBox4.Controls.Add(this.label1);
+            this.groupBox4.Controls.Add(this.nudMinSlope);
+            this.groupBox4.Controls.Add(this.label10);
+            resources.ApplyResources(this.groupBox4, "groupBox4");
+            this.groupBox4.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.TabStop = false;
             // 
             // nudMinShoreSlope
             // 
@@ -426,11 +464,11 @@
             0,
             0});
             // 
-            // label10
+            // label1
             // 
-            resources.ApplyResources(this.label10, "label10");
-            this.label10.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label10.Name = "label10";
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label1.Name = "label1";
             // 
             // nudMinSlope
             // 
@@ -450,23 +488,51 @@
             0});
             this.nudMinSlope.Name = "nudMinSlope";
             this.nudMinSlope.Value = new decimal(new int[] {
-            2,
+            1,
             0,
             0,
             131072});
             // 
-            // label1
+            // label10
             // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label1.Name = "label1";
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label10.Name = "label10";
             // 
-            // lblMinDitchCut
+            // groupBox3
             // 
-            resources.ApplyResources(this.lblMinDitchCut, "lblMinDitchCut");
-            this.lblMinDitchCut.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblMinDitchCut.Name = "lblMinDitchCut";
-            this.lblMinDitchCut.Click += new System.EventHandler(this.label10_Click);
+            this.groupBox3.Controls.Add(this.nudMaxDitchCut);
+            this.groupBox3.Controls.Add(this.lblMaxDitchCut);
+            this.groupBox3.Controls.Add(this.nudMinDitchCut);
+            this.groupBox3.Controls.Add(this.lblMinDitchCut);
+            resources.ApplyResources(this.groupBox3, "groupBox3");
+            this.groupBox3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.TabStop = false;
+            // 
+            // nudMaxDitchCut
+            // 
+            this.nudMaxDitchCut.BackColor = System.Drawing.SystemColors.MenuText;
+            resources.ApplyResources(this.nudMaxDitchCut, "nudMaxDitchCut");
+            this.nudMaxDitchCut.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.nudMaxDitchCut.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.nudMaxDitchCut.Name = "nudMaxDitchCut";
+            this.nudMaxDitchCut.Value = new decimal(new int[] {
+            7,
+            0,
+            0,
+            0});
+            this.nudMaxDitchCut.ValueChanged += new System.EventHandler(this.nudMaxDitchCut_ValueChanged_1);
+            // 
+            // lblMaxDitchCut
+            // 
+            resources.ApplyResources(this.lblMaxDitchCut, "lblMaxDitchCut");
+            this.lblMaxDitchCut.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.lblMaxDitchCut.Name = "lblMaxDitchCut";
             // 
             // nudMinDitchCut
             // 
@@ -484,6 +550,24 @@
             0,
             0,
             0});
+            // 
+            // lblMinDitchCut
+            // 
+            resources.ApplyResources(this.lblMinDitchCut, "lblMinDitchCut");
+            this.lblMinDitchCut.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.lblMinDitchCut.Name = "lblMinDitchCut";
+            this.lblMinDitchCut.Click += new System.EventHandler(this.label10_Click);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.lblMinTileCover);
+            this.groupBox2.Controls.Add(this.nudMinTileCover);
+            this.groupBox2.Controls.Add(this.nudMaxTileCut);
+            this.groupBox2.Controls.Add(this.lblMaxTileCut);
+            resources.ApplyResources(this.groupBox2, "groupBox2");
+            this.groupBox2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.TabStop = false;
             // 
             // lblMinTileCover
             // 
@@ -525,30 +609,6 @@
             0,
             0});
             // 
-            // lblMaxDitchCut
-            // 
-            resources.ApplyResources(this.lblMaxDitchCut, "lblMaxDitchCut");
-            this.lblMaxDitchCut.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblMaxDitchCut.Name = "lblMaxDitchCut";
-            // 
-            // nudMaxDitchCut
-            // 
-            this.nudMaxDitchCut.BackColor = System.Drawing.SystemColors.MenuText;
-            resources.ApplyResources(this.nudMaxDitchCut, "nudMaxDitchCut");
-            this.nudMaxDitchCut.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.nudMaxDitchCut.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-            this.nudMaxDitchCut.Name = "nudMaxDitchCut";
-            this.nudMaxDitchCut.Value = new decimal(new int[] {
-            7,
-            0,
-            0,
-            0});
-            this.nudMaxDitchCut.ValueChanged += new System.EventHandler(this.nudMaxDitchCut_ValueChanged_1);
-            // 
             // lblMaxTileCut
             // 
             resources.ApplyResources(this.lblMaxTileCut, "lblMaxTileCut");
@@ -587,66 +647,6 @@
             this.bntOK.UseVisualStyleBackColor = false;
             this.bntOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.nudKd);
-            this.groupBox1.Controls.Add(this.nudKp);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.nudKi);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.label7);
-            resources.ApplyResources(this.groupBox1, "groupBox1");
-            this.groupBox1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.lblMinTileCover);
-            this.groupBox2.Controls.Add(this.nudMinTileCover);
-            this.groupBox2.Controls.Add(this.nudMaxTileCut);
-            this.groupBox2.Controls.Add(this.lblMaxTileCut);
-            resources.ApplyResources(this.groupBox2, "groupBox2");
-            this.groupBox2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.TabStop = false;
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.nudMaxDitchCut);
-            this.groupBox3.Controls.Add(this.lblMaxDitchCut);
-            this.groupBox3.Controls.Add(this.nudMinDitchCut);
-            this.groupBox3.Controls.Add(this.lblMinDitchCut);
-            resources.ApplyResources(this.groupBox3, "groupBox3");
-            this.groupBox3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.TabStop = false;
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.nudMinShoreSlope);
-            this.groupBox4.Controls.Add(this.label1);
-            this.groupBox4.Controls.Add(this.nudMinSlope);
-            this.groupBox4.Controls.Add(this.label10);
-            resources.ApplyResources(this.groupBox4, "groupBox4");
-            this.groupBox4.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.TabStop = false;
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.nudExtDeadband);
-            this.groupBox5.Controls.Add(this.nudRetDeadband);
-            this.groupBox5.Controls.Add(this.valveSelectChoice);
-            this.groupBox5.Controls.Add(this.label8);
-            this.groupBox5.Controls.Add(this.label9);
-            resources.ApplyResources(this.groupBox5, "groupBox5");
-            this.groupBox5.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Enter += new System.EventHandler(this.groupBox5_Enter);
-            // 
             // FormSettings
             // 
             resources.ApplyResources(this, "$this");
@@ -670,28 +670,28 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudToolWidth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudAntennaHeight)).EndInit();
             this.tabDisplay.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.nudExtDeadband)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudRetDeadband)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudKd)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudKi)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudKp)).EndInit();
-            this.tabPage1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.nudMinShoreSlope)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMinSlope)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMinDitchCut)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMinTileCover)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMaxTileCut)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMaxDitchCut)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudExtDeadband)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudRetDeadband)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudKd)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudKp)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudKi)).EndInit();
+            this.tabPage1.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMinShoreSlope)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMinSlope)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMaxDitchCut)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMinDitchCut)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMinTileCover)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMaxTileCut)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

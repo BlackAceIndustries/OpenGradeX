@@ -1558,7 +1558,7 @@
             this.lblCurrentCutDepth.Name = "lblCurrentCutDepth";
             this.lblCurrentCutDepth.Size = new System.Drawing.Size(176, 72);
             this.lblCurrentCutDepth.TabIndex = 238;
-            this.lblCurrentCutDepth.Text = "93";
+            this.lblCurrentCutDepth.Text = "--";
             this.lblCurrentCutDepth.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblDistToTarget
@@ -1571,7 +1571,7 @@
             this.lblDistToTarget.Name = "lblDistToTarget";
             this.lblDistToTarget.Size = new System.Drawing.Size(177, 72);
             this.lblDistToTarget.TabIndex = 237;
-            this.lblDistToTarget.Text = "93";
+            this.lblDistToTarget.Text = "--";
             this.lblDistToTarget.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnSaveCut

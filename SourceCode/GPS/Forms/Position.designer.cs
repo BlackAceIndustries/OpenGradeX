@@ -139,23 +139,23 @@ namespace OpenGrade
             {
                 //calculate how far the antenna moves based on sidehill roll
                 double roll = Math.Sin(glm.toRadians(mc.rollIMU/16.0));
-                double roll2 = Math.Cos(glm.toRadians(mc.rollIMU / 16.0));
+                double roll2 = Math.Cos(glm.toRadians(mc.rollIMU/16.0));
 
                 rollCorrectionDistance = Math.Abs(roll * vehicle.antennaHeight);
-                rollCorrectionAltitude = Math.Abs(roll * vehicle.antennaHeight);
+                rollCorrectionAltitude = Math.Abs(vehicle.antennaHeight / roll);
 
                 // tilt to left is positive  **** important!!
                 if (roll > 0)
                 {
-                    pn.easting = (Math.Cos(fixHeading) * rollCorrectionDistance) + pn.easting;
-                    pn.altitude = (Math.Tan(fixHeading) * rollCorrectionDistance) - pn.altitude;
-                    pn.northing = (Math.Sin(fixHeading) * -rollCorrectionDistance) + pn.northing;
+                    pn.easting += (Math.Cos(fixHeading) * rollCorrectionDistance);
+                    pn.altitude -= (Math.Tan(fixHeading) * rollCorrectionDistance);
+                    pn.northing += (Math.Sin(fixHeading) * -rollCorrectionDistance);
                 }
                 else
                 {
-                    pn.easting = (Math.Cos(fixHeading) * -rollCorrectionDistance) + pn.easting;
-                    pn.altitude = (Math.Tan(fixHeading) * rollCorrectionDistance) - pn.altitude;
-                    pn.northing = (Math.Sin(fixHeading) * rollCorrectionDistance) + pn.northing;
+                    pn.easting += (Math.Cos(fixHeading) * -rollCorrectionDistance);
+                    pn.altitude -= (Math.Tan(fixHeading) * rollCorrectionDistance);
+                    pn.northing += (Math.Sin(fixHeading) * rollCorrectionDistance);
                 }
             }
 

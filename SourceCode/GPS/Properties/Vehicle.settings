@@ -24,7 +24,7 @@
       <Value Profile="(Default)">4</Value>
     </Setting>
     <Setting Name="setVehicle_minSlope" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">0.2</Value>
+      <Value Profile="(Default)">0.01</Value>
     </Setting>
     <Setting Name="setVehicle_plowHeight" Type="System.Double" Scope="User">
       <Value Profile="(Default)">0.5</Value>

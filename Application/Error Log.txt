@@ -30077,3 +30077,345 @@ Object name: 'FormGPS'.
    at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
    at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210 - 2/8/2022 9:38:16 PM
 
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 9:06:01 AM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 9:06:01 AM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 9:06:02 AM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 9:06:02 AM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 9:06:02 AM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 9:06:02 AM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 9:06:02 AM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 9:06:03 AM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 9:06:03 AM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 9:06:03 AM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 9:06:03 AM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 9:06:03 AM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 9:06:04 AM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 9:06:04 AM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 9:06:04 AM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 9:06:04 AM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 9:06:04 AM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 9:06:04 AM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 9:06:05 AM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 9:06:05 AM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 9:06:05 AM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 9:06:05 AM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 9:06:05 AM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 9:06:06 AM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 9:06:06 AM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 9:06:06 AM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 9:06:06 AM
+
+UDP Recv data System.ObjectDisposedException: Cannot access a disposed object.
+Object name: 'FormGPS'.
+   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210 - 2/9/2022 9:07:43 AM
+
+UDP Recv data System.ObjectDisposedException: Cannot access a disposed object.
+Object name: 'FormGPS'.
+   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210 - 2/9/2022 9:07:43 AM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 6:33:42 PM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 6:33:42 PM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 6:33:43 PM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 6:33:43 PM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 6:33:43 PM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 6:33:43 PM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 6:33:43 PM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 6:33:43 PM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 6:33:44 PM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 6:33:44 PM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 6:33:44 PM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 6:33:44 PM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 6:33:44 PM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 6:33:45 PM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 6:33:45 PM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 6:33:45 PM
+
+UDP Recv data System.ObjectDisposedException: Cannot access a disposed object.
+Object name: 'FormGPS'.
+   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210 - 2/9/2022 6:36:13 PM
+
+UDP Recv data System.ObjectDisposedException: Cannot access a disposed object.
+Object name: 'FormGPS'.
+   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210 - 2/9/2022 6:36:13 PM
+
+UDP Recv data System.ObjectDisposedException: Cannot access a disposed object.
+Object name: 'FormGPS'.
+   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210 - 2/9/2022 6:56:37 PM
+
+UDP Recv data System.ObjectDisposedException: Cannot access a disposed object.
+Object name: 'FormGPS'.
+   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210 - 2/9/2022 6:56:37 PM
+
+UDP Recv data System.ObjectDisposedException: Cannot access a disposed object.
+Object name: 'FormGPS'.
+   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210 - 2/9/2022 6:56:37 PM
+
+UDP Recv data System.ObjectDisposedException: Cannot access a disposed object.
+Object name: 'FormGPS'.
+   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210 - 2/9/2022 7:03:11 PM
+
+UDP Recv data System.ObjectDisposedException: Cannot access a disposed object.
+Object name: 'FormGPS'.
+   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210 - 2/9/2022 7:05:21 PM
+
+UDP Recv data System.ObjectDisposedException: Cannot access a disposed object.
+Object name: 'FormGPS'.
+   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210 - 2/9/2022 7:13:20 PM
+
+UDP Recv data System.ObjectDisposedException: Cannot access a disposed object.
+Object name: 'FormGPS'.
+   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210 - 2/9/2022 7:13:20 PM
+
+UDP Recv data System.ObjectDisposedException: Cannot access a disposed object.
+Object name: 'FormGPS'.
+   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210 - 2/9/2022 7:13:20 PM
+
+UDP Recv data System.InvalidOperationException: Invoke or BeginInvoke cannot be called on a control until the window handle has been created.
+   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210 - 2/9/2022 7:13:20 PM
+
+UDP Recv data System.ObjectDisposedException: Cannot access a disposed object.
+Object name: 'FormGPS'.
+   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210 - 2/9/2022 7:16:57 PM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 8:44:39 PM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 8:44:39 PM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 8:44:39 PM
+
+ UDP Send DataSystem.Net.Sockets.SocketException (0x80004005): A socket operation was attempted to an unreachable host
+   at System.Net.Sockets.Socket.EndSend(IAsyncResult asyncResult)
+   at OpenGrade.FormGPS.SendData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 181 - 2/9/2022 8:44:39 PM
+
+UDP Recv data System.ObjectDisposedException: Cannot access a disposed object.
+Object name: 'FormGPS'.
+   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210 - 2/9/2022 8:45:00 PM
+
+UDP Recv data System.ObjectDisposedException: Cannot access a disposed object.
+Object name: 'FormGPS'.
+   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210 - 2/9/2022 8:45:00 PM
+
+UDP Recv data System.ObjectDisposedException: Cannot access a disposed object.
+Object name: 'FormGPS'.
+   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210 - 2/9/2022 8:45:00 PM
+
+UDP Recv data System.ObjectDisposedException: Cannot access a disposed object.
+Object name: 'FormGPS'.
+   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210 - 2/9/2022 8:45:38 PM
+
+UDP Recv data System.ObjectDisposedException: Cannot access a disposed object.
+Object name: 'FormGPS'.
+   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210 - 2/9/2022 8:45:38 PM
+

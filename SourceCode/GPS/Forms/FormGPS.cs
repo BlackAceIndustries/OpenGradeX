@@ -910,10 +910,10 @@ namespace OpenGrade
         private void lblCutDelta_Click(object sender, EventArgs e)
         {
             int cnnt = ct.ptList.Count;
-            if (cnnt > 0)
-            {
-                for (int i = 0; i < cnnt; i++) ct.ptList[i].lastPassAltitude = -1;
-            }
+            //if (cnnt > 0)
+            //{
+            //    for (int i = 0; i < cnnt; i++) ct.ptList[i].lastPassAltitude = -1;
+            //}
             if (cnnt > 0)
             {
                 for (int i = 0; i < cnnt; i++) ct.ptList[i].currentPassAltitude = -1;
@@ -1132,7 +1132,9 @@ namespace OpenGrade
                 isPipeModeOn = false;
                 btnSurface.Image = Properties.Resources.ditchBtn;
                 btnAutoShore.Visible = false;
+                btnAutoCut.Visible = false;
                 isAutoShoreOn = false;
+                isAutoCutOn = false;
                 //GradeControlOutToPort("Ditch Mode Active \n");
             }
             else if (isDitchModeOn)
@@ -1155,6 +1157,7 @@ namespace OpenGrade
                 isPipeModeOn = false;
                 btnSurface.Image = Properties.Resources.surfaceBtn;
                 btnAutoShore.Visible = true;
+                btnAutoCut.Visible = true;
                 //GradeControlOutToPort("Surface Mode Active \n");
             }
             //CheckMaxCut();

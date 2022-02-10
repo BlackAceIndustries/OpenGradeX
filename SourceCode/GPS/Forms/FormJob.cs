@@ -105,7 +105,9 @@ namespace OpenGrade
         private void btnCutOpen_Click(object sender, EventArgs e)
         {
             mf.FileLoadCut("Open");
-            
+            //back to FormGPS
+            DialogResult = DialogResult.OK;
+
         }
 
         private void button1_Click(object sender, EventArgs e)

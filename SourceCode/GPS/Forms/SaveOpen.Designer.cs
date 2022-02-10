@@ -669,12 +669,11 @@ namespace OpenGrade
             if (_openType == "Resume")
             {
                 //Either exit or update running save
-                fileAndDirectory = fieldsDirectory + currentFieldDirectory + "\\CutPaths\\Cut_0.txt";
+                fileAndDirectory = fieldsDirectory + currentFieldDirectory + "\\CurrentCut.txt";
                 if (!File.Exists(fileAndDirectory)) return;
-            }
-
+            }            
             //open file dialog instead
-            else
+            else 
             {
                 //create the dialog instance
                 OpenFileDialog ofd = new OpenFileDialog();
@@ -686,15 +685,14 @@ namespace OpenGrade
                 ofd.RestoreDirectory = true;
 
                 //set the filter to text files only
-                //ofd.Filter = "Cut files (.txt)|.txt";
+                //ofd.Filter = "(.txt)|.txt";
 
                 //was a file selected
-                if (ofd.ShowDialog() == DialogResult.Cancel) return;
+                if (ofd.ShowDialog() == DialogResult.Cancel) return;                
                 else fileAndDirectory = ofd.FileName;
+               
             }
-
             
-
             //Saturday, February 11, 2017  -->  7:26:52 AM
             //$FieldDir
             //Bob_Feb11
@@ -706,8 +704,8 @@ namespace OpenGrade
 
             //start to read the file
             string line;
-            
 
+            
             // Cut points ----------------------------------------------------------------------------
 
             //fileAndDirectory = fieldsDirectory + currentFieldDirectory + "\\CurrentCut.txt";
@@ -718,8 +716,10 @@ namespace OpenGrade
                 //return;
             }   
             else
-            {
+            {                
                 ct.ptList.Clear();
+                //ct.cutList.Clear();
+
                 using (StreamReader reader = new StreamReader(fileAndDirectory))
                 {
                     try
@@ -756,7 +756,21 @@ namespace OpenGrade
                                     double.Parse(words[8], CultureInfo.InvariantCulture),
                                     double.Parse(words[9], CultureInfo.InvariantCulture));
 
+                                //CCutPt point2 = new CCutPt(
+                                //    double.Parse(words[0], CultureInfo.InvariantCulture),
+                                //    double.Parse(words[1], CultureInfo.InvariantCulture),
+                                //    double.Parse(words[2], CultureInfo.InvariantCulture),
+                                //    double.Parse(words[3], CultureInfo.InvariantCulture),
+                                //    double.Parse(words[4], CultureInfo.InvariantCulture),
+                                //    double.Parse(words[5], CultureInfo.InvariantCulture),
+                                //    double.Parse(words[6], CultureInfo.InvariantCulture),
+                                //    double.Parse(words[7], CultureInfo.InvariantCulture),
+                                //    double.Parse(words[8], CultureInfo.InvariantCulture),
+                                //    double.Parse(words[9], CultureInfo.InvariantCulture));
+
+                                
                                 ct.ptList.Add(point);
+                                //ct.cutList.Add(point2);
                             }
                         }
                     }
@@ -771,6 +785,13 @@ namespace OpenGrade
                     //calc mins maxes
                     CalculateMinMaxZoom();
                     CalculateTotalCutFillLabels();
+
+                    //var form3 = new FormTimedMessage(8000, fileAndDirectory.ToString(), "This file");
+                    //form3.Size = new Size(1500,200);
+                    //form3.Show();
+
+
+
                 }
             }
 
@@ -962,8 +983,8 @@ namespace OpenGrade
                             Math.Round(ct.ptList[i].latitude, 7).ToString(CultureInfo.InvariantCulture) + "," +
                             Math.Round(ct.ptList[i].longitude, 7).ToString(CultureInfo.InvariantCulture) + "," +
                             Math.Round(ct.ptList[i].cutAltitude, 7).ToString(CultureInfo.InvariantCulture) + "," +
-                            Math.Round(ct.ptList[i].lastPassAltitude, 3).ToString(CultureInfo.InvariantCulture) + "," +
                             Math.Round(ct.ptList[i].currentPassAltitude, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                            Math.Round(ct.ptList[i].lastPassAltitude, 3).ToString(CultureInfo.InvariantCulture) + "," +                          
                             Math.Round(ct.ptList[i].distance, 3).ToString(CultureInfo.InvariantCulture));
                     }
                 }
@@ -1005,8 +1026,8 @@ namespace OpenGrade
                             Math.Round(ct.ptList[i].latitude, 7).ToString(CultureInfo.InvariantCulture) + "," +
                             Math.Round(ct.ptList[i].longitude, 7).ToString(CultureInfo.InvariantCulture) + "," +
                             Math.Round(ct.ptList[i].cutAltitude, 7).ToString(CultureInfo.InvariantCulture) + "," +
-                            Math.Round(ct.ptList[i].lastPassAltitude, 3).ToString(CultureInfo.InvariantCulture) + "," +
                             Math.Round(ct.ptList[i].currentPassAltitude, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                            Math.Round(ct.ptList[i].lastPassAltitude, 3).ToString(CultureInfo.InvariantCulture) + "," +                           
                             Math.Round(ct.ptList[i].distance, 3).ToString(CultureInfo.InvariantCulture));
                     }
                 }
@@ -1124,8 +1145,8 @@ namespace OpenGrade
                             Math.Round(ct.cutList[i].latitude, 7).ToString(CultureInfo.InvariantCulture) + "," +
                             Math.Round(ct.cutList[i].longitude, 7).ToString(CultureInfo.InvariantCulture) + "," +
                             Math.Round(ct.cutList[i].cutAltitude, 7).ToString(CultureInfo.InvariantCulture) + "," +
-                            Math.Round(ct.cutList[i].lastPassAltitude, 3).ToString(CultureInfo.InvariantCulture) + "," +
                             Math.Round(ct.cutList[i].currentPassAltitude, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                            Math.Round(ct.cutList[i].lastPassAltitude, 3).ToString(CultureInfo.InvariantCulture) + "," +                            
                             Math.Round(ct.cutList[i].distance, 3).ToString(CultureInfo.InvariantCulture));
                     }
                     
@@ -1168,8 +1189,8 @@ namespace OpenGrade
                             Math.Round(ct.cutList[i].latitude, 7).ToString(CultureInfo.InvariantCulture) + "," +
                             Math.Round(ct.cutList[i].longitude, 7).ToString(CultureInfo.InvariantCulture) + "," +
                             Math.Round(ct.cutList[i].cutAltitude, 7).ToString(CultureInfo.InvariantCulture) + "," +
-                            Math.Round(ct.cutList[i].lastPassAltitude, 3).ToString(CultureInfo.InvariantCulture) + "," +
                             Math.Round(ct.cutList[i].currentPassAltitude, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                            Math.Round(ct.cutList[i].lastPassAltitude, 3).ToString(CultureInfo.InvariantCulture) + "," +                            
                             Math.Round(ct.cutList[i].distance, 3).ToString(CultureInfo.InvariantCulture));
                     }
                 }

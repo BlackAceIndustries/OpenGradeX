@@ -1178,14 +1178,18 @@ namespace OpenGrade
                 //
 
                 //Check distFromLastPass and Set DRO's
-                if (distFromLastPass == 9999)
+                if (distFromLastPass == 9999 || distFromLastPass > 4000)//
                 {
                     lblCurrentCutDepth.Text = "--";
-                    lblCurrentCutDepth.BackColor = Color.Black;                   
+                    lblCurrentCutDepth.BackColor = Color.Black;
+                    isAutoCutOn = false;
+                    btnAutoCut.Enabled = false;
 
                 }
                 else
                 {
+                    btnAutoCut.Enabled = true;
+
                     if (isMetric)  //metric or imperial
                     {
                         lblCurrentCutDepth.Text = distFromLastPass.ToString("N1");                        
@@ -1240,7 +1244,7 @@ namespace OpenGrade
                     if (cutDelta > 0)
                     {
                         // Black Ace Industries
-                        lblCurrentCutDepth.Text = distFromLastPass.ToString("N1");
+                        lblCutDelta.Text = distFromLastPass.ToString("N1");
 
                     }
                     else

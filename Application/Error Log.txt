@@ -30419,3 +30419,23 @@ Object name: 'FormGPS'.
    at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210
    at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210 - 2/9/2022 8:45:38 PM
 
+UDP Recv data System.ObjectDisposedException: Cannot access a disposed object.
+Object name: 'FormGPS'.
+   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210 - 2/14/2022 10:56:04 AM
+
+UDP Recv data System.ObjectDisposedException: Cannot access a disposed object.
+Object name: 'FormGPS'.
+   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210
+   at OpenGrade.FormGPS.ReceiveData(IAsyncResult asyncResult) in C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\Forms\UDPComm.Designer.cs:line 210 - 2/14/2022 10:56:04 AM
+

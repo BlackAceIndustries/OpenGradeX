@@ -76,3 +76,4 @@ C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\Application
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\Application\OpenGradeX.pdb
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGradeX.exe
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGradeX.pdb
+C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.csproj.AssemblyReference.cache

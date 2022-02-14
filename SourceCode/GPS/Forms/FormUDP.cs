@@ -169,5 +169,15 @@ namespace OpenGrade
         {
 
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblProgramName_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

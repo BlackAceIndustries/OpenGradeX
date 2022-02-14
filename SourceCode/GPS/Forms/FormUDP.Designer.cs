@@ -204,9 +204,9 @@
             this.label7.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.label7.Location = new System.Drawing.Point(5, 8);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(565, 23);
+            this.label7.Size = new System.Drawing.Size(576, 23);
             this.label7.TabIndex = 70;
-            this.label7.Text = "** You must RESTART OpenGrade for any changes to take effect!\r\n";
+            this.label7.Text = "** You must RESTART OpenGradeX for any changes to take effect!\r\n";
             // 
             // btnSerialCancel
             // 
@@ -256,9 +256,9 @@
             this.label4.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.label4.Location = new System.Drawing.Point(8, 38);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(121, 23);
+            this.label4.Size = new System.Drawing.Size(147, 23);
             this.label4.TabIndex = 83;
-            this.label4.Text = "Antenna/IMU";
+            this.label4.Text = "Antenna Module";
             // 
             // label5
             // 
@@ -336,9 +336,9 @@
             this.label11.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.label11.Location = new System.Drawing.Point(8, 201);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(126, 23);
+            this.label11.Size = new System.Drawing.Size(193, 23);
             this.label11.TabIndex = 89;
-            this.label11.Text = "Grade Control";
+            this.label11.Text = "Grade Control Module";
             // 
             // label12
             // 
@@ -447,8 +447,9 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(163, 16);
             this.textBox1.TabIndex = 93;
-            this.textBox1.Text = "GradeControl ";
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBox1.Text = "GradeControl";
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // textBox2
             // 
@@ -460,7 +461,7 @@
             this.textBox2.Size = new System.Drawing.Size(163, 16);
             this.textBox2.TabIndex = 94;
             this.textBox2.Text = "Antenna";
-            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // lblGCVersion
@@ -569,12 +570,13 @@
             // lblProgramName
             // 
             this.lblProgramName.ForeColor = System.Drawing.Color.Yellow;
-            this.lblProgramName.Location = new System.Drawing.Point(2, 17);
+            this.lblProgramName.Location = new System.Drawing.Point(2, 18);
             this.lblProgramName.Name = "lblProgramName";
             this.lblProgramName.Size = new System.Drawing.Size(163, 20);
             this.lblProgramName.TabIndex = 1;
-            this.lblProgramName.Text = "OpenGradeX";
-            this.lblProgramName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblProgramName.Text = "OpenGradeX\r\n\r\n";
+            this.lblProgramName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblProgramName.Click += new System.EventHandler(this.lblProgramName_Click);
             // 
             // lblOGXVersion
             // 
@@ -608,7 +610,7 @@
             this.MinimizeBox = false;
             this.Name = "FormUDP";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "UDP Configuration";
+            this.Text = "Connect Configuration";
             this.Load += new System.EventHandler(this.FormUDp_Load);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();

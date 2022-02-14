@@ -895,7 +895,7 @@
             this.stripEqWidth.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.stripEqWidth.Margin = new System.Windows.Forms.Padding(0);
             this.stripEqWidth.Name = "stripEqWidth";
-            this.stripEqWidth.Size = new System.Drawing.Size(340, 41);
+            this.stripEqWidth.Size = new System.Drawing.Size(309, 41);
             this.stripEqWidth.Spring = true;
             this.stripEqWidth.Text = "Width";
             this.stripEqWidth.Click += new System.EventHandler(this.stripEqWidth_Click);
@@ -925,8 +925,8 @@
             this.toolstripUDPConfig.Image = ((System.Drawing.Image)(resources.GetObject("toolstripUDPConfig.Image")));
             this.toolstripUDPConfig.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolstripUDPConfig.Name = "toolstripUDPConfig";
-            this.toolstripUDPConfig.Size = new System.Drawing.Size(247, 86);
-            this.toolstripUDPConfig.Text = "UDP";
+            this.toolstripUDPConfig.Size = new System.Drawing.Size(251, 70);
+            this.toolstripUDPConfig.Text = "Connect";
             this.toolstripUDPConfig.Click += new System.EventHandler(this.toolstripUDPConfig_Click);
             // 
             // toolstripVehicleConfig
@@ -937,7 +937,7 @@
             this.toolstripVehicleConfig.Image = global::OpenGrade.Properties.Resources.Settings64;
             this.toolstripVehicleConfig.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolstripVehicleConfig.Name = "toolstripVehicleConfig";
-            this.toolstripVehicleConfig.Size = new System.Drawing.Size(247, 86);
+            this.toolstripVehicleConfig.Size = new System.Drawing.Size(251, 70);
             this.toolstripVehicleConfig.Text = "Vehicle";
             this.toolstripVehicleConfig.Click += new System.EventHandler(this.toolstripVehicleConfig_Click);
             // 

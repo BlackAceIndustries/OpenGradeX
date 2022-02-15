@@ -1091,7 +1091,7 @@ namespace OpenGrade
                 sw.WriteLine(@"<kml xsi:schemaLocation=""http://earth.google.com/kml/2.1 http://earth.google.com/kml2.1.xsd"" xmlns=""http://earth.google.com/kml/2.1"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">");
                 sw.WriteLine(@"  <Placemark>");
                 sw.Write(@"    <name>");
-                sw.Write(currentFieldDirectory);
+                sw.Write(cutName);
                 sw.WriteLine(@" </name> ");
                 sw.WriteLine(@"    <Style><LineStyle><color>FFFF00FF</color><width>3.0</width></LineStyle></Style>");                
                 sw.WriteLine(@"     <LineString><extrude>false</extrude><tessellate>true</tessellate><altitudeMode>absolute</altitudeMode>");
@@ -1100,9 +1100,11 @@ namespace OpenGrade
                 if (cnt > 0)
                 {
                     for (int i = 0; i < cnt; i++)
-                        sw.Write(Convert.ToString(ct.ptList[i].longitude) + ',' + Convert.ToString(ct.ptList[i].latitude) + ',' + Convert.ToString(ct.ptList[i].altitude));
+                        //sw.Write(Convert.ToString(ct.ptList[i].longitude) + ',' + Convert.ToString(ct.ptList[i].latitude) + ",0 ");
+                        sw.Write(Convert.ToString(ct.ptList[i].longitude) + ',' + Convert.ToString(ct.ptList[i].latitude) + ',' + Convert.ToString(ct.ptList[i].altitude) + ' ');
                 }
-                else sw.Write(Convert.ToString(pn.longitude) + ',' + Convert.ToString(pn.latitude) + ',' + Convert.ToString(pn.altitude));
+                else sw.Write(Convert.ToString(pn.longitude) + ',' + Convert.ToString(pn.latitude) + ',' + Convert.ToString(pn.altitude) + ' '); 
+                    //sw.Write(Convert.ToString(pn.longitude) + ',' + Convert.ToString(pn.latitude) + ",0 ");
 
                 sw.WriteLine(@"       </coordinates>");
                 sw.WriteLine(@"    </LineString>");

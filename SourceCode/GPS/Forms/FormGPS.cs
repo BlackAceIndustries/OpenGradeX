@@ -646,6 +646,13 @@ namespace OpenGrade
                 return true;    // indicate that you handled this keystroke
             }
 
+            //Open Job
+            if (keyData == (Keys.Escape))
+            {
+                fullscreenToolStripMenuItem.PerformClick(); 
+                return true;    // indicate that you handled this keystroke
+            }
+
 
 
             ///
@@ -1076,7 +1083,25 @@ namespace OpenGrade
 
         }
 
-        private void resetAllToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void fullscreenToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            if (this.FormBorderStyle == FormBorderStyle.None && this.WindowState != FormWindowState.Normal)
+            {
+                this.FormBorderStyle = FormBorderStyle.Sizable;
+                this.WindowState = FormWindowState.Normal;
+                this.Padding = new Padding(5);
+            }
+            else
+            {
+                this.FormBorderStyle = FormBorderStyle.None;
+                this.Padding = new Padding(5);
+                this.WindowState = FormWindowState.Maximized;
+
+
+            }
+        }
+
+            private void resetAllToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             SendGradeControlUDPMessage(RESET_HEADER + "," + 0);
             SendAntennaUDPMessage(RESET_HEADER + "," + 0);

@@ -17,7 +17,7 @@ namespace OpenGrade
         public double autoCutDepth = 0;
         private double minDist;
         public int bladeOffset;
-        public bool isAutoCutOn = false, isAutoShoreOn = false;
+        public bool isAutoCutOn = false, isAutoShoreOn = false, isMapping = true;
 
         
 
@@ -78,7 +78,10 @@ namespace OpenGrade
 
                 //draw contour line if button on 
                 //if (ct.isContourBtnOn)
-                
+
+                //Determine if sections want to be on or off
+                ProcessSectionOnOffRequests();
+
 
                 // draw the current and reference AB Lines
                 if (ABLine.isABLineSet | ABLine.isABLineBeingSet) ABLine.DrawABLines();
@@ -124,17 +127,72 @@ namespace OpenGrade
                     }
                 }
 
-                //screen text for debug
-                //gl.DrawText(120, 10, 1, 1, 1, "Courier Bold", 18, "Head: " + saveCounter.ToString("N1"));
-                //gl.DrawText(120, 40, 1, 1, 1, "Courier Bold", 18, "Tool: " + distTool.ToString("N1"));
-                //gl.DrawText(120, 70, 1, 1, 1, "Courier Bold", 18, "Where: " + yt.whereAmI.ToString());
-                //gl.DrawText(120, 100, 1, 1, 1, "Courier Bold", 18, "Seq: " + yt.isSequenceTriggered.ToString());
-                //gl.DrawText(120, 40, 1, 1, 1, "Courier Bold", 18, "  GPS: " + Convert.ToString(Math.Round(glm.toDegrees(gpsHeading), 2)));
-                //gl.DrawText(120, 70, 1, 1, 1, "Courier Bold", 18, "Fixed: " + Convert.ToString(Math.Round(glm.toDegrees(gyroCorrected), 2)));
-                //gl.DrawText(120, 100, 1, 1, 1, "Courier Bold", 18, "L/Min: " + Convert.ToString(rc.CalculateRateLitersPerMinute()));
-                //gl.DrawText(120, 130, 1, 1, 1, "Courier", 18, "       Roll: " + Convert.ToString(glm.toDegrees(rollDistance)));
-                //gl.DrawText(120, 160, 1, 1, 1, "Courier", 18, "       Turn: " + Convert.ToString(Math.Round(turnDelta, 4)));
-                //gl.DrawText(40, 120, 1, 0.5, 1, "Courier", 12, " frame msec " + Convert.ToString((int)(frameTime)));
+
+                //--------------------------------------------MAPPING------------------------------------
+
+                //patch color
+                gl.Color(0.0f, 0.5f, 0.0f);
+
+                //to draw or not the triangle patch
+                bool isDraw;
+                
+                //draw patches j= # of sections
+                for (int j = 0; j < 1; j++)
+                {
+                    //every time the section turns off and on is a new patch
+                    int patchCount = section[j].patchList.Count;
+
+                    if (patchCount > 0)
+                    {
+                        //for every new chunk of patch
+                        foreach (var triList in section[j].patchList)
+                        {
+                            isDraw = false;
+                            int count2 = triList.Count;
+                            for (int i = 1; i < count2; i += 3)
+                            {
+                                //determine if point is in frustum or not
+                                if (frustum[0] * triList[i].easting + frustum[1] * triList[i].northing + frustum[3] <= 0)
+                                    continue;//right
+                                if (frustum[4] * triList[i].easting + frustum[5] * triList[i].northing + frustum[7] <= 0)
+                                    continue;//left
+                                if (frustum[16] * triList[i].easting + frustum[17] * triList[i].northing + frustum[19] <= 0)
+                                    continue;//bottom
+                                if (frustum[20] * triList[i].easting + frustum[21] * triList[i].northing + frustum[23] <= 0)
+                                    continue;//top
+
+                                //point is in frustum so draw the entire patch
+                                isDraw = true;
+                                break;
+                            }
+
+                            if (isDraw)
+                            {
+                                //draw the triangles in each triangle strip
+                                gl.Begin(OpenGL.GL_TRIANGLES);
+                                for (int i = 1; i < count2; i++) gl.Vertex(triList[i].easting, triList[i].northing, 0);
+                                gl.End();
+                            }
+                        }
+                    }
+                }
+
+                // If ALL sections are required on, No buttons are off, within boundary, turn super section on, normal sections off
+
+                for (int j = 0; j < 1; j++)
+                {
+                    if (section[j].isMappingOn)
+                    {
+                        section[j].mappingOffRequest = true;
+                        section[j].mappingOnRequest = false;
+                                            }                    
+                }
+
+                //turn on super section
+                section[1].mappingOnRequest = true;
+                section[1].mappingOffRequest = false;
+
+                
 
                 //draw the vehicle/implement
                 vehicle.DrawVehicle();
@@ -192,7 +250,7 @@ namespace OpenGrade
                         string dist;
                         txtDistanceOffABLine.Visible = true;
                         //lblDelta.Visible = true;
-                        if (ct.distanceFromCurrentLine == 3200000) ct.distanceFromCurrentLine = 0;
+                        if (ct.distanceFromCurrentLine == 32000) ct.distanceFromCurrentLine = 0;
 
                         DrawLightBar(openGLControl.Width, openGLControl.Height, ct.distanceFromCurrentLine * 0.1);
 
@@ -215,7 +273,7 @@ namespace OpenGrade
                         //if (guidanceLineHeadingDelta < 0) lblDelta.ForeColor = Color.Red;
                         //else lblDelta.ForeColor = Color.Green;
 
-                        if (guidanceLineDistanceOff == 3200020 | guidanceLineDistanceOff == 3200000) btnGradeControl.Text = "-";
+                        if (guidanceLineDistanceOff == 32000 | guidanceLineDistanceOff == 32000) btnGradeControl.Text = "-";
                         else btnGradeControl.Text = "Y";
                     }
 
@@ -324,6 +382,7 @@ namespace OpenGrade
                     {
                         //auto save the field patches, contours accumulated so far
                         FileSaveField();
+                        FileSaveSections();
                         //FileSaveContour();
 
                         //NMEA log file
@@ -801,6 +860,14 @@ namespace OpenGrade
 
             }
         }
+
+
+
+        private void oglBack_Paint(object sender, PaintEventArgs e)
+        {
+        }
+
+
 
         private void openGLControlBack_MouseMove(object sender, MouseEventArgs e)
         {

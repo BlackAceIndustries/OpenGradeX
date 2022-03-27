@@ -229,11 +229,31 @@ namespace OpenGrade
         private void ParseVTG()
         {
             //$GPVTG,054.7,T,034.4,M,005.5,N,010.2,K*48
+            //   0     1   2   3   4   5   6   7   8  9 
+            //   
+
+            /*
+            $GPVTG,054.7,T,034.4,M,005.5,N,010.2,K * 48
+             *
+                0 - VTG  Track made good and ground speed
+                1- 054.7
+                2- T True track made good(degrees)
+                3- 034.4
+                4- M Magnetic track made good
+                5- 005.5
+                6- N Ground speed, knots
+                7- 010.2 
+                8- K Ground speed, Kilometers per hour
+           *    9- 48          Checksum
+            */
+
+
+
             //is the sentence GGA
             if (!String.IsNullOrEmpty(words[1]) & !String.IsNullOrEmpty(words[5]))
             {
                 //kph for speed - knots read
-                double.TryParse(words[5], NumberStyles.Float, CultureInfo.InvariantCulture, out speed);
+                double.TryParse(words[7], NumberStyles.Float, CultureInfo.InvariantCulture, out speed);
                 speed = Math.Round(speed * 1.852, 1);
 
                 //True heading

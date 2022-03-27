@@ -14,7 +14,7 @@ namespace OpenGrade
     public partial class FormGPS
     {
         //list of the list of patch data individual triangles for field sections
-        public List<List<vec2>> patchSaveList = new List<List<vec2>>();
+        public List<List<vec3>> patchSaveList = new List<List<vec3>>();
 
         //function that save vehicle and section settings
         public void FileSaveVehicle()
@@ -841,6 +841,33 @@ namespace OpenGrade
                     pn.zone.ToString(CultureInfo.InvariantCulture));
             }
 
+        }
+
+
+        public void FileSaveSections()
+        {
+            //make sure there is something to save
+            if (patchSaveList.Count() > 0)
+            {
+                //Append the current list to the field file
+                using (StreamWriter writer = new StreamWriter((fieldsDirectory + currentFieldDirectory + "\\Sections.txt"), true))
+                {
+                    //for each patch, write out the list of triangles to the file
+                    foreach (var triList in patchSaveList)
+                    {
+                        int count2 = triList.Count();
+                        writer.WriteLine(count2.ToString(CultureInfo.InvariantCulture));
+
+                        for (int i = 0; i < count2; i++)
+                            writer.WriteLine((Math.Round(triList[i].easting, 3)).ToString(CultureInfo.InvariantCulture) +
+                                "," + (Math.Round(triList[i].northing, 3)).ToString(CultureInfo.InvariantCulture) +
+                                 "," + (Math.Round(triList[i].heading, 3)).ToString(CultureInfo.InvariantCulture));
+                    }
+                }
+
+                //clear out that patchList and begin adding new ones for next save
+                patchSaveList.Clear();
+            }
         }
 
         //save field Patches

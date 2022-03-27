@@ -63,6 +63,7 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.listStart = new System.Windows.Forms.ComboBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnCancelChanges
@@ -124,6 +125,7 @@
             this.listA.Items.AddRange(new object[] {
             "Toggle Auto Cut",
             "Toggle Survey",
+            "Toggle Tabs",
             "Open GPS Data",
             "Increase Blade Offset",
             "Decrease Blade Offset",
@@ -169,6 +171,7 @@
             this.listB.Items.AddRange(new object[] {
             "Toggle Auto Cut",
             "Toggle Survey",
+            "Toggle Tabs",
             "Open GPS Data",
             "Increase Blade Offset",
             "Decrease Blade Offset",
@@ -202,6 +205,7 @@
             this.listX.Items.AddRange(new object[] {
             "Toggle Auto Cut",
             "Toggle Survey",
+            "Toggle Tabs",
             "Open GPS Data",
             "Increase Blade Offset",
             "Decrease Blade Offset",
@@ -235,6 +239,7 @@
             this.listY.Items.AddRange(new object[] {
             "Toggle Auto Cut",
             "Toggle Survey",
+            "Toggle Tabs",
             "Open GPS Data",
             "Increase Blade Offset",
             "Decrease Blade Offset",
@@ -268,6 +273,7 @@
             this.listUp.Items.AddRange(new object[] {
             "Toggle Auto Cut",
             "Toggle Survey",
+            "Toggle Tabs",
             "Open GPS Data",
             "Increase Blade Offset",
             "Decrease Blade Offset",
@@ -301,6 +307,7 @@
             this.listDown.Items.AddRange(new object[] {
             "Toggle Auto Cut",
             "Toggle Survey",
+            "Toggle Tabs",
             "Open GPS Data",
             "Increase Blade Offset",
             "Decrease Blade Offset",
@@ -334,6 +341,7 @@
             this.listLeft.Items.AddRange(new object[] {
             "Toggle Auto Cut",
             "Toggle Survey",
+            "Toggle Tabs",
             "Open GPS Data",
             "Increase Blade Offset",
             "Decrease Blade Offset",
@@ -367,6 +375,7 @@
             this.listRight.Items.AddRange(new object[] {
             "Toggle Auto Cut",
             "Toggle Survey",
+            "Toggle Tabs",
             "Open GPS Data",
             "Increase Blade Offset",
             "Decrease Blade Offset",
@@ -452,6 +461,7 @@
             this.listStart.Items.AddRange(new object[] {
             "Toggle Auto Cut",
             "Toggle Survey",
+            "Toggle Tabs",
             "Open GPS Data",
             "Increase Blade Offset",
             "Decrease Blade Offset",
@@ -464,12 +474,25 @@
             this.listStart.TabIndex = 25;
             this.listStart.SelectedIndexChanged += new System.EventHandler(this.listStart_SelectedIndexChanged);
             // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.textBox1.Location = new System.Drawing.Point(236, 3);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(294, 31);
+            this.textBox1.TabIndex = 27;
+            this.textBox1.Text = "Configure Remote Functions ";
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // FormRemote
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.ClientSize = new System.Drawing.Size(742, 506);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listStart);
             this.Controls.Add(this.label13);
@@ -536,6 +559,7 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox listStart;
+        private System.Windows.Forms.TextBox textBox1;
     }
 
 }

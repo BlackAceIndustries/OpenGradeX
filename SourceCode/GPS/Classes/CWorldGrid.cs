@@ -28,11 +28,11 @@ namespace OpenGrade
         public void DrawFieldSurface()
         {
             //Enable Texture Mapping and set color to white
-            gl.Enable(OpenGL.GL_TEXTURE_2D);
+            //gl.Enable(OpenGL.GL_TEXTURE_2D);
             gl.Color(mf.redField, mf.grnField, mf.bluField);
 
             //the floor
-            gl.BindTexture(OpenGL.GL_TEXTURE_2D, mf.texture[1]);	// Select Our Texture
+            //gl.BindTexture(OpenGL.GL_TEXTURE_2D, mf.texture[1]);	// Select Our Texture
             gl.Begin(OpenGL.GL_TRIANGLE_STRIP);				            // Build Quad From A Triangle Strip
             gl.TexCoord(0, 0); gl.Vertex(eastingMin, northingMin, 0.0);                // Top Right
             gl.TexCoord(texZoom, 0); gl.Vertex(eastingMax, northingMin, 0.0);               // Top Left
@@ -46,8 +46,10 @@ namespace OpenGrade
         public void DrawWorldGrid(double _gridZoom)
         {
             //gl.Color(mf.redField, mf.grnField, mf.bluField);
-            gl.Color(0, 0, 0);
+            gl.LineWidth(2);
+            gl.Color(0.85f, 0.85f, 0.85f, 0.45f);
             gl.Begin(OpenGL.GL_LINES);
+            
             for (double x = eastingMin; x < eastingMax; x += _gridZoom)
             {
                 //the x lines

@@ -18,7 +18,6 @@ namespace OpenGrade
         public int gcHeaderHi, gcHeaderLo = 1, gcDeltaDir = 2, gcCutDelta = 3, gcisAutoActive = 4;                                
 
         //info coming from Grade Control Mod
-
         public int autoState = 0, bladeOffset = 0; //public byte autoState = 0;        
         public double voltage = 0;
         public double voltage2 = 0;
@@ -65,8 +64,8 @@ namespace OpenGrade
             mf = _f;
             serialRecvAutoSteerStr = "Oops";
             serialRecvGradeControlStr = "Oops";
-            gcFirmware = "Oops";
-            atFirmware = "Oops";
+            gcFirmware = "----";
+            atFirmware = "----";
 
 
 
@@ -79,19 +78,13 @@ namespace OpenGrade
 
         //Reset all the byte arrays from modules
         public void ResetAllModuleCommValues()
-        {
-            GradeControlData[gcHeaderHi] = 127; // PGN - 32762
-            GradeControlData[gcHeaderLo] = 250;
+        {         
             GradeControlData[gcDeltaDir] = 0;
             GradeControlData[gcCutDelta] = 0;
             GradeControlData[gcisAutoActive] = 0;
 
+            mf.SendUDPMessage(FormGPS.DATA_HEADER, mf.epGradeControl);
 
-            mf.SendGradeControlUDPMessage("10001" + "," + GradeControlData[gcDeltaDir] + "," +
-             GradeControlData[gcCutDelta] + "," + GradeControlData[gcCutDelta] + "\r\n");
-
-            gradeControlSettings[gsHeaderHi] = 127; // PGN - 32762
-            gradeControlSettings[gsHeaderLo] = 248;
             gradeControlSettings[gsKpGain] = Properties.Settings.Default.set_KpGain;
             gradeControlSettings[gsKiGain] = Properties.Settings.Default.set_KiGain;
             gradeControlSettings[gsKdGain] = Properties.Settings.Default.set_KdGain;
@@ -99,34 +92,8 @@ namespace OpenGrade
             gradeControlSettings[gsExtDeadband] = Properties.Settings.Default.set_ExtDeadband;
             gradeControlSettings[gsValveType] = Properties.Settings.Default.set_ValveType;
 
-            //mf.SendUDPMessage(10002, mf.epGradeControl);
-            //mf.SendUDPMessage(FormGPS.SETTINGS_HEADER, mf.epGradeControl);
-
-
-            mf.SendGradeControlUDPMessage("10002" + "," + gradeControlSettings[gsKpGain] + "," + gradeControlSettings[gsKiGain] + "," + gradeControlSettings[gsKdGain]
-                        + "," + gradeControlSettings[gsRetDeadband] + "," + gradeControlSettings[gsExtDeadband] + "," + gradeControlSettings[gsValveType] + "\r\n");
-
-            autoSteerData[sdHeaderHi] = 127; // PGN - 32766
-            autoSteerData[sdHeaderLo] = 254;
-            autoSteerData[sdRelay] = 0;
-            autoSteerData[sdSpeed] = (0);
-            autoSteerData[sdDistanceHi] = (125); // PGN - 32020
-            autoSteerData[sdDistanceLo] = 20;
-            autoSteerData[sdSteerAngleHi] = (125); // PGN - 32020
-            autoSteerData[sdSteerAngleLo] = 20;
-           
-
-            autoSteerSettings[ssHeaderHi] = 127;// PGN - 32764 as header
-            autoSteerSettings[ssHeaderLo] = 252;
-            autoSteerSettings[ssKp] = Properties.Settings.Default.setAS_Kp;
-            autoSteerSettings[ssKi] = Properties.Settings.Default.setAS_Ki;
-            autoSteerSettings[ssKd] = Properties.Settings.Default.setAS_Kd;
-            autoSteerSettings[ssKo] = Properties.Settings.Default.setAS_Ko;
-            autoSteerSettings[ssSteerOffset] = Properties.Settings.Default.setAS_steerAngleOffset;
-            autoSteerSettings[ssMinPWM] = Properties.Settings.Default.setAS_minSteerPWM;
-            autoSteerSettings[ssMaxIntegral] = Properties.Settings.Default.setAS_maxIntegral;
-            autoSteerSettings[ssCountsPerDegree] = Properties.Settings.Default.setAS_countsPerDegree;
-            
+            mf.SendUDPMessage(FormGPS.SETTINGS_HEADER, mf.epGradeControl);
+                        
         }
     }
 }

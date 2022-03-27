@@ -443,7 +443,6 @@
             this.txtBoxSendGradeControl.ReadOnly = true;
             this.txtBoxSendGradeControl.Size = new System.Drawing.Size(397, 27);
             this.txtBoxSendGradeControl.TabIndex = 115;
-            this.txtBoxSendGradeControl.TextChanged += new System.EventHandler(this.tboxSerialToGradeControl_TextChanged);
             // 
             // tboxSerialFromGradeControl
             // 

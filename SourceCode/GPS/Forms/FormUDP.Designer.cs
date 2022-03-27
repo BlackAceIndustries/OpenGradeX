@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormUDP));
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.tboxHostName = new System.Windows.Forms.TextBox();
@@ -66,6 +67,7 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.lblProgramName = new System.Windows.Forms.Label();
             this.lblOGXVersion = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudThisPort)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudAutoSteerPort)).BeginInit();
@@ -420,7 +422,6 @@
             this.groupBox1.TabIndex = 91;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Module Address and Ports";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // choiceWiFi
             // 
@@ -435,8 +436,6 @@
             this.choiceWiFi.Size = new System.Drawing.Size(226, 27);
             this.choiceWiFi.TabIndex = 92;
             this.choiceWiFi.Text = "Wifi Network";
-            this.choiceWiFi.Visible = false;
-            this.choiceWiFi.SelectedIndexChanged += new System.EventHandler(this.choiceWiFi_SelectedIndexChanged);
             // 
             // textBox1
             // 
@@ -449,7 +448,6 @@
             this.textBox1.TabIndex = 93;
             this.textBox1.Text = "GradeControl";
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // textBox2
             // 
@@ -462,7 +460,6 @@
             this.textBox2.TabIndex = 94;
             this.textBox2.Text = "Antenna";
             this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // lblGCVersion
             // 
@@ -516,7 +513,6 @@
             this.btnRefreshWifi.TabIndex = 99;
             this.btnRefreshWifi.Text = "Find  Available Wifi Networks";
             this.btnRefreshWifi.UseVisualStyleBackColor = false;
-            this.btnRefreshWifi.Visible = false;
             this.btnRefreshWifi.Click += new System.EventHandler(this.button1_Click);
             // 
             // btnHotSpotConnect
@@ -528,9 +524,8 @@
             this.btnHotSpotConnect.Name = "btnHotSpotConnect";
             this.btnHotSpotConnect.Size = new System.Drawing.Size(225, 56);
             this.btnHotSpotConnect.TabIndex = 98;
-            this.btnHotSpotConnect.Text = "Connect To WiFi";
+            this.btnHotSpotConnect.Text = "Connect To Hotspot";
             this.btnHotSpotConnect.UseVisualStyleBackColor = false;
-            this.btnHotSpotConnect.Visible = false;
             this.btnHotSpotConnect.Click += new System.EventHandler(this.btnHotSpotConnect_Click);
             // 
             // choicePassword
@@ -542,13 +537,11 @@
             this.choicePassword.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.choicePassword.FormattingEnabled = true;
             this.choicePassword.ItemHeight = 19;
-            this.choicePassword.Location = new System.Drawing.Point(11, 67);
+            this.choicePassword.Location = new System.Drawing.Point(11, 84);
             this.choicePassword.Name = "choicePassword";
             this.choicePassword.Size = new System.Drawing.Size(226, 27);
             this.choicePassword.TabIndex = 97;
             this.choicePassword.Text = "Wifi Password";
-            this.choicePassword.Visible = false;
-            this.choicePassword.SelectedIndexChanged += new System.EventHandler(this.choicePassword_SelectedIndexChanged);
             // 
             // groupBox3
             // 
@@ -576,7 +569,6 @@
             this.lblProgramName.TabIndex = 1;
             this.lblProgramName.Text = "OpenGradeX\r\n\r\n";
             this.lblProgramName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lblProgramName.Click += new System.EventHandler(this.lblProgramName_Click);
             // 
             // lblOGXVersion
             // 
@@ -588,6 +580,10 @@
             this.lblOGXVersion.TabIndex = 0;
             this.lblOGXVersion.Text = "-------";
             this.lblOGXVersion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // FormUDP
             // 
@@ -666,5 +662,6 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label lblOGXVersion;
         private System.Windows.Forms.Label lblProgramName;
+        private System.Windows.Forms.Timer timer1;
     }
 }

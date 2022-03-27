@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenGrade", "GPS\OpenGrade.
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup OpenGrade", "Setup OpenGrade\Setup OpenGrade.vdproj", "{E60319EA-5F20-403E-BBF0-1FACB4007522}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Keypad", "..\..\..\OpenGrade3D\OpenGrade3D-master\SourceCode\KeyPad\Keypad\Keypad.csproj", "{F1053BAC-22C7-4E6F-A3EA-CC1E1FBA9CB0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,14 @@ Global
 		{E60319EA-5F20-403E-BBF0-1FACB4007522}.Release|Any CPU.Build.0 = Release
 		{E60319EA-5F20-403E-BBF0-1FACB4007522}.Release|x86.ActiveCfg = Release
 		{E60319EA-5F20-403E-BBF0-1FACB4007522}.Release|x86.Build.0 = Release
+		{F1053BAC-22C7-4E6F-A3EA-CC1E1FBA9CB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1053BAC-22C7-4E6F-A3EA-CC1E1FBA9CB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1053BAC-22C7-4E6F-A3EA-CC1E1FBA9CB0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F1053BAC-22C7-4E6F-A3EA-CC1E1FBA9CB0}.Debug|x86.Build.0 = Debug|Any CPU
+		{F1053BAC-22C7-4E6F-A3EA-CC1E1FBA9CB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1053BAC-22C7-4E6F-A3EA-CC1E1FBA9CB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1053BAC-22C7-4E6F-A3EA-CC1E1FBA9CB0}.Release|x86.ActiveCfg = Release|Any CPU
+		{F1053BAC-22C7-4E6F-A3EA-CC1E1FBA9CB0}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -22,6 +22,7 @@ namespace OpenGrade
         public const int SETTINGS_HEADER = 10002;
         public const int GPS_HEADER = 10003;
         public const int IMU_HEADER = 10004;
+        public const int NTRIP_HEADER = 10005;
 
         public const int RESET_HEADER = 10100;
         public const int SYSTEM_HEADER = 10101;
@@ -30,8 +31,8 @@ namespace OpenGrade
         public string[] SSID = new string[] {"-", "-", "-", "-" };
         public string[] SSID_PASS = new string[25];
 
-        public long udpDataTimeout = 0;
-        public long udpGPSTimeout = 0;
+        public long gradeControlTimeout = 0;
+        public long antennaModuleTimeout = 0;
         public long udpIMUTimeout = 0;
 
         ///Ports
@@ -54,9 +55,6 @@ namespace OpenGrade
         public IPEndPoint epAntennaModule;
         public IPEndPoint epGradeControl;
 
-        //IPEndPoint epAntennaModule = new IPEndPoint(antennaIP ,antennaPort);
-        //IPEndPoint epGradeControl = new IPEndPoint(gradeControlIP, gradeControlPort);
-
         // Data stream
         private byte[] buffer = new byte[1024];
 
@@ -64,56 +62,61 @@ namespace OpenGrade
         private delegate void UpdateRecvMessageDelegate(string recvMessage);
         private UpdateRecvMessageDelegate updateRecvMessageDelegate = null;
 
-       public void SendGradeControlUDPMessage(string message)
-       {
-           if (isSendConnected)
-           {
-               try
-               {
-                   // Get packet as byte array
-                   byte[] byteData = Encoding.ASCII.GetBytes(message);
 
-                   if (byteData.Length != 0)
 
-                       // Send packet to the zero
-                       sendSocket.BeginSendTo(byteData, 0, byteData.Length, SocketFlags.None, epGradeControl, new AsyncCallback(SendData), null);
-               }
-               catch (Exception e)
-               {
-                   WriteErrorLog("Sending UDP Message" + e.ToString());
+        public void SendUDPMessageNTRIP(int header, byte[] byteData)
+        {
 
-                   MessageBox.Show("Send Error: " + e.Message, "UDP Client", MessageBoxButtons.OK, MessageBoxIcon.Error);
-               }
-           }
-       }
+            try
+            { 
+                // Send packet to the zero
+                if (byteData.Length != 0)
 
-       public void SendAntennaUDPMessage(string message)
-       {
-           if (isSendConnected)
-           {
-               try
-               {
-                   // Get packet as byte array
-                   byte[] byteData = Encoding.ASCII.GetBytes(message);
+                    sendSocket.BeginSendTo(byteData, 0, byteData.Length, SocketFlags.None, epAntennaModule, new AsyncCallback(SendData), null);
 
-                   if (byteData.Length != 0)
 
-                       // Send packet to the zero
-                       sendSocket.BeginSendTo(byteData, 0, byteData.Length, SocketFlags.None, epAntennaModule, new AsyncCallback(SendData), null);
-               }
-               catch (Exception e)
-               {
-                   WriteErrorLog("Sending UDP Message" + e.ToString());
+            }
+            catch (Exception)
+            {
+                //WriteErrorLog("Sending UDP Message" + e.ToString());
+                //MessageBox.Show("Send Error: " + e.Message, "UDP Client", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
-                   //MessageBox.Show("Send Error: " + e.Message, "UDP Client", MessageBoxButtons.OK, MessageBoxIcon.Error);
-               }
-           }
-       }
+        }
+
+        public void SendUDPMessageNTRIP(int header, string msg)
+        {
+           
+            try
+            {
+
+                // Get packet as byte array
+                byte[] byteData = Encoding.ASCII.GetBytes(msg);
+                //byte[] byteData = Encoding.Unicode.GetBytes(msg);
+
+                tboxNTRIPBuffer.Text = msg;
+
+
+
+                    // Send packet to the zero
+                    if (byteData.Length != 0)
+
+                    sendSocket.BeginSendTo(byteData, 0, byteData.Length, SocketFlags.None, epAntennaModule, new AsyncCallback(SendData), null);
+               
+
+            }
+            catch (Exception)
+            {
+                //WriteErrorLog("Sending UDP Message" + e.ToString());
+                //MessageBox.Show("Send Error: " + e.Message, "UDP Client", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+           
+        }
 
         public void SendUDPMessage(int header, IPEndPoint _module)
         {
 
-            string msg = "-";
+            string msg = "";
             if (isSendConnected)
             {
                 try
@@ -124,13 +127,12 @@ namespace OpenGrade
                             
                             msg = (header.ToString() + "," + mc.GradeControlData[mc.gcDeltaDir] + "," + mc.GradeControlData[mc.gcisAutoActive]
                                         + "," + Math.Abs(cutDelta) + "\r\n");
-
                             break;
 
                         case SETTINGS_HEADER:  // SETTINGS
     
-                            msg = (header.ToString() + "," + mf.mc.gradeControlSettings[mf.mc.gsKpGain] + "," + mf.mc.gradeControlSettings[mf.mc.gsKiGain] + "," + mf.mc.gradeControlSettings[mf.mc.gsKdGain]
-                                + "," + mf.mc.gradeControlSettings[mf.mc.gsRetDeadband] + "," + mf.mc.gradeControlSettings[mf.mc.gsExtDeadband] + "," + mf.mc.gradeControlSettings[mf.mc.gsValveType] + "\r\n");
+                            msg = (header.ToString() + "," + mc.gradeControlSettings[mc.gsKpGain] + "," + mc.gradeControlSettings[mc.gsKiGain] + "," + mc.gradeControlSettings[mc.gsKdGain]
+                                + "," + mc.gradeControlSettings[mc.gsRetDeadband] + "," + mc.gradeControlSettings[mc.gsExtDeadband] + "," + mc.gradeControlSettings[mc.gsValveType]) + "\r\n"; 
 
 
                             break;
@@ -140,13 +142,25 @@ namespace OpenGrade
                             break;
 
                         case IMU_HEADER:
+                            
+                            msg = (header.ToString() + "," + 0);
+
+                            break;
+
+                        case NTRIP_HEADER:
+
+                            msg = (header.ToString() + "," + 0);                          
 
                             break;
                         case RESET_HEADER:
 
+                            msg = (header.ToString() + "," + 0);
+
                             break;
                         case SYSTEM_HEADER:
                             
+                            msg = (header.ToString() + "," + 1);
+
 
                             break;
 
@@ -172,6 +186,85 @@ namespace OpenGrade
                     //MessageBox.Show("Send Error: " + e.Message, "UDP Client", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+
+        public void SendUDPMessage(int header, IPEndPoint _module, string _msg)
+        {
+            string msg = "";
+            if (isSendConnected)
+            {
+                try
+                {
+                    switch (header)
+                    {
+                        case DATA_HEADER: 
+
+                            msg = (header.ToString() + _msg +  "\r\n");
+                            break;
+
+                        case SETTINGS_HEADER:  
+
+                            msg = (header.ToString() + _msg + "\r\n");
+                            break;
+
+                        case GPS_HEADER:
+
+                            msg = (header.ToString() + _msg + "\r\n");
+                            break;
+
+                        case NTRIP_HEADER:
+
+                            msg = (header.ToString() + _msg + "\r\n"); ;
+
+                            break;
+
+                        case IMU_HEADER:
+
+                            msg = (header.ToString() + _msg + "\r\n");
+
+                            break;
+                        case RESET_HEADER:
+
+                            msg = (header.ToString() + _msg + "\r\n");
+
+                            break;
+                        case SYSTEM_HEADER:
+
+                            msg = (header.ToString() + _msg + "\r\n");
+
+                            break;
+
+
+                        default:
+
+                            break;
+
+                    }
+
+                    // Get packet as byte array
+                    byte[] byteData = Encoding.ASCII.GetBytes(msg);
+
+                    if (byteData.Length != 0)
+
+                        // Send packet to the zero
+                        sendSocket.BeginSendTo(byteData, 0, byteData.Length, SocketFlags.None, _module, new AsyncCallback(SendData), null);
+                }
+                catch (Exception e)
+                {
+                    WriteErrorLog("Sending UDP Message" + e.ToString());
+
+                }
+            }
+
+
+
+
+
+
+
+
+
         }
 
         public void SendData(IAsyncResult asyncResult)
@@ -205,6 +298,8 @@ namespace OpenGrade
                 recvSocket.BeginReceiveFrom(buffer, 0, buffer.Length, SocketFlags.None, ref epSender, new AsyncCallback(ReceiveData), epSender);
 
                 string text = Encoding.ASCII.GetString(localMsg);
+                
+
 
                 // Update status through a delegate
                 Invoke(updateRecvMessageDelegate, new object[] { text });
@@ -216,7 +311,7 @@ namespace OpenGrade
             }
         }
 
-        
+        // parse through Messages recieved
         private void UpdateRecvMessage(string recvd)
         {     
             string[] words = recvd.Split(',');
@@ -231,7 +326,7 @@ namespace OpenGrade
                 case DATA_HEADER:
                     if (temp < 5)
                     {
-                        udpDataTimeout = 0;
+                        gradeControlTimeout = 0;
                         ledGradeControl.BackColor = Color.Lime;
                         voltageBar.BarColorSolid = Color.RoyalBlue;
                         voltageBar2.BarColorSolid = Color.RoyalBlue;
@@ -243,7 +338,7 @@ namespace OpenGrade
                     }
                     else if ((temp > 5))
                     {
-                        udpDataTimeout = 0;
+                        gradeControlTimeout = 0;
                         ledGradeControl.BackColor = Color.Lime;
                         voltageBar.BarColorSolid = Color.RoyalBlue;
 
@@ -259,8 +354,8 @@ namespace OpenGrade
                     break;
 
                 case GPS_HEADER:
-                    udpGPSTimeout = 0;
-                    if (udpIMUTimeout < 50) ledAntenna.BackColor = Color.Lime;
+                    antennaModuleTimeout = 0;
+                    if (antennaModuleTimeout < 50) ledAntenna.BackColor = Color.Lime;
                     else ledAntenna.BackColor = Color.Orange;
                     pn.rawBuffer = recvd.Remove(0, 6);  // Remove the GPS, Header
                     recvSentenceSettings = pn.rawBuffer;
@@ -269,8 +364,8 @@ namespace OpenGrade
 
                 case IMU_HEADER:
                     mc.prevHeadingIMU = mc.headingIMU;
-                    udpIMUTimeout = 0;
-                    if (udpGPSTimeout < 50) ledAntenna.BackColor = Color.Lime;
+                    antennaModuleTimeout = 0;
+                    if (antennaModuleTimeout < 50) ledAntenna.BackColor = Color.Lime;
                     else ledAntenna.BackColor = Color.Orange;
                     float.TryParse(words[1], out mc.headingIMU);
                     float.TryParse(words[2], out mc.pitchIMU);
@@ -314,51 +409,6 @@ namespace OpenGrade
                     
 
             }
-
-
-            //if (words[0] == "DATA" && temp < 4)// Seperate Modules
-            //{
-            //    udpDataTimeout = 0;
-            //    ledGradeControl.BackColor = Color.Lime;
-            //    voltageBar.BarColorSolid = Color.RoyalBlue;
-
-            //    int.TryParse(words[1], out mc.autoState);
-            //    double.TryParse(words[2], out mc.voltage);
-                
-            //}
-            //if (words[0] == "DATA" && temp > 4) // All in one module 
-            //{
-            //    udpDataTimeout = 0;
-            //    ledGradeControl.BackColor = Color.Lime;
-
-            //    int.TryParse(words[1], out mc.autoState);
-            //    double.TryParse(words[2], out mc.voltage);
-            //    float.TryParse(words[3], out mc.headingIMU);
-            //    float.TryParse(words[4], out mc.pitchIMU);
-            //    float.TryParse(words[5], out mc.rollIMU);
-            //}
-
-            //if (words[0] == "GPS")
-            //{   
-            //    udpGPSTimeout = 0;
-            //    if (udpIMUTimeout < 50) ledAntenna.BackColor = Color.Lime;
-            //    else ledAntenna.BackColor = Color.Orange;
-            //    pn.rawBuffer = recvd.Remove(0, 4);  // Remove the GPS, Header
-            //    recvSentenceSettings = pn.rawBuffer;            
-
-            //}
-            //if (words[0] == "IMU")
-            //{
-            //    mc.prevHeadingIMU = mc.headingIMU;
-            //    udpIMUTimeout = 0;
-            //    if (udpGPSTimeout < 50) ledAntenna.BackColor = Color.Lime;
-            //    else ledAntenna.BackColor = Color.Orange;
-            //    float.TryParse(words[1], out mc.headingIMU);
-            //    float.TryParse(words[2], out mc.pitchIMU);
-            //    float.TryParse(words[3], out mc.rollIMU);
-
-            //}
-  
         }  
     }
 }

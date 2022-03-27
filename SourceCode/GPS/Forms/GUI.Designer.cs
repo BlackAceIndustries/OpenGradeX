@@ -28,12 +28,16 @@ namespace OpenGrade
             if (isMetric)
             {
                 lblSpeedUnits.Text = "kmh";
+                lblAltitudeUnits.Text = "M";
+                lblAltitudeUnits2.Text = "M";
                 metricToolStrip.Checked = true;
                 imperialToolStrip.Checked = false;
             }
             else
             {
                 lblSpeedUnits.Text = "mph";
+                lblAltitudeUnits.Text = "FT";
+                lblAltitudeUnits2.Text = "FT";
                 metricToolStrip.Checked = false;
                 imperialToolStrip.Checked = true;
             }
@@ -135,13 +139,17 @@ namespace OpenGrade
             {
                 isGradeControlBtnOn = false;
                 btnGradeControl.Image = Properties.Resources.GradeControlOff1;
-                mc.GradeControlData[mc.gcisAutoActive] = 0;                
+                mc.GradeControlData[mc.gcisAutoActive] = 0;
+                section[1].TurnMappingOff();
+                
             }
             else
             {
                 isGradeControlBtnOn = true;
                 btnGradeControl.Image = Properties.Resources.GradeControlOn1;
-                mc.GradeControlData[mc.gcisAutoActive] = 1;                
+                mc.GradeControlData[mc.gcisAutoActive] = 1;
+                section[1].TurnMappingOn();
+
 
             }
 
@@ -333,19 +341,27 @@ namespace OpenGrade
         private void btnUnits_Click(object sender, EventArgs e)
         {
             isMetric = !isMetric;
+
             Settings.Default.setMenu_isMetric = isMetric;
             Settings.Default.Save();
             if (isMetric)
             {
                 lblSpeedUnits.Text = "kmh";
+                lblAltitudeUnits.Text = "M";
+                lblAltitudeUnits2.Text = "M";
                 metricToolStrip.Checked = true;
                 imperialToolStrip.Checked = false;
+                btnUnits.Image = Properties.Resources.Metric;
+                
             }
             else
             {
                 lblSpeedUnits.Text = "mph";
+                lblAltitudeUnits.Text = "FT";
+                lblAltitudeUnits2.Text = "FT";
                 metricToolStrip.Checked = false;
                 imperialToolStrip.Checked = true;
+                btnUnits.Image = Properties.Resources.Imperial;
             }
         }
         private void btnGPSData_Click(object sender, EventArgs e)
@@ -990,7 +1006,7 @@ namespace OpenGrade
             get
             {
                 if (mc.headingIMU != 9999)
-                    return Math.Round(mc.headingIMU, 1) + "\u00B0";
+                    return Math.Abs(Math.Round(mc.headingIMU, 1)) + "\u00B0";
                 else return "-";
             }
         }
@@ -1053,34 +1069,115 @@ namespace OpenGrade
 
         #endregion properties 
 
+        private void DoNTRIPSecondRoutine()
+        {
+            //count up the ntrip clock only if everything is alive
+            if (startCounter > 50 && recvCounter < 20 && isNTRIP_RequiredOn)
+            {
+                IncrementNTRIPWatchDog();
+            }
+
+            isNTRIP_RequiredOn = Properties.Settings.Default.setNTRIP_isOn;             
+            
+
+            //check if we have a connection if not try and start NTRIP
+            if (isNTRIP_RequiredOn && !isNTRIP_Connected && !isNTRIP_Connecting)
+            {
+                if (!isNTRIP_Starting && ntripCounter > 20)
+                {
+                    StartNTRIP();
+                }
+            }
+
+            // if currently connecting
+            if (isNTRIP_Connecting)
+            {
+                if (ntripCounter > 50)
+                {
+                    TimedMessageBox(2000, "nTrip timeout", "nTrip timeout");
+                    ReconnectRequest();
+                }
+                if (clientSocket != null && clientSocket.Connected)
+                {
+                    //TimedMessageBox(2000, "NTRIP Not Connected", " At the StartNTRIP() ");
+                    //ReconnectRequest();
+                    //return;                    
+                    SendAuthorization();
+                }
+
+            }
+
+            if (isNTRIP_RequiredOn){
+
+                //watchdog for Ntrip
+                if (isNTRIP_Connecting)
+                {
+                    //lblDiagnostics.Text = "Authourizing";
+                    ledNTRIP.BackColor = Color.Purple;
+                }
+
+                else
+                {
+                    if (NTRIP_Watchdog > 20) ledNTRIP.BackColor = Color.Yellow;                   
+
+                }
+
+                if (isNTRIP_Connected)
+                {
+                    //lblDiagnostics.Text = "NTRIP Connected";
+                    ledNTRIP.BackColor = Color.Lime;
+
+                }
+
+                if (sendGGAInterval > 0 && isNTRIP_Sending)
+                {
+                    lblDiagnostics.Text = "Send GGA";
+                    isNTRIP_Sending = false;
+                }
+            }
+            else ledNTRIP.BackColor = Color.Black;
+            
+        }
+
         //Timer triggers at 20 msec, 50 hz, and is THE clock of the whole program//
         private void tmrWatchdog_tick(object sender, EventArgs e)
         {
             //go see if data ready for draw and position updates
             //tmrWatchdog.Enabled = false;
             ScanForNMEA();
-            //tmrWatchdog.Enabled = true;
-            statusUpdateCounter++;
-            //
-            udpDataTimeout++;
-            udpGPSTimeout++;
-            udpIMUTimeout++;
-
-            if (fiveSecondCounter++ > 100) fiveSecondCounter = 0;
             
-            if (udpGPSTimeout > 50) {                
+            statusUpdateCounter++;
+            
+            antennaModuleTimeout++;
+            gradeControlTimeout++;
+           
+            
+            
+            
+            if (fiveSecondCounter++ > 30)
+            {
+                //do all the NTRIP routines
+                //if (isNTRIPOn)
+                //{
+                    DoNTRIPSecondRoutine(); // Only when gps port is open
+                //}
+                SendUDPMessage(FormGPS.SYSTEM_HEADER, epGradeControl);
+                SendUDPMessage(FormGPS.SYSTEM_HEADER, epAntennaModule);
+                fiveSecondCounter = 0;
+
+            }
+                    
+            
+            if (antennaModuleTimeout > 50) {                
                 ledAntenna.BackColor = Color.Black;                
             }
-            if (udpDataTimeout > 50) {
+            if (gradeControlTimeout > 50) {
                 ledGradeControl.BackColor = Color.Black;
                 voltageBar.BarColorSolid = Color.Red;
                 voltageBar2.BarColorSolid = Color.Red;
                 voltageBar.Value = 0;
                 voltageBar2.Value = 0;
-            }
-            if (udpIMUTimeout > 50)  { 
-                ledAntenna.BackColor = Color.Black;
-            }
+            }            
 
 
             //every half of a second update all status
@@ -1171,14 +1268,14 @@ namespace OpenGrade
                 voltageBar.Value = ((int)(mc.voltage * 100)) + 12;
                 voltageBar2.Value = ((int)(mc.voltage2 * 100)) + 12;
 
-                lblDiagnostics.Text = (mc.voltage).ToString() + "Volts";
+                //lblDiagnostics.Text = (mc.voltage).ToString() + "Volts";
                 
                 //
                 // Update all DRO's
                 //
 
                 //Check distFromLastPass and Set DRO's
-                if (distFromLastPass == 9999 || distFromLastPass > 4000)//
+                if (distFromLastPass == 9999 || distFromLastPass > 2000)//
                 {
                     lblCurrentCutDepth.Text = "--";
                     lblCurrentCutDepth.BackColor = Color.Black;
@@ -1367,16 +1464,9 @@ namespace OpenGrade
                 {
                     
 
-                }
-                
-                //mf.SendUDPMessage(10001, epGradeControl);
+                }                
 
-
-                //if (mf.epGradeControl.                
-
-                SendGradeControlUDPMessage("10001" + "," + mc.GradeControlData[mc.gcDeltaDir] +","+ mc.GradeControlData[mc.gcisAutoActive]
-                + "," + Math.Abs(cutDelta) + "\r\n");
-
+                SendUDPMessage(DATA_HEADER, epGradeControl);
             }
             
 

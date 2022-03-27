@@ -25,9 +25,10 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>1</ApplicationRevision>
-    <ApplicationVersion>1.1.1.%2a</ApplicationVersion>
+    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationVersion>1.2.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -63,6 +64,18 @@
     </StartupObject>
   </PropertyGroup>
   <PropertyGroup />
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>DD12827AF45138AEAA9C3E76A4DB08C5E96799D2</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>OpenGrade_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ProgBar, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -96,6 +109,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\NtripLog.cs" />
+    <Compile Include="Classes\CSection.cs" />
     <Compile Include="Classes\CRemote.cs" />
     <Compile Include="Classes\CSim.cs" />
     <Compile Include="Classes\CFlag.cs" />
@@ -107,6 +122,18 @@
     <Compile Include="Classes\CVehicle.cs" />
     <Compile Include="Classes\CWaypoint.cs" />
     <Compile Include="Classes\CWorldGrid.cs" />
+    <Compile Include="Forms\FormNtripLog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormNtripLog.Designer.cs">
+      <DependentUpon>FormNtripLog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormSource.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormSource.Designer.cs">
+      <DependentUpon>FormSource.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormCutDir.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -124,6 +151,12 @@
     </Compile>
     <Compile Include="Forms\FormJob.Designer.cs">
       <DependentUpon>FormJob.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormNtrip.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormNtrip.designer.cs">
+      <DependentUpon>FormNtrip.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FormRemote.cs">
       <SubType>Form</SubType>
@@ -153,6 +186,7 @@
       <SubType>Form</SubType>
       <DependentUpon>FormGPS.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\NTRIPComm.Designer.cs" />
     <Compile Include="Forms\Position.designer.cs">
       <SubType>Form</SubType>
       <DependentUpon>FormGPS.cs</DependentUpon>
@@ -264,6 +298,12 @@
       <DependentUpon>FormJob.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormNtrip.resx">
+      <DependentUpon>FormNtrip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormNtripLog.resx">
+      <DependentUpon>FormNtripLog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormRemote.resx">
       <DependentUpon>FormRemote.cs</DependentUpon>
     </EmbeddedResource>
@@ -274,6 +314,9 @@
     <EmbeddedResource Include="Forms\FormSettings.resx">
       <DependentUpon>FormSettings.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormSource.resx">
+      <DependentUpon>FormSource.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormtimedMessage.resx">
       <DependentUpon>FormTimedMessage.cs</DependentUpon>
@@ -301,6 +344,7 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="OpenGrade_TemporaryKey.pfx" />
     <None Include="Properties\Remote.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Remote.Designer.cs</LastGenOutput>
@@ -342,6 +386,8 @@
     <Content Include="AppIcon.ico" />
     <Content Include="AppIcon64.ico" />
     <Content Include="aChangeLog.txt" />
+    <None Include="btnImages\Metric.png" />
+    <None Include="btnImages\Imperial.png" />
     <Content Include="OGX2Icon.ico" />
     <Content Include="OGXicon.ico" />
     <None Include="btnImages\GradeControlOn1.png" />

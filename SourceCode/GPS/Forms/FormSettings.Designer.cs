@@ -132,7 +132,6 @@
             this.tabVehicle.Controls.Add(this.nudAntennaHeight);
             this.tabVehicle.Name = "tabVehicle";
             this.tabVehicle.UseVisualStyleBackColor = true;
-            this.tabVehicle.Click += new System.EventHandler(this.tabVehicle_Click);
             // 
             // label4
             // 
@@ -162,7 +161,6 @@
             resources.ApplyResources(this.label3, "label3");
             this.label3.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.label3.Name = "label3";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // nudToolWidth
             // 
@@ -270,7 +268,6 @@
             this.groupBox5.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.TabStop = false;
-            this.groupBox5.Enter += new System.EventHandler(this.groupBox5_Enter);
             // 
             // nudExtDeadband
             // 
@@ -326,14 +323,12 @@
             resources.ApplyResources(this.label8, "label8");
             this.label8.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.label8.Name = "label8";
-            this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
             // label9
             // 
             resources.ApplyResources(this.label9, "label9");
             this.label9.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.label9.Name = "label9";
-            this.label9.Click += new System.EventHandler(this.label9_Click);
             // 
             // groupBox1
             // 
@@ -347,7 +342,6 @@
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // nudKd
             // 
@@ -526,7 +520,6 @@
             0,
             0,
             0});
-            this.nudMaxDitchCut.ValueChanged += new System.EventHandler(this.nudMaxDitchCut_ValueChanged_1);
             // 
             // lblMaxDitchCut
             // 
@@ -556,7 +549,7 @@
             resources.ApplyResources(this.lblMinDitchCut, "lblMinDitchCut");
             this.lblMinDitchCut.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.lblMinDitchCut.Name = "lblMinDitchCut";
-            this.lblMinDitchCut.Click += new System.EventHandler(this.label10_Click);
+            
             // 
             // groupBox2
             // 
@@ -614,7 +607,7 @@
             resources.ApplyResources(this.lblMaxTileCut, "lblMaxTileCut");
             this.lblMaxTileCut.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.lblMaxTileCut.Name = "lblMaxTileCut";
-            this.lblMaxTileCut.Click += new System.EventHandler(this.label5_Click);
+            
             // 
             // label17
             // 

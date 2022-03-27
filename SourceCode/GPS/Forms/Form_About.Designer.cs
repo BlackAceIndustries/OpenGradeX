@@ -111,9 +111,9 @@
             this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.label2.Location = new System.Drawing.Point(167, 33);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(140, 18);
+            this.label2.Size = new System.Drawing.Size(129, 18);
             this.label2.TabIndex = 14;
-            this.label2.Text = "v1.1.1  January  22\'";
+            this.label2.Text = "v1.2.2  March  22\'";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label1
@@ -141,12 +141,13 @@
             // linkLabelCombineForum
             // 
             this.linkLabelCombineForum.AutoSize = true;
+            this.linkLabelCombineForum.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLabelCombineForum.Location = new System.Drawing.Point(14, 372);
             this.linkLabelCombineForum.Name = "linkLabelCombineForum";
-            this.linkLabelCombineForum.Size = new System.Drawing.Size(271, 13);
+            this.linkLabelCombineForum.Size = new System.Drawing.Size(323, 16);
             this.linkLabelCombineForum.TabIndex = 12;
             this.linkLabelCombineForum.TabStop = true;
-            this.linkLabelCombineForum.Text = "https://discourse.agopengps.com/t/grade-control/1702";
+            this.linkLabelCombineForum.Text = "https://discourse.agopengps.com/t/opengradex/8313";
             this.linkLabelCombineForum.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelCombineForum_LinkClicked);
             // 
             // button1

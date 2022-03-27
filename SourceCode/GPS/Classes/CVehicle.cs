@@ -68,13 +68,12 @@ namespace OpenGrade
             
 
             //draw the vehicle Body
-            gl.Color(0.12, 0.6, 0.9);
-            gl.Begin(OpenGL.GL_TRIANGLE_FAN);
-            gl.Vertex(0, 0, -0.2);
-            gl.Vertex(1.0, -antennaPivot, 0.0);
-            gl.Vertex(0, -antennaPivot + 3, 0.0);
-            gl.Color(0.33, 0.8, 0.9);
-            gl.Vertex(-1.0, -antennaPivot, 0.0);
+            gl.Color(0.25, 0.25, 0.25);
+            gl.Begin(OpenGL.GL_TRIANGLE_FAN);            
+            gl.Vertex(0.75, -antennaPivot, 0.0);
+            gl.Vertex(0, -antennaPivot + 2.5, 0.0);
+            gl.Color(0.45, 0.45, 0.45);
+            gl.Vertex(-0.75, -antennaPivot, 0.0);
             gl.Vertex(1.0, -antennaPivot, 0.0);
             gl.End();
 
@@ -99,23 +98,23 @@ namespace OpenGrade
             }            
 
             //Hitch
-            gl.Color(0.95f, 0.95f, 0.02f);            
+            gl.Color(0.0f, 0.99f, 0.0f, 0.99f);            
             gl.Begin(OpenGL.GL_POLYGON);
-            gl.Vertex(antennaPivot - .25, 0, 0);
-            gl.Vertex(antennaPivot + .25, 0, 0);
-            gl.Vertex(antennaPivot + .5, -4.25, 0);
-            gl.Vertex(antennaPivot - .5, -4.25, 0);
+            gl.Vertex(antennaPivot - .075, 0, 0);
+            gl.Vertex(antennaPivot + .075, 0, 0);
+            gl.Vertex(antennaPivot + .15, -3, 0);
+            gl.Vertex(antennaPivot - .15, -3, 0);
             gl.End();
 
             //Scraper front 
-            gl.Color(0.95f, 0.95f, 0.02f);
-            gl.LineWidth(10);
+            gl.Color(0.0f, 0.99f, 0.0f, 0.65f);
+            gl.LineWidth(5);
             gl.Begin(OpenGL.GL_LINES);
-            gl.Vertex(-toolWidth /1.5, -4.25, 0);
-            gl.Vertex(toolWidth /1.5, -4.25, 0);
+            gl.Vertex(-toolWidth /1.5, -3);
+            gl.Vertex(toolWidth /1.5, -3);
             gl.End();
 
-            //Scraper left edge 
+            /*//Scraper left edge 
             gl.Color(0.95f, 0.95f, 0.02f);
             gl.LineWidth(3);
             gl.Begin(OpenGL.GL_LINES);
@@ -186,6 +185,7 @@ namespace OpenGrade
 
 
             gl.LineWidth(1);           
+            */
 
         }
 

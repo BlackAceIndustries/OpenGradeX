@@ -76,4 +76,11 @@ C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\Application
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\Application\OpenGradeX.pdb
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGradeX.exe
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGradeX.pdb
+C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.FormNtrip.resources
+C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\Application\OpenGradeX.exe.manifest
+C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\Application\OpenGradeX.application
+C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGradeX.exe.manifest
+C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGradeX.application
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.csproj.AssemblyReference.cache
+C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.FormSource.resources
+C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.Forms.FormNtripLog.resources

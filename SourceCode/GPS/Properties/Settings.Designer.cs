@@ -181,7 +181,7 @@ namespace OpenGrade.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("130")]
+        [global::System.Configuration.DefaultSettingValueAttribute("152")]
         public byte setF_FieldColorR {
             get {
                 return ((byte)(this["setF_FieldColorR"]));
@@ -193,7 +193,7 @@ namespace OpenGrade.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("120")]
+        [global::System.Configuration.DefaultSettingValueAttribute("152")]
         public byte setF_FieldColorG {
             get {
                 return ((byte)(this["setF_FieldColorG"]));
@@ -205,7 +205,7 @@ namespace OpenGrade.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("30")]
+        [global::System.Configuration.DefaultSettingValueAttribute("153")]
         public byte setF_FieldColorB {
             get {
                 return ((byte)(this["setF_FieldColorB"]));
@@ -217,7 +217,7 @@ namespace OpenGrade.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("50")]
+        [global::System.Configuration.DefaultSettingValueAttribute("103")]
         public byte setF_SectionColorR {
             get {
                 return ((byte)(this["setF_SectionColorR"]));
@@ -229,7 +229,7 @@ namespace OpenGrade.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("220")]
+        [global::System.Configuration.DefaultSettingValueAttribute("102")]
         public byte setF_SectionColorG {
             get {
                 return ((byte)(this["setF_SectionColorG"]));
@@ -241,7 +241,7 @@ namespace OpenGrade.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("200")]
+        [global::System.Configuration.DefaultSettingValueAttribute("204")]
         public byte setF_SectionColorB {
             get {
                 return ((byte)(this["setF_SectionColorB"]));
@@ -728,6 +728,174 @@ namespace OpenGrade.Properties {
             }
             set {
                 this["set_AntModVersion"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool setNTRIP_isGGAManual {
+            get {
+                return ((bool)(this["setNTRIP_isGGAManual"]));
+            }
+            set {
+                this["setNTRIP_isGGAManual"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double setNTRIP_manualLat {
+            get {
+                return ((double)(this["setNTRIP_manualLat"]));
+            }
+            set {
+                this["setNTRIP_manualLat"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double setNTRIP_manualLon {
+            get {
+                return ((double)(this["setNTRIP_manualLon"]));
+            }
+            set {
+                this["setNTRIP_manualLon"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool setNTRIP_isHTTP10 {
+            get {
+                return ((bool)(this["setNTRIP_isHTTP10"]));
+            }
+            set {
+                this["setNTRIP_isHTTP10"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool setNTRIP_isTCP {
+            get {
+                return ((bool)(this["setNTRIP_isTCP"]));
+            }
+            set {
+                this["setNTRIP_isTCP"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3.23.52.207")]
+        public string setNTRIP_casterIP {
+            get {
+                return ((string)(this["setNTRIP_casterIP"]));
+            }
+            set {
+                this["setNTRIP_casterIP"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("www.rtk2go.com")]
+        public string setNTRIP_casterURL {
+            get {
+                return ((string)(this["setNTRIP_casterURL"]));
+            }
+            set {
+                this["setNTRIP_casterURL"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2101")]
+        public int setNTRIP_casterPort {
+            get {
+                return ((int)(this["setNTRIP_casterPort"]));
+            }
+            set {
+                this["setNTRIP_casterPort"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-----------")]
+        public string setNTRIP_mount {
+            get {
+                return ((string)(this["setNTRIP_mount"]));
+            }
+            set {
+                this["setNTRIP_mount"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-----------")]
+        public string setNTRIP_userPassword {
+            get {
+                return ((string)(this["setNTRIP_userPassword"]));
+            }
+            set {
+                this["setNTRIP_userPassword"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("8888")]
+        public int setNTRIP_sendToUDPPort {
+            get {
+                return ((int)(this["setNTRIP_sendToUDPPort"]));
+            }
+            set {
+                this["setNTRIP_sendToUDPPort"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("NA")]
+        public string setNTRIP_userName {
+            get {
+                return ((string)(this["setNTRIP_userName"]));
+            }
+            set {
+                this["setNTRIP_userName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public int setNTRIP_sendGGAInterval {
+            get {
+                return ((int)(this["setNTRIP_sendGGAInterval"]));
+            }
+            set {
+                this["setNTRIP_sendGGAInterval"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool setNTRIP_isOn {
+            get {
+                return ((bool)(this["setNTRIP_isOn"]));
+            }
+            set {
+                this["setNTRIP_isOn"] = value;
             }
         }
     }

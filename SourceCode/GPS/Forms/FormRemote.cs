@@ -8,6 +8,7 @@ namespace OpenGrade
     {
         //class variables
         private readonly FormGPS mf = null;
+        
 
         struct CodeToFunction_st
         {
@@ -59,6 +60,7 @@ namespace OpenGrade
 
         private void FormRemote_Load(object sender, EventArgs e)
         {
+            
             listA.Text = Properties.Remote.Default.aBtnFunc;
             listB.Text = Properties.Remote.Default.bBtnFunc;
             listX.Text = Properties.Remote.Default.xBtnFunc;
@@ -70,6 +72,19 @@ namespace OpenGrade
             listStart.Text = Properties.Remote.Default.startBtnFunc;
             listY.Text = Properties.Remote.Default.yBtnFunc;
             listY.Text = Properties.Remote.Default.yBtnFunc;
+            
+            /*
+            listA.Text = Properties.Remote.Default.aBtn.ToString();
+            listB.Text = Properties.Remote.Default.bBtn.ToString();
+            listX.Text = Properties.Remote.Default.xBtn.ToString();
+            listY.Text = Properties.Remote.Default.yBtn.ToString();
+            listUp.Text = Properties.Remote.Default.upBtn.ToString();
+            listDown.Text = Properties.Remote.Default.downBtn.ToString();
+            listLeft.Text = Properties.Remote.Default.leftBtn.ToString();
+            listRight.Text = Properties.Remote.Default.rightBtn.ToString();
+            listStart.Text = Properties.Remote.Default.startBtn.ToString();
+            listY.Text = Properties.Remote.Default.yBtn.ToString();
+            listY.Text = Properties.Remote.Default.yBtn.ToString();
 
             //SetName((int)RemoteFunctions.toggleAuto, "Toggle Auto Cut", "Description");
             //SetName((int)RemoteFunctions.toggleSurvey, "Toggle Survey", "Description");
@@ -80,6 +95,9 @@ namespace OpenGrade
             //SetName((int)RemoteFunctions.openGPSData, "Open GPS Data", "Description");
             //SetName((int)RemoteFunctions.openJob, "Open Job", "Description");
             //SetName((int)RemoteFunctions.saveCut, "Save Cut", "Description");
+            */
+
+
         }
 
         private void btnRemoteSaveSettings_Click(object sender, EventArgs e)
@@ -108,6 +126,7 @@ namespace OpenGrade
         {
             Properties.Remote.Default.aBtnFunc = listA.Text;
             Properties.Remote.Default.aBtn = CheckRemoteSettings(listA.Text);
+            mf.rem.aBtn = Properties.Remote.Default.aBtn;
             Properties.Remote.Default.Save();
         }
 
@@ -115,6 +134,7 @@ namespace OpenGrade
         {
             Properties.Remote.Default.bBtnFunc = listB.Text;
             Properties.Remote.Default.bBtn = CheckRemoteSettings(listB.Text);
+            mf.rem.bBtn = Properties.Remote.Default.bBtn;
             Properties.Remote.Default.Save();
         }
 
@@ -122,6 +142,7 @@ namespace OpenGrade
         {
             Properties.Remote.Default.xBtnFunc = listX.Text;
             Properties.Remote.Default.xBtn = CheckRemoteSettings(listX.Text);
+            mf.rem.xBtn = Properties.Remote.Default.xBtn;
             Properties.Remote.Default.Save();
         }
 
@@ -129,6 +150,7 @@ namespace OpenGrade
         {
             Properties.Remote.Default.yBtnFunc = listY.Text;
             Properties.Remote.Default.yBtn = CheckRemoteSettings(listY.Text);
+            mf.rem.yBtn = Properties.Remote.Default.yBtn;
             Properties.Remote.Default.Save();
         }
 
@@ -136,6 +158,7 @@ namespace OpenGrade
         {
             Properties.Remote.Default.rightBtnFunc = listRight.Text;
             Properties.Remote.Default.rightBtn = CheckRemoteSettings(listRight.Text);
+            mf.rem.rightBtn = Properties.Remote.Default.rightBtn;
             Properties.Remote.Default.Save();
         }
 
@@ -143,6 +166,7 @@ namespace OpenGrade
         {
             Properties.Remote.Default.leftBtnFunc = listLeft.Text;
             Properties.Remote.Default.leftBtn = CheckRemoteSettings(listLeft.Text);
+            mf.rem.leftBtn = Properties.Remote.Default.leftBtn;
             Properties.Remote.Default.Save();
         }
 
@@ -150,6 +174,7 @@ namespace OpenGrade
         {
             Properties.Remote.Default.downBtnFunc = listDown.Text;
             Properties.Remote.Default.downBtn = CheckRemoteSettings(listDown.Text);
+            mf.rem.downBtn = Properties.Remote.Default.downBtn;
             Properties.Remote.Default.Save();
         }
 
@@ -157,6 +182,7 @@ namespace OpenGrade
         {
             Properties.Remote.Default.upBtnFunc = listUp.Text;
             Properties.Remote.Default.upBtn = CheckRemoteSettings(listUp.Text);
+            mf.rem.upBtn = Properties.Remote.Default.upBtn;
             Properties.Remote.Default.Save();
         }
 
@@ -164,12 +190,64 @@ namespace OpenGrade
         {
             Properties.Remote.Default.startBtnFunc = listStart.Text;
             Properties.Remote.Default.startBtn = CheckRemoteSettings(listStart.Text);
+            mf.rem.startBtn = Properties.Remote.Default.startBtn;
             Properties.Remote.Default.Save();
         }
 
 
 
-        // Procedures and Functions ---------------------------------------
+      
+        private int CheckRemoteSettings(string name)
+        {
+            if (name == "Toggle Auto Cut")
+            {
+                return (int)RemoteFunctions.toggleAuto;
+            }
+            else if (name == "Toggle Survey")
+            {
+                return (int)RemoteFunctions.toggleSurvey;
+            }
+            else if(name == "Toggle Tabs")
+            {
+                return (int)RemoteFunctions.toggleTabs;
+            }
+            else if(name == "Increase Blade Offset")
+            {
+                return (int)RemoteFunctions.incBladeOff;
+            }
+            else if(name == "Decrease Blade Offset")
+            {
+                return (int)RemoteFunctions.decBladeOff;
+            }
+            else if(name == "Reset Blade Offset")
+            {
+                return (int)RemoteFunctions.resetBladeOff;
+            }
+            else if (name == "Open GPS Data")
+            {
+                return (int)RemoteFunctions.openGPSData;
+            }
+            else if (name == "Open Job")
+            {
+                return (int)RemoteFunctions.openJob;
+            }
+            else if (name == "Save Cut")
+            {
+                return  (int)RemoteFunctions.saveCut;
+            }
+            else
+            {
+                return 9999;  
+            }
+        }
+    }
+
+
+
+    
+
+}
+  // Procedures and Functions ---------------------------------------
 
         
 
@@ -330,58 +408,3 @@ namespace OpenGrade
 
         }
         */
-        private int CheckRemoteSettings(string name)
-        {
-            if (name == "Toggle Auto Cut")
-            {
-                return (int)RemoteFunctions.toggleAuto;
-            }
-            else if (name == "Toggle Survey")
-            {
-                return (int)RemoteFunctions.toggleSurvey;
-            }
-            else if(name == "Toggle Tabs")
-            {
-                return (int)RemoteFunctions.toggleTabs;
-            }
-            else if(name == "Increase Blade Offset")
-            {
-                return (int)RemoteFunctions.incBladeOff;
-            }
-            else if(name == "Decrease Blade Offset")
-            {
-                return (int)RemoteFunctions.decBladeOff;
-            }
-            else if(name == "Reset Blade Offset")
-            {
-                return (int)RemoteFunctions.resetBladeOff;
-            }
-            else if (name == "Open Gps Data")
-            {
-                return (int)RemoteFunctions.openGPSData;
-            }
-            else if (name == "Open Job")
-            {
-                return (int)RemoteFunctions.openJob;
-            }
-            else if (name == "Save Cut")
-            {
-                return  (int)RemoteFunctions.saveCut;
-            }
-            else
-            {
-                return 9999;  
-            }
-        }
-
-
-
-
-
-    }
-
-
-
-    
-
-}

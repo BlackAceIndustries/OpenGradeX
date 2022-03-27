@@ -221,5 +221,335 @@ namespace OpenGrade {
                 return ResourceManager.GetString("gsTurnOnContourOrABLine", resourceCulture);
             }
         }
+        /// <summary>
+        ///   Looks up a localized string similar to NTRIP.
+        /// </summary>
+        internal static string gsNTRIP
+        {
+            get
+            {
+                return ResourceManager.GetString("gsNTRIP", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to NTRIP Client Not Set Up.
+        /// </summary>
+        internal static string gsNTRIPClientNotSetUp
+        {
+            get
+            {
+                return ResourceManager.GetString("gsNTRIPClientNotSetUp", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to NTRIP Client Settings.
+        /// </summary>
+        internal static string gsNTRIPClientSettings
+        {
+            get
+            {
+                return ResourceManager.GetString("gsNTRIPClientSettings", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to NTRIP Not Connected.
+        /// </summary>
+        internal static string gsNTRIPNotConnected
+        {
+            get
+            {
+                return ResourceManager.GetString("gsNTRIPNotConnected", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to NTRIP Not Connected, Retrying.
+        /// </summary>
+        internal static string gsNTRIPNotConnectedRetrying
+        {
+            get
+            {
+                return ResourceManager.GetString("gsNTRIPNotConnectedRetrying", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to NTRIP Not Connected to Send GGA.
+        /// </summary>
+        internal static string gsNTRIPNotConnectedToSendGGA
+        {
+            get
+            {
+                return ResourceManager.GetString("gsNTRIPNotConnectedToSendGGA", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to NTRIP Off.
+        /// </summary>
+        internal static string gsNTRIPOff
+        {
+            get
+            {
+                return ResourceManager.GetString("gsNTRIPOff", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to NTRIP On.
+        /// </summary>
+        internal static string gsNTRIPOn
+        {
+            get
+            {
+                return ResourceManager.GetString("gsNTRIPOn", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to NTRIP Restarting.
+        /// </summary>
+        internal static string gsNTRIPRestarting
+        {
+            get
+            {
+                return ResourceManager.GetString("gsNTRIPRestarting", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Click Start to Resume.
+        /// </summary>
+        internal static string gsClickStartToResume
+        {
+            get
+            {
+                return ResourceManager.GetString("gsClickStartToResume", resourceCulture);
+            }
+        
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Resuming With New Settings.
+        /// </summary>
+        internal static string gsResumingWithNewSettings
+        {
+            get
+            {
+                return ResourceManager.GetString("gsResumingWithNewSettings", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Restarting and Reconnecting to Caster.
+        /// </summary>
+        internal static string gsRestartingAndReconnectingToCaster
+        {
+            get
+            {
+                return ResourceManager.GetString("gsRestartingAndReconnectingToCaster", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to At Socket Connect.
+        /// </summary>
+        internal static string gsAtSocketConnect
+        {
+            get
+            {
+                return ResourceManager.GetString("gsAtSocketConnect", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to No IP Located.
+        /// </summary>
+        internal static string gsNoIPLocated
+        {
+            get
+            {
+                return ResourceManager.GetString("gsNoIPLocated", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot Find .
+        /// </summary>
+        internal static string gsCannotFind
+        {
+            get
+            {
+                return ResourceManager.GetString("gsCannotFind", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Networking.
+        /// </summary>
+        internal static string gsNetworking
+        {
+            get
+            {
+                return ResourceManager.GetString("gsNetworking", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Port.
+        /// </summary>
+        internal static string gsPort
+        {
+            get
+            {
+                return ResourceManager.GetString("gsPort", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Enter Broadcaster URL or IP.
+        /// </summary>
+        internal static string gsEnterBroadcasterURLOrIP
+        {
+            get
+            {
+                return ResourceManager.GetString("gsEnterBroadcasterURLOrIP", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to To UDP Port.
+        /// </summary>
+        internal static string gsToUDPPort
+        {
+            get
+            {
+                return ResourceManager.GetString("gsToUDPPort", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Username.
+        /// </summary>
+        internal static string gsUsername
+        {
+            get
+            {
+                return ResourceManager.GetString("gsUsername", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        internal static string gsPassword
+        {
+            get
+            {
+                return ResourceManager.GetString("gsPassword", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Mount.
+        /// </summary>
+        internal static string gsMount
+        {
+            get
+            {
+                return ResourceManager.GetString("gsMount", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to GGA Interval (secs).
+        /// </summary>
+        internal static string gsGGAIntervalSecs
+        {
+            get
+            {
+                return ResourceManager.GetString("gsGGAIntervalSecs", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm IP.
+        /// </summary>
+        internal static string gsConfirmIP
+        {
+            get
+            {
+                return ResourceManager.GetString("gsConfirmIP", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Current GPS Fix:.
+        /// </summary>
+        internal static string gsCurrentGPSFix
+        {
+            get
+            {
+                return ResourceManager.GetString("gsCurrentGPSFix", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Send To Manual Fix.
+        /// </summary>
+        internal static string gsSendToManualFix
+        {
+            get
+            {
+                return ResourceManager.GetString("gsSendToManualFix", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Set to 0 for Serial.
+        /// </summary>
+        internal static string gsSetToZeroForSerial
+        {
+            get
+            {
+                return ResourceManager.GetString("gsSetToZeroForSerial", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Get Source Table.
+        /// </summary>
+        internal static string gsGetSourceTable
+        {
+            get
+            {
+                return ResourceManager.GetString("gsGetSourceTable", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to * Restart Required.
+        /// </summary>
+        internal static string gsRestartRequired
+        {
+            get
+            {
+                return ResourceManager.GetString("gsRestartRequired", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 0 = Off.
+        /// </summary>
+        internal static string gsZeroEqualsOff
+        {
+            get
+            {
+                return ResourceManager.GetString("gsZeroEqualsOff", resourceCulture);
+            }
+        }
+
     }
 }

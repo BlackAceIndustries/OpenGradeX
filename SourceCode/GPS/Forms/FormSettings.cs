@@ -141,7 +141,6 @@ namespace OpenGrade
             mf.vehicle.minShoreSlope = minShoreSlope;
             Properties.Vehicle.Default.setVehicle_minShoreSlope = mf.vehicle.minShoreSlope;
 
-
             mf.vehicle.plowHeight = plowHeight;
             Properties.Vehicle.Default.setVehicle_plowHeight = mf.vehicle.plowHeight;
             
@@ -193,10 +192,8 @@ namespace OpenGrade
 
             Properties.Settings.Default.Save();
             Properties.Vehicle.Default.Save();
-            
-            
-            mf.SendGradeControlUDPMessage("10002" + "," + mf.mc.gradeControlSettings[mf.mc.gsKpGain] + "," + mf.mc.gradeControlSettings[mf.mc.gsKiGain] + "," + mf.mc.gradeControlSettings[mf.mc.gsKdGain]
-             + "," + mf.mc.gradeControlSettings[mf.mc.gsRetDeadband] + "," + mf.mc.gradeControlSettings[mf.mc.gsExtDeadband] + "," + mf.mc.gradeControlSettings[mf.mc.gsValveType] + "\r\n");
+
+            mf.SendUDPMessage(FormGPS.SETTINGS_HEADER, mf.epGradeControl);
 
             //back to FormGPS
             DialogResult = DialogResult.OK;
@@ -209,35 +206,6 @@ namespace OpenGrade
         private void btnCancel_Click(object sender, EventArgs e)
         { DialogResult = DialogResult.Cancel; Close(); }
 
-        private void lblTilePlow_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tabVehicle_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label20_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click_1(object sender, EventArgs e)
-        {
-
-        }
 
         #region Vehicle //----------------------------------------------------------------
 
@@ -288,10 +256,6 @@ namespace OpenGrade
             }
         }
 
-        private void label8_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void nudKp_ValueChanged_1(object sender, EventArgs e)
         {
@@ -324,36 +288,7 @@ namespace OpenGrade
             
 
         }
-
-        private void label10_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void nudMaxDitchCut_ValueChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox5_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label9_Click(object sender, EventArgs e)
-        {
-
-        }
+      
 
         private void numericUpDown2_ValueChanged(object sender, EventArgs e)
         {

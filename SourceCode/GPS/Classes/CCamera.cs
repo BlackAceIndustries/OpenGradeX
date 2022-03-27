@@ -32,17 +32,17 @@ namespace OpenGrade
             camYaw = _fixHeading;
 
             //back the camera up
-            gl.Translate(0, 5, camSetDistance * 0.5);
+            gl.Translate(0, 0, camSetDistance * 0.45);
 
-            ////draw the guide
-            //gl.Begin(OpenGL.GL_TRIANGLES);
-            //gl.Color(0.98f, 0.0f, 0.0f);
-            //gl.Vertex(0.0f, -2.0f, 0.0f);
-            //gl.Color(0.0f, 0.98f, 0.0f);
-            //gl.Vertex(-2.0f, -3.0f, 0.0f);
-            //gl.Color(0.98f, 0.98f, 0.0f);
-            //gl.Vertex(2.0f, -3.0f, 0.0f);
-            //gl.End();						// Done Drawing Reticle
+            //draw the guide
+            gl.Begin(OpenGL.GL_TRIANGLES);
+            gl.Color(0.98f, 0.0f, 0.0f);
+            gl.Vertex(0.0f, -2.0f, 0.0f);
+            gl.Color(0.0f, 0.98f, 0.0f);
+            gl.Vertex(-2.0f, -3.0f, 0.0f);
+            gl.Color(0.98f, 0.98f, 0.0f);
+            gl.Vertex(2.0f, -3.0f, 0.0f);
+            gl.End();						// Done Drawing Reticle
 
             //rotate the camera down to look at fix
             gl.Rotate(camPitch, 1, 0, 0);

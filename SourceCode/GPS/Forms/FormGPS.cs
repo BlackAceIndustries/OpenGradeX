@@ -19,6 +19,9 @@ namespace OpenGrade
     //the main form object
     public partial class FormGPS : Form
     {
+        
+        //for the NTRIP CLient counting
+        private int ntripCounter = 10;
         #region // Class Props and instances
 
         //The base directory where OpenGrade will be stored and fields and vehicles branch from
@@ -32,6 +35,9 @@ namespace OpenGrade
 
         // Cutlines directory
         public string cutDirectory;
+
+        //maximum sections available
+        private const int MAXSECTIONS = 17;
 
         //ABLines directory
         public string ablinesDirectory;
@@ -144,6 +150,17 @@ namespace OpenGrade
         /// Resource manager for gloabal strings
         /// </summary>
         public CRemote rem;
+        /// <summary>
+        /// an array of sections, so far 16 section + 1 fullWidth Section
+        /// </summary>
+        public CSection[] section;
+
+        /// <summary>
+        /// Ntrip Logger
+        /// </summary>
+        public NtripLog ntrip;
+
+
 
         #endregion // Class Props and instances
 
@@ -511,6 +528,7 @@ namespace OpenGrade
         // Constructor, Initializes a new instance of the "FormGPS" class.
         public FormGPS()
         {
+
             //winform initialization
             InitializeComponent();
 
@@ -526,6 +544,11 @@ namespace OpenGrade
 
             //our vehicle made with gl object and pointer of mainform
             vehicle = new CVehicle(gl, this);
+
+            //create a new section and set left and right positions
+            //created whether used or not, saves restarting program
+            section = new CSection[MAXSECTIONS];
+            for (int j = 0; j < MAXSECTIONS; j++) section[j] = new CSection(this);
 
             //our NMEA parser
             pn = new CNMEA(this);
@@ -543,11 +566,16 @@ namespace OpenGrade
 
             rem = new CRemote(this);
 
+            ntrip = new NtripLog(this);
+
             //start the stopwatch
             swFrame.Start();
-
+                      
             //resource for gloabal language strings
             _rm = new ResourceManager("OpenGrade.gStr", Assembly.GetExecutingAssembly());
+
+            // Add Message Event handler for Form decoupling from client socket thread
+            updateRTCM_DataEvent = new UpdateRTCM_Data(OnAddMessage);
         }
 
         //keystrokes for easy and quick startup
@@ -555,6 +583,10 @@ namespace OpenGrade
         // Keyboard shortCuts
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
+            //////////////////////////////////////////////
+            /////////// Keyboard Shortcuts ///////////////
+            //////////////////////////////////////////////
+
             //reset Sim
             if (keyData == Keys.L)
             {
@@ -649,145 +681,88 @@ namespace OpenGrade
             //Open Job
             if (keyData == (Keys.Escape))
             {
-                fullscreenToolStripMenuItem.PerformClick(); 
+                fullscreenToolStripMenuItem.PerformClick();
                 return true;    // indicate that you handled this keystroke
             }
 
+            //////////////////////////////////////////////
+            /////////// Remote   Shortcuts ///////////////
+            /////////////////////////////////////////////////
 
-
-            ///
-            /// Remote Keystrokes
-            ///
-
-
-            // Open to Options
+            // Start Btn
             if (keyData == (Keys.D0))
             {
-                JobNewOpenResume();
+                rem.DoFunction(rem.startBtn);
                 return true;    // indicate that you handled this keystroke
             }
 
-            // start/Stop Survey
-            if (keyData == (Keys.D1)) {
-
-                btnManualOffOn.PerformClick();
-
+            // X Btn
+            if (keyData == (Keys.D1))
+            {
+                rem.DoFunction(rem.xBtn);
                 return true;    // indicate that you handled this keystroke
             }
 
-            // Toggle Auto Cut on/off
+            //  A Btn
             if (keyData == (Keys.D2))
             {
-                btnGradeControl.PerformClick();
+                rem.DoFunction(rem.aBtn);
                 return true;    // indicate that you handled this keystroke
             }
 
-            // Reset Blade Offset 
+            // b Btn 
             if (keyData == (Keys.D3))
             {
-                bladeOffset = 0;
-                lblBladeOffset.Text = bladeOffset.ToString();
+                rem.DoFunction(rem.bBtn);
                 return true;    // indicate that you handled this keystroke
             }
 
-            // Show Gps Form
+            // Y Btn
             if (keyData == (Keys.D4))
             {
-                //Form form = new FormGPSData(this);
-                //form.Show();
-                zeroIMUToolStripMenuItem.PerformClick();
+                rem.DoFunction(rem.yBtn);
                 return true;    // indicate that you handled this keystroke
             }
 
-            // Increase Blade Offset
+            //  Start Btn + A Btn
+            if (keyData == (Keys.D5))
+            {
+
+                return true;    // indicate that you handled this keystroke
+            }
+
+            // Start Btn + X Btn
+            if (keyData == (Keys.D6))
+            {
+
+                return true;    // indicate that you handled this keystroke
+            }
+
+            // Start Btn + Y Btn
+            if (keyData == (Keys.D7))
+            {
+
+                return true;    // indicate that you handled this keystroke
+            }
+
+            // Start Btn + b Btn 
+            if (keyData == (Keys.D9))
+            {
+
+                return true;    // indicate that you handled this keystroke
+            }
+
+            // UP Btn
             if (keyData == (Keys.Left))
             {
-                bladeOffset++;
-                if (bladeOffset > 50) bladeOffset = 50;
-                lblBladeOffset.Text = bladeOffset.ToString();
+                rem.DoFunction(rem.upBtn);
                 return true;    // indicate that you handled this keystroke
             }
 
-            // Decrease Blade Offset
+            // Down Btn
             if (keyData == (Keys.Right))
             {
-                bladeOffset--;
-                if (bladeOffset < -50) bladeOffset = -50;
-                lblBladeOffset.Text = bladeOffset.ToString();
-                return true;    // indicate that you handled this keystroke
-            }
-
-            // Open to Options
-            if (keyData == (Keys.Up))
-            {
-                int tab = tabGradeControl.SelectedIndex;
-                tab++;
-                if (tab > tabGradeControl.TabCount - 1) tab = 0;
-
-                tabGradeControl.SelectTab(tab);
-                return true;    // indicate that you handled this keystroke
-            }
-
-            // Open to Options
-            if (keyData == (Keys.Down))
-            {
-                btnSaveCut.PerformClick();
-                return true;    // indicate that you handled this keystroke
-            }
-
-
-            /*
-            if (keyData == (Keys.D0))  // start Btn
-            {
-                rem.DoFunction(rem.startBtn);
-                //rem.DoFunction(Properties.Remote.Default.startBtn);
-                return true;    // indicate that you handled this keystroke
-            }
-
-            // start/Stop Survey
-            if (keyData == (Keys.D1)) // X Btn
-            {                
-                rem.DoFunction(rem.xBtn);
-                //rem.DoFunction(Properties.Remote.Default.xBtn);
-                return true;    // indicate that you handled this keystroke
-            }
-
-            // Toggle Auto Cut on/off
-            if (keyData == (Keys.D2))  //  A Btn
-            {
-                rem.DoFunction(rem.aBtn);
-                //rem.DoFunction(Properties.Remote.Default.aBtn);
-                return true;    // indicate that you handled this keystroke
-            }
-
-            // Reset Blade Offset 
-            if (keyData == (Keys.D3))  // b Btn
-            {
-                rem.DoFunction(rem.bBtn);
-                //rem.DoFunction(Properties.Remote.Default.bBtn);
-                return true;    // indicate that you handled this keystroke
-            }
-
-            // Show Gps Form
-            if (keyData == (Keys.D4))   // Y Btn
-            {
-                rem.DoFunction(rem.yBtn);
-                //rem.DoFunction(Properties.Remote.Default.yBtn);
-                return true;    // indicate that you handled this keystroke
-            }
-
-            // Increase Blade Offset
-            if (keyData == (Keys.Left))  // UP Btn
-            {
-                rem.DoFunction(rem.upBtn);
-                //rem.DoFunction(Properties.Remote.Default.upBtn);
-                return true;    // indicate that you handled this keystroke
-            }
-
-            // Decrease Blade Offset
-            if (keyData == (Keys.Right)) // Down Btn
-            {
-                rem.DoFunction(rem.rightBtn);
+                rem.DoFunction(rem.downBtn);
                 //rem.DoFunction(Properties.Remote.Default.downBtn);
                 return true;    // indicate that you handled this keystroke
             }
@@ -795,18 +770,16 @@ namespace OpenGrade
             // Open to Options
             if (keyData == (Keys.Up)) // Right Btn
             {
-                rem.DoFunction(Properties.Remote.Default.rightBtn);
+                rem.DoFunction(rem.rightBtn);
                 return true;    // indicate that you handled this keystroke
             }
 
             // Open to Options
             if (keyData == (Keys.Down))  // Left Btn
             {
-                rem.DoFunction(rem.downBtn);
-                //rem.DoFunction(Properties.Remote.Default.leftBtn);
+                rem.DoFunction(rem.leftBtn);
                 return true;    // indicate that you handled this keystroke
             }
-            */
 
 
 
@@ -835,7 +808,7 @@ namespace OpenGrade
             vehiclesDirectory = baseDirectory + "Vehicles\\";
             dir = Path.GetDirectoryName(vehiclesDirectory);
             if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir)) { Directory.CreateDirectory(dir); }
-            
+
             //make sure current field directory exists, null if not
             currentFieldDirectory = Settings.Default.setF_CurrentDir;
 
@@ -937,8 +910,8 @@ namespace OpenGrade
 
         private void btnZeroIMU_Click(object sender, EventArgs e)
         {
-            //SendUDPMessage(IMU_HEADER, epAntennaModule);
-            SendAntennaUDPMessage(IMU_HEADER + "," + 0);
+            SendUDPMessage(FormGPS.IMU_HEADER, epAntennaModule);
+
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -954,17 +927,14 @@ namespace OpenGrade
 
         private void resetAntennaToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            SendUDPMessage(FormGPS.RESET_HEADER, epAntennaModule);
 
-            SendAntennaUDPMessage(RESET_HEADER + "," + 0);
         }
 
         private void resetGradeControlToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SendGradeControlUDPMessage(RESET_HEADER + "," + 0);
-        }
 
-        private void label15_Click(object sender, EventArgs e)
-        {
+            SendUDPMessage(FormGPS.RESET_HEADER, epGradeControl);
 
         }
 
@@ -981,7 +951,7 @@ namespace OpenGrade
                     btnDecCut.Visible = true;
                     lblAutoCutDepth.Visible = true;
                     lblPassDepth.Visible = true;
-                        
+
                 }
                 else
                 {
@@ -993,7 +963,7 @@ namespace OpenGrade
                     btnDecCut.Visible = false;
                     lblAutoCutDepth.Visible = false;
                     lblPassDepth.Visible = false;
-                    
+
                 }
 
 
@@ -1035,7 +1005,8 @@ namespace OpenGrade
         }
         private void zeroIMUToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SendAntennaUDPMessage(IMU_HEADER + "," + 0);
+            SendUDPMessage(FormGPS.IMU_HEADER, epAntennaModule);
+
         }
 
         private void btnIncCut_Click(object sender, EventArgs e)
@@ -1055,17 +1026,19 @@ namespace OpenGrade
 
         private void openGLControl_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         private void stripEqWidth_Click(object sender, EventArgs e)
         {
+            
+
             HideTabControl();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -1101,12 +1074,15 @@ namespace OpenGrade
             }
         }
 
-            private void resetAllToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void toolstripNTripConfig_Click(object sender, EventArgs e)
         {
-            SendGradeControlUDPMessage(RESET_HEADER + "," + 0);
-            SendAntennaUDPMessage(RESET_HEADER + "," + 0);
+            SettingsNtrip();
+        }
 
-
+        private void resetAllToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            SendUDPMessage(FormGPS.RESET_HEADER, epGradeControl);
+            SendUDPMessage(FormGPS.RESET_HEADER, epAntennaModule);
 
         }
 
@@ -1126,6 +1102,22 @@ namespace OpenGrade
 
         }
 
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void stripTopoLocation_Click(object sender, EventArgs e)
+        {
+            if (tboxNTRIPBuffer.Visible)
+            {
+                tboxNTRIPBuffer.Visible = false;
+            }
+            else
+            {
+                tboxNTRIPBuffer.Visible = true;
+            }
+        }
 
         private void btnSaveCut_Click_1(object sender, EventArgs e)
         {
@@ -1452,34 +1444,39 @@ namespace OpenGrade
             }
         }
 
+        private void SettingsNtrip()
+        {
+            using (var form = new FormNtrip(this))
+            {
+                var result = form.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    //Clicked Save
+                }
+                else
+                {
+                    //Clicked X - No Save
+                }
+            }
+        }
+
+
+
+
         //request a new job
         public void JobNew()
         {
 
             isJobStarted = true;
             startCounter = 0;
-
             btnManualOffOn.Enabled = true;
             btnManualOffOn.Image = Properties.Resources.SurveyStart;
-
             btnABLine.Enabled = true;
             btnContour.Enabled = true;
             btnGradeControl.Enabled = true;
             ABLine.abHeading = 0.00;
-
             btnFlag.Enabled = true;
-
-
-            if (!isLevelOn)
-            {
-                btnAutoCut.Visible = true;
-                btnAutoShore.Visible = true;
-            }
-
-
-
-
-                ct.isContourBtnOn = false;
+            ct.isContourBtnOn = false;
             ct.isContourOn = false;
             ct.ptList.Clear();
             ct.drawList.Clear();
@@ -1488,7 +1485,11 @@ namespace OpenGrade
             lblCutFillRatio.Text = "*";
             lblDrawSlope.Text = "*";
 
-
+            if (!isLevelOn)
+            {
+                btnAutoCut.Visible = true;
+                btnAutoShore.Visible = true;
+            }
 
             //update the menu
             fieldToolStripMenuItem.Text = gStr.gsCloseField;
@@ -1592,6 +1593,38 @@ namespace OpenGrade
             }
         }
 
+        private void ProcessSectionOnOffRequests()
+        {
+            {
+
+                //MAPPING - 
+                for (int j = 0; j < 2; j++)
+                {
+                    //easy just turn it on
+                    if (section[1].mappingOnRequest)
+                    {
+                        if (!section[1].isMappingOn && isMapping) section[1].TurnMappingOn(); //**************************************** un comment to enable mappping again
+                    }
+
+                    //turn off
+                    double sped = 1 / ((pn.speed + 5) * 0.2);
+                    if (sped < 0.2) sped = 0.2;
+
+                }
+
+
+                //if Off mapping timer is zero, turn off the section, reset everything
+                if (section[1].mappingOffRequest)
+                {
+                    if (section[1].isMappingOn) section[1].TurnMappingOff();
+                    section[1].mappingOffRequest = false;
+                }
+
+            }
+        }
+    
+
+
 
         //take the distance from object and convert to camera data
         private void SetZoom()
@@ -1631,12 +1664,21 @@ namespace OpenGrade
             //turn off contour line if on
             if (ct.isContourOn) ct.StopContourLine();
 
+            //turn off all the sections
+            for (int j = 0; j < 1 + 1; j++)
+            {
+                if (section[j].isMappingOn) section[j].TurnMappingOff();
+                section[j].sectionOnOffCycle = false;
+                section[j].sectionOffRequest = false;
+            }
+
             FileSaveField();
+            FileSaveSections();
             FileSaveContour();
             FileSaveFlagsKML();
 
             JobClose();
-            Text = "OpenGrade";
+            Text = "OpenGradeX";
         }
 
         //function called by menu items to delete a selected flag
@@ -1684,6 +1726,7 @@ namespace OpenGrade
         public void TimedMessageBox(int timeout, string s1, string s2)
         {
             var form = new FormTimedMessage(timeout, s1, s2);
+            form.Size = new Size(400, 200);
             form.Show();
         }
         //class FormGPS

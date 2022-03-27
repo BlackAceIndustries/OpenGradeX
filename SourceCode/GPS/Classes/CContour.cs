@@ -461,7 +461,7 @@ namespace OpenGrade
             ////draw the guidance line
             int ptCount = ptList.Count;
             gl.LineWidth(3);
-            gl.Color(0.98f, 0.2f, 0.0f);
+            gl.Color(0.30f, 0.31f, 0.77f);
             gl.Begin(OpenGL.GL_LINE_STRIP);
             for (int h = 0; h < ptCount; h++) gl.Vertex(ptList[h].easting, ptList[h].northing, 0);
             gl.End();
@@ -469,7 +469,7 @@ namespace OpenGrade
             gl.PointSize(4.0f);
             gl.Begin(OpenGL.GL_POINTS);
 
-            gl.Color(0.97f, 0.42f, 0.45f);
+            gl.Color(0.30f, 0.31f, 0.77f);
             for (int h = 0; h < ptCount; h++) gl.Vertex(ptList[h].easting, ptList[h].northing, 0);
 
             gl.End();

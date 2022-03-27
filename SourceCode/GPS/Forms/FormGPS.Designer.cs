@@ -30,14 +30,14 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormGPS));
-            ProgBar.cBlendItems cBlendItems13 = new ProgBar.cBlendItems();
-            ProgBar.cFocalPoints cFocalPoints13 = new ProgBar.cFocalPoints();
-            ProgBar.cBlendItems cBlendItems14 = new ProgBar.cBlendItems();
-            ProgBar.cFocalPoints cFocalPoints14 = new ProgBar.cFocalPoints();
-            ProgBar.cBlendItems cBlendItems15 = new ProgBar.cBlendItems();
-            ProgBar.cFocalPoints cFocalPoints15 = new ProgBar.cFocalPoints();
-            ProgBar.cBlendItems cBlendItems16 = new ProgBar.cBlendItems();
-            ProgBar.cFocalPoints cFocalPoints16 = new ProgBar.cFocalPoints();
+            ProgBar.cBlendItems cBlendItems1 = new ProgBar.cBlendItems();
+            ProgBar.cFocalPoints cFocalPoints1 = new ProgBar.cFocalPoints();
+            ProgBar.cBlendItems cBlendItems2 = new ProgBar.cBlendItems();
+            ProgBar.cFocalPoints cFocalPoints2 = new ProgBar.cFocalPoints();
+            ProgBar.cBlendItems cBlendItems3 = new ProgBar.cBlendItems();
+            ProgBar.cFocalPoints cFocalPoints3 = new ProgBar.cFocalPoints();
+            ProgBar.cBlendItems cBlendItems4 = new ProgBar.cBlendItems();
+            ProgBar.cFocalPoints cFocalPoints4 = new ProgBar.cFocalPoints();
             this.openGLControl = new SharpGL.OpenGLControl();
             this.contextMenuStripOpenGL = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.deleteFlagToolOpenGLContextMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -72,6 +72,7 @@
             this.pursuitLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.skyToolStripMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.fullscreenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.simulatorOnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -99,6 +100,7 @@
             this.stripDistance = new System.Windows.Forms.ToolStripStatusLabel();
             this.stripEqWidth = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.toolstripNTripConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.toolstripUDPConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.toolstripVehicleConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.stripTopoLocation = new System.Windows.Forms.ToolStripStatusLabel();
@@ -158,6 +160,11 @@
             this.btnStartDraw = new System.Windows.Forms.Button();
             this.btnClearLastPass = new System.Windows.Forms.Button();
             this.SettingsPage = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ledNTRIP = new System.Windows.Forms.Button();
+            this.ledRadio = new System.Windows.Forms.Button();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
             this.connectionGroupBox = new System.Windows.Forms.GroupBox();
             this.ledGradeControl = new System.Windows.Forms.Button();
             this.ledAntenna = new System.Windows.Forms.Button();
@@ -171,6 +178,7 @@
             this.btnSnap = new System.Windows.Forms.Button();
             this.btnGoogleEarth = new System.Windows.Forms.Button();
             this.GPSPage = new System.Windows.Forms.TabPage();
+            this.lblAltitudeUnits = new System.Windows.Forms.Label();
             this.alt = new System.Windows.Forms.Label();
             this.lblAltitude2 = new System.Windows.Forms.Label();
             this.lblPitch = new System.Windows.Forms.Label();
@@ -226,7 +234,8 @@
             this.label20 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.btnAutoShore = new System.Windows.Forms.Button();
-            this.fullscreenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblAltitudeUnits2 = new System.Windows.Forms.Label();
+            this.tboxNTRIPBuffer = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.openGLControl)).BeginInit();
             this.contextMenuStripOpenGL.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.openGLControlBack)).BeginInit();
@@ -239,6 +248,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudElevation)).BeginInit();
             this.OpenGradePage.SuspendLayout();
             this.SettingsPage.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.connectionGroupBox.SuspendLayout();
             this.GPSPage.SuspendLayout();
             this.tabGradeControl.SuspendLayout();
@@ -607,6 +617,15 @@
             this.toolStripSeparator6.Name = "toolStripSeparator6";
             this.toolStripSeparator6.Size = new System.Drawing.Size(260, 6);
             // 
+            // fullscreenToolStripMenuItem
+            // 
+            this.fullscreenToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.fullscreenToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.fullscreenToolStripMenuItem.Name = "fullscreenToolStripMenuItem";
+            this.fullscreenToolStripMenuItem.Size = new System.Drawing.Size(263, 40);
+            this.fullscreenToolStripMenuItem.Text = "Full-Screen";
+            this.fullscreenToolStripMenuItem.Click += new System.EventHandler(this.fullscreenToolStripMenuItem_Click_1);
+            // 
             // simulatorOnToolStripMenuItem
             // 
             this.simulatorOnToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
@@ -665,7 +684,7 @@
             this.remoteConfigurationToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.remoteConfigurationToolStripMenuItem.Name = "remoteConfigurationToolStripMenuItem";
             this.remoteConfigurationToolStripMenuItem.Size = new System.Drawing.Size(360, 40);
-            this.remoteConfigurationToolStripMenuItem.Text = "Remote Config";
+            this.remoteConfigurationToolStripMenuItem.Text = "Remote Setup";
             this.remoteConfigurationToolStripMenuItem.Click += new System.EventHandler(this.remoteConfigurationToolStripMenuItem_Click);
             // 
             // explorerToolStripMenuItem
@@ -895,6 +914,7 @@
             // 
             this.toolStripDropDownButton2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.toolStripDropDownButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolstripNTripConfig,
             this.toolstripUDPConfig,
             this.toolstripVehicleConfig});
             this.toolStripDropDownButton2.Font = new System.Drawing.Font("Tahoma", 18F);
@@ -908,6 +928,18 @@
             this.toolStripDropDownButton2.Text = "Config";
             this.toolStripDropDownButton2.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             // 
+            // toolstripNTripConfig
+            // 
+            this.toolstripNTripConfig.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.toolstripNTripConfig.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolstripNTripConfig.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.toolstripNTripConfig.Image = global::OpenGrade.Properties.Resources.Satellite64;
+            this.toolstripNTripConfig.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolstripNTripConfig.Name = "toolstripNTripConfig";
+            this.toolstripNTripConfig.Size = new System.Drawing.Size(260, 86);
+            this.toolstripNTripConfig.Text = "NTRIP";
+            this.toolstripNTripConfig.Click += new System.EventHandler(this.toolstripNTripConfig_Click);
+            // 
             // toolstripUDPConfig
             // 
             this.toolstripUDPConfig.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
@@ -916,7 +948,7 @@
             this.toolstripUDPConfig.Image = ((System.Drawing.Image)(resources.GetObject("toolstripUDPConfig.Image")));
             this.toolstripUDPConfig.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolstripUDPConfig.Name = "toolstripUDPConfig";
-            this.toolstripUDPConfig.Size = new System.Drawing.Size(251, 70);
+            this.toolstripUDPConfig.Size = new System.Drawing.Size(260, 86);
             this.toolstripUDPConfig.Text = "Connect";
             this.toolstripUDPConfig.Click += new System.EventHandler(this.toolstripUDPConfig_Click);
             // 
@@ -928,7 +960,7 @@
             this.toolstripVehicleConfig.Image = global::OpenGrade.Properties.Resources.Settings64;
             this.toolstripVehicleConfig.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolstripVehicleConfig.Name = "toolstripVehicleConfig";
-            this.toolstripVehicleConfig.Size = new System.Drawing.Size(251, 70);
+            this.toolstripVehicleConfig.Size = new System.Drawing.Size(260, 86);
             this.toolstripVehicleConfig.Text = "Vehicle";
             this.toolstripVehicleConfig.Click += new System.EventHandler(this.toolstripVehicleConfig_Click);
             // 
@@ -940,6 +972,7 @@
             this.stripTopoLocation.Name = "stripTopoLocation";
             this.stripTopoLocation.Size = new System.Drawing.Size(200, 41);
             this.stripTopoLocation.Text = "-- : -----";
+            this.stripTopoLocation.Click += new System.EventHandler(this.stripTopoLocation_Click);
             // 
             // stripOnlineGPS
             // 
@@ -1068,7 +1101,7 @@
             this.lblSpeedUnits.ForeColor = System.Drawing.Color.Green;
             this.lblSpeedUnits.Location = new System.Drawing.Point(979, 4);
             this.lblSpeedUnits.Name = "lblSpeedUnits";
-            this.lblSpeedUnits.Size = new System.Drawing.Size(50, 41);
+            this.lblSpeedUnits.Size = new System.Drawing.Size(42, 41);
             this.lblSpeedUnits.TabIndex = 139;
             this.lblSpeedUnits.Text = "kmh";
             this.lblSpeedUnits.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
@@ -1083,7 +1116,7 @@
             this.lblHeading.Name = "lblHeading";
             this.lblHeading.Size = new System.Drawing.Size(130, 40);
             this.lblHeading.TabIndex = 117;
-            this.lblHeading.Text = "359.8.";
+            this.lblHeading.Text = "359.8";
             // 
             // imageList1
             // 
@@ -1196,15 +1229,15 @@
             // lblAltitude
             // 
             this.lblAltitude.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblAltitude.AutoSize = true;
             this.lblAltitude.BackColor = System.Drawing.SystemColors.WindowText;
             this.lblAltitude.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAltitude.ForeColor = System.Drawing.Color.Green;
-            this.lblAltitude.Location = new System.Drawing.Point(714, 7);
+            this.lblAltitude.Location = new System.Drawing.Point(680, 5);
             this.lblAltitude.Name = "lblAltitude";
-            this.lblAltitude.Size = new System.Drawing.Size(147, 39);
+            this.lblAltitude.Size = new System.Drawing.Size(147, 41);
             this.lblAltitude.TabIndex = 179;
             this.lblAltitude.Text = "900.555";
+            this.lblAltitude.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
             // panelSimControls
             // 
@@ -1397,13 +1430,13 @@
             // 
             this.pbarCutBelow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.pbarCutBelow.BarBackColor = System.Drawing.Color.Black;
-            cBlendItems13.iColor = new System.Drawing.Color[] {
+            cBlendItems1.iColor = new System.Drawing.Color[] {
         System.Drawing.Color.Navy,
         System.Drawing.Color.Blue};
-            cBlendItems13.iPoint = new float[] {
+            cBlendItems1.iPoint = new float[] {
         0F,
         1F};
-            this.pbarCutBelow.BarColorBlend = cBlendItems13;
+            this.pbarCutBelow.BarColorBlend = cBlendItems1;
             this.pbarCutBelow.BarColorSolid = System.Drawing.Color.Black;
             this.pbarCutBelow.BarColorSolidB = System.Drawing.Color.Red;
             this.pbarCutBelow.BarLengthValue = ((short)(40));
@@ -1421,9 +1454,9 @@
             this.pbarCutBelow.CylonInterval = ((short)(1));
             this.pbarCutBelow.CylonMove = 5F;
             this.pbarCutBelow.FillDirection = ProgBar.ProgBarPlus.eFillDirection.Down_Left;
-            cFocalPoints13.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints13.CenterPoint")));
-            cFocalPoints13.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints13.FocusScales")));
-            this.pbarCutBelow.FocalPoints = cFocalPoints13;
+            cFocalPoints1.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints1.CenterPoint")));
+            cFocalPoints1.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints1.FocusScales")));
+            this.pbarCutBelow.FocalPoints = cFocalPoints1;
             this.pbarCutBelow.Location = new System.Drawing.Point(1226, 488);
             this.pbarCutBelow.Name = "pbarCutBelow";
             this.pbarCutBelow.Orientation = ProgBar.ProgBarPlus.eOrientation.Vertical;
@@ -1437,13 +1470,13 @@
             // 
             this.pbarCutAbove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pbarCutAbove.BarBackColor = System.Drawing.Color.Black;
-            cBlendItems14.iColor = new System.Drawing.Color[] {
+            cBlendItems2.iColor = new System.Drawing.Color[] {
         System.Drawing.Color.Navy,
         System.Drawing.Color.Blue};
-            cBlendItems14.iPoint = new float[] {
+            cBlendItems2.iPoint = new float[] {
         0F,
         1F};
-            this.pbarCutAbove.BarColorBlend = cBlendItems14;
+            this.pbarCutAbove.BarColorBlend = cBlendItems2;
             this.pbarCutAbove.BarColorSolid = System.Drawing.Color.Black;
             this.pbarCutAbove.BarColorSolidB = System.Drawing.Color.LimeGreen;
             this.pbarCutAbove.BarLengthValue = ((short)(40));
@@ -1460,9 +1493,9 @@
             this.pbarCutAbove.Corners.UpperRight = ((short)(0));
             this.pbarCutAbove.CylonInterval = ((short)(1));
             this.pbarCutAbove.CylonMove = 5F;
-            cFocalPoints14.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints14.CenterPoint")));
-            cFocalPoints14.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints14.FocusScales")));
-            this.pbarCutAbove.FocalPoints = cFocalPoints14;
+            cFocalPoints2.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints2.CenterPoint")));
+            cFocalPoints2.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints2.FocusScales")));
+            this.pbarCutAbove.FocalPoints = cFocalPoints2;
             this.pbarCutAbove.Location = new System.Drawing.Point(1226, 348);
             this.pbarCutAbove.Name = "pbarCutAbove";
             this.pbarCutAbove.Orientation = ProgBar.ProgBarPlus.eOrientation.Vertical;
@@ -1537,7 +1570,6 @@
             this.label15.Size = new System.Drawing.Size(80, 19);
             this.label15.TabIndex = 239;
             this.label15.Text = "Cut Depth";
-            this.label15.Click += new System.EventHandler(this.label15_Click);
             // 
             // lblCurrentCutDepth
             // 
@@ -1726,6 +1758,7 @@
             // 
             this.SettingsPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.SettingsPage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.SettingsPage.Controls.Add(this.groupBox1);
             this.SettingsPage.Controls.Add(this.connectionGroupBox);
             this.SettingsPage.Controls.Add(this.btnFileExplorer);
             this.SettingsPage.Controls.Add(this.btnABLine);
@@ -1741,6 +1774,67 @@
             this.SettingsPage.Size = new System.Drawing.Size(601, 255);
             this.SettingsPage.TabIndex = 0;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.ledNTRIP);
+            this.groupBox1.Controls.Add(this.ledRadio);
+            this.groupBox1.Controls.Add(this.label13);
+            this.groupBox1.Controls.Add(this.label22);
+            this.groupBox1.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.ForeColor = System.Drawing.SystemColors.Control;
+            this.groupBox1.Location = new System.Drawing.Point(340, 123);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(231, 106);
+            this.groupBox1.TabIndex = 167;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Corrections";
+            // 
+            // ledNTRIP
+            // 
+            this.ledNTRIP.BackColor = System.Drawing.Color.Black;
+            this.ledNTRIP.FlatAppearance.BorderSize = 0;
+            this.ledNTRIP.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ledNTRIP.Location = new System.Drawing.Point(20, 41);
+            this.ledNTRIP.Name = "ledNTRIP";
+            this.ledNTRIP.Size = new System.Drawing.Size(26, 23);
+            this.ledNTRIP.TabIndex = 164;
+            this.ledNTRIP.UseVisualStyleBackColor = false;
+            // 
+            // ledRadio
+            // 
+            this.ledRadio.BackColor = System.Drawing.Color.Black;
+            this.ledRadio.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.ledRadio.FlatAppearance.BorderSize = 0;
+            this.ledRadio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ledRadio.Location = new System.Drawing.Point(20, 70);
+            this.ledRadio.Name = "ledRadio";
+            this.ledRadio.Size = new System.Drawing.Size(26, 23);
+            this.ledRadio.TabIndex = 163;
+            this.ledRadio.UseVisualStyleBackColor = false;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label13.Location = new System.Drawing.Point(52, 70);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(65, 23);
+            this.label13.TabIndex = 161;
+            this.label13.Text = "Radio";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label22.Location = new System.Drawing.Point(52, 42);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(72, 23);
+            this.label22.TabIndex = 162;
+            this.label22.Text = "NTRIP";
+            // 
             // connectionGroupBox
             // 
             this.connectionGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -1750,9 +1844,9 @@
             this.connectionGroupBox.Controls.Add(this.lblAntennaConnected);
             this.connectionGroupBox.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.connectionGroupBox.ForeColor = System.Drawing.SystemColors.Control;
-            this.connectionGroupBox.Location = new System.Drawing.Point(356, 70);
+            this.connectionGroupBox.Location = new System.Drawing.Point(340, 11);
             this.connectionGroupBox.Name = "connectionGroupBox";
-            this.connectionGroupBox.Size = new System.Drawing.Size(231, 108);
+            this.connectionGroupBox.Size = new System.Drawing.Size(231, 105);
             this.connectionGroupBox.TabIndex = 166;
             this.connectionGroupBox.TabStop = false;
             this.connectionGroupBox.Text = "Modules";
@@ -1809,9 +1903,9 @@
             this.btnFileExplorer.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold);
             this.btnFileExplorer.Image = ((System.Drawing.Image)(resources.GetObject("btnFileExplorer.Image")));
             this.btnFileExplorer.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnFileExplorer.Location = new System.Drawing.Point(572, 232);
+            this.btnFileExplorer.Location = new System.Drawing.Point(13, 113);
             this.btnFileExplorer.Name = "btnFileExplorer";
-            this.btnFileExplorer.Size = new System.Drawing.Size(23, 23);
+            this.btnFileExplorer.Size = new System.Drawing.Size(12, 15);
             this.btnFileExplorer.TabIndex = 141;
             this.btnFileExplorer.Text = "Files";
             this.btnFileExplorer.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -1828,7 +1922,7 @@
             this.btnABLine.Font = new System.Drawing.Font("Tahoma", 14.25F);
             this.btnABLine.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnABLine.Image = ((System.Drawing.Image)(resources.GetObject("btnABLine.Image")));
-            this.btnABLine.Location = new System.Drawing.Point(63, 32);
+            this.btnABLine.Location = new System.Drawing.Point(41, 26);
             this.btnABLine.Name = "btnABLine";
             this.btnABLine.Size = new System.Drawing.Size(90, 90);
             this.btnABLine.TabIndex = 0;
@@ -1842,8 +1936,8 @@
             this.btnUnits.BackColor = System.Drawing.Color.DimGray;
             this.btnUnits.ContextMenuStrip = this.contextMenuStripFlag;
             this.btnUnits.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold);
-            this.btnUnits.Image = ((System.Drawing.Image)(resources.GetObject("btnUnits.Image")));
-            this.btnUnits.Location = new System.Drawing.Point(160, 32);
+            this.btnUnits.Image = global::OpenGrade.Properties.Resources.Imperial;
+            this.btnUnits.Location = new System.Drawing.Point(140, 26);
             this.btnUnits.Name = "btnUnits";
             this.btnUnits.Size = new System.Drawing.Size(90, 90);
             this.btnUnits.TabIndex = 142;
@@ -1858,7 +1952,7 @@
             this.btnGPSData.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold);
             this.btnGPSData.Image = ((System.Drawing.Image)(resources.GetObject("btnGPSData.Image")));
             this.btnGPSData.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnGPSData.Location = new System.Drawing.Point(160, 129);
+            this.btnGPSData.Location = new System.Drawing.Point(140, 139);
             this.btnGPSData.Name = "btnGPSData";
             this.btnGPSData.Size = new System.Drawing.Size(90, 90);
             this.btnGPSData.TabIndex = 138;
@@ -1874,7 +1968,7 @@
             this.btnFlag.ContextMenuStrip = this.contextMenuStripFlag;
             this.btnFlag.Font = new System.Drawing.Font("Tahoma", 14.25F);
             this.btnFlag.Image = ((System.Drawing.Image)(resources.GetObject("btnFlag.Image")));
-            this.btnFlag.Location = new System.Drawing.Point(257, 32);
+            this.btnFlag.Location = new System.Drawing.Point(239, 26);
             this.btnFlag.Name = "btnFlag";
             this.btnFlag.Size = new System.Drawing.Size(90, 90);
             this.btnFlag.TabIndex = 121;
@@ -1888,7 +1982,7 @@
             this.btnSnap.ContextMenuStrip = this.contextMenuStripFlag;
             this.btnSnap.Font = new System.Drawing.Font("Tahoma", 14.25F);
             this.btnSnap.Image = ((System.Drawing.Image)(resources.GetObject("btnSnap.Image")));
-            this.btnSnap.Location = new System.Drawing.Point(63, 129);
+            this.btnSnap.Location = new System.Drawing.Point(41, 139);
             this.btnSnap.Name = "btnSnap";
             this.btnSnap.Size = new System.Drawing.Size(90, 90);
             this.btnSnap.TabIndex = 132;
@@ -1902,7 +1996,7 @@
             this.btnGoogleEarth.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnGoogleEarth.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGoogleEarth.Image = global::OpenGrade.Properties.Resources.GoogleEarth;
-            this.btnGoogleEarth.Location = new System.Drawing.Point(257, 129);
+            this.btnGoogleEarth.Location = new System.Drawing.Point(239, 139);
             this.btnGoogleEarth.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.btnGoogleEarth.Name = "btnGoogleEarth";
             this.btnGoogleEarth.Size = new System.Drawing.Size(90, 90);
@@ -1913,6 +2007,7 @@
             // GPSPage
             // 
             this.GPSPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.GPSPage.Controls.Add(this.lblAltitudeUnits);
             this.GPSPage.Controls.Add(this.alt);
             this.GPSPage.Controls.Add(this.lblAltitude2);
             this.GPSPage.Controls.Add(this.lblPitch);
@@ -1942,6 +2037,17 @@
             this.GPSPage.Name = "GPSPage";
             this.GPSPage.Size = new System.Drawing.Size(601, 255);
             this.GPSPage.TabIndex = 3;
+            // 
+            // lblAltitudeUnits
+            // 
+            this.lblAltitudeUnits.AutoSize = true;
+            this.lblAltitudeUnits.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold);
+            this.lblAltitudeUnits.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.lblAltitudeUnits.Location = new System.Drawing.Point(181, 76);
+            this.lblAltitudeUnits.Name = "lblAltitudeUnits";
+            this.lblAltitudeUnits.Size = new System.Drawing.Size(27, 23);
+            this.lblAltitudeUnits.TabIndex = 190;
+            this.lblAltitudeUnits.Text = "M";
             // 
             // alt
             // 
@@ -2240,9 +2346,9 @@
             this.lblDiagnostics.Margin = new System.Windows.Forms.Padding(0, 0, 0, 4);
             this.lblDiagnostics.Name = "lblDiagnostics";
             this.lblDiagnostics.ReadOnly = true;
+            this.lblDiagnostics.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.lblDiagnostics.Size = new System.Drawing.Size(200, 36);
             this.lblDiagnostics.TabIndex = 227;
-            this.lblDiagnostics.Text = "---------------\r\n";
             this.lblDiagnostics.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.lblDiagnostics.TextChanged += new System.EventHandler(this.labelDiagnostics_TextChanged);
             // 
@@ -2466,17 +2572,17 @@
             this.voltageBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.voltageBar.BarBackColor = System.Drawing.Color.Black;
-            cBlendItems15.iColor = new System.Drawing.Color[] {
+            cBlendItems3.iColor = new System.Drawing.Color[] {
         System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))),
         System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))),
         System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(0))))),
         System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))))};
-            cBlendItems15.iPoint = new float[] {
+            cBlendItems3.iPoint = new float[] {
         0F,
         0.4378882F,
         0.5031056F,
         1F};
-            this.voltageBar.BarColorBlend = cBlendItems15;
+            this.voltageBar.BarColorBlend = cBlendItems3;
             this.voltageBar.BarColorSolid = System.Drawing.Color.RoyalBlue;
             this.voltageBar.BarColorSolidB = System.Drawing.Color.RoyalBlue;
             this.voltageBar.BarLength = ProgBar.ProgBarPlus.eBarLength.Fixed;
@@ -2494,9 +2600,9 @@
             this.voltageBar.Corners.UpperRight = ((short)(0));
             this.voltageBar.CylonInterval = ((short)(1));
             this.voltageBar.CylonMove = 1F;
-            cFocalPoints15.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints15.CenterPoint")));
-            cFocalPoints15.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints15.FocusScales")));
-            this.voltageBar.FocalPoints = cFocalPoints15;
+            cFocalPoints3.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints3.CenterPoint")));
+            cFocalPoints3.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints3.FocusScales")));
+            this.voltageBar.FocalPoints = cFocalPoints3;
             this.voltageBar.Location = new System.Drawing.Point(1184, 347);
             this.voltageBar.Max = 500;
             this.voltageBar.Name = "voltageBar";
@@ -2649,17 +2755,17 @@
             this.voltageBar2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.voltageBar2.BarBackColor = System.Drawing.Color.Black;
-            cBlendItems16.iColor = new System.Drawing.Color[] {
+            cBlendItems4.iColor = new System.Drawing.Color[] {
         System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))),
         System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))),
         System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(0))))),
         System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))))};
-            cBlendItems16.iPoint = new float[] {
+            cBlendItems4.iPoint = new float[] {
         0F,
         0.4378882F,
         0.5031056F,
         1F};
-            this.voltageBar2.BarColorBlend = cBlendItems16;
+            this.voltageBar2.BarColorBlend = cBlendItems4;
             this.voltageBar2.BarColorSolid = System.Drawing.Color.RoyalBlue;
             this.voltageBar2.BarColorSolidB = System.Drawing.Color.RoyalBlue;
             this.voltageBar2.BarLength = ProgBar.ProgBarPlus.eBarLength.Fixed;
@@ -2677,9 +2783,9 @@
             this.voltageBar2.Corners.UpperRight = ((short)(0));
             this.voltageBar2.CylonInterval = ((short)(1));
             this.voltageBar2.CylonMove = 1F;
-            cFocalPoints16.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints16.CenterPoint")));
-            cFocalPoints16.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints16.FocusScales")));
-            this.voltageBar2.FocalPoints = cFocalPoints16;
+            cFocalPoints4.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints4.CenterPoint")));
+            cFocalPoints4.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints4.FocusScales")));
+            this.voltageBar2.FocalPoints = cFocalPoints4;
             this.voltageBar2.Location = new System.Drawing.Point(1205, 347);
             this.voltageBar2.Max = 500;
             this.voltageBar2.Name = "voltageBar2";
@@ -2729,14 +2835,35 @@
             this.btnAutoShore.Visible = false;
             this.btnAutoShore.Click += new System.EventHandler(this.btnAutoShore_Click);
             // 
-            // fullscreenToolStripMenuItem
+            // lblAltitudeUnits2
             // 
-            this.fullscreenToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.fullscreenToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.fullscreenToolStripMenuItem.Name = "fullscreenToolStripMenuItem";
-            this.fullscreenToolStripMenuItem.Size = new System.Drawing.Size(263, 40);
-            this.fullscreenToolStripMenuItem.Text = "Full-Screen";
-            this.fullscreenToolStripMenuItem.Click += new System.EventHandler(this.fullscreenToolStripMenuItem_Click_1);
+            this.lblAltitudeUnits2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblAltitudeUnits2.BackColor = System.Drawing.Color.Black;
+            this.lblAltitudeUnits2.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAltitudeUnits2.ForeColor = System.Drawing.Color.Green;
+            this.lblAltitudeUnits2.Location = new System.Drawing.Point(827, 5);
+            this.lblAltitudeUnits2.Name = "lblAltitudeUnits2";
+            this.lblAltitudeUnits2.Size = new System.Drawing.Size(40, 41);
+            this.lblAltitudeUnits2.TabIndex = 251;
+            this.lblAltitudeUnits2.Text = "M";
+            this.lblAltitudeUnits2.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            // 
+            // tboxNTRIPBuffer
+            // 
+            this.tboxNTRIPBuffer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.tboxNTRIPBuffer.BackColor = System.Drawing.Color.Black;
+            this.tboxNTRIPBuffer.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tboxNTRIPBuffer.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.tboxNTRIPBuffer.Location = new System.Drawing.Point(597, 381);
+            this.tboxNTRIPBuffer.Margin = new System.Windows.Forms.Padding(0, 0, 0, 4);
+            this.tboxNTRIPBuffer.Multiline = true;
+            this.tboxNTRIPBuffer.Name = "tboxNTRIPBuffer";
+            this.tboxNTRIPBuffer.ReadOnly = true;
+            this.tboxNTRIPBuffer.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.tboxNTRIPBuffer.Size = new System.Drawing.Size(541, 239);
+            this.tboxNTRIPBuffer.TabIndex = 252;
+            this.tboxNTRIPBuffer.Text = "YUPPERS";
+            this.tboxNTRIPBuffer.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // FormGPS
             // 
@@ -2744,6 +2871,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.ClientSize = new System.Drawing.Size(1306, 684);
+            this.Controls.Add(this.tboxNTRIPBuffer);
+            this.Controls.Add(this.lblAltitudeUnits2);
             this.Controls.Add(this.btnAutoShore);
             this.Controls.Add(this.label21);
             this.Controls.Add(this.label20);
@@ -2826,6 +2955,8 @@
             this.OpenGradePage.ResumeLayout(false);
             this.OpenGradePage.PerformLayout();
             this.SettingsPage.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.connectionGroupBox.ResumeLayout(false);
             this.connectionGroupBox.PerformLayout();
             this.GPSPage.ResumeLayout(false);
@@ -3027,6 +3158,15 @@
         private System.Windows.Forms.Button btnAutoShore;
         private System.Windows.Forms.GroupBox connectionGroupBox;
         private System.Windows.Forms.ToolStripMenuItem fullscreenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolstripNTripConfig;
+        private System.Windows.Forms.Label lblAltitudeUnits;
+        private System.Windows.Forms.Label lblAltitudeUnits2;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button ledNTRIP;
+        private System.Windows.Forms.Button ledRadio;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.TextBox tboxNTRIPBuffer;
     }
 }
 

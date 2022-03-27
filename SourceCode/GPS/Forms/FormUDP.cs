@@ -53,9 +53,7 @@ namespace OpenGrade
             lblAntennaVersion.Text = Properties.Settings.Default.set_AntModVersion; 
             lblGCVersion.Text = Properties.Settings.Default.set_GcModVersion;
 
-
-
-            //lblOGXVersion.Text = Assembly.GetEntryAssembly().GetName().Version;
+            
             lblProgramName.Text = Assembly.GetEntryAssembly().GetName().Name;
             lblOGXVersion.Text = Assembly.GetEntryAssembly().GetName().Version.ToString();
 
@@ -64,7 +62,7 @@ namespace OpenGrade
 
             //for (int i = 0; i <= 9; i++)
             //{
-            //mf.SSID[i] = "Item" + i;
+            //    mf.SSID[i] = "Item" + i;
             //}
 
             //choiceWiFi.Items.AddRange(mf.SSID);
@@ -121,29 +119,12 @@ namespace OpenGrade
             }
         }
 
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void choiceWiFi_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void btnHotSpotConnect_Click(object sender, EventArgs e)
         {
             
             //choiceWiFi.Items.Clear();
             //choiceWiFi.Items.AddRange(mf.SSID);      
-            
-            
-            //mf.SendAntennaUDPMessage("10102," + 2 + choiceWiFi.SelectedIndex + choicePassword.SelectedText + "\n\r");
             
             //choicePassword.Items.Add(choicePassword.Text);
             //choiceWiFi.Items.AddRange(mf.SSID);
@@ -153,30 +134,21 @@ namespace OpenGrade
 
         private void button1_Click(object sender, EventArgs e)
         {
-            mf.SendAntennaUDPMessage("10102," + 1 + "\n\r");
-            
-            choiceWiFi.Items.Clear();
-            choiceWiFi.Items.AddRange(mf.SSID);
 
+            mf.SendUDPMessage(FormGPS.WIFI_HEADER, mf.epAntennaModule);
+           
+            //choiceWiFi.Items.Clear();
+            //choiceWiFi.Items.AddRange(mf.SSID);
+
+            
+
+        }                
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {   
+            this.Refresh();
             //choiceWiFi.Items.Add(mf.SSID[0]);
-            ;
-            
             //choicePassword.Items.AddRange(mf.SSID_PASS);
-
-        }
-
-        private void choicePassword_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblProgramName_Click(object sender, EventArgs e)
-        {
 
         }
     }

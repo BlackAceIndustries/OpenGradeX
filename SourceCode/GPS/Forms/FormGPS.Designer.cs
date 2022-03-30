@@ -905,7 +905,7 @@
             this.stripEqWidth.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.stripEqWidth.Margin = new System.Windows.Forms.Padding(0);
             this.stripEqWidth.Name = "stripEqWidth";
-            this.stripEqWidth.Size = new System.Drawing.Size(309, 41);
+            this.stripEqWidth.Size = new System.Drawing.Size(340, 41);
             this.stripEqWidth.Spring = true;
             this.stripEqWidth.Text = "Width";
             this.stripEqWidth.Click += new System.EventHandler(this.stripEqWidth_Click);
@@ -2863,6 +2863,7 @@
             this.tboxNTRIPBuffer.Size = new System.Drawing.Size(541, 239);
             this.tboxNTRIPBuffer.TabIndex = 252;
             this.tboxNTRIPBuffer.Text = "YUPPERS";
+            this.tboxNTRIPBuffer.Visible = false;
             this.tboxNTRIPBuffer.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // FormGPS

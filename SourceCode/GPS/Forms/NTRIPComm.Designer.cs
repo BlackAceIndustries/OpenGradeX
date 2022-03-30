@@ -287,7 +287,7 @@ namespace OpenGrade
                     {
                         
                         sbRTCM.Append(data[i]);
-                        sbRTCM.Append(" ");
+                        sbRTCM.Append(",");
                         //if (i < nBytesRecvd)
                         //{
                            
@@ -299,15 +299,7 @@ namespace OpenGrade
 
                     SendUDPMessageNTRIP(NTRIP_HEADER, sbRTCM.ToString());
                     
-                    //sbRTCM.Append(Encoding.ASCII.GetString(localMsg, 0, nBytesRecvd));
-
-
                 }
-
-
-                //SendUDPMessage(NTRIP_HEADER, epAntennaModule, nTrip);
-                //SendUDPMessage(NTRIP_HEADER, epAntennaModule);
-                
 
 
 

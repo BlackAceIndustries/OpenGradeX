@@ -4,7 +4,7 @@
   <description asmv2:iconFile="OGX2Icon.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="OpenGradeX" version="1.2.3.0" language="neutral" processorArchitecture="x86" />
+    <assemblyIdentity name="OpenGradeX" version="1.2.5.0" language="neutral" processorArchitecture="x86" />
     <commandLine file="OpenGradeX.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -44,13 +44,13 @@
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OpenGradeX.exe" size="1455072">
-      <assemblyIdentity name="OpenGradeX" version="1.2.3.0" language="neutral" processorArchitecture="x86" />
+      <assemblyIdentity name="OpenGradeX" version="1.2.5.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>rSLw0+wRAEB48j0Xx4hNCkxDlpc=</dsig:DigestValue>
+        <dsig:DigestValue>M3RO4HXhVJkSZfWI5cYdqczJwkk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

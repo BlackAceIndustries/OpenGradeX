@@ -83,3 +83,4 @@ C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGradeX.application
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.FormSource.resources
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.Forms.FormNtripLog.resources
+C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGradeX\SourceCode\GPS\obj\x86\Release\OpenGrade.csproj.AssemblyReference.cache

@@ -29,6 +29,8 @@ namespace OpenGrade
         
         public bool isNTRIPOn;
         private string rtcm;
+        private string rtcmRaw;
+
         private string mount;
         private string username;
         private string password;
@@ -42,7 +44,7 @@ namespace OpenGrade
         private int sendGGAInterval = 0;
         private string GGASentence;
 
-        public float tripBytes = 0;
+        public  long  tripBytes = 0;
         private int toUDP_Port = 0;
         private int NTRIP_Watchdog = 100;
 
@@ -184,7 +186,7 @@ namespace OpenGrade
             // Check we are connected
             if (clientSocket == null || !clientSocket.Connected)
             {
-                TimedMessageBox(2000, gStr.gsNTRIPNotConnected, " At the StartNTRIP() ");
+                TimedMessageBox(2000, gStr.gsNTRIPNotConnected, " Re-Connecting ");
                 ReconnectRequest();
                 return;
             }
@@ -255,14 +257,10 @@ namespace OpenGrade
 
         public void OnAddMessage(byte[] data)
         {
-            //update gui with stats           
-            
-
+            //update gui with stats 
             uint nBytesRecvd = (uint)data.Length;            
-            tripBytes += (uint)nBytesRecvd/1000;
-            //uint calBytes = nBytesRecvd + 500;       // this is really bad programming but it is a patch that works for the time being
-
-            //string nTripString = "";
+            tripBytes += (uint)nBytesRecvd;
+         
             //reset watchdog since we have updated data
             NTRIP_Watchdog = 0;
 
@@ -288,11 +286,11 @@ namespace OpenGrade
                         
                         sbRTCM.Append(data[i]);
                         sbRTCM.Append(",");
-                        //if (i < nBytesRecvd)
-                        //{
-                           
-                        //}
-                        
+
+                        rtcmRaw += data[i];
+                        rtcmRaw += " ";
+
+
                     }
                     sbRTCM.Append("\r\n");
                     rtcm = sbRTCM.ToString();
@@ -313,12 +311,12 @@ namespace OpenGrade
 
             sbRTCM.Clear();
             sbRTCM.Append("Bytes Recieved-> " + (nBytesRecvd) + "\r\n");
-            sbRTCM.Append("Total Bytes Recieved -> " + tripBytes.ToString() +  " - KiloBytes" + "\r\n");
-            sbRTCM.Append("Message Recieved -> " + rtcm + "\r\n");
+            sbRTCM.Append("Total Bytes Recieved -> " + tripBytes.ToString() + "\r\n");
+            sbRTCM.Append("Message Recieved -> " + rtcmRaw + "\r\n");
             sbRTCM.Append("\r\n");
-            //tboxNTRIPBuffer.Text = sbRTCM.ToString();
-                
-           
+            tboxNTRIPBuffer.Text = sbRTCM.ToString();
+            rtcmRaw = "";
+
 
 
 

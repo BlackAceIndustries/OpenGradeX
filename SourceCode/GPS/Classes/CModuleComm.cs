@@ -67,8 +67,6 @@ namespace OpenGrade
             gcFirmware = "----";
             atFirmware = "----";
 
-
-
             //WorkSwitch logic
             isWorkSwitchEnabled = false;
 
@@ -93,7 +91,9 @@ namespace OpenGrade
             gradeControlSettings[gsValveType] = Properties.Settings.Default.set_ValveType;
 
             mf.SendUDPMessage(FormGPS.SETTINGS_HEADER, mf.epGradeControl);
-                        
+
+            mf.SendUDPMessage(FormGPS.IMU_HEADER, mf.epAntennaModule);
+
         }
     }
 }

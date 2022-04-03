@@ -390,11 +390,11 @@
             this.btnPassPassword.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPassPassword.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPassPassword.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnPassPassword.Location = new System.Drawing.Point(344, 231);
+            this.btnPassPassword.Location = new System.Drawing.Point(349, 171);
             this.btnPassPassword.Name = "btnPassPassword";
             this.btnPassPassword.Size = new System.Drawing.Size(121, 33);
             this.btnPassPassword.TabIndex = 134;
-            this.btnPassPassword.Text = "ENTER";
+            this.btnPassPassword.Text = "VERIFY";
             this.btnPassPassword.UseVisualStyleBackColor = false;
             this.btnPassPassword.Click += new System.EventHandler(this.btnPassPassword_Click);
             // 
@@ -589,11 +589,11 @@
             this.btnStartNtrip.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStartNtrip.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStartNtrip.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnStartNtrip.Location = new System.Drawing.Point(342, 171);
+            this.btnStartNtrip.Location = new System.Drawing.Point(349, 231);
             this.btnStartNtrip.Name = "btnStartNtrip";
             this.btnStartNtrip.Size = new System.Drawing.Size(121, 33);
             this.btnStartNtrip.TabIndex = 2102;
-            this.btnStartNtrip.Text = "StartNtrip";
+            this.btnStartNtrip.Text = "RESTART";
             this.btnStartNtrip.UseVisualStyleBackColor = false;
             this.btnStartNtrip.Click += new System.EventHandler(this.btnStartNtrip_Click);
             // 

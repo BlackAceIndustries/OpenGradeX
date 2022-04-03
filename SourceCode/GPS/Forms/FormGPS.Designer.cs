@@ -2854,15 +2854,15 @@
             this.tboxNTRIPBuffer.BackColor = System.Drawing.Color.Black;
             this.tboxNTRIPBuffer.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tboxNTRIPBuffer.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.tboxNTRIPBuffer.Location = new System.Drawing.Point(597, 381);
+            this.tboxNTRIPBuffer.Location = new System.Drawing.Point(555, 352);
             this.tboxNTRIPBuffer.Margin = new System.Windows.Forms.Padding(0, 0, 0, 4);
             this.tboxNTRIPBuffer.Multiline = true;
             this.tboxNTRIPBuffer.Name = "tboxNTRIPBuffer";
             this.tboxNTRIPBuffer.ReadOnly = true;
             this.tboxNTRIPBuffer.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.tboxNTRIPBuffer.Size = new System.Drawing.Size(541, 239);
+            this.tboxNTRIPBuffer.Size = new System.Drawing.Size(583, 283);
             this.tboxNTRIPBuffer.TabIndex = 252;
-            this.tboxNTRIPBuffer.Text = "YUPPERS";
+            this.tboxNTRIPBuffer.Text = "Why can\'t you figure this out?";
             this.tboxNTRIPBuffer.Visible = false;
             this.tboxNTRIPBuffer.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 

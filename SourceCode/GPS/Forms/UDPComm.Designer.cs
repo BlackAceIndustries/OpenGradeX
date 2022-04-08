@@ -66,7 +66,10 @@ namespace OpenGrade
 
         public void SendUDPMessageNTRIP(int header, byte[] byteData)
         {
-
+            tboxNTRIPBuffer.Text = byteData.Length.ToString();         
+            
+            
+            
             try
             { 
                 // Send packet to the zero
@@ -84,12 +87,16 @@ namespace OpenGrade
 
         }
 
+
+
         public void SendUDPMessageNTRIP(int header, string msg)
         {           
             try
             {
                 // Get packet as byte array
-                byte[] byteData = Encoding.ASCII.GetBytes(msg);               
+                byte[] byteData = Encoding.ASCII.GetBytes(msg);
+
+                tboxNTRIPBuffer.Text = byteData.Length.ToString();
 
                 // Send packet to the zero
                 if (byteData.Length != 0) sendSocket.BeginSendTo(byteData, 0, byteData.Length, SocketFlags.None, epAntennaModule, new AsyncCallback(SendData), null);

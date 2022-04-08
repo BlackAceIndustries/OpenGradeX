@@ -2860,7 +2860,7 @@
             this.tboxNTRIPBuffer.Name = "tboxNTRIPBuffer";
             this.tboxNTRIPBuffer.ReadOnly = true;
             this.tboxNTRIPBuffer.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.tboxNTRIPBuffer.Size = new System.Drawing.Size(583, 283);
+            this.tboxNTRIPBuffer.Size = new System.Drawing.Size(583, 327);
             this.tboxNTRIPBuffer.TabIndex = 252;
             this.tboxNTRIPBuffer.Text = "Why can\'t you figure this out?";
             this.tboxNTRIPBuffer.Visible = false;

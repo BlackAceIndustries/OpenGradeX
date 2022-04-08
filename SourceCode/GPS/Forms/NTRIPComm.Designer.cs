@@ -26,11 +26,11 @@ namespace OpenGrade
 
         //Send GGA back timer
         Timer tmr;
-        
+
         public bool isNTRIPOn;
         private string rtcm;
         private string rtcmRaw;
-
+        
         private string mount;
         private string username;
         private string password;
@@ -267,8 +267,7 @@ namespace OpenGrade
             //send out UDP Port          
 
             try
-            {
-                               
+            {             
 
                 if (nBytesRecvd > 0)
                 {
@@ -276,7 +275,7 @@ namespace OpenGrade
                     byte[] localMsg = new byte[nBytesRecvd];
                     Array.Copy(data, localMsg, nBytesRecvd);
 
-                    // Wrote the data to the List
+                    // Write the data to the List
                     sbRTCM.Clear();
                     sbRTCM.Append(NTRIP_HEADER);
                     sbRTCM.Append(",");
@@ -295,8 +294,9 @@ namespace OpenGrade
                     sbRTCM.Append("\r\n");
                     rtcm = sbRTCM.ToString();
 
-                    SendUDPMessageNTRIP(NTRIP_HEADER, sbRTCM.ToString());
-                    
+                    //SendUDPMessageNTRIP(NTRIP_HEADER, rtcm);
+                    SendUDPMessageNTRIP(NTRIP_HEADER, data);
+
                 }
 
 
@@ -307,19 +307,14 @@ namespace OpenGrade
                 WriteErrorLog("NTRIP Data UDP Send" + ex.ToString());
             }
 
-            
-
             sbRTCM.Clear();
             sbRTCM.Append("Bytes Recieved-> " + (nBytesRecvd) + "\r\n");
             sbRTCM.Append("Total Bytes Recieved -> " + tripBytes.ToString() + "\r\n");
             sbRTCM.Append("Message Recieved -> " + rtcmRaw + "\r\n");
             sbRTCM.Append("\r\n");
-            tboxNTRIPBuffer.Text = sbRTCM.ToString();
+            tboxNTRIPBuffer.Text = sbRTCM.ToString();            
             rtcmRaw = "";
-
-
-
-
+            
         }
 
         public void SendGGA()

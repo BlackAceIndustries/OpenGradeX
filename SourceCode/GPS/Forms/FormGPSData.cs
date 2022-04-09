@@ -34,13 +34,12 @@ namespace OpenGrade
             lblStatus.Text = mf.Status;
             lblHDOP.Text = mf.HDOP;            
 
-            tboxSerialFromGradeControl.Text = mf.mc.serialRecvGradeControlStr;
-            
+            tboxSerialFromGradeControl.Text = mf.mc.serialRecvGradeControlStr;           
 
-            tboxNMEASerial.Text = mf.recvSentenceSettings;
+            
             //tboxNMEASerial.Text = mf.pn.rawBuffer;
 
-            tboxSerialFromAutoSteer.Text = mf.mc.serialRecvAutoSteerStr;
+           
             
              
 

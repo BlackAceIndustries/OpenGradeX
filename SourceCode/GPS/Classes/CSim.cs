@@ -75,7 +75,7 @@ namespace OpenGrade
             sbSendText.Append(sbGGA.ToString());
             sbSendText.Append(sbVTG.ToString());
             mf.pn.rawBuffer += sbSendText.ToString();
-            mf.recvSentenceSettings = mf.pn.rawBuffer;
+           
 
             sbSendText.Clear();
         }

@@ -26,7 +26,6 @@ namespace OpenGrade
         public static int numGradeControlSettingsItems = 8;
         public byte[] gradeControlSettings = new byte[numGradeControlSettingsItems];
         public int gsHeaderHi, gsHeaderLo = 1, gsKpGain = 2, gsKiGain = 3, gsKdGain = 4, gsRetDeadband = 5, gsExtDeadband = 6, gsValveType = 7;
-            
 
         //AutoSteer ------------------------------------------------------------------------------------------------
         public string serialRecvAutoSteerStr;
@@ -34,8 +33,8 @@ namespace OpenGrade
         // PGN - 32766 - 127.254
         public static int numSteerDataItems = 8;
         public byte[] autoSteerData = new byte[numSteerDataItems];
-        public int sdHeaderHi, sdHeaderLo=1, sdRelay=2, sdSpeed=3, sdDistanceHi=4, sdDistanceLo=5,
-                    sdSteerAngleHi=6, sdSteerAngleLo=7;
+        public int sdHeaderHi, sdHeaderLo = 1, sdRelay = 2, sdSpeed = 3, sdDistanceHi = 4, sdDistanceLo = 5,
+                    sdSteerAngleHi = 6, sdSteerAngleLo = 7;
 
         // PGN - 32764 - 127.252
         public static int numSteerSettingItems = 10;
@@ -43,13 +42,12 @@ namespace OpenGrade
         public int ssHeaderHi, ssHeaderLo = 1, ssKp = 2, ssKi = 3, ssKd = 4, ssKo = 5,
                     ssSteerOffset = 6, ssMinPWM = 7, ssMaxIntegral = 8, ssCountsPerDegree = 9;
 
+
         //for the workswitch
         public bool isWorkSwitchActiveLow, isWorkSwitchEnabled;
         public int workSwitchValue;
 
-        //imu and roll inclinometer
-        public int steerSwitchValue, gyroHeading=9999, prevGyroHeading = 9999;
-        public int rollRaw=9999; //inclinometer ?
+        public bool isImuCorrection = false;
 
         public float headingIMU = 9999, prevHeadingIMU = 9999, rollIMU = 9999, pitchIMU = 9999;
         
@@ -61,9 +59,7 @@ namespace OpenGrade
         //constructor
         public CModuleComm(FormGPS _f)
         {
-            mf = _f;
-            serialRecvAutoSteerStr = "Oops";
-            serialRecvGradeControlStr = "Oops";
+            mf = _f;            
             gcFirmware = "----";
             atFirmware = "----";
 

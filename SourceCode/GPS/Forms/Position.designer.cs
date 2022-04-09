@@ -11,6 +11,7 @@ namespace OpenGrade
     {
         public  double toLatitude;
         public  double toLongitude;
+        public string recvSentenceSettings = "InitalSetting";
 
         //very first fix to setup grid etc
         public bool isFirstFixPositionSet = false, isGPSPositionInitialized = false;
@@ -134,28 +135,30 @@ namespace OpenGrade
             if (!isGPSPositionInitialized) { InitializeFirstFewGPSPositions(); return; }
 
             #region Roll
-
-            if (mc.rollIMU != 9999)
+            if (mc.isImuCorrection)
             {
-                //calculate how far the antenna moves based on sidehill roll
-                double roll = Math.Sin(glm.toRadians(mc.rollIMU/16.0));
-                double roll2 = Math.Cos(glm.toRadians(mc.rollIMU/16.0));
-
-                rollCorrectionDistance = Math.Abs(roll * vehicle.antennaHeight);
-                rollCorrectionAltitude = Math.Abs(vehicle.antennaHeight / roll);
-
-                // tilt to left is positive  **** important!!
-                if (roll > 0)
+                if (mc.rollIMU != 9999)
                 {
-                    pn.easting += (Math.Cos(fixHeading) * rollCorrectionDistance);
-                    pn.altitude -= (Math.Tan(fixHeading) * rollCorrectionDistance);
-                    pn.northing += (Math.Sin(fixHeading) * -rollCorrectionDistance);
-                }
-                else
-                {
-                    pn.easting += (Math.Cos(fixHeading) * -rollCorrectionDistance);
-                    pn.altitude -= (Math.Tan(fixHeading) * rollCorrectionDistance);
-                    pn.northing += (Math.Sin(fixHeading) * rollCorrectionDistance);
+                    //calculate how far the antenna moves based on sidehill roll
+                    double roll = Math.Sin(glm.toRadians(mc.rollIMU / 16.0));
+                    double roll2 = Math.Cos(glm.toRadians(mc.rollIMU / 16.0));
+
+                    rollCorrectionDistance = Math.Abs(roll * vehicle.antennaHeight);
+                    rollCorrectionAltitude = Math.Abs(vehicle.antennaHeight / roll);
+
+                    // tilt to left is positive  **** important!!
+                    if (roll > 0)
+                    {
+                        pn.easting += (Math.Cos(fixHeading) * rollCorrectionDistance);
+                        pn.altitude -= (Math.Tan(fixHeading) * rollCorrectionDistance);
+                        pn.northing += (Math.Sin(fixHeading) * -rollCorrectionDistance);
+                    }
+                    else
+                    {
+                        pn.easting += (Math.Cos(fixHeading) * -rollCorrectionDistance);
+                        pn.altitude -= (Math.Tan(fixHeading) * rollCorrectionDistance);
+                        pn.northing += (Math.Sin(fixHeading) * rollCorrectionDistance);
+                    }
                 }
             }
 
@@ -294,8 +297,7 @@ namespace OpenGrade
                 mc.autoSteerData[mc.sdSteerAngleHi] = (byte)(guidanceLineSteerAngle >> 8);
                 mc.autoSteerData[mc.sdSteerAngleLo] = (byte)guidanceLineSteerAngle;
 
-                //out serial to autosteer module  //indivdual classes load the distance and heading deltas 
-                AutoSteerDataOutToPort();
+                
                 
                 //SendUDPMessage(guidanceLineSteerAngle + "," + guidanceLineDistanceOff);
             }
@@ -309,13 +311,12 @@ namespace OpenGrade
                 mc.autoSteerData[mc.sdDistanceHi] = (byte)(0);
                 mc.autoSteerData[mc.sdDistanceLo] = (byte)0;
 
-                //out serial to autosteer module  //indivdual classes load the distance and heading deltas 
-                AutoSteerDataOutToPort();
+                
                 
             }
             #endregion
             
-            //openGLControl_Draw routine triggered manually
+            //openGLControl_Draw routine triggered manuallyrollIMU
             openGLControl.DoRender();
 
         //end of UppdateFixPosition
@@ -335,62 +336,64 @@ namespace OpenGrade
             camHeading = Math.Atan2(pn.easting - stepFixPts[camStep].easting, pn.northing - stepFixPts[camStep].northing);
             if (camHeading < 0) camHeading += glm.twoPI;
             camHeading = glm.toDegrees(camHeading);
-            
-            
+
+
             //make sure there is a gyro otherwise 9999 are sent from autosteer
-            if (mc.headingIMU != 9999)
+            if (mc.isImuCorrection)
             {
-                mc.headingIMU = -mc.headingIMU;
-                //current gyro angle in radians
-                gyroRaw = (glm.toRadians((double)mc.prevHeadingIMU));
-
-                //Difference between the IMU heading and the GPS heading
-                gyroDelta = (gyroRaw + gyroCorrection) - gpsHeading;
-                if (gyroDelta < 0) gyroDelta += glm.twoPI;
-
-                //calculate delta based on circular data problem 0 to 360 to 0, clamp to +- 2 Pi
-                if (gyroDelta >= -glm.PIBy2 && gyroDelta <= glm.PIBy2) gyroDelta *= -1.0;
-                else
+                if (mc.headingIMU != 9999)
                 {
-                    if (gyroDelta > glm.PIBy2) { gyroDelta = glm.twoPI - gyroDelta; }
-                    else { gyroDelta = (glm.twoPI + gyroDelta) * -1.0; }
+                    mc.headingIMU = -mc.headingIMU;
+                    //current gyro angle in radians
+                    gyroRaw = (glm.toRadians((double)mc.prevHeadingIMU));
+
+                    //Difference between the IMU heading and the GPS heading
+                    gyroDelta = (gyroRaw + gyroCorrection) - gpsHeading;
+                    if (gyroDelta < 0) gyroDelta += glm.twoPI;
+
+                    //calculate delta based on circular data problem 0 to 360 to 0, clamp to +- 2 Pi
+                    if (gyroDelta >= -glm.PIBy2 && gyroDelta <= glm.PIBy2) gyroDelta *= -1.0;
+                    else
+                    {
+                        if (gyroDelta > glm.PIBy2) { gyroDelta = glm.twoPI - gyroDelta; }
+                        else { gyroDelta = (glm.twoPI + gyroDelta) * -1.0; }
+                    }
+                    if (gyroDelta > glm.twoPI) gyroDelta -= glm.twoPI;
+                    if (gyroDelta < -glm.twoPI) gyroDelta += glm.twoPI;
+
+                    //calculate current turn rate of vehicle
+                    prevPrevGPSHeading = prevGPSHeading;
+                    prevGPSHeading = gpsHeading;
+                    turnDelta = Math.Abs(Math.Atan2(Math.Sin(fixHeading - prevPrevGPSHeading), Math.Cos(fixHeading - prevPrevGPSHeading)));
+
+
+                    //Only adjust gyro if going in a straight line 
+                    if (turnDelta < 0.01 && pn.speed > 1) //
+                    {
+                        //a bit of delta and add to correction to current gyro
+                        gyroCorrection += (gyroDelta * (0.4 / fixUpdateHz));
+                        if (gyroCorrection > glm.twoPI) gyroCorrection -= glm.twoPI;
+                        if (gyroCorrection < -glm.twoPI) gyroCorrection += glm.twoPI;
+                        gyroRaw = (glm.toRadians((double)mc.headingIMU));
+                    }
+
+                    //if the gyro and GPS delta are > 10 degrees speed up filter
+                    if (Math.Abs(gyroDelta) > 0.18)
+                    {
+                        //a bit of delta and add to correction to current gyro
+                        gyroCorrection += (gyroDelta * (2.0 / fixUpdateHz));
+                        if (gyroCorrection > glm.twoPI) gyroCorrection -= glm.twoPI;
+                        if (gyroCorrection < -glm.twoPI) gyroCorrection += glm.twoPI;
+                        gyroRaw = (glm.toRadians((double)mc.headingIMU));
+                    }
+                    //determine the Corrected heading based on gyro and GPS
+                    gyroCorrected = gyroRaw + gyroCorrection;
+                    if (gyroCorrected > glm.twoPI) gyroCorrected -= glm.twoPI;
+                    if (gyroCorrected < 0) gyroCorrected += glm.twoPI;
+
+                    fixHeading = gyroCorrected;
                 }
-                if (gyroDelta > glm.twoPI) gyroDelta -= glm.twoPI;
-                if (gyroDelta < -glm.twoPI) gyroDelta += glm.twoPI;
-
-                //calculate current turn rate of vehicle
-                prevPrevGPSHeading = prevGPSHeading;
-                prevGPSHeading = gpsHeading;
-                turnDelta = Math.Abs(Math.Atan2(Math.Sin(fixHeading - prevPrevGPSHeading), Math.Cos(fixHeading - prevPrevGPSHeading)));
-                
-
-                //Only adjust gyro if going in a straight line 
-                if (turnDelta < 0.01 && pn.speed > 1) //
-                {
-                    //a bit of delta and add to correction to current gyro
-                    gyroCorrection += (gyroDelta * (0.4 / fixUpdateHz));
-                    if (gyroCorrection > glm.twoPI) gyroCorrection -= glm.twoPI;
-                    if (gyroCorrection < -glm.twoPI) gyroCorrection += glm.twoPI;
-                    gyroRaw = (glm.toRadians((double)mc.headingIMU));
-                }
-
-                //if the gyro and GPS delta are > 10 degrees speed up filter
-                if (Math.Abs(gyroDelta) > 0.18)
-                {
-                    //a bit of delta and add to correction to current gyro
-                    gyroCorrection += (gyroDelta * (2.0 / fixUpdateHz));
-                    if (gyroCorrection > glm.twoPI) gyroCorrection -= glm.twoPI;
-                    if (gyroCorrection < -glm.twoPI) gyroCorrection += glm.twoPI;
-                    gyroRaw = (glm.toRadians((double)mc.headingIMU));
-                }
-                //determine the Corrected heading based on gyro and GPS
-                gyroCorrected = gyroRaw + gyroCorrection;
-                if (gyroCorrected > glm.twoPI) gyroCorrected -= glm.twoPI;
-                if (gyroCorrected < 0) gyroCorrected += glm.twoPI;
-
-                fixHeading = gyroCorrected;
             }
-            
             //check to make sure the grid is big enough
             worldGrid.checkZoomWorldGrid(pn.northing, pn.easting);
         }

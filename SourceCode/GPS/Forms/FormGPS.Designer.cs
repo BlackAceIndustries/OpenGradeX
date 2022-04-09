@@ -176,7 +176,7 @@
             this.btnGPSData = new System.Windows.Forms.Button();
             this.btnFlag = new System.Windows.Forms.Button();
             this.btnSnap = new System.Windows.Forms.Button();
-            this.btnGoogleEarth = new System.Windows.Forms.Button();
+            this.btnTogggleImu = new System.Windows.Forms.Button();
             this.GPSPage = new System.Windows.Forms.TabPage();
             this.lblAltitudeUnits = new System.Windows.Forms.Label();
             this.alt = new System.Windows.Forms.Label();
@@ -1766,7 +1766,7 @@
             this.SettingsPage.Controls.Add(this.btnGPSData);
             this.SettingsPage.Controls.Add(this.btnFlag);
             this.SettingsPage.Controls.Add(this.btnSnap);
-            this.SettingsPage.Controls.Add(this.btnGoogleEarth);
+            this.SettingsPage.Controls.Add(this.btnTogggleImu);
             this.SettingsPage.ImageIndex = 1;
             this.SettingsPage.Location = new System.Drawing.Point(4, 4);
             this.SettingsPage.Name = "SettingsPage";
@@ -1990,19 +1990,19 @@
             this.btnSnap.UseVisualStyleBackColor = false;
             this.btnSnap.Click += new System.EventHandler(this.btnSnap_Click);
             // 
-            // btnGoogleEarth
+            // btnTogggleImu
             // 
-            this.btnGoogleEarth.BackColor = System.Drawing.Color.DimGray;
-            this.btnGoogleEarth.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnGoogleEarth.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGoogleEarth.Image = global::OpenGrade.Properties.Resources.GoogleEarth;
-            this.btnGoogleEarth.Location = new System.Drawing.Point(239, 139);
-            this.btnGoogleEarth.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.btnGoogleEarth.Name = "btnGoogleEarth";
-            this.btnGoogleEarth.Size = new System.Drawing.Size(90, 90);
-            this.btnGoogleEarth.TabIndex = 159;
-            this.btnGoogleEarth.UseVisualStyleBackColor = false;
-            this.btnGoogleEarth.Click += new System.EventHandler(this.btnGoogleEarth_Click);
+            this.btnTogggleImu.BackColor = System.Drawing.Color.IndianRed;
+            this.btnTogggleImu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnTogggleImu.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTogggleImu.Location = new System.Drawing.Point(239, 139);
+            this.btnTogggleImu.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.btnTogggleImu.Name = "btnTogggleImu";
+            this.btnTogggleImu.Size = new System.Drawing.Size(90, 90);
+            this.btnTogggleImu.TabIndex = 159;
+            this.btnTogggleImu.Text = "IMU Correction";
+            this.btnTogggleImu.UseVisualStyleBackColor = false;
+            this.btnTogggleImu.Click += new System.EventHandler(this.btnGoogleEarth_Click);
             // 
             // GPSPage
             // 
@@ -3070,7 +3070,7 @@
         private System.Windows.Forms.Label lblDrawSlope;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button btnGoogleEarth;
+        private System.Windows.Forms.Button btnTogggleImu;
         private ProgBar.ProgBarPlus pbarCutBelow;
         private ProgBar.ProgBarPlus pbarCutAbove;
         private System.Windows.Forms.Label lblBarGraphMax;

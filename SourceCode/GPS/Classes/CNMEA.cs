@@ -134,6 +134,7 @@ namespace OpenGrade
                 if (words[0] == "$GPVTG" | words[0] == "$GNVTG") ParseVTG();
             }// while still data
 
+
         }
         public string currentNMEASentenceGGA = "";
         public string currentNMEASentenceVTG = "";
@@ -247,13 +248,11 @@ namespace OpenGrade
            *    9- 48          Checksum
             */
 
-
-
             //is the sentence GGA
             if (!String.IsNullOrEmpty(words[1]) & !String.IsNullOrEmpty(words[5]))
             {
                 //kph for speed - knots read
-                double.TryParse(words[7], NumberStyles.Float, CultureInfo.InvariantCulture, out speed);
+                double.TryParse(words[8], NumberStyles.Float, CultureInfo.InvariantCulture, out speed);
                 speed = Math.Round(speed * 1.852, 1);
 
                 //True heading

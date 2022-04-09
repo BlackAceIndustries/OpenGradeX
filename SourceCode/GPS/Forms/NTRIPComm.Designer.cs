@@ -276,25 +276,26 @@ namespace OpenGrade
                     Array.Copy(data, localMsg, nBytesRecvd);
 
                     // Write the data to the List
-                    sbRTCM.Clear();
-                    sbRTCM.Append(NTRIP_HEADER);
-                    sbRTCM.Append(",");
+                    //sbRTCM.Clear();
+                    //sbRTCM.Append(NTRIP_HEADER);
+                    //sbRTCM.Append(",");
                     
                     for (int i = 0; i < nBytesRecvd; i++)
                     {
                         
-                        sbRTCM.Append(data[i]);
-                        sbRTCM.Append(",");
+                        //sbRTCM.Append(data[i]);
+                        //sbRTCM.Append(",");
 
                         rtcmRaw += data[i];
                         rtcmRaw += " ";
 
 
                     }
-                    sbRTCM.Append("\r\n");
-                    rtcm = sbRTCM.ToString();
+                    //sbRTCM.Append("\r\n");
+                    //rtcm = sbRTCM.ToString();
 
-                    //SendUDPMessageNTRIP(NTRIP_HEADER, rtcm);
+                    //SendUDPMessageNTRIP(, rtcm);
+                    SendUDPMessage(NTRIP_HEADER, epAntennaModule);
                     SendUDPMessageNTRIP(NTRIP_HEADER, data);
 
                 }
@@ -312,7 +313,8 @@ namespace OpenGrade
             sbRTCM.Append("Total Bytes Recieved -> " + tripBytes.ToString() + "\r\n");
             sbRTCM.Append("Message Recieved -> " + rtcmRaw + "\r\n");
             sbRTCM.Append("\r\n");
-            tboxNTRIPBuffer.Text = sbRTCM.ToString();            
+            tboxNTRIPBuffer.Text = sbRTCM.ToString();
+            sbRTCM.Clear();
             rtcmRaw = "";
             
         }

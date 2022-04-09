@@ -805,12 +805,16 @@ namespace OpenGrade
 
         private void btnGoogleEarth_Click(object sender, EventArgs e)
         {
-            //save new copy of contour
-            //FileSaveCutKML();
-            //btnGoogleEarth.Enabled = false;
-
-            //make sure google is installed
-            //Process.Start(fieldsDirectory + currentFieldDirectory + "\\CutPaths\\KML Files\\" + "Cut_" + ct.cutNum + ".kml");
+            if (mc.isImuCorrection)
+            {
+                mc.isImuCorrection = false;
+                btnTogggleImu.BackColor = Color.Tomato;
+            }
+            else
+            {
+                mc.isImuCorrection = true;
+                btnTogggleImu.BackColor = Color.Lime;
+            }
         }
 
         private void fieldViewerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -937,7 +941,7 @@ namespace OpenGrade
         private void timerSim_Tick(object sender, EventArgs e)
         {
             //if a GPS is connected disable sim
-            if (!sp.IsOpen)
+            if (antennaModuleTimeout > 50 )  // Need to change this
             {
                 if (isGradeControlBtnOn) sim.DoSimTick(guidanceLineSteerAngle / 10.0);
                 else sim.DoSimTick(sim.steerAngleScrollBar);
@@ -1159,7 +1163,7 @@ namespace OpenGrade
                 //do all the NTRIP routines
                 //if (isNTRIPOn)
                 //{
-                    DoNTRIPSecondRoutine(); // Only when gps port is open
+                DoNTRIPSecondRoutine(); // Only when gps port is open
                 //}
                 SendUDPMessage(FormGPS.SYSTEM_HEADER, epGradeControl);
                 SendUDPMessage(FormGPS.SYSTEM_HEADER, epAntennaModule);
@@ -1217,7 +1221,7 @@ namespace OpenGrade
 
                 lblZone.Text = pn.zone.ToString();
                 tboxSentence.Text = recvSentenceSettings;
-                //tboxSentence.Text = pn.rawBuffer;
+                
                 // }
 
                 //the main formgps window
@@ -1249,27 +1253,10 @@ namespace OpenGrade
                 btnABLine.Text = PassNumber;
                 sqrCutLine.Text = PureSteerAngle;
 
-                /*if (mc.gradeControlSettings[mc.gsValveType] == 2)
-                {
-                    voltageBar.Max = 1200;
-                    voltageBar.Value = ((int)((mc.voltage * 2.4) * 100)) + 12;
-                    
-                    lblDiagnostics.Text = (mc.voltage * 2.4).ToString() + "Volts";
-                }
-                else
-                {
-                    voltageBar.Max = 500;
-                    
-
-                }
-                */              
-
-
+               
                 voltageBar.Value = ((int)(mc.voltage * 100)) + 12;
                 voltageBar2.Value = ((int)(mc.voltage2 * 100)) + 12;
 
-                //lblDiagnostics.Text = (mc.voltage).ToString() + "Volts";
-                
                 //
                 // Update all DRO's
                 //
@@ -1456,7 +1443,7 @@ namespace OpenGrade
                     lblNorthing.Text = gStr.gsNoGPS;
                     lblZone.Text = "-";
                     tboxSentence.Text = gStr.gsNoSentenceData;
-                    //tboxSentence.Text = pn.rawBuffer;
+                    
                 }
                 else stripOnlineGPS.Value = 100;
 

@@ -236,10 +236,6 @@
       <SubType>Form</SubType>
       <DependentUpon>FormGPS.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\SerialComm.Designer.cs">
-      <SubType>Form</SubType>
-      <DependentUpon>FormGPS.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\FormGPS.cs">
       <SubType>Form</SubType>
     </Compile>

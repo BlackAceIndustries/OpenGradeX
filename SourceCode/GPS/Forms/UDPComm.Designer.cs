@@ -358,6 +358,8 @@ namespace OpenGrade
                     pn.rawBuffer = recvd.Remove(0, 6);  // Remove the GPS, Header
                     recvSentenceSettings = pn.rawBuffer;
 
+
+
                     break;
 
                 case IMU_HEADER:

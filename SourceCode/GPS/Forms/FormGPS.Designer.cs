@@ -30,14 +30,14 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormGPS));
-            ProgBar.cBlendItems cBlendItems1 = new ProgBar.cBlendItems();
-            ProgBar.cFocalPoints cFocalPoints1 = new ProgBar.cFocalPoints();
-            ProgBar.cBlendItems cBlendItems2 = new ProgBar.cBlendItems();
-            ProgBar.cFocalPoints cFocalPoints2 = new ProgBar.cFocalPoints();
-            ProgBar.cBlendItems cBlendItems3 = new ProgBar.cBlendItems();
-            ProgBar.cFocalPoints cFocalPoints3 = new ProgBar.cFocalPoints();
-            ProgBar.cBlendItems cBlendItems4 = new ProgBar.cBlendItems();
-            ProgBar.cFocalPoints cFocalPoints4 = new ProgBar.cFocalPoints();
+            ProgBar.cBlendItems cBlendItems5 = new ProgBar.cBlendItems();
+            ProgBar.cFocalPoints cFocalPoints5 = new ProgBar.cFocalPoints();
+            ProgBar.cBlendItems cBlendItems6 = new ProgBar.cBlendItems();
+            ProgBar.cFocalPoints cFocalPoints6 = new ProgBar.cFocalPoints();
+            ProgBar.cBlendItems cBlendItems7 = new ProgBar.cBlendItems();
+            ProgBar.cFocalPoints cFocalPoints7 = new ProgBar.cFocalPoints();
+            ProgBar.cBlendItems cBlendItems8 = new ProgBar.cBlendItems();
+            ProgBar.cFocalPoints cFocalPoints8 = new ProgBar.cFocalPoints();
             this.openGLControl = new SharpGL.OpenGLControl();
             this.contextMenuStripOpenGL = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.deleteFlagToolOpenGLContextMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -270,7 +270,7 @@
             this.openGLControl.OpenGLVersion = SharpGL.Version.OpenGLVersion.OpenGL2_1;
             this.openGLControl.RenderContextType = SharpGL.RenderContextType.NativeWindow;
             this.openGLControl.RenderTrigger = SharpGL.RenderTrigger.Manual;
-            this.openGLControl.Size = new System.Drawing.Size(624, 300);
+            this.openGLControl.Size = new System.Drawing.Size(702, 300);
             this.openGLControl.TabIndex = 6;
             this.openGLControl.OpenGLInitialized += new System.EventHandler(this.openGLControl_OpenGLInitialized);
             this.openGLControl.OpenGLDraw += new SharpGL.RenderEventHandler(this.openGLControl_OpenGLDraw);
@@ -323,7 +323,7 @@
             this.txtDistanceOffABLine.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtDistanceOffABLine.Font = new System.Drawing.Font("Tahoma", 21.75F);
             this.txtDistanceOffABLine.ForeColor = System.Drawing.Color.Green;
-            this.txtDistanceOffABLine.Location = new System.Drawing.Point(261, 301);
+            this.txtDistanceOffABLine.Location = new System.Drawing.Point(300, 301);
             this.txtDistanceOffABLine.Margin = new System.Windows.Forms.Padding(0, 0, 0, 4);
             this.txtDistanceOffABLine.Name = "txtDistanceOffABLine";
             this.txtDistanceOffABLine.ReadOnly = true;
@@ -348,7 +348,7 @@
             this.openGLControlBack.OpenGLVersion = SharpGL.Version.OpenGLVersion.OpenGL2_1;
             this.openGLControlBack.RenderContextType = SharpGL.RenderContextType.NativeWindow;
             this.openGLControlBack.RenderTrigger = SharpGL.RenderTrigger.Manual;
-            this.openGLControlBack.Size = new System.Drawing.Size(1175, 289);
+            this.openGLControlBack.Size = new System.Drawing.Size(1253, 366);
             this.openGLControlBack.TabIndex = 91;
             this.openGLControlBack.OpenGLInitialized += new System.EventHandler(this.openGLControlBack_OpenGLInitialized);
             this.openGLControlBack.OpenGLDraw += new SharpGL.RenderEventHandler(this.openGLControlBack_OpenGLDraw);
@@ -655,7 +655,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(5, 5);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(0);
-            this.menuStrip1.Size = new System.Drawing.Size(1296, 38);
+            this.menuStrip1.Size = new System.Drawing.Size(1374, 38);
             this.menuStrip1.TabIndex = 49;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -829,10 +829,10 @@
             this.stripTopoLocation,
             this.stripOnlineGPS,
             this.stripOnlineAutoSteer});
-            this.statusStrip1.Location = new System.Drawing.Point(5, 638);
+            this.statusStrip1.Location = new System.Drawing.Point(5, 715);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.statusStrip1.Size = new System.Drawing.Size(1296, 41);
+            this.statusStrip1.Size = new System.Drawing.Size(1374, 41);
             this.statusStrip1.TabIndex = 95;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -905,7 +905,7 @@
             this.stripEqWidth.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.stripEqWidth.Margin = new System.Windows.Forms.Padding(0);
             this.stripEqWidth.Name = "stripEqWidth";
-            this.stripEqWidth.Size = new System.Drawing.Size(340, 41);
+            this.stripEqWidth.Size = new System.Drawing.Size(418, 41);
             this.stripEqWidth.Spring = true;
             this.stripEqWidth.Text = "Width";
             this.stripEqWidth.Click += new System.EventHandler(this.stripEqWidth_Click);
@@ -933,7 +933,7 @@
             this.toolstripNTripConfig.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.toolstripNTripConfig.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toolstripNTripConfig.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.toolstripNTripConfig.Image = global::OpenGrade.Properties.Resources.Satellite64;
+            this.toolstripNTripConfig.Image = ((System.Drawing.Image)(resources.GetObject("toolstripNTripConfig.Image")));
             this.toolstripNTripConfig.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolstripNTripConfig.Name = "toolstripNTripConfig";
             this.toolstripNTripConfig.Size = new System.Drawing.Size(260, 86);
@@ -957,7 +957,7 @@
             this.toolstripVehicleConfig.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.toolstripVehicleConfig.Font = new System.Drawing.Font("Tahoma", 22F);
             this.toolstripVehicleConfig.ForeColor = System.Drawing.SystemColors.Control;
-            this.toolstripVehicleConfig.Image = global::OpenGrade.Properties.Resources.Settings64;
+            this.toolstripVehicleConfig.Image = ((System.Drawing.Image)(resources.GetObject("toolstripVehicleConfig.Image")));
             this.toolstripVehicleConfig.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolstripVehicleConfig.Name = "toolstripVehicleConfig";
             this.toolstripVehicleConfig.Size = new System.Drawing.Size(260, 86);
@@ -993,12 +993,11 @@
             // 
             // lblSpeed
             // 
-            this.lblSpeed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblSpeed.BackColor = System.Drawing.Color.Black;
             this.lblSpeed.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold);
             this.lblSpeed.ForeColor = System.Drawing.Color.Green;
             this.lblSpeed.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lblSpeed.Location = new System.Drawing.Point(893, 4);
+            this.lblSpeed.Location = new System.Drawing.Point(756, 3);
             this.lblSpeed.Name = "lblSpeed";
             this.lblSpeed.Size = new System.Drawing.Size(87, 41);
             this.lblSpeed.TabIndex = 116;
@@ -1095,11 +1094,10 @@
             // 
             // lblSpeedUnits
             // 
-            this.lblSpeedUnits.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblSpeedUnits.BackColor = System.Drawing.Color.Black;
             this.lblSpeedUnits.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
             this.lblSpeedUnits.ForeColor = System.Drawing.Color.Green;
-            this.lblSpeedUnits.Location = new System.Drawing.Point(979, 4);
+            this.lblSpeedUnits.Location = new System.Drawing.Point(842, 3);
             this.lblSpeedUnits.Name = "lblSpeedUnits";
             this.lblSpeedUnits.Size = new System.Drawing.Size(42, 41);
             this.lblSpeedUnits.TabIndex = 139;
@@ -1108,11 +1106,10 @@
             // 
             // lblHeading
             // 
-            this.lblHeading.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblHeading.BackColor = System.Drawing.Color.Black;
             this.lblHeading.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold);
             this.lblHeading.ForeColor = System.Drawing.Color.Green;
-            this.lblHeading.Location = new System.Drawing.Point(1048, 4);
+            this.lblHeading.Location = new System.Drawing.Point(911, 4);
             this.lblHeading.Name = "lblHeading";
             this.lblHeading.Size = new System.Drawing.Size(130, 40);
             this.lblHeading.TabIndex = 117;
@@ -1133,7 +1130,7 @@
             this.lblDrawSlope.BackColor = System.Drawing.SystemColors.ControlText;
             this.lblDrawSlope.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDrawSlope.ForeColor = System.Drawing.Color.Yellow;
-            this.lblDrawSlope.Location = new System.Drawing.Point(713, 605);
+            this.lblDrawSlope.Location = new System.Drawing.Point(752, 682);
             this.lblDrawSlope.Name = "lblDrawSlope";
             this.lblDrawSlope.Size = new System.Drawing.Size(23, 29);
             this.lblDrawSlope.TabIndex = 216;
@@ -1148,7 +1145,7 @@
             this.label2.BackColor = System.Drawing.SystemColors.ControlText;
             this.label2.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Yellow;
-            this.label2.Location = new System.Drawing.Point(644, 605);
+            this.label2.Location = new System.Drawing.Point(683, 682);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(78, 29);
             this.label2.TabIndex = 217;
@@ -1163,7 +1160,7 @@
             this.lblCutFillRatio.Cursor = System.Windows.Forms.Cursors.Default;
             this.lblCutFillRatio.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCutFillRatio.ForeColor = System.Drawing.Color.Yellow;
-            this.lblCutFillRatio.Location = new System.Drawing.Point(1074, 313);
+            this.lblCutFillRatio.Location = new System.Drawing.Point(1152, 313);
             this.lblCutFillRatio.Name = "lblCutFillRatio";
             this.lblCutFillRatio.Size = new System.Drawing.Size(23, 29);
             this.lblCutFillRatio.TabIndex = 212;
@@ -1177,7 +1174,7 @@
             this.lblFill.BackColor = System.Drawing.SystemColors.ControlText;
             this.lblFill.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFill.ForeColor = System.Drawing.Color.Yellow;
-            this.lblFill.Location = new System.Drawing.Point(883, 313);
+            this.lblFill.Location = new System.Drawing.Point(961, 313);
             this.lblFill.Name = "lblFill";
             this.lblFill.Size = new System.Drawing.Size(23, 29);
             this.lblFill.TabIndex = 201;
@@ -1191,7 +1188,7 @@
             this.label27.BackColor = System.Drawing.SystemColors.ControlText;
             this.label27.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label27.ForeColor = System.Drawing.Color.Yellow;
-            this.label27.Location = new System.Drawing.Point(843, 313);
+            this.label27.Location = new System.Drawing.Point(921, 313);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(49, 29);
             this.label27.TabIndex = 202;
@@ -1205,7 +1202,7 @@
             this.lblCut.Cursor = System.Windows.Forms.Cursors.Default;
             this.lblCut.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCut.ForeColor = System.Drawing.Color.Yellow;
-            this.lblCut.Location = new System.Drawing.Point(691, 313);
+            this.lblCut.Location = new System.Drawing.Point(769, 313);
             this.lblCut.Name = "lblCut";
             this.lblCut.Size = new System.Drawing.Size(23, 29);
             this.lblCut.TabIndex = 199;
@@ -1220,7 +1217,7 @@
             this.label25.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label25.ForeColor = System.Drawing.Color.Yellow;
             this.label25.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label25.Location = new System.Drawing.Point(644, 313);
+            this.label25.Location = new System.Drawing.Point(722, 313);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(56, 29);
             this.label25.TabIndex = 200;
@@ -1228,11 +1225,10 @@
             // 
             // lblAltitude
             // 
-            this.lblAltitude.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblAltitude.BackColor = System.Drawing.SystemColors.WindowText;
             this.lblAltitude.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAltitude.ForeColor = System.Drawing.Color.Green;
-            this.lblAltitude.Location = new System.Drawing.Point(680, 5);
+            this.lblAltitude.Location = new System.Drawing.Point(543, 3);
             this.lblAltitude.Name = "lblAltitude";
             this.lblAltitude.Size = new System.Drawing.Size(147, 41);
             this.lblAltitude.TabIndex = 179;
@@ -1251,7 +1247,7 @@
             this.panelSimControls.Controls.Add(this.tbarSteerAngle);
             this.panelSimControls.Controls.Add(this.tbarStepDistance);
             this.panelSimControls.Controls.Add(this.nudElevation);
-            this.panelSimControls.Location = new System.Drawing.Point(8, 589);
+            this.panelSimControls.Location = new System.Drawing.Point(8, 666);
             this.panelSimControls.Name = "panelSimControls";
             this.panelSimControls.Size = new System.Drawing.Size(544, 46);
             this.panelSimControls.TabIndex = 172;
@@ -1390,12 +1386,11 @@
             // 
             // sqrCutLine
             // 
-            this.sqrCutLine.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.sqrCutLine.AutoSize = true;
             this.sqrCutLine.BackColor = System.Drawing.Color.Black;
             this.sqrCutLine.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold);
             this.sqrCutLine.ForeColor = System.Drawing.Color.Green;
-            this.sqrCutLine.Location = new System.Drawing.Point(1189, 5);
+            this.sqrCutLine.Location = new System.Drawing.Point(1052, 5);
             this.sqrCutLine.Name = "sqrCutLine";
             this.sqrCutLine.Size = new System.Drawing.Size(107, 39);
             this.sqrCutLine.TabIndex = 137;
@@ -1420,7 +1415,7 @@
             this.label4.BackColor = System.Drawing.SystemColors.ControlText;
             this.label4.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.Yellow;
-            this.label4.Location = new System.Drawing.Point(1050, 313);
+            this.label4.Location = new System.Drawing.Point(1128, 313);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(34, 29);
             this.label4.TabIndex = 218;
@@ -1430,13 +1425,13 @@
             // 
             this.pbarCutBelow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.pbarCutBelow.BarBackColor = System.Drawing.Color.Black;
-            cBlendItems1.iColor = new System.Drawing.Color[] {
+            cBlendItems5.iColor = new System.Drawing.Color[] {
         System.Drawing.Color.Navy,
         System.Drawing.Color.Blue};
-            cBlendItems1.iPoint = new float[] {
+            cBlendItems5.iPoint = new float[] {
         0F,
         1F};
-            this.pbarCutBelow.BarColorBlend = cBlendItems1;
+            this.pbarCutBelow.BarColorBlend = cBlendItems5;
             this.pbarCutBelow.BarColorSolid = System.Drawing.Color.Black;
             this.pbarCutBelow.BarColorSolidB = System.Drawing.Color.Red;
             this.pbarCutBelow.BarLengthValue = ((short)(40));
@@ -1454,10 +1449,10 @@
             this.pbarCutBelow.CylonInterval = ((short)(1));
             this.pbarCutBelow.CylonMove = 5F;
             this.pbarCutBelow.FillDirection = ProgBar.ProgBarPlus.eFillDirection.Down_Left;
-            cFocalPoints1.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints1.CenterPoint")));
-            cFocalPoints1.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints1.FocusScales")));
-            this.pbarCutBelow.FocalPoints = cFocalPoints1;
-            this.pbarCutBelow.Location = new System.Drawing.Point(1226, 488);
+            cFocalPoints5.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints5.CenterPoint")));
+            cFocalPoints5.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints5.FocusScales")));
+            this.pbarCutBelow.FocalPoints = cFocalPoints5;
+            this.pbarCutBelow.Location = new System.Drawing.Point(1304, 565);
             this.pbarCutBelow.Name = "pbarCutBelow";
             this.pbarCutBelow.Orientation = ProgBar.ProgBarPlus.eOrientation.Vertical;
             this.pbarCutBelow.ShapeTextFont = new System.Drawing.Font("Arial Black", 30F);
@@ -1470,13 +1465,13 @@
             // 
             this.pbarCutAbove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pbarCutAbove.BarBackColor = System.Drawing.Color.Black;
-            cBlendItems2.iColor = new System.Drawing.Color[] {
+            cBlendItems6.iColor = new System.Drawing.Color[] {
         System.Drawing.Color.Navy,
         System.Drawing.Color.Blue};
-            cBlendItems2.iPoint = new float[] {
+            cBlendItems6.iPoint = new float[] {
         0F,
         1F};
-            this.pbarCutAbove.BarColorBlend = cBlendItems2;
+            this.pbarCutAbove.BarColorBlend = cBlendItems6;
             this.pbarCutAbove.BarColorSolid = System.Drawing.Color.Black;
             this.pbarCutAbove.BarColorSolidB = System.Drawing.Color.LimeGreen;
             this.pbarCutAbove.BarLengthValue = ((short)(40));
@@ -1493,10 +1488,10 @@
             this.pbarCutAbove.Corners.UpperRight = ((short)(0));
             this.pbarCutAbove.CylonInterval = ((short)(1));
             this.pbarCutAbove.CylonMove = 5F;
-            cFocalPoints2.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints2.CenterPoint")));
-            cFocalPoints2.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints2.FocusScales")));
-            this.pbarCutAbove.FocalPoints = cFocalPoints2;
-            this.pbarCutAbove.Location = new System.Drawing.Point(1226, 348);
+            cFocalPoints6.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints6.CenterPoint")));
+            cFocalPoints6.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints6.FocusScales")));
+            this.pbarCutAbove.FocalPoints = cFocalPoints6;
+            this.pbarCutAbove.Location = new System.Drawing.Point(1304, 348);
             this.pbarCutAbove.Name = "pbarCutAbove";
             this.pbarCutAbove.Orientation = ProgBar.ProgBarPlus.eOrientation.Vertical;
             this.pbarCutAbove.ShapeTextFont = new System.Drawing.Font("Arial Black", 30F);
@@ -1513,7 +1508,7 @@
             this.lblBarGraphMax.Cursor = System.Windows.Forms.Cursors.Default;
             this.lblBarGraphMax.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblBarGraphMax.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblBarGraphMax.Location = new System.Drawing.Point(1251, 317);
+            this.lblBarGraphMax.Location = new System.Drawing.Point(1329, 317);
             this.lblBarGraphMax.Name = "lblBarGraphMax";
             this.lblBarGraphMax.Size = new System.Drawing.Size(23, 29);
             this.lblBarGraphMax.TabIndex = 225;
@@ -1603,7 +1598,7 @@
             this.btnSaveCut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnSaveCut.Enabled = false;
             this.btnSaveCut.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSaveCut.Image = global::OpenGrade.Properties.Resources.FileSave;
+            this.btnSaveCut.Image = ((System.Drawing.Image)(resources.GetObject("btnSaveCut.Image")));
             this.btnSaveCut.Location = new System.Drawing.Point(13, 170);
             this.btnSaveCut.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.btnSaveCut.Name = "btnSaveCut";
@@ -1673,7 +1668,7 @@
             this.btnLevel.BackColor = System.Drawing.Color.DimGray;
             this.btnLevel.ContextMenuStrip = this.contextMenuStripFlag;
             this.btnLevel.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnLevel.Image = global::OpenGrade.Properties.Resources.levelOffBtn;
+            this.btnLevel.Image = ((System.Drawing.Image)(resources.GetObject("btnLevel.Image")));
             this.btnLevel.Location = new System.Drawing.Point(13, 86);
             this.btnLevel.Name = "btnLevel";
             this.btnLevel.Size = new System.Drawing.Size(84, 84);
@@ -1687,7 +1682,7 @@
             this.btnSurface.BackColor = System.Drawing.Color.DimGray;
             this.btnSurface.ContextMenuStrip = this.contextMenuStripFlag;
             this.btnSurface.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnSurface.Image = global::OpenGrade.Properties.Resources.surfaceBtn;
+            this.btnSurface.Image = ((System.Drawing.Image)(resources.GetObject("btnSurface.Image")));
             this.btnSurface.Location = new System.Drawing.Point(13, 3);
             this.btnSurface.Name = "btnSurface";
             this.btnSurface.Size = new System.Drawing.Size(84, 84);
@@ -1701,7 +1696,7 @@
             this.btnDoneDraw.BackColor = System.Drawing.Color.DimGray;
             this.btnDoneDraw.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnDoneDraw.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDoneDraw.Image = global::OpenGrade.Properties.Resources.PointDone;
+            this.btnDoneDraw.Image = ((System.Drawing.Image)(resources.GetObject("btnDoneDraw.Image")));
             this.btnDoneDraw.Location = new System.Drawing.Point(505, 170);
             this.btnDoneDraw.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.btnDoneDraw.Name = "btnDoneDraw";
@@ -1715,7 +1710,7 @@
             this.btnDeleteLastPoint.BackColor = System.Drawing.Color.DimGray;
             this.btnDeleteLastPoint.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnDeleteLastPoint.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeleteLastPoint.Image = global::OpenGrade.Properties.Resources.PointDelete;
+            this.btnDeleteLastPoint.Image = ((System.Drawing.Image)(resources.GetObject("btnDeleteLastPoint.Image")));
             this.btnDeleteLastPoint.Location = new System.Drawing.Point(505, 86);
             this.btnDeleteLastPoint.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.btnDeleteLastPoint.Name = "btnDeleteLastPoint";
@@ -1729,7 +1724,7 @@
             this.btnStartDraw.BackColor = System.Drawing.Color.DimGray;
             this.btnStartDraw.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnStartDraw.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStartDraw.Image = global::OpenGrade.Properties.Resources.PointStart;
+            this.btnStartDraw.Image = ((System.Drawing.Image)(resources.GetObject("btnStartDraw.Image")));
             this.btnStartDraw.Location = new System.Drawing.Point(505, 3);
             this.btnStartDraw.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.btnStartDraw.Name = "btnStartDraw";
@@ -1744,7 +1739,7 @@
             this.btnClearLastPass.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.btnClearLastPass.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnClearLastPass.Font = new System.Drawing.Font("Tahoma", 15.75F);
-            this.btnClearLastPass.Image = global::OpenGrade.Properties.Resources.LastPassClear;
+            this.btnClearLastPass.Image = ((System.Drawing.Image)(resources.GetObject("btnClearLastPass.Image")));
             this.btnClearLastPass.Location = new System.Drawing.Point(185, 117);
             this.btnClearLastPass.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.btnClearLastPass.Name = "btnClearLastPass";
@@ -1936,7 +1931,7 @@
             this.btnUnits.BackColor = System.Drawing.Color.DimGray;
             this.btnUnits.ContextMenuStrip = this.contextMenuStripFlag;
             this.btnUnits.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold);
-            this.btnUnits.Image = global::OpenGrade.Properties.Resources.Imperial;
+            this.btnUnits.Image = ((System.Drawing.Image)(resources.GetObject("btnUnits.Image")));
             this.btnUnits.Location = new System.Drawing.Point(140, 26);
             this.btnUnits.Name = "btnUnits";
             this.btnUnits.Size = new System.Drawing.Size(90, 90);
@@ -2326,7 +2321,7 @@
             this.tabGradeControl.ImageList = this.imageList1;
             this.tabGradeControl.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.tabGradeControl.ItemSize = new System.Drawing.Size(86, 60);
-            this.tabGradeControl.Location = new System.Drawing.Point(632, 46);
+            this.tabGradeControl.Location = new System.Drawing.Point(710, 46);
             this.tabGradeControl.Margin = new System.Windows.Forms.Padding(0);
             this.tabGradeControl.Multiline = true;
             this.tabGradeControl.Name = "tabGradeControl";
@@ -2337,18 +2332,19 @@
             // 
             // lblDiagnostics
             // 
-            this.lblDiagnostics.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblDiagnostics.BackColor = System.Drawing.SystemColors.InfoText;
             this.lblDiagnostics.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lblDiagnostics.Font = new System.Drawing.Font("Tahoma", 21.75F);
-            this.lblDiagnostics.ForeColor = System.Drawing.Color.Green;
-            this.lblDiagnostics.Location = new System.Drawing.Point(419, 7);
+            this.lblDiagnostics.Enabled = false;
+            this.lblDiagnostics.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDiagnostics.ForeColor = System.Drawing.Color.SaddleBrown;
+            this.lblDiagnostics.Location = new System.Drawing.Point(282, 5);
             this.lblDiagnostics.Margin = new System.Windows.Forms.Padding(0, 0, 0, 4);
             this.lblDiagnostics.Name = "lblDiagnostics";
             this.lblDiagnostics.ReadOnly = true;
             this.lblDiagnostics.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lblDiagnostics.Size = new System.Drawing.Size(200, 36);
+            this.lblDiagnostics.Size = new System.Drawing.Size(200, 39);
             this.lblDiagnostics.TabIndex = 227;
+            this.lblDiagnostics.Text = "-";
             this.lblDiagnostics.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.lblDiagnostics.TextChanged += new System.EventHandler(this.labelDiagnostics_TextChanged);
             // 
@@ -2359,7 +2355,7 @@
             this.lblMaxDepth.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.lblMaxDepth.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.lblMaxDepth.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblMaxDepth.Location = new System.Drawing.Point(1000, 377);
+            this.lblMaxDepth.Location = new System.Drawing.Point(1078, 377);
             this.lblMaxDepth.MaximumSize = new System.Drawing.Size(150, 0);
             this.lblMaxDepth.MinimumSize = new System.Drawing.Size(133, 0);
             this.lblMaxDepth.Name = "lblMaxDepth";
@@ -2374,7 +2370,7 @@
             this.lblMinCover.AutoSize = true;
             this.lblMinCover.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.lblMinCover.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblMinCover.Location = new System.Drawing.Point(1000, 358);
+            this.lblMinCover.Location = new System.Drawing.Point(1078, 358);
             this.lblMinCover.Name = "lblMinCover";
             this.lblMinCover.Size = new System.Drawing.Size(133, 19);
             this.lblMinCover.TabIndex = 229;
@@ -2387,7 +2383,7 @@
             this.sqrMinCover.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.sqrMinCover.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(212)))), ((int)(((byte)(39)))));
             this.sqrMinCover.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.sqrMinCover.Location = new System.Drawing.Point(976, 358);
+            this.sqrMinCover.Location = new System.Drawing.Point(1054, 358);
             this.sqrMinCover.Name = "sqrMinCover";
             this.sqrMinCover.Size = new System.Drawing.Size(19, 19);
             this.sqrMinCover.TabIndex = 230;
@@ -2399,7 +2395,7 @@
             this.sqrMaxDepth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.sqrMaxDepth.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
             this.sqrMaxDepth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.sqrMaxDepth.Location = new System.Drawing.Point(976, 377);
+            this.sqrMaxDepth.Location = new System.Drawing.Point(1054, 377);
             this.sqrMaxDepth.Name = "sqrMaxDepth";
             this.sqrMaxDepth.Size = new System.Drawing.Size(19, 19);
             this.sqrMaxDepth.TabIndex = 231;
@@ -2411,7 +2407,7 @@
             this.sqrCutLine1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.sqrCutLine1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
             this.sqrCutLine1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.sqrCutLine1.Location = new System.Drawing.Point(813, 358);
+            this.sqrCutLine1.Location = new System.Drawing.Point(891, 358);
             this.sqrCutLine1.Name = "sqrCutLine1";
             this.sqrCutLine1.Size = new System.Drawing.Size(19, 19);
             this.sqrCutLine1.TabIndex = 233;
@@ -2425,7 +2421,7 @@
             this.lblCutLine.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.lblCutLine.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.lblCutLine.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblCutLine.Location = new System.Drawing.Point(837, 358);
+            this.lblCutLine.Location = new System.Drawing.Point(915, 358);
             this.lblCutLine.MaximumSize = new System.Drawing.Size(150, 0);
             this.lblCutLine.MinimumSize = new System.Drawing.Size(133, 0);
             this.lblCutLine.Name = "lblCutLine";
@@ -2439,7 +2435,7 @@
             this.sqrDitchCutLine.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.sqrDitchCutLine.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(153)))), ((int)(((byte)(51)))));
             this.sqrDitchCutLine.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.sqrDitchCutLine.Location = new System.Drawing.Point(813, 377);
+            this.sqrDitchCutLine.Location = new System.Drawing.Point(891, 377);
             this.sqrDitchCutLine.Name = "sqrDitchCutLine";
             this.sqrDitchCutLine.Size = new System.Drawing.Size(19, 19);
             this.sqrDitchCutLine.TabIndex = 235;
@@ -2453,7 +2449,7 @@
             this.lblDitchCutLine.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.lblDitchCutLine.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.lblDitchCutLine.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblDitchCutLine.Location = new System.Drawing.Point(837, 377);
+            this.lblDitchCutLine.Location = new System.Drawing.Point(915, 377);
             this.lblDitchCutLine.MaximumSize = new System.Drawing.Size(150, 0);
             this.lblDitchCutLine.MinimumSize = new System.Drawing.Size(133, 0);
             this.lblDitchCutLine.Name = "lblDitchCutLine";
@@ -2471,7 +2467,7 @@
             this.btnContour.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnContour.Font = new System.Drawing.Font("Tahoma", 14.25F);
             this.btnContour.Image = ((System.Drawing.Image)(resources.GetObject("btnContour.Image")));
-            this.btnContour.Location = new System.Drawing.Point(530, 227);
+            this.btnContour.Location = new System.Drawing.Point(608, 227);
             this.btnContour.Name = "btnContour";
             this.btnContour.Size = new System.Drawing.Size(10, 10);
             this.btnContour.TabIndex = 105;
@@ -2489,8 +2485,8 @@
             this.btnGradeControl.Enabled = false;
             this.btnGradeControl.FlatAppearance.BorderSize = 0;
             this.btnGradeControl.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnGradeControl.Image = global::OpenGrade.Properties.Resources.GradeControlOff1;
-            this.btnGradeControl.Location = new System.Drawing.Point(530, 248);
+            this.btnGradeControl.Image = ((System.Drawing.Image)(resources.GetObject("btnGradeControl.Image")));
+            this.btnGradeControl.Location = new System.Drawing.Point(608, 248);
             this.btnGradeControl.Name = "btnGradeControl";
             this.btnGradeControl.Size = new System.Drawing.Size(90, 90);
             this.btnGradeControl.TabIndex = 128;
@@ -2505,7 +2501,7 @@
             this.btnZoomIn.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnZoomIn.BackgroundImage")));
             this.btnZoomIn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnZoomIn.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.btnZoomIn.Location = new System.Drawing.Point(458, 56);
+            this.btnZoomIn.Location = new System.Drawing.Point(536, 56);
             this.btnZoomIn.Name = "btnZoomIn";
             this.btnZoomIn.Size = new System.Drawing.Size(69, 52);
             this.btnZoomIn.TabIndex = 120;
@@ -2532,7 +2528,7 @@
             this.btnZoomOut.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnZoomOut.BackgroundImage")));
             this.btnZoomOut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnZoomOut.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.btnZoomOut.Location = new System.Drawing.Point(551, 56);
+            this.btnZoomOut.Location = new System.Drawing.Point(629, 56);
             this.btnZoomOut.Name = "btnZoomOut";
             this.btnZoomOut.Size = new System.Drawing.Size(69, 52);
             this.btnZoomOut.TabIndex = 119;
@@ -2559,7 +2555,7 @@
             this.btnManualOffOn.Enabled = false;
             this.btnManualOffOn.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
             this.btnManualOffOn.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnManualOffOn.Image = global::OpenGrade.Properties.Resources.SurveyStart;
+            this.btnManualOffOn.Image = ((System.Drawing.Image)(resources.GetObject("btnManualOffOn.Image")));
             this.btnManualOffOn.Location = new System.Drawing.Point(12, 242);
             this.btnManualOffOn.Name = "btnManualOffOn";
             this.btnManualOffOn.Size = new System.Drawing.Size(90, 90);
@@ -2572,17 +2568,17 @@
             this.voltageBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.voltageBar.BarBackColor = System.Drawing.Color.Black;
-            cBlendItems3.iColor = new System.Drawing.Color[] {
+            cBlendItems7.iColor = new System.Drawing.Color[] {
         System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))),
         System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))),
         System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(0))))),
         System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))))};
-            cBlendItems3.iPoint = new float[] {
+            cBlendItems7.iPoint = new float[] {
         0F,
         0.4378882F,
         0.5031056F,
         1F};
-            this.voltageBar.BarColorBlend = cBlendItems3;
+            this.voltageBar.BarColorBlend = cBlendItems7;
             this.voltageBar.BarColorSolid = System.Drawing.Color.RoyalBlue;
             this.voltageBar.BarColorSolidB = System.Drawing.Color.RoyalBlue;
             this.voltageBar.BarLength = ProgBar.ProgBarPlus.eBarLength.Fixed;
@@ -2600,15 +2596,15 @@
             this.voltageBar.Corners.UpperRight = ((short)(0));
             this.voltageBar.CylonInterval = ((short)(1));
             this.voltageBar.CylonMove = 1F;
-            cFocalPoints3.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints3.CenterPoint")));
-            cFocalPoints3.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints3.FocusScales")));
-            this.voltageBar.FocalPoints = cFocalPoints3;
-            this.voltageBar.Location = new System.Drawing.Point(1184, 347);
+            cFocalPoints7.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints7.CenterPoint")));
+            cFocalPoints7.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints7.FocusScales")));
+            this.voltageBar.FocalPoints = cFocalPoints7;
+            this.voltageBar.Location = new System.Drawing.Point(1262, 347);
             this.voltageBar.Max = 500;
             this.voltageBar.Name = "voltageBar";
             this.voltageBar.Orientation = ProgBar.ProgBarPlus.eOrientation.Vertical;
             this.voltageBar.ShapeTextFont = new System.Drawing.Font("Arial Black", 30F);
-            this.voltageBar.Size = new System.Drawing.Size(18, 271);
+            this.voltageBar.Size = new System.Drawing.Size(18, 348);
             this.voltageBar.TabIndex = 236;
             this.voltageBar.TextFormat = "Process {1}% Done";
             this.voltageBar.Value = 300;
@@ -2619,7 +2615,7 @@
             this.lblMaxVoltage.AutoSize = true;
             this.lblMaxVoltage.BackColor = System.Drawing.Color.Black;
             this.lblMaxVoltage.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblMaxVoltage.Location = new System.Drawing.Point(1141, 351);
+            this.lblMaxVoltage.Location = new System.Drawing.Point(1219, 351);
             this.lblMaxVoltage.Name = "lblMaxVoltage";
             this.lblMaxVoltage.Size = new System.Drawing.Size(37, 19);
             this.lblMaxVoltage.TabIndex = 237;
@@ -2631,7 +2627,7 @@
             this.lblMinVoltage.AutoSize = true;
             this.lblMinVoltage.BackColor = System.Drawing.Color.Black;
             this.lblMinVoltage.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblMinVoltage.Location = new System.Drawing.Point(1141, 616);
+            this.lblMinVoltage.Location = new System.Drawing.Point(1219, 693);
             this.lblMinVoltage.Name = "lblMinVoltage";
             this.lblMinVoltage.Size = new System.Drawing.Size(38, 19);
             this.lblMinVoltage.TabIndex = 238;
@@ -2643,7 +2639,7 @@
             this.lblFloatVoltage.AutoSize = true;
             this.lblFloatVoltage.BackColor = System.Drawing.Color.Black;
             this.lblFloatVoltage.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblFloatVoltage.Location = new System.Drawing.Point(1152, 485);
+            this.lblFloatVoltage.Location = new System.Drawing.Point(1230, 523);
             this.lblFloatVoltage.Name = "lblFloatVoltage";
             this.lblFloatVoltage.Size = new System.Drawing.Size(20, 19);
             this.lblFloatVoltage.TabIndex = 239;
@@ -2681,7 +2677,7 @@
             this.btnAutoCut.BackColor = System.Drawing.Color.Black;
             this.btnAutoCut.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAutoCut.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnAutoCut.Location = new System.Drawing.Point(12, 494);
+            this.btnAutoCut.Location = new System.Drawing.Point(12, 571);
             this.btnAutoCut.Name = "btnAutoCut";
             this.btnAutoCut.Size = new System.Drawing.Size(90, 89);
             this.btnAutoCut.TabIndex = 242;
@@ -2696,7 +2692,7 @@
             this.btnIncCut.BackColor = System.Drawing.Color.Black;
             this.btnIncCut.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnIncCut.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnIncCut.Location = new System.Drawing.Point(252, 530);
+            this.btnIncCut.Location = new System.Drawing.Point(252, 607);
             this.btnIncCut.Name = "btnIncCut";
             this.btnIncCut.Size = new System.Drawing.Size(59, 53);
             this.btnIncCut.TabIndex = 243;
@@ -2711,7 +2707,7 @@
             this.btnDecCut.BackColor = System.Drawing.Color.Black;
             this.btnDecCut.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDecCut.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnDecCut.Location = new System.Drawing.Point(105, 530);
+            this.btnDecCut.Location = new System.Drawing.Point(105, 607);
             this.btnDecCut.Name = "btnDecCut";
             this.btnDecCut.Size = new System.Drawing.Size(59, 53);
             this.btnDecCut.TabIndex = 244;
@@ -2726,7 +2722,7 @@
             this.lblAutoCutDepth.BackColor = System.Drawing.Color.Black;
             this.lblAutoCutDepth.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAutoCutDepth.ForeColor = System.Drawing.Color.DeepSkyBlue;
-            this.lblAutoCutDepth.Location = new System.Drawing.Point(167, 530);
+            this.lblAutoCutDepth.Location = new System.Drawing.Point(167, 607);
             this.lblAutoCutDepth.Name = "lblAutoCutDepth";
             this.lblAutoCutDepth.Size = new System.Drawing.Size(82, 53);
             this.lblAutoCutDepth.TabIndex = 245;
@@ -2741,7 +2737,7 @@
             this.lblPassDepth.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.lblPassDepth.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.lblPassDepth.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblPassDepth.Location = new System.Drawing.Point(136, 508);
+            this.lblPassDepth.Location = new System.Drawing.Point(136, 585);
             this.lblPassDepth.MaximumSize = new System.Drawing.Size(150, 0);
             this.lblPassDepth.MinimumSize = new System.Drawing.Size(133, 0);
             this.lblPassDepth.Name = "lblPassDepth";
@@ -2755,17 +2751,17 @@
             this.voltageBar2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.voltageBar2.BarBackColor = System.Drawing.Color.Black;
-            cBlendItems4.iColor = new System.Drawing.Color[] {
+            cBlendItems8.iColor = new System.Drawing.Color[] {
         System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))),
         System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))),
         System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(0))))),
         System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))))};
-            cBlendItems4.iPoint = new float[] {
+            cBlendItems8.iPoint = new float[] {
         0F,
         0.4378882F,
         0.5031056F,
         1F};
-            this.voltageBar2.BarColorBlend = cBlendItems4;
+            this.voltageBar2.BarColorBlend = cBlendItems8;
             this.voltageBar2.BarColorSolid = System.Drawing.Color.RoyalBlue;
             this.voltageBar2.BarColorSolidB = System.Drawing.Color.RoyalBlue;
             this.voltageBar2.BarLength = ProgBar.ProgBarPlus.eBarLength.Fixed;
@@ -2783,15 +2779,15 @@
             this.voltageBar2.Corners.UpperRight = ((short)(0));
             this.voltageBar2.CylonInterval = ((short)(1));
             this.voltageBar2.CylonMove = 1F;
-            cFocalPoints4.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints4.CenterPoint")));
-            cFocalPoints4.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints4.FocusScales")));
-            this.voltageBar2.FocalPoints = cFocalPoints4;
-            this.voltageBar2.Location = new System.Drawing.Point(1205, 347);
+            cFocalPoints8.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints8.CenterPoint")));
+            cFocalPoints8.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints8.FocusScales")));
+            this.voltageBar2.FocalPoints = cFocalPoints8;
+            this.voltageBar2.Location = new System.Drawing.Point(1283, 347);
             this.voltageBar2.Max = 500;
             this.voltageBar2.Name = "voltageBar2";
             this.voltageBar2.Orientation = ProgBar.ProgBarPlus.eOrientation.Vertical;
             this.voltageBar2.ShapeTextFont = new System.Drawing.Font("Arial Black", 30F);
-            this.voltageBar2.Size = new System.Drawing.Size(18, 271);
+            this.voltageBar2.Size = new System.Drawing.Size(18, 348);
             this.voltageBar2.TabIndex = 247;
             this.voltageBar2.TextFormat = "Process {1}% Done";
             this.voltageBar2.Value = 300;
@@ -2802,7 +2798,7 @@
             this.label20.AutoSize = true;
             this.label20.BackColor = System.Drawing.Color.Black;
             this.label20.ForeColor = System.Drawing.Color.Lime;
-            this.label20.Location = new System.Drawing.Point(1184, 619);
+            this.label20.Location = new System.Drawing.Point(1262, 696);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(18, 19);
             this.label20.TabIndex = 248;
@@ -2814,7 +2810,7 @@
             this.label21.AutoSize = true;
             this.label21.BackColor = System.Drawing.Color.Black;
             this.label21.ForeColor = System.Drawing.Color.Lime;
-            this.label21.Location = new System.Drawing.Point(1205, 619);
+            this.label21.Location = new System.Drawing.Point(1283, 696);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(18, 19);
             this.label21.TabIndex = 249;
@@ -2826,7 +2822,7 @@
             this.btnAutoShore.BackColor = System.Drawing.Color.Black;
             this.btnAutoShore.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAutoShore.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnAutoShore.Location = new System.Drawing.Point(12, 399);
+            this.btnAutoShore.Location = new System.Drawing.Point(12, 476);
             this.btnAutoShore.Name = "btnAutoShore";
             this.btnAutoShore.Size = new System.Drawing.Size(90, 89);
             this.btnAutoShore.TabIndex = 250;
@@ -2837,11 +2833,10 @@
             // 
             // lblAltitudeUnits2
             // 
-            this.lblAltitudeUnits2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblAltitudeUnits2.BackColor = System.Drawing.Color.Black;
             this.lblAltitudeUnits2.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAltitudeUnits2.ForeColor = System.Drawing.Color.Green;
-            this.lblAltitudeUnits2.Location = new System.Drawing.Point(827, 5);
+            this.lblAltitudeUnits2.Location = new System.Drawing.Point(690, 3);
             this.lblAltitudeUnits2.Name = "lblAltitudeUnits2";
             this.lblAltitudeUnits2.Size = new System.Drawing.Size(40, 41);
             this.lblAltitudeUnits2.TabIndex = 251;
@@ -2854,7 +2849,7 @@
             this.tboxNTRIPBuffer.BackColor = System.Drawing.Color.Black;
             this.tboxNTRIPBuffer.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tboxNTRIPBuffer.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.tboxNTRIPBuffer.Location = new System.Drawing.Point(555, 352);
+            this.tboxNTRIPBuffer.Location = new System.Drawing.Point(633, 352);
             this.tboxNTRIPBuffer.Margin = new System.Windows.Forms.Padding(0, 0, 0, 4);
             this.tboxNTRIPBuffer.Multiline = true;
             this.tboxNTRIPBuffer.Name = "tboxNTRIPBuffer";
@@ -2871,7 +2866,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.ClientSize = new System.Drawing.Size(1306, 684);
+            this.ClientSize = new System.Drawing.Size(1384, 761);
             this.Controls.Add(this.tboxNTRIPBuffer);
             this.Controls.Add(this.lblAltitudeUnits2);
             this.Controls.Add(this.btnAutoShore);
@@ -2932,7 +2927,7 @@
             this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(520, 600);
+            this.MinimumSize = new System.Drawing.Size(1150, 800);
             this.Name = "FormGPS";
             this.Padding = new System.Windows.Forms.Padding(5);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

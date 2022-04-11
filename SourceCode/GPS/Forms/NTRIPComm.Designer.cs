@@ -46,7 +46,7 @@ namespace OpenGrade
 
         public  long  tripBytes = 0;
         private int toUDP_Port = 0;
-        private int NTRIP_Watchdog = 100;
+        private int NTRIP_Watchdog = 0;
 
         public bool isNTRIP_RequiredOn = false;
         public bool isNTRIP_Connected = false;
@@ -83,6 +83,15 @@ namespace OpenGrade
             //Thinks is connected but not receiving anything
             if (NTRIP_Watchdog++ > 800 && isNTRIP_Connected)
             {
+                isNTRIP_Connected = false;
+                mf.ledNTRIP.BackColor = Color.Black;
+                mf.isNTRIPOn = false;
+                ReconnectRequest();
+            }
+            
+            if (NTRIP_Watchdog++ > 800)
+            {
+                isNTRIP_Connected = false;
                 mf.ledNTRIP.BackColor = Color.Black;
                 mf.isNTRIPOn = false;
                 ReconnectRequest();
@@ -187,11 +196,18 @@ namespace OpenGrade
             if (clientSocket == null || !clientSocket.Connected)
             {
                 TimedMessageBox(2000, gStr.gsNTRIPNotConnected, " Re-Connecting ");
+                              
                 ReconnectRequest();
                 return;
             }
-            
-
+            else
+            {
+                isNTRIP_Connected = false;
+                isNTRIP_Starting = false;
+                isNTRIP_Connecting = false;
+                ledNTRIP.BackColor = Color.Black;
+            }
+           
             // Read the message from settings and send it
             try
             {
@@ -250,7 +266,7 @@ namespace OpenGrade
             }
             catch (Exception)
             {
-               MessageBox.Show(this, "Error lol", "Send Message Failed!");
+               MessageBox.Show(this, "Error AGAIN lol", "Send Message Failed!");
             }
 
         }

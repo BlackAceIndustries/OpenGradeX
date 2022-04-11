@@ -147,6 +147,7 @@ namespace OpenGrade
         private void timer1_Tick(object sender, EventArgs e)
         {   
             this.Refresh();
+
             //choiceWiFi.Items.Add(mf.SSID[0]);
             //choicePassword.Items.AddRange(mf.SSID_PASS);
 

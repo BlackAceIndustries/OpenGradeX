@@ -1005,6 +1005,23 @@ namespace OpenGrade
             }
         }
 
+        public string LastFixQuality
+        {
+            get
+            {
+                if (pn.fixQuality == 0) return "Invalid";
+                else if (pn.fixQuality == 1) return "GPS fix";
+                else if (pn.fixQuality == 2) return "DGPS fix";
+                else if (pn.fixQuality == 3) return "PPS fix";
+                else if (pn.fixQuality == 4) return "RTK fix";
+                else if (pn.fixQuality == 5) return "Flt RTK";
+                else if (pn.fixQuality == 6) return "Estimate";
+                else if (pn.fixQuality == 7) return "Man IP";
+                else if (pn.fixQuality == 8) return "Sim";
+                else return "Unknown";
+            }
+        }
+
         public string GyroInDegrees
         {
             get
@@ -1114,30 +1131,16 @@ namespace OpenGrade
             if (isNTRIP_RequiredOn){
 
                 //watchdog for Ntrip
-                if (isNTRIP_Connecting)
-                {
-                    //lblDiagnostics.Text = "Authourizing";
-                    ledNTRIP.BackColor = Color.Purple;
-                }
+                if (isNTRIP_Connecting) ledNTRIP.BackColor = Color.Purple;
+                
+                if (NTRIP_Watchdog > 20) ledNTRIP.BackColor = Color.Yellow;
 
-                else
-                {
-                    if (NTRIP_Watchdog > 20) ledNTRIP.BackColor = Color.Yellow;                   
+                if (isNTRIP_Connected) ledNTRIP.BackColor = Color.Lime;
+               
+                if (!isNTRIP_Connected && !isNTRIP_Connecting) ledNTRIP.BackColor = Color.Black;
+                
+                if (sendGGAInterval > 0 && isNTRIP_Sending) isNTRIP_Sending = false;
 
-                }
-
-                if (isNTRIP_Connected)
-                {
-                    //lblDiagnostics.Text = "NTRIP Connected";
-                    ledNTRIP.BackColor = Color.Lime;
-
-                }
-
-                if (sendGGAInterval > 0 && isNTRIP_Sending)
-                {
-                    lblDiagnostics.Text = "Send GGA";
-                    isNTRIP_Sending = false;
-                }
             }
             else ledNTRIP.BackColor = Color.Black;
             
@@ -1200,6 +1203,17 @@ namespace OpenGrade
                 lblLatitude.Text = Latitude;
                 lblLongitude.Text = Longitude;
                 lblFixQuality.Text = FixQuality;
+
+                if (FixQuality == "RTK fix") lblDiagnostics.BackColor = Color.LightGreen;
+                else if (FixQuality == "Flt RTK") lblDiagnostics.BackColor = Color.Yellow;
+                else lblDiagnostics.BackColor = Color.Tomato;
+
+                lblDiagnostics.ForeColor = Color.Black;
+                lblDiagnostics.Text = FixQuality;
+
+
+
+                
                 lblSats.Text = SatsTracked;
 
                 lblRoll.Text = RollInDegrees;

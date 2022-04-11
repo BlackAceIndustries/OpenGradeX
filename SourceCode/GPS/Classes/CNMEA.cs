@@ -74,6 +74,7 @@ namespace OpenGrade
         public double headingTrue, hdop, ageDiff;
 
         public int fixQuality;
+        public int lastFixQuality = -1;
         public int satellitesTracked;
         public string status = "q";
         public DateTime utcDateTime;
@@ -186,7 +187,7 @@ namespace OpenGrade
                 double temp;
                 //get latitude and convert to decimal degrees
                 double.TryParse(words[2].Substring(0, 2), NumberStyles.Float, CultureInfo.InvariantCulture, out latitude);
-                double.TryParse(words[2].Substring(2), NumberStyles.Float, CultureInfo.InvariantCulture, out  temp);
+                double.TryParse(words[2].Substring(2), NumberStyles.Float, CultureInfo.InvariantCulture, out temp);
                 temp *= 0.01666666666666666666666666666667;
                 latitude += temp;
                 if (words[3] == "S")
@@ -198,10 +199,10 @@ namespace OpenGrade
 
                 //get longitude and convert to decimal degrees
                 double.TryParse(words[4].Substring(0, 3), NumberStyles.Float, CultureInfo.InvariantCulture, out longitude);
-                    double.TryParse(words[4].Substring(3), NumberStyles.Float, CultureInfo.InvariantCulture, out temp);
+                double.TryParse(words[4].Substring(3), NumberStyles.Float, CultureInfo.InvariantCulture, out temp);
                 longitude += temp * 0.01666666666666666666666666666667;
 
-                 { if (words[5] == "W") longitude *= -1; }
+                { if (words[5] == "W") longitude *= -1; }
 
                 //calculate zone and UTM coords
                 DecDeg2UTM();
@@ -224,7 +225,16 @@ namespace OpenGrade
 
                 updatedGGA = true;
                 mf.recvCounter = 0;
+                
+                if (fixQuality != 4 && lastFixQuality == 4)
+                {
+                    mf.TimedMessageBox(2000, "RTK FIX LOST", "Check Correction Data");
+                }
+
+                lastFixQuality = fixQuality;
+
             }
+    
         }
 
         private void ParseVTG()
@@ -251,9 +261,9 @@ namespace OpenGrade
             //is the sentence GGA
             if (!String.IsNullOrEmpty(words[1]) & !String.IsNullOrEmpty(words[5]))
             {
-                //kph for speed - knots read
-                double.TryParse(words[8], NumberStyles.Float, CultureInfo.InvariantCulture, out speed);
-                speed = Math.Round(speed * 1.852, 1);
+                //kph for speed - kmh read
+                double.TryParse(words[7], NumberStyles.Float, CultureInfo.InvariantCulture, out speed);
+                speed = Math.Round(speed, 1);
 
                 //True heading
                 double.TryParse(words[1], NumberStyles.Float, CultureInfo.InvariantCulture, out headingTrue);

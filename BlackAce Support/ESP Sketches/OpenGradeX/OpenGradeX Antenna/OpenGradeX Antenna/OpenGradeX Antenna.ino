@@ -1,8 +1,8 @@
 /*
   * UDP Antenna Module Code
   * For OpenGradeX   ONLY WORKS WITH OPENGRADEX NOT REGULAR OPENGRADE
-  * 4 Feb 2022, Black Ace 
-  * Like all Arduino code - copied from somewhere else
+  * 10 Apr 2022, Black Ace 
+  * Like all code - copied from somewhere else
   * So don't claim it as your own
   *
   * Huge Thanks to Brian Tischler For doing all the legwork to make projects like this possible  
@@ -10,9 +10,8 @@
 */
 #include <Arduino.h>
 #include <WiFi.h>
-#include <WiFiUdp.h>
+#include "WiFiUdp.h"
 #include <Adafruit_Sensor.h>
-#include <Adafruit_MCP4725.h>
 #include <Adafruit_BNO055.h>
 #include <utility/imumaths.h>
 #include <SPI.h>
@@ -32,9 +31,11 @@
 /////////////////
 //BUILD VERSION//
 /////////////////
-const char *version = "1.2.1.0";
+const char *version = "1.3.2.0";
 
-//Function STUBS for Platform IO
+//////////////////////////////////
+//Function STUBS for Platform IO//
+//////////////////////////////////
 
 // ANTENNA MODULE
 bool SetupAntennaModule();
@@ -54,18 +55,17 @@ int ScanForWifi();
 
 /// UDP Variables
 WiFiUDP UdpAntenna;  // Creation of wifi UdpAntenna instance
-
-
 const char *ssid = {"OpenGradeX"};
 char *hotspotSSID = {"YOUR SSID"}; 
 char *hotspotSSID_Pass = {"YOUR PASSWORD"};
-char buff[1025];
+char buff[1024];
 char GNGGA[1000];
 char GNVTG[1000];
 String SSID[25];
 String RSSI[25];
 String SSID_PASS[25];
-char packetBuffer[255];
+char packetBuffer[2048];
+char *OG_data[1024];
 
 ///Ports
 uint16_t openGradePort = 9999; //OpenGrade Server Port
@@ -82,13 +82,14 @@ IPAddress Dns(8,8,8,8);
 IPAddress senderIP;
 
 ///////////////////////PINS///////////////////////
-#define SERIAL_BAUD 115200
+#define DEBUG_BAUD 460800
+#define RTK_BAUD 460800
 #define DAC1_ENABLE 4      // DAC 1 enable/
 #define DAC2_ENABLE 5     //  DAC 2 enable/
 #define SCL_PIN 22      // I2C SCL PIN
 #define SDA_PIN 21      // I2C SCL PIN
-#define RXD2 16  // Diagnostic RX
-#define TXD2 17 // Diagnostic TX
+#define RXD2 16  // RTK2B RX
+#define TXD2 17 // RTK2B TX
 #define DEBUG Serial
 #define RTK Serial1
 #define IMU_ID 1200
@@ -100,13 +101,15 @@ IPAddress senderIP;
 #define SETTINGS_HEADER 10002
 #define GPS_HEADER 10003
 #define IMU_HEADER 10004
+#define NTRIP_HEADER 10005
+
 #define RESET_HEADER 10100
 #define SYSTEM_HEADER 10101
 #define WIFI_HEADER 10102
 
 
 /////////////IMU///////////////
-char *OG_data[255];
+
 int16_t dataSize = sizeof(OG_data);
 float rawHeadingIMU = 0;
 float rawRollIMU = 0;
@@ -130,9 +133,13 @@ unsigned long lastTime2 = LOOP_TIME2;
 unsigned long lastTime3 = LOOP_TIME3;  
 unsigned long currentTime = 0; 
 
-//Communication with OpenGrade
+//Communication with OpenGradeX
 bool isDataFound = false, isSettingFound = false;
 int header = 0, tempHeader = 0, temp;
+bool isOGXConnected = false;
+unsigned long watchdogTimer = 0;   //make sure we are talking to OGX
+const int OGXTimeout = 50;    
+bool isRtcmNext = false;
 
 ///////////////////////Initalize Objects///////////////////////
 // I2C
@@ -156,7 +163,20 @@ void loop(){
   
   if (currentTime - lastTime >= LOOP_TIME)
   {  
+    watchdogTimer++;
     lastTime = currentTime;
+
+    if (watchdogTimer > OGXTimeout){
+      isOGXConnected = false;
+      digitalWrite(BUILTIN_LED, LOW);
+    }    
+    else{
+      isOGXConnected = true;
+      digitalWrite(BUILTIN_LED, HIGH); // make sure connected to OGX   Time
+    }
+      
+    if (watchdogTimer > OGXTimeout*50000) watchdogTimer = 50; // Prevent overflow
+
   }
   
   if (currentTime - lastTime2 >= LOOP_TIME2){ // every 15 seconds
@@ -187,8 +207,8 @@ bool SetupAntennaModule()
   pinMode(BUILTIN_LED, OUTPUT);  // Initialize the BUILTIN_LED pin as an output
   esp.begin(SDA_PIN , SCL_PIN);
   //set the baud rate
-  DEBUG.begin(SERIAL_BAUD);  
-  RTK.begin(115200, SERIAL_8N1, RXD2, TXD2); 
+  DEBUG.begin(DEBUG_BAUD);  
+  RTK.begin(460800, SERIAL_8N1, RXD2, TXD2); 
 
   digitalWrite(2, HIGH); delay(500); digitalWrite(2, LOW); delay(500); digitalWrite(2, HIGH); delay(500);
   digitalWrite(2, LOW); delay(500); digitalWrite(2, HIGH); delay(500); digitalWrite(2, LOW); delay(500);
@@ -264,13 +284,11 @@ void RelayGPSData(){
   }
 }
 
-
 bool SetupUdp(){
   UdpAntenna.begin(antennaIP, antennaPort);
  
   return true;
 }
-
 
 bool SendUdpData(int _header)
 { 
@@ -334,7 +352,8 @@ bool SendUdpData(int _header)
       UdpAntenna.print(",");
       UdpAntenna.print(version);     
       UdpAntenna.print("\r\n");   // End segment    
-      UdpAntenna.endPacket();  // Close communication       
+      UdpAntenna.endPacket();  // Close communication    
+         
 
         break;
 
@@ -364,30 +383,30 @@ bool SendUdpData(int _header)
   return true;
 }
 
-
 bool RecvUdpData()
 { 
-  //DEBUG.print("RECV Func Called-> ");
-  char *strings[20];
-  char *ptr = NULL;  
+  
+  char *strings[1024];
+  char *ptr = NULL; 
+  
 
   //RECEPTION
-  int packetSize = UdpAntenna.parsePacket();   // Size of packet to receive
+  int packetSize = UdpAntenna.parsePacket();   // Size of packet to receive  
   
-  //if (!packetSize) DEBUG.println("Nothing Recieved");
-
   senderIP = UdpAntenna.remoteIP();  //Sent from IP
   senderPort = UdpAntenna.remotePort();  //Sent from IP
 
   if (packetSize) {       // If we received a package
-    //DEBUG.print("UDP Message Recieved Bytes to Read->");
-    UdpAntenna.read(packetBuffer, sizeof(packetBuffer));  
-    
-    //DEBUG.println(packetBuffer);
 
-    byte index = 0;
-    ptr = strtok(packetBuffer, ",");  // takes a list of delimiters    
+    UdpAntenna.read(packetBuffer, sizeof(packetBuffer));      
     
+    watchdogTimer = 0;   
+    DEBUG.print("Num Bytes Recv-> ");
+    DEBUG.println(packetSize);
+
+    int index = 0;
+    ptr = strtok(packetBuffer, ",");  // takes a list of delimiters        
+
     while(ptr != NULL)
     {
       strings[index] = ptr;      
@@ -402,7 +421,7 @@ bool RecvUdpData()
     
     // convert to int to read couldn't read PTR for some rsn   
     header = atoi(OG_data[0]);         
-      
+    
     switch (header)
     {
       case DATA_HEADER:
@@ -414,19 +433,39 @@ bool RecvUdpData()
         DEBUG.println("SETTINGS FOUND!"); 
         return true;
       break;
-
-      case IMU_HEADER:
-        DEBUG.println("IMU FOUND!");
-        headingIMUSetPos = rawHeadingIMU;
-        pitchIMUSetPos = rawPitchIMU;
-        rollIMUSetPos = rawRollIMU; 
-        return true;
-      break;
+      
 
       case GPS_HEADER:
         DEBUG.println("GPS FOUND!"); 
         return true;
       break;
+  
+      case IMU_HEADER:
+          DEBUG.println("IMU FOUND!");
+          headingIMUSetPos = rawHeadingIMU;
+          pitchIMUSetPos = rawPitchIMU;
+          rollIMUSetPos = rawRollIMU; 
+          return true;
+        break;
+
+      case NTRIP_HEADER:
+
+        isRtcmNext = true;        
+        // for (int i = 1 ; i < index;  i++){
+          
+        //   if (OG_data[i] == _NULL) break;          
+        //   rtcmBuff[i] = atoi(OG_data[i]);          
+        // }        
+        // rtcmBuff[index++] = atoi("\r\n");
+        
+        // //RTK.write(rtcmBuff, index);
+        // DEBUG.print("Bytes recieved ->");    
+        // DEBUG.println(index); 
+
+        return true;
+      break;
+
+
 
       case RESET_HEADER:
         ESP.restart(); 
@@ -435,9 +474,11 @@ bool RecvUdpData()
 
       case SYSTEM_HEADER:     
         
-        SendUdpData(SYSTEM_HEADER);
-        
-        //(atoi(OG_data[1]) == 1) ? SendUdpData(SYSTEM_HEADER) : DEBUG.print("no Version");     
+        if (atoi(OG_data[1]) != 0){
+          SendUdpData(SYSTEM_HEADER);
+        }
+        digitalWrite(BUILTIN_LED, HIGH);
+                  
 
       break;
 
@@ -478,8 +519,6 @@ bool RecvUdpData()
             ConnectToHotSpot();         
 
           break;
-          
-
 
         }          
         
@@ -488,8 +527,20 @@ bool RecvUdpData()
       //default:
       //break;
     }
+
+    if (packetSize > 100 && packetSize < 1024 && isRtcmNext) {    ///  This is a Very bad thing to do if this program crashes it is because of these                 
+      RTK.write(packetBuffer, sizeof(packetBuffer));  /// lines of code....... that being said im going to do it anyways cause im lazy   
+      isRtcmNext = false;                
+    }
+
+    memset(packetBuffer, 0, sizeof(packetBuffer));
+    memset(OG_data, 0, sizeof(OG_data));
     return true;
   }
+
+  memset(packetBuffer, 0, sizeof(packetBuffer));
+  memset(OG_data, 0, sizeof(OG_data));
+  UdpAntenna.flush();
   return false;
 }
 
@@ -504,7 +555,7 @@ bool SetupAP(){
   delay(100);
   
   if (WiFi.softAPConfig(antennaIP, gatewayIP, Subnet)){
-    digitalWrite(BUILTIN_LED, HIGH); // Turn the LED on (Note that LOW is the voltage level but actually the LED is on; this is because it is active low on the ESP-01)
+    //digitalWrite(BUILTIN_LED, HIGH); // Turn the LED on (Note that LOW is the voltage level but actually the LED is on; this is because it is active low on the ESP-01)
   }  
 
   DEBUG.println(ssid);
@@ -529,6 +580,7 @@ void ConnectToHotSpot() {
   }
   
 }
+
 int ScanForWifi(){
   // WiFi.scanNetworks will return the number of networks found
   int n = WiFi.scanNetworks();

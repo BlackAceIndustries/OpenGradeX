@@ -60,7 +60,7 @@ namespace OpenGrade
             //SendGGA();
         }
 
-        private void ReconnectRequest()
+        public void ReconnectRequest()
         {
             //TimedMessageBox(2000, "NTRIP Not Connected", " Reconnect Request");
             ntripCounter = 10;
@@ -81,21 +81,16 @@ namespace OpenGrade
             ntripCounter++;
 
             //Thinks is connected but not receiving anything
-            if (NTRIP_Watchdog++ > 800 && isNTRIP_Connected)
-            {
-                isNTRIP_Connected = false;
-                mf.ledNTRIP.BackColor = Color.Black;
-                mf.isNTRIPOn = false;
+            if (NTRIP_Watchdog++ > 15 && isNTRIP_Connected)
+            {   
+                isNTRIPOn = false;                
+                TimedMessageBox(2500, "NTRIP DATA TIMEOUT", "RECONNECTING");
+                ledNTRIP.BackColor = Color.Orange;
+                
                 ReconnectRequest();
             }
             
-            if (NTRIP_Watchdog++ > 800)
-            {
-                isNTRIP_Connected = false;
-                mf.ledNTRIP.BackColor = Color.Black;
-                mf.isNTRIPOn = false;
-                ReconnectRequest();
-            }
+            
 
 
             //Once all connected set the timer GGA to NTRIP Settings
@@ -108,6 +103,13 @@ namespace OpenGrade
         {
             broadCasterIP = Properties.Settings.Default.setNTRIP_casterIP; //Select correct Address
             reconnectCounter++;
+            
+            if (reconnectCounter > 100)
+            {
+                TimedMessageBox(2000, "100 failed connection attempts", "Check Connections and Reset in NTRIP Tab");               
+                
+                return;
+            }
 
             tboxNTRIPBuffer.Text = "Start";
 
@@ -195,18 +197,12 @@ namespace OpenGrade
             // Check we are connected
             if (clientSocket == null || !clientSocket.Connected)
             {
-                TimedMessageBox(2000, gStr.gsNTRIPNotConnected, " Re-Connecting ");
+                TimedMessageBox(2000, gStr.gsNTRIPNotConnected, " ReStarting TCP Connection ");
                               
                 ReconnectRequest();
                 return;
             }
-            else
-            {
-                isNTRIP_Connected = false;
-                isNTRIP_Starting = false;
-                isNTRIP_Connecting = false;
-                ledNTRIP.BackColor = Color.Black;
-            }
+           
            
             // Read the message from settings and send it
             try
@@ -240,9 +236,6 @@ namespace OpenGrade
                     "Authorization: Basic " + auth + "\r\n" +                    
                     "Connection: close \r\n" +                                          //str += GGASentence; //this line can be removed if no position feedback is needed                
                     "\r\n";
-
-                
-
 
                 tboxNTRIPBuffer.Text += " Authorization String > \r\n" + str + "\r\n";
                 // Convert to byte array and send.
@@ -425,7 +418,7 @@ namespace OpenGrade
             }
             catch (Exception)
             {
-                MessageBox.Show( this, "Unusual error druing Recieve!", "Unusual error druing Recieve!" );
+                MessageBox.Show( this, "You Must be from Huxley!", "You Probably lost service!" );
             }
         }
 
@@ -469,7 +462,7 @@ namespace OpenGrade
 
         }
 
-        private void SettingsShutDownNTRIP()
+        public void SettingsShutDownNTRIP()
         {
             if (clientSocket != null && clientSocket.Connected)
             {

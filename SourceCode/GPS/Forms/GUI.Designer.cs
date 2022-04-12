@@ -946,6 +946,10 @@ namespace OpenGrade
                 if (isGradeControlBtnOn) sim.DoSimTick(guidanceLineSteerAngle / 10.0);
                 else sim.DoSimTick(sim.steerAngleScrollBar);
             }
+            else
+            {
+                panelSimControls.Visible = false;   
+            }
         }
         private void tbarStepDistance_Scroll(object sender, EventArgs e)
         {
@@ -1104,7 +1108,7 @@ namespace OpenGrade
             //check if we have a connection if not try and start NTRIP
             if (isNTRIP_RequiredOn && !isNTRIP_Connected && !isNTRIP_Connecting)
             {
-                if (!isNTRIP_Starting && ntripCounter > 20)
+                if (!isNTRIP_Starting && ntripCounter > 20 && reconnectCounter < 100)
                 {
                     StartNTRIP();
                 }
@@ -1153,13 +1157,9 @@ namespace OpenGrade
             //tmrWatchdog.Enabled = false;
             ScanForNMEA();
             
-            statusUpdateCounter++;
-            
+            statusUpdateCounter++;            
             antennaModuleTimeout++;
-            gradeControlTimeout++;
-           
-            
-            
+            gradeControlTimeout++;               
             
             if (fiveSecondCounter++ > 30)
             {
@@ -1203,19 +1203,20 @@ namespace OpenGrade
                 lblLatitude.Text = Latitude;
                 lblLongitude.Text = Longitude;
                 lblFixQuality.Text = FixQuality;
-
+                lblDiagnostics.Text = FixQuality;
+                
                 if (FixQuality == "RTK fix") lblDiagnostics.BackColor = Color.LightGreen;
                 else if (FixQuality == "Flt RTK") lblDiagnostics.BackColor = Color.Yellow;
-                else lblDiagnostics.BackColor = Color.Tomato;
-
-                lblDiagnostics.ForeColor = Color.Black;
-                lblDiagnostics.Text = FixQuality;
-
-
+                else lblDiagnostics.BackColor = Color.Tomato;       
+                
+                if (FixQuality == "RTK fix" || FixQuality == "Flt RTK")
+                {  
+                    if (!isNTRIP_Connected) ledRadio.BackColor = Color.Lime;                    
+                }               
+                else ledRadio.BackColor = Color.Black;
 
                 
                 lblSats.Text = SatsTracked;
-
                 lblRoll.Text = RollInDegrees;
                 lblGyroHeading.Text = GyroInDegrees;
                 lblPitch.Text = PitchInDegrees;
@@ -1460,13 +1461,7 @@ namespace OpenGrade
                     
                 }
                 else stripOnlineGPS.Value = 100;
-
-                if (isSendConnected)
-                {
-                    
-
-                }                
-
+                               
                 SendUDPMessage(DATA_HEADER, epGradeControl);
             }
             

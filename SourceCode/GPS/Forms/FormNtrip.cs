@@ -314,11 +314,12 @@ namespace OpenGrade
             {
                 IPAddress[] addresslist = Dns.GetHostAddresses(actualIP);
                 tboxCasterIP.Text = "";
-                tboxCasterIP.Text = addresslist[0].ToString().Trim();
+                tboxCasterIP.Text = addresslist[0].ToString().Trim();                
             }
             catch (Exception)
             {
                 mf.TimedMessageBox(1500, "No IP Located", "Can't Find: " + actualIP);
+               
             }
         }
 
@@ -416,7 +417,8 @@ namespace OpenGrade
 
         private void btnStartNtrip_Click(object sender, EventArgs e)
         {
-           mf.SendAuthorization();
+            mf.reconnectCounter = 0;               
+            mf.StartNTRIP();           
         }
     }
 }

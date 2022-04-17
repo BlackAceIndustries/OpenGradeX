@@ -737,7 +737,7 @@ namespace OpenGrade
                                 gl.Vertex(ct.drawList[i].easting, (((ct.drawList[i].northing - centerY) * altitudeWindowGain) + centerY), 0);
                             gl.End();
 
-                            if (slopeDraw < -vehicle.minSlope) gl.Color(0.25f, 0.970f, 0.350f); // lighter green when slope is clicked 
+                            if (slopeDraw < vehicle.minSlope) gl.Color(0.25f, 0.970f, 0.350f); // lighter green when slope is clicked 
                             else gl.Color(0.915f, 0.0f, 0.970f); // purple when above slope line
                             gl.Begin(OpenGL.GL_LINES);
                             //for (int i = 0; i < cutCnt; i++)
@@ -955,7 +955,7 @@ namespace OpenGrade
             int drawPts;
             int ptCnt = ct.ptList.Count;
             double minDeltaHt = 0;
-            double angle = (-vehicle.minSlope) * 180;
+            double angle = vehicle.minSlope * 180;
             int startPt = 0;
             int endPt = -1;
             int lowestPt = 0;

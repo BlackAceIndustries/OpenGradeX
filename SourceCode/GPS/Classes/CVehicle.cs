@@ -56,7 +56,7 @@ namespace OpenGrade
 
             maxAngularVelocity = Properties.Vehicle.Default.setVehicle_maxAngularVelocity;
             maxSteerAngle = Properties.Vehicle.Default.setVehicle_maxSteerAngle;
-            minSlope = Properties.Vehicle.Default.setVehicle_minSlope;
+            minSlope = -Properties.Vehicle.Default.setVehicle_minSlope;
             minShoreSlope = Properties.Vehicle.Default.setVehicle_minShoreSlope;
         }
         

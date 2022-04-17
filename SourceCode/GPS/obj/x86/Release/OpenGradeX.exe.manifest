@@ -50,7 +50,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>tDrzsP0kZ45sAou3WIvMe2EG55c=</dsig:DigestValue>
+        <dsig:DigestValue>cnO29i+DgtlX4hlkBoffyVdTz0Y=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -195,13 +195,13 @@
       <dsig:DigestValue>jBpxyztkBOldEOuYD3XOhgXH4JY=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="OpenGradeX.exe.config" size="20922">
+  <file name="OpenGradeX.exe.config" size="20915">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>RAkfGpl4LjTJaX6DEd2MTVSK3gY=</dsig:DigestValue>
+      <dsig:DigestValue>fkMtzf+v/iM7McAHRgRTRHN0l1s=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

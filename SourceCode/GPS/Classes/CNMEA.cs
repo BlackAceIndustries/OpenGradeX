@@ -259,11 +259,11 @@ namespace OpenGrade
             */
 
             //is the sentence GGA
-            if (!String.IsNullOrEmpty(words[1]) & !String.IsNullOrEmpty(words[5]))
+            if (!String.IsNullOrEmpty(words[1]) & !String.IsNullOrEmpty(words[7]))
             {
                 //kph for speed - kmh read
                 double.TryParse(words[7], NumberStyles.Float, CultureInfo.InvariantCulture, out speed);
-                speed = Math.Round(speed, 1);
+                speed = Math.Round(speed, 2);
 
                 //True heading
                 double.TryParse(words[1], NumberStyles.Float, CultureInfo.InvariantCulture, out headingTrue);

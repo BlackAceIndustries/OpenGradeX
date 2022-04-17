@@ -30,16 +30,16 @@
       <Value Profile="(Default)">0.5</Value>
     </Setting>
     <Setting Name="setVehicle_maxTileCut" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">10</Value>
+      <Value Profile="(Default)">100</Value>
     </Setting>
     <Setting Name="setVehicle_maxDitchCut" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">10</Value>
+      <Value Profile="(Default)">100</Value>
     </Setting>
     <Setting Name="setVehicle_minDitchCut" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">15</Value>
+      <Value Profile="(Default)">20</Value>
     </Setting>
     <Setting Name="setVehicle_minTileCover" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">20</Value>
+      <Value Profile="(Default)">70</Value>
     </Setting>
     <Setting Name="setVehicle_minShoreSlope" Type="System.Double" Scope="User">
       <Value Profile="(Default)">15</Value>

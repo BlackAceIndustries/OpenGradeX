@@ -61,6 +61,7 @@
             this.lblGCVersion = new System.Windows.Forms.TextBox();
             this.lblAntennaVersion = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cbSavePassword = new System.Windows.Forms.CheckBox();
             this.btnRefreshWifi = new System.Windows.Forms.Button();
             this.btnHotSpotConnect = new System.Windows.Forms.Button();
             this.choicePassword = new System.Windows.Forms.ComboBox();
@@ -489,6 +490,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.cbSavePassword);
             this.groupBox2.Controls.Add(this.btnRefreshWifi);
             this.groupBox2.Controls.Add(this.btnHotSpotConnect);
             this.groupBox2.Controls.Add(this.choicePassword);
@@ -502,22 +504,34 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "HotSpot Connection";
             // 
+            // cbSavePassword
+            // 
+            this.cbSavePassword.AutoSize = true;
+            this.cbSavePassword.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbSavePassword.Location = new System.Drawing.Point(11, 120);
+            this.cbSavePassword.Name = "cbSavePassword";
+            this.cbSavePassword.Size = new System.Drawing.Size(125, 20);
+            this.cbSavePassword.TabIndex = 100;
+            this.cbSavePassword.Text = "Save Password";
+            this.cbSavePassword.UseVisualStyleBackColor = true;
+            // 
             // btnRefreshWifi
             // 
-            this.btnRefreshWifi.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnRefreshWifi.BackColor = System.Drawing.Color.Aqua;
             this.btnRefreshWifi.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRefreshWifi.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnRefreshWifi.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnRefreshWifi.Location = new System.Drawing.Point(12, 147);
             this.btnRefreshWifi.Name = "btnRefreshWifi";
             this.btnRefreshWifi.Size = new System.Drawing.Size(225, 25);
             this.btnRefreshWifi.TabIndex = 99;
-            this.btnRefreshWifi.Text = "Find  Available Wifi Networks";
+            this.btnRefreshWifi.Text = "Scan for Hotspot";
             this.btnRefreshWifi.UseVisualStyleBackColor = false;
             this.btnRefreshWifi.Click += new System.EventHandler(this.button1_Click);
             // 
             // btnHotSpotConnect
             // 
             this.btnHotSpotConnect.BackColor = System.Drawing.Color.LimeGreen;
+            this.btnHotSpotConnect.Enabled = false;
             this.btnHotSpotConnect.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnHotSpotConnect.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnHotSpotConnect.Location = new System.Drawing.Point(12, 178);
@@ -583,6 +597,7 @@
             // 
             // timer1
             // 
+            this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // FormUDP
@@ -616,6 +631,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
@@ -663,5 +679,6 @@
         private System.Windows.Forms.Label lblOGXVersion;
         private System.Windows.Forms.Label lblProgramName;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.CheckBox cbSavePassword;
     }
 }

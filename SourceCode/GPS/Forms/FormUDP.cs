@@ -30,6 +30,11 @@ namespace OpenGrade
             Properties.Settings.Default.setIP_gradeControlPort = (int)nudGradeControlPort.Value;
 
             Properties.Settings.Default.Save();
+            
+            for(int i = 0; i < mf.SSID.Length; i++)
+            {
+                mf.SSID[i] = "-";
+            }
 
             Close();
         }
@@ -56,6 +61,8 @@ namespace OpenGrade
             
             lblProgramName.Text = Assembly.GetEntryAssembly().GetName().Name;
             lblOGXVersion.Text = Assembly.GetEntryAssembly().GetName().Version.ToString();
+
+            choiceWiFi.Items.AddRange(mf.SSID);
 
 
 
@@ -123,33 +130,44 @@ namespace OpenGrade
         private void btnHotSpotConnect_Click(object sender, EventArgs e)
         {
             
-            //choiceWiFi.Items.Clear();
-            //choiceWiFi.Items.AddRange(mf.SSID);      
             
-            //choicePassword.Items.Add(choicePassword.Text);
-            //choiceWiFi.Items.AddRange(mf.SSID);
-            //choicePassword.Items.AddRange(mf.SSID_PASS);
+            if (cbSavePassword.Checked)
+            {
+                mf.SSID_PASS[0] = choicePassword.Text;
+                choicePassword.Items.Add(choicePassword.Text);
+            }
+
+            mf.ssidName = choiceWiFi.Text;
+            mf.ssidPass = choicePassword.Text;
+
+            mf.SendUDPMessage(FormGPS.WIFI_HEADER, mf.epAntennaModule, 2);
+
+            mf.ssidName = "";
+            mf.ssidPass = "";
+
+
 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
 
-            mf.SendUDPMessage(FormGPS.WIFI_HEADER, mf.epAntennaModule);
-           
-            //choiceWiFi.Items.Clear();
-            //choiceWiFi.Items.AddRange(mf.SSID);
-
-            
+            mf.SendUDPMessage(FormGPS.WIFI_HEADER, mf.epAntennaModule, 1);
 
         }                
 
         private void timer1_Tick(object sender, EventArgs e)
-        {   
-            this.Refresh();
-
-            //choiceWiFi.Items.Add(mf.SSID[0]);
-            //choicePassword.Items.AddRange(mf.SSID_PASS);
+        {
+            if (mf.isWifidone)
+            {
+                choiceWiFi.Items.Clear();
+                choiceWiFi.Text = mf.SSID[0]; 
+                choiceWiFi.Items.AddRange(mf.SSID);
+                
+                mf.isWifidone = false;
+                
+            }
+            
 
         }
     }

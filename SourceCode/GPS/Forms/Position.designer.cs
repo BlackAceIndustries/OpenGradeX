@@ -413,10 +413,14 @@ namespace OpenGrade
                     else { ct.StartContourLine(); ct.AddPoint(); }
                 }
 
-
-
                 //All sections OFF so if on, turn off
-                else { if (ct.isContourOn) { ct.StopContourLine(); }  }
+                else {
+                    if (ct.isContourOn) 
+                    { 
+                        ct.StopContourLine();
+                        CheckSurveyDir();
+                    }  
+                }
             }
         }
        

@@ -28,8 +28,11 @@ namespace OpenGrade
         public const int SYSTEM_HEADER = 10101;
         public const int WIFI_HEADER = 10102;
 
-        public string[] SSID = new string[] {"-", "-", "-", "-" };
+        public string[] SSID = new string[] {"-", "-", "-", "-" , "-"};
         public string[] SSID_PASS = new string[25];
+        public bool isWifidone = false;
+        public string ssidPass = "";
+        public string ssidName = "";
 
         public long gradeControlTimeout = 0;
         public long antennaModuleTimeout = 0;
@@ -88,7 +91,7 @@ namespace OpenGrade
         }
 
 
-
+        /*
         public void SendUDPMessageNTRIP(int header, string msg)
         {           
             try
@@ -110,8 +113,9 @@ namespace OpenGrade
             }
            
         }
+        */
 
-        public void SendUDPMessage(int header, IPEndPoint _module)
+        public void SendUDPMessage(int header, IPEndPoint _module, int secCase = 0)
         {
 
             string msg = "";
@@ -132,7 +136,6 @@ namespace OpenGrade
                             msg = (header.ToString() + "," + mc.gradeControlSettings[mc.gsKpGain] + "," + mc.gradeControlSettings[mc.gsKiGain] + "," + mc.gradeControlSettings[mc.gsKdGain]
                                 + "," + mc.gradeControlSettings[mc.gsRetDeadband] + "," + mc.gradeControlSettings[mc.gsExtDeadband] + "," + mc.gradeControlSettings[mc.gsValveType]) + "\r\n"; 
 
-
                             break;
 
                         case GPS_HEADER:
@@ -150,6 +153,24 @@ namespace OpenGrade
                             msg = (header.ToString() + "," + 0);                          
 
                             break;
+
+                        case WIFI_HEADER:
+
+                            switch (secCase)
+                            {
+                                case 1:
+                                    msg = (header.ToString() + "," + secCase);
+                                    break;
+                                case 2:
+                                    msg = (header.ToString() + "," + secCase + "," + ssidName + "," + ssidPass );
+                                    break;
+                                default:
+                                    break;
+
+                            }
+                            
+                            break;
+
                         case RESET_HEADER:
 
                             msg = (header.ToString() + "," + 0);
@@ -398,8 +419,8 @@ namespace OpenGrade
 
                     for (int i = 1; i < temp-1; ++i)
                     {
-                      SSID[i-1] = words[i];
-                      
+                      SSID[i-1] = words[i]; 
+                      isWifidone = true;
                     } 
                     break;
 

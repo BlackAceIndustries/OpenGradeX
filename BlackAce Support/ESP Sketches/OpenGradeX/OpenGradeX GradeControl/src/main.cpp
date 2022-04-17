@@ -21,7 +21,7 @@
 ///
 /// BUILD VERSION
 ///
-const char *version = "1.3.2.0";
+const char *version = "1.3.4.0";
 
 // Function STUBS for Platform IO
 
@@ -45,7 +45,7 @@ void ReconnectToOGX();
 WiFiUDP UdpGradeControl;  // Creation of wifi UdpGradeControl instance
 const char *ssid = {"OpenGradeX"};
 
-char packetBuffer[255];
+char packetBuffer[1460];
 uint16_t openGradePort = 9999; //OpenGrade Server Port
 uint16_t gradeControlPort = 7777; // GradeControl  Port
 uint16_t antennaPort = 8888; // Antenna Port
@@ -139,7 +139,7 @@ unsigned long lastTime3 = LOOP_TIME3;
 unsigned long currentTime = 0; 
 
 //Communication with OpenGradeX
-bool isDataFound = false, isSettingFound = false, isOGXConnected = false;
+bool isOGXConnected = false;
 int header = 0, tempHeader = 0;
 unsigned long watchdogTimer = 0;   //make sure we are talking to OGX
 const int OGXTimeout = 15;      
@@ -155,8 +155,7 @@ Adafruit_MCP4725 Dac2 = Adafruit_MCP4725();
 void setup()
 { 
   ConnectToOGX();  
-  SetupGradeControlModule();  
-  
+  SetupGradeControlModule();    
 }
   
 
@@ -166,7 +165,7 @@ void loop(){  //Loop triggers every 50 msec (20hz) and sends back offsets Pid ec
   SetOutput();  // Run PID Controller
   SetAutoState();  // Set Flags
   RecvUdpData();  // Read Udp Data if Available  
-  //(WiFi.status() == WL_CONNECTED) ? digitalWrite(BUILTIN_LED, HIGH) : digitalWrite(BUILTIN_LED, LOW);
+ 
   
   if (currentTime - lastTime >= LOOP_TIME) // 10 HZ
   {  
@@ -180,12 +179,8 @@ void loop(){  //Loop triggers every 50 msec (20hz) and sends back offsets Pid ec
     else{
       isOGXConnected = true;
       digitalWrite(BUILTIN_LED, HIGH); // make sure connected to OGX   Time
-    }
-   
-    
-    
+    } 
     (watchdogTimer > OGXTimeout*5000)? watchdogTimer = 50 : watchdogTimer; // Prevent overflow
-
 
     SendUdpData(DATA_HEADER);  // Send Data To OpenGradeX    
   }
@@ -210,14 +205,12 @@ bool SetupGradeControlModule()
 
   pinMode(BUILTIN_LED, OUTPUT);  // Initialize the BUILTIN_LED pin as an output
   esp.begin(SDA_PIN , SCL_PIN);
-
   //set the baud rate
   DEBUG.begin(SERIAL_BAUD);    
 
   digitalWrite(2, HIGH); delay(500); digitalWrite(2, LOW); delay(500); digitalWrite(2, HIGH); delay(500);
   digitalWrite(2, LOW); delay(500); digitalWrite(2, HIGH); delay(500); digitalWrite(2, LOW); delay(500);
 
-  
   Dac1.begin(0x62, &esp);
   Dac2.begin(0x63, &esp);
 
@@ -417,7 +410,7 @@ bool SendUdpData(int _header)
 bool RecvUdpData()
 { 
   
-  char *strings[20];
+  char *strings[1460];
   char *ptr = NULL;  
 
   //RECEPTION

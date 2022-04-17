@@ -1109,6 +1109,11 @@ namespace OpenGrade
 
         private void stripTopoLocation_Click(object sender, EventArgs e)
         {
+            
+        }
+
+        private void ledNTRIP_Click(object sender, EventArgs e)
+        {
             if (tboxNTRIPBuffer.Visible)
             {
                 tboxNTRIPBuffer.Visible = false;

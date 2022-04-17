@@ -31,7 +31,7 @@
 /////////////////
 //BUILD VERSION//
 /////////////////
-const char *version = "1.3.2.0";
+const char *version = "1.3.4.0";
 
 //////////////////////////////////
 //Function STUBS for Platform IO//
@@ -56,14 +56,17 @@ int ScanForWifi();
 /// UDP Variables
 WiFiUDP UdpAntenna;  // Creation of wifi UdpAntenna instance
 const char *ssid = {"OpenGradeX"};
-char *hotspotSSID = {"YOUR SSID"}; 
-char *hotspotSSID_Pass = {"YOUR PASSWORD"};
+char *hotspotSSID; 
+char *hotspotSSID_Pass;
 char buff[1024];
 char GNGGA[1000];
 char GNVTG[1000];
-String SSID[25];
-String RSSI[25];
-String SSID_PASS[25];
+
+String SSID[40];
+String RSSI[40];
+String SSID_PASS[40];
+char *ssid2;
+char *pass2;
 char packetBuffer[2048];
 char *OG_data[1024];
 
@@ -363,7 +366,7 @@ bool SendUdpData(int _header)
       UdpAntenna.beginPacket(openGradeIP,openGradePort);   //Initiate transmission of data
       UdpAntenna.print(_header);
       DEBUG.print(_header);
-      for (int i = 0; i < 4; ++i) {      
+      for (int i = 0; i < 5; ++i) {      
         UdpAntenna.print(",");
         UdpAntenna.print(SSID[i]);
         DEBUG.print(",");
@@ -386,7 +389,7 @@ bool SendUdpData(int _header)
 bool RecvUdpData()
 { 
   
-  char *strings[1024];
+  char *strings[1460];
   char *ptr = NULL; 
   
 
@@ -450,18 +453,7 @@ bool RecvUdpData()
 
       case NTRIP_HEADER:
 
-        isRtcmNext = true;        
-        // for (int i = 1 ; i < index;  i++){
-          
-        //   if (OG_data[i] == _NULL) break;          
-        //   rtcmBuff[i] = atoi(OG_data[i]);          
-        // }        
-        // rtcmBuff[index++] = atoi("\r\n");
-        
-        // //RTK.write(rtcmBuff, index);
-        // DEBUG.print("Bytes recieved ->");    
-        // DEBUG.println(index); 
-
+        isRtcmNext = true;  
         return true;
       break;
 
@@ -483,9 +475,7 @@ bool RecvUdpData()
       break;
 
       case WIFI_HEADER:
-        //int selection = 0;
-        //int n = sizeof(OG_data)/sizeof(OG_data[0]);
-        
+                
         switch (atoi(OG_data[1])){
           
           case 1:          
@@ -493,29 +483,11 @@ bool RecvUdpData()
             SendUdpData(WIFI_HEADER);
           break;
           
-          case 2:
-
-            // DEBUG.print(hotspotSSID);
-            // DEBUG.print("\t");
-            // DEBUG.println(hotspotSSID_Pass);
-
-            // //hotspotSSID = OG_data[2]; 
-            // //hotspotSSID_Pass = OG_data[3];
-
-            // DEBUG.print("Received \t");
-            // DEBUG.print(OG_data[2]);
-            // DEBUG.print("\t");
-            // DEBUG.println(OG_data[3]);
-
-            // selection = atoi(OG_data[2]);
-            // strcpy(hotspotSSID, SSID[selection].c_str());
-            // strcpy(hotspotSSID_Pass, SSID_PASS[selection].c_str());          
-            //ConnectToHotSpot();         
-
-
-            // selection = atoi(OG_data[2]);
-            // strcpy(hotspotSSID, SSID[selection].c_str());
-            // strcpy(hotspotSSID_Pass, SSID_PASS[selection].c_str());          
+          case 2:         
+            hotspotSSID = OG_data[2]; 
+            hotspotSSID_Pass = OG_data[3];
+            DEBUG.println(hotspotSSID);
+            DEBUG.println(hotspotSSID_Pass);
             ConnectToHotSpot();         
 
           break;
@@ -574,9 +546,9 @@ void ConnectToHotSpot() {
 
   WiFi.begin(hotspotSSID, hotspotSSID_Pass);  
   while (WiFi.status() != WL_CONNECTED && timer - curTime  < dur) {
-    DEBUG.print('.');
+    
     timer = millis();
-    delay(1000);
+    
   }
   
 }
@@ -588,6 +560,8 @@ int ScanForWifi(){
   if (n != 0) {    
     
     for (int i = 0; i < n; ++i) {      
+      
+            
       SSID[i] = WiFi.SSID(i);      
       RSSI[i] = WiFi.RSSI(i);     
     }

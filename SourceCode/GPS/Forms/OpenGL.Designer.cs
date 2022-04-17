@@ -618,13 +618,13 @@ namespace OpenGrade
                     if (ct.isOnPass)
                     {
                         stripOnlineAutoSteer.Value = 100;
-                        //lblDiagnostics.Text = "Pass Active";
+                        
                         ct.isContourBtnOn = true;
                     }
                     else
                     {
                         stripOnlineAutoSteer.Value = 0;
-                        //lblDiagnostics.Text = "------------";
+                        
                         ct.isContourBtnOn = false;
 
                     }
@@ -1127,7 +1127,7 @@ namespace OpenGrade
                         {
                             distFromLastPlot += ct.ptList[h].distance;  // add distance all distances from lastPt to hPt 
                         }
-                        //lblDiagnostics.Text = (distFromLastPlot.ToString());
+                        
                     }
                     else
                     {
@@ -1153,7 +1153,7 @@ namespace OpenGrade
                 }
             }
 
-            //lblDiagnostics.Text = endPt.ToString();
+            
         }
 
         private bool CheckMaxCut()
@@ -1354,7 +1354,35 @@ namespace OpenGrade
                     ct.ptList[i + 1].distance = pn.Distance(ct.ptList[i].northing, ct.ptList[i].easting,ct.ptList[i + 1].northing, ct.ptList[i + 1].easting);
                 }
             }
+
         }
+        
+        private void CheckSurveyDir()
+        {
+
+            List<CContourPt> temp = new List<CContourPt>();
+            int ptCnt = ct.ptList.Count;
+            int startPt = 0;
+            int endPt = ptCnt -1;
+            double startElev = ct.ptList[startPt].altitude;
+            double endElev = ct.ptList[endPt].altitude;                     
+
+            if (startElev < endElev && ptCnt > 0) // reverse the whole pt list
+            {                    
+                for (int i = ptCnt-1; i >= 0; i--)
+                {                        
+                    CContourPt point = new CContourPt(ct.ptList[i].easting, ct.ptList[i].heading,
+                        ct.ptList[i].northing, ct.ptList[i].altitude, ct.ptList[i].latitude, ct.ptList[i].longitude);
+                    temp.Add(point);                        
+
+                }
+                ct.ptList.Clear();
+                ct.ptList.AddRange(temp);
+                temp.Clear();
+            }
+           
+        }
+
 
         //Draw section OpenGL window, not visible
         private void openGLControlBack_OpenGLInitialized(object sender, EventArgs e)

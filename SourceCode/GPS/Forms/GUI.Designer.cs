@@ -32,6 +32,7 @@ namespace OpenGrade
                 lblAltitudeUnits2.Text = "M";
                 metricToolStrip.Checked = true;
                 imperialToolStrip.Checked = false;
+                btnUnits.Image = Properties.Resources.Metric;
             }
             else
             {
@@ -40,6 +41,7 @@ namespace OpenGrade
                 lblAltitudeUnits2.Text = "FT";
                 metricToolStrip.Checked = false;
                 imperialToolStrip.Checked = true;
+                btnUnits.Image = Properties.Resources.Imperial;
             }
 
             //load up colors
@@ -266,9 +268,10 @@ namespace OpenGrade
 
                 case btnStates.Rec:
 
+                    
                     manualBtnState = btnStates.Off;
                     btnManualOffOn.Image = Properties.Resources.SurveyStart;
-                    CalculateContourPointDistances();
+                    CalculateContourPointDistances();                    
                     FileSaveContour();
                     btnDoneDraw.Enabled = false;
                     btnDeleteLastPoint.Enabled = false;
@@ -340,22 +343,21 @@ namespace OpenGrade
         }
         private void btnUnits_Click(object sender, EventArgs e)
         {
-            isMetric = !isMetric;
-
-            Settings.Default.setMenu_isMetric = isMetric;
-            Settings.Default.Save();
-            if (isMetric)
+            
+            if (!isMetric)
             {
+                isMetric = true;
                 lblSpeedUnits.Text = "kmh";
                 lblAltitudeUnits.Text = "M";
                 lblAltitudeUnits2.Text = "M";
                 metricToolStrip.Checked = true;
-                imperialToolStrip.Checked = false;
+                imperialToolStrip.Checked = false;                
                 btnUnits.Image = Properties.Resources.Metric;
                 
             }
             else
             {
+                isMetric = false;
                 lblSpeedUnits.Text = "mph";
                 lblAltitudeUnits.Text = "FT";
                 lblAltitudeUnits2.Text = "FT";
@@ -363,6 +365,8 @@ namespace OpenGrade
                 imperialToolStrip.Checked = true;
                 btnUnits.Image = Properties.Resources.Imperial;
             }
+            Settings.Default.setMenu_isMetric = isMetric;
+            Settings.Default.Save();
         }
         private void btnGPSData_Click(object sender, EventArgs e)
         {
@@ -468,6 +472,8 @@ namespace OpenGrade
 
             //CheckMaxCut();
         }
+
+
         private void CalculateTotalCutFillLabels()
         {
             lblDrawSlope.Text = "-";
@@ -1081,7 +1087,7 @@ namespace OpenGrade
             get
             {
                 double spd = 0;
-                for (int c = 0; c < 10; c++) spd += avgSpeed[c];
+                for (int c = 0; c < 8; c++) spd += avgSpeed[c];
                 spd *= 0.1;
                 return Convert.ToString(Math.Round(spd, 1));
             }
@@ -1203,11 +1209,11 @@ namespace OpenGrade
                 lblLatitude.Text = Latitude;
                 lblLongitude.Text = Longitude;
                 lblFixQuality.Text = FixQuality;
-                lblDiagnostics.Text = FixQuality;
+                lblFix.Text = FixQuality;
                 
-                if (FixQuality == "RTK fix") lblDiagnostics.BackColor = Color.LightGreen;
-                else if (FixQuality == "Flt RTK") lblDiagnostics.BackColor = Color.Yellow;
-                else lblDiagnostics.BackColor = Color.Tomato;       
+                if (FixQuality == "RTK fix") lblFix.BackColor = Color.LimeGreen;
+                else if (FixQuality == "Flt RTK") lblFix.BackColor = Color.Yellow;
+                else lblFix.BackColor = Color.Tomato;       
                 
                 if (FixQuality == "RTK fix" || FixQuality == "Flt RTK")
                 {  

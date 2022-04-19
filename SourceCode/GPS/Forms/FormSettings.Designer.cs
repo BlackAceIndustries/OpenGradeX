@@ -549,7 +549,6 @@
             resources.ApplyResources(this.lblMinDitchCut, "lblMinDitchCut");
             this.lblMinDitchCut.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.lblMinDitchCut.Name = "lblMinDitchCut";
-            
             // 
             // groupBox2
             // 
@@ -607,7 +606,6 @@
             resources.ApplyResources(this.lblMaxTileCut, "lblMaxTileCut");
             this.lblMaxTileCut.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.lblMaxTileCut.Name = "lblMaxTileCut";
-            
             // 
             // label17
             // 

@@ -418,7 +418,7 @@ namespace OpenGrade
                     if (ct.isContourOn) 
                     { 
                         ct.StopContourLine();
-                        CheckSurveyDir();
+                       
                     }  
                 }
             }

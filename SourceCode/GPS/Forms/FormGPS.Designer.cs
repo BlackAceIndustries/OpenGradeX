@@ -93,17 +93,19 @@
             this.zeroIMUToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tmrWatchdog = new System.Windows.Forms.Timer(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.stripMinMax = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripDropDownBtnFuncs = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolstripField = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolstripResetTrip = new System.Windows.Forms.ToolStripMenuItem();
+            this.stripMinMax = new System.Windows.Forms.ToolStripStatusLabel();
             this.stripDistance = new System.Windows.Forms.ToolStripStatusLabel();
             this.stripEqWidth = new System.Windows.Forms.ToolStripStatusLabel();
+            this.stripDepth = new System.Windows.Forms.ToolStripStatusLabel();
+            this.stripTopoLocation = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolstripNTripConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.toolstripUDPConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.toolstripVehicleConfig = new System.Windows.Forms.ToolStripMenuItem();
-            this.stripTopoLocation = new System.Windows.Forms.ToolStripStatusLabel();
             this.stripOnlineGPS = new System.Windows.Forms.ToolStripProgressBar();
             this.stripOnlineAutoSteer = new System.Windows.Forms.ToolStripProgressBar();
             this.lblSpeed = new System.Windows.Forms.Label();
@@ -353,6 +355,7 @@
             this.openGLControlBack.OpenGLInitialized += new System.EventHandler(this.openGLControlBack_OpenGLInitialized);
             this.openGLControlBack.OpenGLDraw += new SharpGL.RenderEventHandler(this.openGLControlBack_OpenGLDraw);
             this.openGLControlBack.Resized += new System.EventHandler(this.openGLControlBack_Resized);
+            this.openGLControlBack.Load += new System.EventHandler(this.openGLControlBack_Load);
             this.openGLControlBack.MouseClick += new System.Windows.Forms.MouseEventHandler(this.openGLControlBack_MouseClick);
             this.openGLControlBack.MouseMove += new System.Windows.Forms.MouseEventHandler(this.openGLControlBack_MouseMove);
             // 
@@ -821,12 +824,13 @@
             this.statusStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.statusStrip1.Font = new System.Drawing.Font("Tahoma", 12F);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.stripMinMax,
             this.toolStripDropDownBtnFuncs,
+            this.stripMinMax,
             this.stripDistance,
             this.stripEqWidth,
-            this.toolStripDropDownButton2,
+            this.stripDepth,
             this.stripTopoLocation,
+            this.toolStripDropDownButton2,
             this.stripOnlineGPS,
             this.stripOnlineAutoSteer});
             this.statusStrip1.Location = new System.Drawing.Point(5, 715);
@@ -835,16 +839,6 @@
             this.statusStrip1.Size = new System.Drawing.Size(1374, 41);
             this.statusStrip1.TabIndex = 95;
             this.statusStrip1.Text = "statusStrip1";
-            // 
-            // stripMinMax
-            // 
-            this.stripMinMax.AutoSize = false;
-            this.stripMinMax.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.stripMinMax.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
-            this.stripMinMax.Name = "stripMinMax";
-            this.stripMinMax.Size = new System.Drawing.Size(450, 41);
-            this.stripMinMax.Text = "Min:Max";
-            this.stripMinMax.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // toolStripDropDownBtnFuncs
             // 
@@ -867,6 +861,8 @@
             // toolstripField
             // 
             this.toolstripField.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            this.toolstripField.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1});
             this.toolstripField.Font = new System.Drawing.Font("Tahoma", 22F);
             this.toolstripField.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.toolstripField.Image = ((System.Drawing.Image)(resources.GetObject("toolstripField.Image")));
@@ -875,6 +871,11 @@
             this.toolstripField.Size = new System.Drawing.Size(246, 70);
             this.toolstripField.Text = "Field";
             this.toolstripField.Click += new System.EventHandler(this.toolstripField_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(75, 22);
             // 
             // toolstripResetTrip
             // 
@@ -887,6 +888,16 @@
             this.toolstripResetTrip.Size = new System.Drawing.Size(246, 70);
             this.toolstripResetTrip.Text = ">0< Trip";
             this.toolstripResetTrip.Click += new System.EventHandler(this.toolstripResetTrip_Click);
+            // 
+            // stripMinMax
+            // 
+            this.stripMinMax.AutoSize = false;
+            this.stripMinMax.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.stripMinMax.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
+            this.stripMinMax.Name = "stripMinMax";
+            this.stripMinMax.Size = new System.Drawing.Size(450, 41);
+            this.stripMinMax.Text = "Min:Max";
+            this.stripMinMax.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // stripDistance
             // 
@@ -905,10 +916,29 @@
             this.stripEqWidth.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.stripEqWidth.Margin = new System.Windows.Forms.Padding(0);
             this.stripEqWidth.Name = "stripEqWidth";
-            this.stripEqWidth.Size = new System.Drawing.Size(418, 41);
+            this.stripEqWidth.Size = new System.Drawing.Size(222, 41);
             this.stripEqWidth.Spring = true;
             this.stripEqWidth.Text = "Width";
             this.stripEqWidth.Click += new System.EventHandler(this.stripEqWidth_Click);
+            // 
+            // stripDepth
+            // 
+            this.stripDepth.AutoSize = false;
+            this.stripDepth.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.stripDepth.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
+            this.stripDepth.Name = "stripDepth";
+            this.stripDepth.Size = new System.Drawing.Size(200, 41);
+            this.stripDepth.Text = "-- : -----";
+            // 
+            // stripTopoLocation
+            // 
+            this.stripTopoLocation.AutoSize = false;
+            this.stripTopoLocation.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.stripTopoLocation.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
+            this.stripTopoLocation.Name = "stripTopoLocation";
+            this.stripTopoLocation.Size = new System.Drawing.Size(200, 41);
+            this.stripTopoLocation.Text = "-- : -----";
+            this.stripTopoLocation.Click += new System.EventHandler(this.stripTopoLocation_Click);
             // 
             // toolStripDropDownButton2
             // 
@@ -963,16 +993,6 @@
             this.toolstripVehicleConfig.Size = new System.Drawing.Size(260, 86);
             this.toolstripVehicleConfig.Text = "Vehicle";
             this.toolstripVehicleConfig.Click += new System.EventHandler(this.toolstripVehicleConfig_Click);
-            // 
-            // stripTopoLocation
-            // 
-            this.stripTopoLocation.AutoSize = false;
-            this.stripTopoLocation.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.stripTopoLocation.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
-            this.stripTopoLocation.Name = "stripTopoLocation";
-            this.stripTopoLocation.Size = new System.Drawing.Size(200, 41);
-            this.stripTopoLocation.Text = "-- : -----";
-            this.stripTopoLocation.Click += new System.EventHandler(this.stripTopoLocation_Click);
             // 
             // stripOnlineGPS
             // 
@@ -3155,6 +3175,8 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.TextBox tboxNTRIPBuffer;
         private System.Windows.Forms.Label lblFix;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripStatusLabel stripDepth;
     }
 }
 

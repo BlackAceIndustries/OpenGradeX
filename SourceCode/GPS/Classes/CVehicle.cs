@@ -9,12 +9,13 @@ namespace OpenGrade
     {
         private readonly OpenGL gl;
         private readonly FormGPS mf;
+        private readonly CVehicle vc;
 
         //vehicle specific
         public bool isPivotBehindAntenna;
         public double antennaPivot;
         public double wheelbase;
-        public double minSlope, minShoreSlope;
+        public double minSlope, minShoreSlope;      ///this is number one min slope
 
         // Black Ace Industries
         public double antennaHeight, plowHeight, maxDitchCut, minDitchCut, maxTileCut, minTileCover;
@@ -38,6 +39,7 @@ namespace OpenGrade
             //constructor
             gl = _gl;
             mf = _f;
+            
 
             //from settings grab the vehicle specifics
             antennaHeight = Properties.Vehicle.Default.setVehicle_antennaHeight;
@@ -56,7 +58,8 @@ namespace OpenGrade
 
             maxAngularVelocity = Properties.Vehicle.Default.setVehicle_maxAngularVelocity;
             maxSteerAngle = Properties.Vehicle.Default.setVehicle_maxSteerAngle;
-            minSlope = -Properties.Vehicle.Default.setVehicle_minSlope;
+
+            minSlope = Properties.Vehicle.Default.setVehicle_minSlope * 100;                     
             minShoreSlope = Properties.Vehicle.Default.setVehicle_minShoreSlope;
         }
         

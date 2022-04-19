@@ -197,6 +197,7 @@ namespace OpenGrade
 
             //turn it off
             isContourOn = false;
+            
         }
 
         public void SaveToCut()        

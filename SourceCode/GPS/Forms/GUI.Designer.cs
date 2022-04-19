@@ -49,6 +49,8 @@ namespace OpenGrade
             grnField = (Settings.Default.setF_FieldColorG);
             bluField = (Settings.Default.setF_FieldColorB);
 
+
+
             redSections = Settings.Default.setF_SectionColorR;
             grnSections = Settings.Default.setF_SectionColorG;
             bluSections = Settings.Default.setF_SectionColorB;
@@ -260,8 +262,6 @@ namespace OpenGrade
                         btnDeleteLastPoint.Enabled = false;
                         btnStartDraw.Enabled = false;
 
-                        
-
                     }
 
                     break;
@@ -271,6 +271,7 @@ namespace OpenGrade
                     
                     manualBtnState = btnStates.Off;
                     btnManualOffOn.Image = Properties.Resources.SurveyStart;
+                    CheckSurveyDir();
                     CalculateContourPointDistances();                    
                     FileSaveContour();
                     btnDoneDraw.Enabled = false;

@@ -872,6 +872,7 @@ namespace OpenGrade
             //workswitch stuff
             mc.isWorkSwitchEnabled = Settings.Default.setF_IsWorkSwitchEnabled;
             mc.isWorkSwitchActiveLow = Settings.Default.setF_IsWorkSwitchActiveLow;
+            vehicle.minSlope = Vehicle.Default.setVehicle_minSlope;
 
             minFixStepDist = Settings.Default.setF_minFixStep;
 
@@ -1122,6 +1123,11 @@ namespace OpenGrade
             {
                 tboxNTRIPBuffer.Visible = true;
             }
+        }
+
+        private void openGLControlBack_Load(object sender, EventArgs e)
+        {
+
         }
 
         private void btnSaveCut_Click_1(object sender, EventArgs e)

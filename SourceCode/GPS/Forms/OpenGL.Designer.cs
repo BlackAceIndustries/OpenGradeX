@@ -737,7 +737,7 @@ namespace OpenGrade
                                 gl.Vertex(ct.drawList[i].easting, (((ct.drawList[i].northing - centerY) * altitudeWindowGain) + centerY), 0);
                             gl.End();
 
-                            if (slopeDraw < vehicle.minSlope) gl.Color(0.25f, 0.970f, 0.350f); // lighter green when slope is clicked 
+                            if (slopeDraw < -vehicle.minSlope) gl.Color(0.25f, 0.970f, 0.350f); // lighter green when slope is clicked 
                             else gl.Color(0.915f, 0.0f, 0.970f); // purple when above slope line
                             gl.Begin(OpenGL.GL_LINES);
                             //for (int i = 0; i < cutCnt; i++)
@@ -881,7 +881,17 @@ namespace OpenGrade
             screen2FieldPt.northing += centerY;
 
             stripTopoLocation.Text = ((int)(screen2FieldPt.easting)).ToString() + ": " + screen2FieldPt.northing.ToString("N3");
+            
+            if (ct.ptList.Count > 0 && !ct.isContourOn)
+            {                 
+                int pnt = (int)screen2FieldPt.easting;
+                double x = ct.ptList[pnt].altitude - ct.ptList[pnt].cutAltitude;
+                double y = screen2FieldPt.northing - ct.ptList[pnt].cutAltitude;
+                stripDepth.Text = x.ToString("N3") + " : " + y.ToString("N3");
+                if (y < 0) stripDepth.ForeColor = Color.Red;
+                else stripDepth.ForeColor = Color.Lime;    
 
+            }
             if (ct.isDrawingRefLine)
             {
                 lblDrawSlope.Visible = true;
@@ -955,7 +965,7 @@ namespace OpenGrade
             int drawPts;
             int ptCnt = ct.ptList.Count;
             double minDeltaHt = 0;
-            double angle = vehicle.minSlope * 180;
+            double angle = -vehicle.minSlope * 180;
             int startPt = 0;
             int endPt = -1;
             int lowestPt = 0;
@@ -1363,14 +1373,16 @@ namespace OpenGrade
             List<CContourPt> temp = new List<CContourPt>();
             int ptCnt = ct.ptList.Count;
             int startPt = 0;
+            int cnt = 0;
             int endPt = ptCnt -1;
             double startElev = ct.ptList[startPt].altitude;
             double endElev = ct.ptList[endPt].altitude;                     
 
             if (startElev < endElev && ptCnt > 0) // reverse the whole pt list
             {                    
-                for (int i = ptCnt-1; i >= 0; i--)
-                {                        
+                for (int i = ptCnt-2; i > 0; i--)
+                {
+                    
                     CContourPt point = new CContourPt(ct.ptList[i].easting, ct.ptList[i].heading,
                         ct.ptList[i].northing, ct.ptList[i].altitude, ct.ptList[i].latitude, ct.ptList[i].longitude);
                     temp.Add(point);                        
@@ -1378,7 +1390,7 @@ namespace OpenGrade
                 }
                 ct.ptList.Clear();
                 ct.ptList.AddRange(temp);
-                temp.Clear();
+                
             }
            
         }

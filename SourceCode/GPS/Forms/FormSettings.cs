@@ -11,7 +11,7 @@ namespace OpenGrade
        //class variables
         private readonly FormGPS mf = null;
 
-        private double antennaHeight, plowHeight, minSlope,minShoreSlope, toolWidth, maxTileCut, 
+        private double antennaHeight, plowHeight, minSlope ,minShoreSlope, toolWidth, maxTileCut, 
             maxDitchCut, minTileCover, minDitchCut,viewDistAboveGnd, viewDistUnderGnd;
         private byte KpGain, KiGain, KdGain, retDeadband, extDeadband, valveType;
       
@@ -63,12 +63,11 @@ namespace OpenGrade
 
             valveSelectChoice.Text = Properties.Settings.Default.set_ValveName;
            
-            toolWidth = Properties.Vehicle.Default.setVehicle_toolWidth;
+            toolWidth = Properties.Vehicle.Default.setVehicle_toolWidth;            
             minSlope = Properties.Vehicle.Default.setVehicle_minSlope*100;
+            mf.vehicle.minSlope = minSlope; 
+
             minShoreSlope = Properties.Vehicle.Default.setVehicle_minShoreSlope;
-
-
-
 
 
             nudAntennaHeight.ValueChanged -= nudAntennaHeight_ValueChanged;
@@ -135,7 +134,7 @@ namespace OpenGrade
         private void btnOK_Click(object sender, EventArgs e)
         {
             //Vehicle settings -------------------------------------------------------------------------------
-            mf.vehicle.minSlope = minSlope/100;
+            mf.vehicle.minSlope = Math.Abs(minSlope/100);
             Properties.Vehicle.Default.setVehicle_minSlope = mf.vehicle.minSlope;
 
             mf.vehicle.minShoreSlope = minShoreSlope;

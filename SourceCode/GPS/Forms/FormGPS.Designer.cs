@@ -91,16 +91,17 @@
             this.resetGradeControlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resetAllToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.zeroIMUToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tmrWatchdog = new System.Windows.Forms.Timer(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripDropDownBtnFuncs = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolstripField = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolstripResetTrip = new System.Windows.Forms.ToolStripMenuItem();
             this.stripMinMax = new System.Windows.Forms.ToolStripStatusLabel();
             this.stripDistance = new System.Windows.Forms.ToolStripStatusLabel();
             this.stripEqWidth = new System.Windows.Forms.ToolStripStatusLabel();
             this.stripDepth = new System.Windows.Forms.ToolStripStatusLabel();
+            this.stripDepthtoTarget = new System.Windows.Forms.ToolStripStatusLabel();
             this.stripTopoLocation = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolstripNTripConfig = new System.Windows.Forms.ToolStripMenuItem();
@@ -172,7 +173,6 @@
             this.ledAntenna = new System.Windows.Forms.Button();
             this.lblUdpConnected = new System.Windows.Forms.Label();
             this.lblAntennaConnected = new System.Windows.Forms.Label();
-            this.btnFileExplorer = new System.Windows.Forms.Button();
             this.btnABLine = new System.Windows.Forms.Button();
             this.btnUnits = new System.Windows.Forms.Button();
             this.btnGPSData = new System.Windows.Forms.Button();
@@ -238,6 +238,7 @@
             this.lblAltitudeUnits2 = new System.Windows.Forms.Label();
             this.tboxNTRIPBuffer = new System.Windows.Forms.TextBox();
             this.lblFix = new System.Windows.Forms.Label();
+            this.lblCutDelta2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.openGLControl)).BeginInit();
             this.contextMenuStripOpenGL.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.openGLControlBack)).BeginInit();
@@ -674,7 +675,8 @@
             this.gPSDataToolStripMenuItem1,
             this.helpToolStripMenuItem1,
             this.resetModulesToolStripMenuItem,
-            this.zeroIMUToolStripMenuItem});
+            this.zeroIMUToolStripMenuItem,
+            this.toolStripMenuItem1});
             this.toolsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -813,6 +815,15 @@
             this.zeroIMUToolStripMenuItem.Text = "Zero IMU";
             this.zeroIMUToolStripMenuItem.Click += new System.EventHandler(this.zeroIMUToolStripMenuItem_Click);
             // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.toolStripMenuItem1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(360, 40);
+            this.toolStripMenuItem1.Text = "DRO\'s";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            // 
             // tmrWatchdog
             // 
             this.tmrWatchdog.Interval = 50;
@@ -829,6 +840,7 @@
             this.stripDistance,
             this.stripEqWidth,
             this.stripDepth,
+            this.stripDepthtoTarget,
             this.stripTopoLocation,
             this.toolStripDropDownButton2,
             this.stripOnlineGPS,
@@ -861,8 +873,6 @@
             // toolstripField
             // 
             this.toolstripField.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
-            this.toolstripField.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1});
             this.toolstripField.Font = new System.Drawing.Font("Tahoma", 22F);
             this.toolstripField.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.toolstripField.Image = ((System.Drawing.Image)(resources.GetObject("toolstripField.Image")));
@@ -871,11 +881,6 @@
             this.toolstripField.Size = new System.Drawing.Size(246, 70);
             this.toolstripField.Text = "Field";
             this.toolstripField.Click += new System.EventHandler(this.toolstripField_Click);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(75, 22);
             // 
             // toolstripResetTrip
             // 
@@ -916,7 +921,7 @@
             this.stripEqWidth.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.stripEqWidth.Margin = new System.Windows.Forms.Padding(0);
             this.stripEqWidth.Name = "stripEqWidth";
-            this.stripEqWidth.Size = new System.Drawing.Size(222, 41);
+            this.stripEqWidth.Size = new System.Drawing.Size(145, 41);
             this.stripEqWidth.Spring = true;
             this.stripEqWidth.Text = "Width";
             this.stripEqWidth.Click += new System.EventHandler(this.stripEqWidth_Click);
@@ -929,6 +934,15 @@
             this.stripDepth.Name = "stripDepth";
             this.stripDepth.Size = new System.Drawing.Size(200, 41);
             this.stripDepth.Text = "-- : -----";
+            // 
+            // stripDepthtoTarget
+            // 
+            this.stripDepthtoTarget.AutoSize = false;
+            this.stripDepthtoTarget.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.stripDepthtoTarget.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
+            this.stripDepthtoTarget.Name = "stripDepthtoTarget";
+            this.stripDepthtoTarget.Size = new System.Drawing.Size(200, 41);
+            this.stripDepthtoTarget.Text = "-- : -----";
             // 
             // stripTopoLocation
             // 
@@ -954,7 +968,7 @@
             this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
             this.toolStripDropDownButton2.ShowDropDownArrow = false;
-            this.toolStripDropDownButton2.Size = new System.Drawing.Size(83, 39);
+            this.toolStripDropDownButton2.Size = new System.Drawing.Size(83, 38);
             this.toolStripDropDownButton2.Text = "Config";
             this.toolStripDropDownButton2.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             // 
@@ -1472,11 +1486,12 @@
             cFocalPoints1.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints1.CenterPoint")));
             cFocalPoints1.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints1.FocusScales")));
             this.pbarCutBelow.FocalPoints = cFocalPoints1;
-            this.pbarCutBelow.Location = new System.Drawing.Point(1304, 565);
+            this.pbarCutBelow.Location = new System.Drawing.Point(1304, 523);
             this.pbarCutBelow.Name = "pbarCutBelow";
             this.pbarCutBelow.Orientation = ProgBar.ProgBarPlus.eOrientation.Vertical;
+            this.pbarCutBelow.Shape = ProgBar.ProgBarPlus.eShape.TriangleUp;
             this.pbarCutBelow.ShapeTextFont = new System.Drawing.Font("Arial Black", 30F);
-            this.pbarCutBelow.Size = new System.Drawing.Size(72, 150);
+            this.pbarCutBelow.Size = new System.Drawing.Size(72, 192);
             this.pbarCutBelow.TabIndex = 223;
             this.pbarCutBelow.TextFormat = "Process {1}% Done";
             this.pbarCutBelow.Click += new System.EventHandler(this.pbarCutBelow_Click);
@@ -1514,8 +1529,9 @@
             this.pbarCutAbove.Location = new System.Drawing.Point(1304, 348);
             this.pbarCutAbove.Name = "pbarCutAbove";
             this.pbarCutAbove.Orientation = ProgBar.ProgBarPlus.eOrientation.Vertical;
+            this.pbarCutAbove.Shape = ProgBar.ProgBarPlus.eShape.TriangleDown;
             this.pbarCutAbove.ShapeTextFont = new System.Drawing.Font("Arial Black", 30F);
-            this.pbarCutAbove.Size = new System.Drawing.Size(72, 150);
+            this.pbarCutAbove.Size = new System.Drawing.Size(72, 155);
             this.pbarCutAbove.TabIndex = 224;
             this.pbarCutAbove.TextFormat = "Process {1}% Done";
             this.pbarCutAbove.Click += new System.EventHandler(this.pbarCutAbove_Click);
@@ -1567,7 +1583,7 @@
             this.label16.BackColor = System.Drawing.Color.Transparent;
             this.label16.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label16.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label16.Location = new System.Drawing.Point(154, 10);
+            this.label16.Location = new System.Drawing.Point(214, 10);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(102, 19);
             this.label16.TabIndex = 240;
@@ -1580,7 +1596,7 @@
             this.label15.BackColor = System.Drawing.Color.Transparent;
             this.label15.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label15.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label15.Location = new System.Drawing.Point(358, 10);
+            this.label15.Location = new System.Drawing.Point(418, 10);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(80, 19);
             this.label15.TabIndex = 239;
@@ -1649,7 +1665,7 @@
             this.lblDistanceToCut.BackColor = System.Drawing.Color.Transparent;
             this.lblDistanceToCut.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDistanceToCut.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lblDistanceToCut.Location = new System.Drawing.Point(244, 233);
+            this.lblDistanceToCut.Location = new System.Drawing.Point(304, 233);
             this.lblDistanceToCut.Name = "lblDistanceToCut";
             this.lblDistanceToCut.Size = new System.Drawing.Size(115, 19);
             this.lblDistanceToCut.TabIndex = 232;
@@ -1663,7 +1679,7 @@
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label6.Location = new System.Drawing.Point(264, 115);
+            this.label6.Location = new System.Drawing.Point(324, 115);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(74, 19);
             this.label6.TabIndex = 227;
@@ -1760,7 +1776,7 @@
             this.btnClearLastPass.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnClearLastPass.Font = new System.Drawing.Font("Tahoma", 15.75F);
             this.btnClearLastPass.Image = ((System.Drawing.Image)(resources.GetObject("btnClearLastPass.Image")));
-            this.btnClearLastPass.Location = new System.Drawing.Point(185, 117);
+            this.btnClearLastPass.Location = new System.Drawing.Point(245, 117);
             this.btnClearLastPass.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.btnClearLastPass.Name = "btnClearLastPass";
             this.btnClearLastPass.Size = new System.Drawing.Size(10, 10);
@@ -1775,7 +1791,6 @@
             this.SettingsPage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.SettingsPage.Controls.Add(this.groupBox1);
             this.SettingsPage.Controls.Add(this.connectionGroupBox);
-            this.SettingsPage.Controls.Add(this.btnFileExplorer);
             this.SettingsPage.Controls.Add(this.btnABLine);
             this.SettingsPage.Controls.Add(this.btnUnits);
             this.SettingsPage.Controls.Add(this.btnGPSData);
@@ -1911,23 +1926,6 @@
             this.lblAntennaConnected.Size = new System.Drawing.Size(137, 23);
             this.lblAntennaConnected.TabIndex = 162;
             this.lblAntennaConnected.Text = "GradeControl";
-            // 
-            // btnFileExplorer
-            // 
-            this.btnFileExplorer.BackColor = System.Drawing.Color.DimGray;
-            this.btnFileExplorer.ContextMenuStrip = this.contextMenuStripFlag;
-            this.btnFileExplorer.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold);
-            this.btnFileExplorer.Image = ((System.Drawing.Image)(resources.GetObject("btnFileExplorer.Image")));
-            this.btnFileExplorer.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnFileExplorer.Location = new System.Drawing.Point(13, 113);
-            this.btnFileExplorer.Name = "btnFileExplorer";
-            this.btnFileExplorer.Size = new System.Drawing.Size(12, 15);
-            this.btnFileExplorer.TabIndex = 141;
-            this.btnFileExplorer.Text = "Files";
-            this.btnFileExplorer.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnFileExplorer.UseVisualStyleBackColor = false;
-            this.btnFileExplorer.Visible = false;
-            this.btnFileExplorer.Click += new System.EventHandler(this.btnFileExplorer_Click);
             // 
             // btnABLine
             // 
@@ -2633,7 +2631,7 @@
             this.lblMinVoltage.AutoSize = true;
             this.lblMinVoltage.BackColor = System.Drawing.Color.Black;
             this.lblMinVoltage.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblMinVoltage.Location = new System.Drawing.Point(1219, 693);
+            this.lblMinVoltage.Location = new System.Drawing.Point(1219, 674);
             this.lblMinVoltage.Name = "lblMinVoltage";
             this.lblMinVoltage.Size = new System.Drawing.Size(38, 19);
             this.lblMinVoltage.TabIndex = 238;
@@ -2645,7 +2643,7 @@
             this.lblFloatVoltage.AutoSize = true;
             this.lblFloatVoltage.BackColor = System.Drawing.Color.Black;
             this.lblFloatVoltage.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblFloatVoltage.Location = new System.Drawing.Point(1230, 523);
+            this.lblFloatVoltage.Location = new System.Drawing.Point(1230, 512);
             this.lblFloatVoltage.Name = "lblFloatVoltage";
             this.lblFloatVoltage.Size = new System.Drawing.Size(20, 19);
             this.lblFloatVoltage.TabIndex = 239;
@@ -2873,12 +2871,27 @@
             this.lblFix.Text = "-";
             this.lblFix.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // lblCutDelta2
+            // 
+            this.lblCutDelta2.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lblCutDelta2.BackColor = System.Drawing.Color.Black;
+            this.lblCutDelta2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblCutDelta2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCutDelta2.ForeColor = System.Drawing.Color.Black;
+            this.lblCutDelta2.Location = new System.Drawing.Point(1304, 519);
+            this.lblCutDelta2.Name = "lblCutDelta2";
+            this.lblCutDelta2.Size = new System.Drawing.Size(72, 25);
+            this.lblCutDelta2.TabIndex = 241;
+            this.lblCutDelta2.Text = "93";
+            this.lblCutDelta2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // FormGPS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.ClientSize = new System.Drawing.Size(1384, 761);
+            this.Controls.Add(this.lblCutDelta2);
             this.Controls.Add(this.lblFix);
             this.Controls.Add(this.tboxNTRIPBuffer);
             this.Controls.Add(this.lblAltitudeUnits2);
@@ -3088,7 +3101,6 @@
         private System.Windows.Forms.TabPage SettingsPage;
         private System.Windows.Forms.Button btnABLine;
         private System.Windows.Forms.Button btnUnits;
-        private System.Windows.Forms.Button btnFileExplorer;
         private System.Windows.Forms.Button btnGPSData;
         private System.Windows.Forms.Button btnFlag;
         private System.Windows.Forms.Button btnSnap;
@@ -3175,8 +3187,10 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.TextBox tboxNTRIPBuffer;
         private System.Windows.Forms.Label lblFix;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripStatusLabel stripDepth;
+        private System.Windows.Forms.ToolStripStatusLabel stripDepthtoTarget;
+        private System.Windows.Forms.Label lblCutDelta2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
     }
 }
 

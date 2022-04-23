@@ -898,5 +898,53 @@ namespace OpenGrade.Properties {
                 this["setNTRIP_isOn"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double setUser1_Alt {
+            get {
+                return ((double)(this["setUser1_Alt"]));
+            }
+            set {
+                this["setUser1_Alt"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double setUser2_Alt {
+            get {
+                return ((double)(this["setUser2_Alt"]));
+            }
+            set {
+                this["setUser2_Alt"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double setUser3_Alt {
+            get {
+                return ((double)(this["setUser3_Alt"]));
+            }
+            set {
+                this["setUser3_Alt"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double setUser4_Alt {
+            get {
+                return ((double)(this["setUser4_Alt"]));
+            }
+            set {
+                this["setUser4_Alt"] = value;
+            }
+        }
     }
 }

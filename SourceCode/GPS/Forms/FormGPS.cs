@@ -1130,6 +1130,36 @@ namespace OpenGrade
 
         }
 
+        Form f = null;
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            
+
+            if(!toolStripMenuItem1.Checked)
+            {               
+
+                if (f == null)
+                {
+                    f = new FormAltSet(this);
+                    f.Show();
+                }
+                toolStripMenuItem1.Checked = true;
+            }
+            else
+            {
+
+                if (f != null)
+                {
+                    f.Close();
+                    f = null;
+                }
+                toolStripMenuItem1.Checked = false;
+
+            }
+
+
+        }
+
         private void btnSaveCut_Click_1(object sender, EventArgs e)
         {
 

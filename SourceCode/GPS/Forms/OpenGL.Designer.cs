@@ -476,6 +476,19 @@ namespace OpenGrade
             distFromLastPass = 9999;
             bladeOffset = Int16.Parse(lblBladeOffset.Text);
 
+            if (bladeOffset != 0) {
+                lblBladeOffset.Visible = true;
+                label5.Visible = true;
+            }
+
+
+            else
+            {
+               lblBladeOffset.Visible = false;
+               label5.Visible = false;
+            }
+
+
             int closestPoint = 0;
             int ptCnt = ct.ptList.Count;
             gl.LineWidth(4);
@@ -887,10 +900,30 @@ namespace OpenGrade
                 int pnt = (int)screen2FieldPt.easting;
                 double x = ct.ptList[pnt].altitude - ct.ptList[pnt].cutAltitude;
                 double y = screen2FieldPt.northing - ct.ptList[pnt].cutAltitude;
-                stripDepth.Text = x.ToString("N3") + " : " + y.ToString("N3");
-                if (y < 0) stripDepth.ForeColor = Color.Red;
-                else stripDepth.ForeColor = Color.Lime;    
 
+                x *= 100;
+                y *= 100;
+                
+                if (isMetric)
+                {
+
+                    stripDepth.Text = x.ToString("N0") + " CM";
+                    stripDepthtoTarget.Text = y.ToString("N0") + " CM";
+
+                }
+                else
+                {
+                    x *= 0.393701;
+                    y *= 0.393701;
+                    stripDepth.Text = x.ToString("N1") + " Inches";
+                    stripDepthtoTarget.Text = y.ToString("N1") + " Inches";
+                }
+                
+                if (y < 0) stripDepth.ForeColor = Color.Red;               
+                else stripDepth.ForeColor = Color.Lime;
+                
+                if (x < 0) stripDepthtoTarget.ForeColor = Color.Red;
+                else stripDepthtoTarget.ForeColor = Color.Lime;
             }
             if (ct.isDrawingRefLine)
             {

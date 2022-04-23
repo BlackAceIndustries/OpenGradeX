@@ -1351,12 +1351,14 @@ namespace OpenGrade
                     {
                         // Black Ace Industries
                         lblCutDelta.Text = distFromLastPass.ToString("N1");
+                        lblCutDelta2.Text = distFromLastPass.ToString("N1");
 
                     }
                     else
                     {
                         // Black Ace Industries                           
                         lblCutDelta.Text = cutDelta.ToString("N1");
+                        lblCutDelta2.Text = cutDelta.ToString("N1");
                         mc.GradeControlData[mc.gcDeltaDir] = 0;
 
                     }
@@ -1368,11 +1370,13 @@ namespace OpenGrade
                     {
                         mc.GradeControlData[mc.gcCutDelta] = (byte)cutDelta;
                         lblCutDelta.Text = (0.3937 * cutDelta).ToString("N2");
+                        lblCutDelta2.Text = (0.3937 * cutDelta).ToString("N2");
                         mc.GradeControlData[mc.gcDeltaDir] = 1;
                     }
                     else
                     {
                         lblCutDelta.Text = (0.3937 * cutDelta).ToString("N2");
+                        lblCutDelta2.Text = (0.3937 * cutDelta).ToString("N2");
                         mc.GradeControlData[mc.gcDeltaDir] = 0;
                     }
                 }
@@ -1380,7 +1384,9 @@ namespace OpenGrade
                 if (cutDelta == 9999)
                 {
                     lblCutDelta.Text = "--";
+                    lblCutDelta2.Text = "--";
                     lblCutDelta.BackColor = Color.Black;
+                    lblCutDelta2.BackColor = Color.Black;
                     pbarCutAbove.Value = 0;
                     pbarCutBelow.Value = 0;
                     mc.GradeControlData[mc.gcDeltaDir] = 3;
@@ -1402,6 +1408,7 @@ namespace OpenGrade
                         {
                             // Black Ace Industries
                             lblCutDelta.Text = cutDelta.ToString("N1");
+                            lblCutDelta2.Text = cutDelta.ToString("N1");
                             mc.GradeControlData[mc.gcDeltaDir] = 1;
                             
                         }
@@ -1409,6 +1416,7 @@ namespace OpenGrade
                         {
                             // Black Ace Industries                           
                             lblCutDelta.Text = cutDelta.ToString("N1");
+                            lblCutDelta2.Text = cutDelta.ToString("N1");
                             mc.GradeControlData[mc.gcDeltaDir] = 0;
                             
                         }
@@ -1427,11 +1435,13 @@ namespace OpenGrade
                         {
                             mc.GradeControlData[mc.gcCutDelta] = (byte)cutDelta;
                             lblCutDelta.Text = (0.3937 * cutDelta).ToString("N2");
+                            lblCutDelta2.Text = (0.3937 * cutDelta).ToString("N2");
                             mc.GradeControlData[mc.gcDeltaDir] = 1;
                         }
                         else 
                         {
                             lblCutDelta.Text = (0.3937 * cutDelta).ToString("N2");
+                            lblCutDelta2.Text = (0.3937 * cutDelta).ToString("N2");
                             mc.GradeControlData[mc.gcDeltaDir] = 0;
                         }
                         
@@ -1446,6 +1456,7 @@ namespace OpenGrade
                         pbarCutAbove.Value = 0;
                         pbarCutBelow.Value = val;
                         lblCutDelta.BackColor = Color.Tomato;
+                        lblCutDelta2.BackColor = Color.Tomato;
                     }
                     else
                     {
@@ -1453,6 +1464,7 @@ namespace OpenGrade
                         pbarCutAbove.Value = val;
                         pbarCutBelow.Value = 0;
                         lblCutDelta.BackColor = Color.Lime;
+                        lblCutDelta2.BackColor = Color.Lime;
 
                     }
 

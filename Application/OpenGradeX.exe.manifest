@@ -4,7 +4,7 @@
   <description asmv2:iconFile="OGX2Icon.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="OpenGradeX" version="1.3.4.0" language="neutral" processorArchitecture="x86" />
+    <assemblyIdentity name="OpenGradeX" version="1.3.5.0" language="neutral" processorArchitecture="x86" />
     <commandLine file="OpenGradeX.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OpenGradeX.exe" size="1503200">
-      <assemblyIdentity name="OpenGradeX" version="1.3.4.0" language="neutral" processorArchitecture="x86" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OpenGradeX.exe" size="1514976">
+      <assemblyIdentity name="OpenGradeX" version="1.3.5.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>PRF/RMzf3pqEqOGhzDGL92J8XPI=</dsig:DigestValue>
+        <dsig:DigestValue>JoZcsia2bWEM24cQGf3dTLujJ/U=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -195,13 +195,13 @@
       <dsig:DigestValue>jBpxyztkBOldEOuYD3XOhgXH4JY=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="OpenGradeX.exe.config" size="20915">
+  <file name="OpenGradeX.exe.config" size="21403">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>fkMtzf+v/iM7McAHRgRTRHN0l1s=</dsig:DigestValue>
+      <dsig:DigestValue>gcpQSDha0dC98tWT0nbJiFvXaec=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

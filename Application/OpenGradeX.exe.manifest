@@ -4,7 +4,7 @@
   <description asmv2:iconFile="OGX2Icon.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="OpenGradeX" version="1.3.5.0" language="neutral" processorArchitecture="x86" />
+    <assemblyIdentity name="OpenGradeX" version="1.3.6.0" language="neutral" processorArchitecture="x86" />
     <commandLine file="OpenGradeX.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OpenGradeX.exe" size="1514976">
-      <assemblyIdentity name="OpenGradeX" version="1.3.5.0" language="neutral" processorArchitecture="x86" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OpenGradeX.exe" size="1500640">
+      <assemblyIdentity name="OpenGradeX" version="1.3.6.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>JoZcsia2bWEM24cQGf3dTLujJ/U=</dsig:DigestValue>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>UIzg8E1QcU3zzfaw3vZBw51XOQVkeeGM3WPfA4Rv9SA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -61,8 +61,8 @@
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>QGP8NrO9Qu8D9EmlyTbutXNR0yY=</dsig:DigestValue>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>zGurqOgOBFii9hSZD6W0h0OwTLqNQDIuE6RypF5umXA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -73,8 +73,8 @@
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>TbqK/OGVd38T7za+RNwEdNMSx+w=</dsig:DigestValue>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>5P9qpOBzVyu1Ylyp9svc9097Sf3DmEGJp5frlmQbm18=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -85,8 +85,8 @@
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>XQZFHN0tVBcCio3owF1ZgQ/pbdI=</dsig:DigestValue>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>OUTc2O9LAKgHSuicL70ZfUO+dH8c3VgNrCa2GoIYxbQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -97,8 +97,8 @@
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>v6JxHVFkQJNC49BRhjqPrVZk2vg=</dsig:DigestValue>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>8zwaN1gJfD1ugzZNsK+/yq3Cf/SlF1Y25SD0EUTBYUo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -109,8 +109,8 @@
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>IyvNj+69hYEnRhQyzB0+e3yv0rs=</dsig:DigestValue>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>x4Vl6AKjpGr919lgFT2DtWgfWNTX9nY0a+B1uDWX4zU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -119,8 +119,8 @@
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>yYCIDLR8n1thEbBg3Orrv43tEck=</dsig:DigestValue>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>iISYLm+6wpHLpZ0QTTyeWfrIeqivwmMSF77Haqwq3Vk=</dsig:DigestValue>
     </hash>
   </file>
   <file name="ALicense.txt" size="37032">
@@ -128,8 +128,8 @@
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>EgkrUL6VkcPrVAAGVCJGJJS+PJ8=</dsig:DigestValue>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>VglUiXER329ker7jhDBBUpZJB4VmcdSnyw5zSbE6xwQ=</dsig:DigestValue>
     </hash>
   </file>
   <file name="AppIcon.ico" size="370070">
@@ -137,8 +137,8 @@
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>Zqc28X4C70AMzdm7YNph8U2LBJA=</dsig:DigestValue>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>2pUGyOpNU0j69xQ5U9sr0S+wdHxUDpQUiYQz8XA4AaU=</dsig:DigestValue>
     </hash>
   </file>
   <file name="AppIcon64.ico" size="32038">
@@ -146,8 +146,8 @@
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>lmHcOm8zmhV8rA0kGM/paMQtw/0=</dsig:DigestValue>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>Pj7pp1T0zc+6lz76M9JPBIBPYALUd+10MdnjJQTZvXc=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Dependencies\Floor.png" size="74005">
@@ -155,8 +155,8 @@
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>RFXt76z8Qd2wlJY9cmwqjEX40H8=</dsig:DigestValue>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>3jclKWmo++CHQP4ASvCLRxLfQhp2T3soWGCq78J7Dtc=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Dependencies\Landscape.png" size="49443">
@@ -164,8 +164,8 @@
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>Ad2YU9ZwPdqHPrpESN7Ur4I140c=</dsig:DigestValue>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>XHtZ8U8p9ZDyosqmMKB60rmyhr9qKfFKRiRLFxCV4FI=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Grade64Icon.ico" size="16958">
@@ -173,8 +173,8 @@
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>aKAKtK/MicPzJ8+Usmd8j0vIFbU=</dsig:DigestValue>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>FbdXUEBmBKsixcfrtbCWFpZt2qeKsUnsp+meRqGFyBY=</dsig:DigestValue>
     </hash>
   </file>
   <file name="OGX2Icon.ico" size="100893">
@@ -182,8 +182,8 @@
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>qmO3pjEBmhl9wIVt0PetvMJ0Sfs=</dsig:DigestValue>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>KzO8kg2Q5c5Rv/G4DScApjwJOk/2cEjw8Z3G5DhH2to=</dsig:DigestValue>
     </hash>
   </file>
   <file name="OGXicon.ico" size="16958">
@@ -191,17 +191,17 @@
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>jBpxyztkBOldEOuYD3XOhgXH4JY=</dsig:DigestValue>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>AqGdcYW7NywLwl42uTmWrWjAQsTH8yXi19U5iaWKpKo=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="OpenGradeX.exe.config" size="21403">
+  <file name="OpenGradeX.exe.config" size="21397">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>gcpQSDha0dC98tWT0nbJiFvXaec=</dsig:DigestValue>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>GrYpBzxn5iDbVPVL+EAXcu7AxbuNHnj3s1U9jAR3dOg=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

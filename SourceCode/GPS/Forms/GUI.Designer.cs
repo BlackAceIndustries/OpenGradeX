@@ -270,8 +270,7 @@ namespace OpenGrade
 
                     
                     manualBtnState = btnStates.Off;
-                    btnManualOffOn.Image = Properties.Resources.SurveyStart;
-                    CheckSurveyDir();
+                    btnManualOffOn.Image = Properties.Resources.SurveyStart;                    
                     CalculateContourPointDistances();                    
                     FileSaveContour();
                     btnDoneDraw.Enabled = false;
@@ -1450,22 +1449,29 @@ namespace OpenGrade
 
                     lblCutDelta.BackColor = SystemColors.ControlText;
 
-                    if (cutDelta < 0)
+                    if (cutDelta > 0)
                     {
                         int val = (int)(cutDelta / barGraphMax * -100);
                         pbarCutAbove.Value = 0;
                         pbarCutBelow.Value = val;
-                        lblCutDelta.BackColor = Color.Tomato;
-                        lblCutDelta2.BackColor = Color.Tomato;
                     }
-                    else
-                    {
-                        int val = (int)(cutDelta / barGraphMax * 100);
-                        pbarCutAbove.Value = val;
-                        pbarCutBelow.Value = 0;
+
+
+
+                    if (cutDelta < 1 && cutDelta > -1 )
+                    {  
                         lblCutDelta.BackColor = Color.Lime;
                         lblCutDelta2.BackColor = Color.Lime;
-
+                    }
+                    else if((cutDelta > 1 && cutDelta < 3) || (cutDelta < -1 && cutDelta > - 3))
+                    {                        
+                        lblCutDelta.BackColor = Color.Orange;
+                        lblCutDelta2.BackColor = Color.Orange;
+                    }
+                    else 
+                    {                        
+                        lblCutDelta.BackColor = Color.Tomato;
+                        lblCutDelta2.BackColor = Color.Tomato;
                     }
 
                 }

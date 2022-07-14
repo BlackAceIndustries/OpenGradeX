@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("OpenGradeX")]
 [assembly: AssemblyDescription("RTK Drainage Program")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Black Ace Industries")]
+[assembly: AssemblyCompany("AOG/Black Ace Industries")]
 [assembly: AssemblyProduct("OpenGradeX")]
 [assembly: AssemblyCopyright("Copyright ©  2022")]
 [assembly: AssemblyTrademark("")]
@@ -31,5 +31,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.3.5")]
+[assembly: AssemblyVersion("1.3.6")]
 [assembly: AssemblyFileVersion("1.1")]

@@ -4,17 +4,17 @@
   <description asmv2:publisher="OpenGradeX" asmv2:product="OpenGradeX" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <deployment install="true" mapFileExtensions="true" />
   <compatibleFrameworks xmlns="urn:schemas-microsoft-com:clickonce.v2">
-    <framework targetVersion="4.0" profile="Full" supportedRuntime="4.0.30319" />
+    <framework targetVersion="4.8" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="OpenGradeX.exe.manifest" size="10157">
+    <dependentAssembly dependencyType="install" codebase="OpenGradeX.exe.manifest" size="10445">
       <assemblyIdentity name="OpenGradeX.exe" version="1.2.2.2" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="x86" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>kkDUAeJtOoQ+sHXn/irqXXvdMqw=</dsig:DigestValue>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>MnlPovjaw6ZF4EXppZR2a+LuoD/5+5mgESlZ9e7z2hA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

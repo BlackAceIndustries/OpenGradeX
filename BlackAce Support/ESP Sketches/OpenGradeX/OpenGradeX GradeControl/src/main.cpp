@@ -21,7 +21,7 @@
 ///
 /// BUILD VERSION
 ///
-const char *version = "1.3.4.0";
+const char *version = "1.3.5.0";
 
 // Function STUBS for Platform IO
 
@@ -101,7 +101,7 @@ float PID_p, PID_i, PID_d, PID_total;
 float delta_previous_error, delta_error;
 
 /////////////IMU///////////////
-char *OG_data[255];
+char *OG_data[1460];
 int16_t dataSize = sizeof(OG_data);
 
 
@@ -112,7 +112,7 @@ byte b_bladeOffsetOut = 0;
 byte b_retDeadband = 25;
 byte b_extDeadband = 75;
 byte b_valveType = 255;   // 0= CNH    1= Deere     2= Danfoss
-byte b_deadband = 2;
+byte b_deadband = 1;
 
 
 /////////////// CNH Valve /////////////////////////
@@ -287,12 +287,17 @@ void SetOutput()
     
     if (b_cutDelta < b_deadband){
       analogOutput1 = VALVE_FLOAT;
+      voltage = ((double)VALVE_FLOAT/4096) * 5.0;
+      voltage2 =((double)VALVE_FLOAT/4096) * 5.0;
+    }
+    else
+    {
+      Dac1.setVoltage(analogOutput1, false);  
+      voltage = ((double)analogOutput1/4096) * 5.0;
+      voltage2 =((double)analogOutput2/4096) * 5.0;
     }
     
-    Dac1.setVoltage(analogOutput1, false);  
-    voltage = ((double)analogOutput1/4096) * 5.0;
-    //voltage2 = voltage + .1;
-    voltage2 =((double)analogOutput2/4096) * 5.0;
+    
     
     delta_previous_error = delta_error;
   }

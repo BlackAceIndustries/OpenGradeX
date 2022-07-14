@@ -31,7 +31,7 @@
 /////////////////
 //BUILD VERSION//
 /////////////////
-const char *version = "1.3.4.0";
+const char *version = "1.3.5.0";
 
 //////////////////////////////////
 //Function STUBS for Platform IO//
@@ -58,7 +58,7 @@ WiFiUDP UdpAntenna;  // Creation of wifi UdpAntenna instance
 const char *ssid = {"OpenGradeX"};
 char *hotspotSSID; 
 char *hotspotSSID_Pass;
-char buff[1024];
+char buff[1460];
 char GNGGA[1000];
 char GNVTG[1000];
 
@@ -67,8 +67,8 @@ String RSSI[40];
 String SSID_PASS[40];
 char *ssid2;
 char *pass2;
-char packetBuffer[2048];
-char *OG_data[1024];
+char packetBuffer[1460];
+char *OG_data[1460];
 
 ///Ports
 uint16_t openGradePort = 9999; //OpenGrade Server Port
@@ -182,7 +182,7 @@ void loop(){
 
   }
   
-  if (currentTime - lastTime2 >= LOOP_TIME2){ // every 15 seconds
+  if (currentTime - lastTime2 >= LOOP_TIME2){ // every 3 seconds
     lastTime2 = currentTime;
     SendUdpData(SYSTEM_HEADER);
   }
@@ -500,7 +500,7 @@ bool RecvUdpData()
       //break;
     }
 
-    if (packetSize > 100 && packetSize < 1024 && isRtcmNext) {    ///  This is a Very bad thing to do if this program crashes it is because of these                 
+    if (packetSize > 50 && packetSize < 1024 && isRtcmNext) {    ///  This is a Very bad thing to do if this program crashes it is because of these                 
       RTK.write(packetBuffer, sizeof(packetBuffer));  /// lines of code....... that being said im going to do it anyways cause im lazy   
       isRtcmNext = false;                
     }

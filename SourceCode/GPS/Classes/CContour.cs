@@ -200,6 +200,34 @@ namespace OpenGrade
             
         }
 
+        public void CheckSurveyDir()
+        {
+
+            List<CContourPt> temp = new List<CContourPt>();
+            int ptCnt = ptList.Count;
+            int startPt = 0;
+            int cnt = 0;
+            int endPt = ptCnt - 1;
+            double startElev = ptList[startPt].altitude;
+            double endElev = ptList[endPt].altitude;
+
+            if (startElev < endElev && ptCnt > 0) // reverse the whole pt list
+            {
+                for (int i = ptCnt - 1; i > 0; i--)
+                {
+                    CContourPt point = new CContourPt(ptList[i].easting, ptList[i].heading,
+                        ptList[i].northing, ptList[i].altitude, ptList[i].latitude, ptList[i].longitude,
+                        ptList[i].cutAltitude, ptList[i].currentPassAltitude, ptList[i].lastPassAltitude,
+                        ptList[i].distance);
+                    temp.Add(point);
+
+                }
+                ptList.Clear();
+                ptList.AddRange(temp);               
+            } 
+
+        }
+
         public void SaveToCut()        
         {            
             if (ptList.Count > 1)

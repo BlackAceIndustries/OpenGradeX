@@ -121,7 +121,7 @@ namespace OpenGrade
             }
             catch (Exception)
             {
-                TimedMessageBox(2500, gStr.gsNoIPLocated, gStr.gsCannotFind + Properties.Settings.Default.setNTRIP_casterURL);
+                //TimedMessageBox(2500, gStr.gsNoIPLocated, gStr.gsCannotFind + Properties.Settings.Default.setNTRIP_casterURL);
             }
                                           
             broadCasterPort = Properties.Settings.Default.setNTRIP_casterPort; //Select correct port (usually 80 or 2101)
@@ -178,7 +178,7 @@ namespace OpenGrade
             }
             catch (Exception)
             {
-                TimedMessageBox(1000, gStr.gsNTRIPNotConnectedRetrying, gStr.gsAtSocketConnect);
+                //TimedMessageBox(1000, gStr.gsNTRIPNotConnectedRetrying, gStr.gsAtSocketConnect);
                 ReconnectRequest();
                 return;
             }
@@ -197,7 +197,7 @@ namespace OpenGrade
             // Check we are connected
             if (clientSocket == null || !clientSocket.Connected)
             {
-                TimedMessageBox(2000, gStr.gsNTRIPNotConnected, " ReStarting TCP Connection ");
+                //TimedMessageBox(2000, gStr.gsNTRIPNotConnected, " ReStarting TCP Connection ");
                               
                 ReconnectRequest();
                 return;
@@ -336,7 +336,7 @@ namespace OpenGrade
             // Check we are connected
             if (clientSocket == null || !clientSocket.Connected)
             {
-                TimedMessageBox(1000, gStr.gsNTRIPNotConnectedToSendGGA, gStr.gsRestartingAndReconnectingToCaster);
+                //TimedMessageBox(1000, gStr.gsNTRIPNotConnectedToSendGGA, gStr.gsRestartingAndReconnectingToCaster);
                 ReconnectRequest();
 
                 return;
@@ -453,7 +453,7 @@ namespace OpenGrade
                 clientSocket.Close();
                 System.Threading.Thread.Sleep(500);
 
-                TimedMessageBox(2000, gStr.gsNTRIPOff, gStr.gsClickStartToResume);
+                //TimedMessageBox(2000, gStr.gsNTRIPOff, gStr.gsClickStartToResume);
                 ReconnectRequest();
 
                 //Also stop the requests now
@@ -470,7 +470,7 @@ namespace OpenGrade
                 clientSocket.Close();
                 System.Threading.Thread.Sleep(500);
 
-                TimedMessageBox(2000, gStr.gsNTRIPRestarting, gStr.gsResumingWithNewSettings);
+                //TimedMessageBox(2000, gStr.gsNTRIPRestarting, gStr.gsResumingWithNewSettings);
                 ReconnectRequest();
 
                 //Continue to restart

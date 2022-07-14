@@ -826,39 +826,8 @@ namespace OpenGrade
                         //AutoShore Active
                         if (isAutoShoreOn)
                         {
-
-                            //double X1 = 0, X2, X3 ;
-                            //double Y1 = 0, Y2, Y3 ;
-                            //double distFromCutCenter;
-
-
-                            //Y2 = Y1 + (Math.Tan(glm.toRadians(vehicle.minShoreSlope)) * ct.distanceFromCurrentLine);
-                            //X2 = X1 - ct.distanceFromCurrentLine;
-
-
-                            //Y2 = Y1 + (ct.ptList[closestPoint].cutAltitude * 100) - (ct.ptList[closestPoint].altitude * 100);
-                            
-                            //X2 = (Y2 / Math.Tan(glm.toRadians(mf.vehicle.minShoreSlope)));
-
-
-                            //gl.Vertex(ct.ptList[closestPoint].easting + (X2 / 100), ct.ptList[closestPoint].northing, 0);
-
-
-
                             double x = (Math.Tan(glm.toRadians(vehicle.minShoreSlope)) * ct.distanceFromCurrentLine);                            
                             cutDelta += x;
-
-
-
-
-
-
-
-
-
-                            //double x = (Math.Tan(glm.toRadians(vehicle.minShoreSlope)) * ct.distanceFromCurrentLine);
-                            //cutDelta += x;
-
                         }
                         
                     }
@@ -985,8 +954,7 @@ namespace OpenGrade
 
 
         /// <summary>
-        /// 
-        /// Black Ace Indsutries Auto Drain 
+        /// Black Ace Industries Auto Drain 
         /// </summary>
         
         public void AutoDrain()
@@ -1027,7 +995,7 @@ namespace OpenGrade
 
                         if (upCnt == 2)
                         {
-                            startPt = lowestPt;
+                            startPt = lowestPt;                            
                             startFound = true;
                             break;
                         }
@@ -1119,16 +1087,8 @@ namespace OpenGrade
                     {
                         temp.easting = i;  // proposed point number
                         temp.northing = ((double)ct.ptList[i].altitude);  // proposed altitude
-                    }
+                    }                    
                     
-                    
-                    //if ((temp.northing - ct.ptList[i].altitude) < vehicle.minDitchCut / 100)
-                    //{
-                    //    temp.northing = temp.northing - vehicle.minDitchCut / 100;
-                    //    //ct.drawList.Add(temp);
-                    //}
-
-
                     if (temp.northing <= (ct.drawList[drawPts - 1].northing + minDeltaHt))
                     {
                         if (i != startPt || i != endPt)
@@ -1139,21 +1099,13 @@ namespace OpenGrade
                         else
                         {
                             ct.drawList.Add(temp);
-                        }
-                        
-                        
-                        //}
-                                
-                        
+                        }                                                
                     }
     
                     distFromLastPlot = 0;
                     endPt = i;
                 }
                 
-                
-
-
             }
 
             if (isPipeModeOn)
@@ -1169,14 +1121,14 @@ namespace OpenGrade
                         for (int h = (int)ct.drawList[drawPts - 1].easting; h < i; h++)  // calculate distance from last point if first point is set
                         {
                             distFromLastPlot += ct.ptList[h].distance;  // add distance all distances from lastPt to hPt 
-                        }
-                        
+                        }                        
                     }
                     else
                     {
                         // add first point
                         temp.easting = i;   // (double)ct.ptList[i].easting;                            
-                        temp.northing = ((double)ct.ptList[i].altitude);
+                        temp.northing = ((double)ct.ptList[i].altitude) - vehicle.minTileCover;
+                        
                         ct.drawList.Add(temp);
                         drawPts = ct.drawList.Count;
                     }
@@ -1185,12 +1137,23 @@ namespace OpenGrade
                         
                     // set temp point and altitude
                     temp.easting = i;
-                    temp.northing = ((double)ct.ptList[i].altitude);
+                    temp.northing = ((double)ct.ptList[i].altitude) - vehicle.minTileCover;
 
-                    if (ct.ptList[i].altitude < ct.drawList[drawPts - 1].northing + minDeltaHt)
+
+                    if (temp.northing <= (ct.drawList[drawPts - 1].northing + minDeltaHt))
                     {
-                        ct.drawList.Add(temp);
+                        if (i != startPt || i != endPt)
+                        {
+                            //temp.northing = temp.northing ;
+                            ct.drawList.Add(temp);
+                        }
+                        else
+                        {
+                            //temp.northing = temp.northing - vehicle.minTileCover;
+                            ct.drawList.Add(temp);
+                        }
                     }
+
                     distFromLastPlot = 0;
                     endPt = i;
                 }
@@ -1398,34 +1361,6 @@ namespace OpenGrade
                 }
             }
 
-        }
-        
-        private void CheckSurveyDir()
-        {
-
-            List<CContourPt> temp = new List<CContourPt>();
-            int ptCnt = ct.ptList.Count;
-            int startPt = 0;
-            int cnt = 0;
-            int endPt = ptCnt -1;
-            double startElev = ct.ptList[startPt].altitude;
-            double endElev = ct.ptList[endPt].altitude;                     
-
-            if (startElev < endElev && ptCnt > 0) // reverse the whole pt list
-            {                    
-                for (int i = ptCnt-2; i > 0; i--)
-                {
-                    
-                    CContourPt point = new CContourPt(ct.ptList[i].easting, ct.ptList[i].heading,
-                        ct.ptList[i].northing, ct.ptList[i].altitude, ct.ptList[i].latitude, ct.ptList[i].longitude);
-                    temp.Add(point);                        
-
-                }
-                ct.ptList.Clear();
-                ct.ptList.AddRange(temp);
-                
-            }
-           
         }
 
 

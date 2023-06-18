@@ -170,5 +170,10 @@ namespace OpenGrade
             
 
         }
+
+        private void btnSerialCancel_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

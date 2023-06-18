@@ -13,6 +13,7 @@
 #include <WiFiUdp.h>
 #include <ArduinoOTA.h>
 #include <ESPmDNS.h>
+#include <EEPROM.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_MCP4725.h>
 #include <Adafruit_BNO055.h>
@@ -23,7 +24,7 @@
 ///
 /// BUILD VERSION
 ///
-const char *version = "1.3.5.0";
+const char *version = "1.4.2.0";
 
 // Function STUBS for Platform IO
 
@@ -44,10 +45,13 @@ void ReconnectToOGX();
 
 // OTA
 void CheckForUpdate();
+void checkEEPROM();
+
 
 /// UDP Variables
 WiFiUDP UdpGradeControl;  // Creation of wifi UdpGradeControl instance
-const char *ssid = {"OpenGradeX"};
+const char *ssid = {"OGX"};
+#define EEPROM_SIZE 80
 
 char packetBuffer[1460];
 uint16_t openGradePort = 9999; //OpenGrade Server Port
@@ -55,9 +59,9 @@ uint16_t gradeControlPort = 7777; // GradeControl  Port
 uint16_t antennaPort = 8888; // Antenna Port
 uint16_t senderPort;
 ///Ip Addresses
-IPAddress openGradeIP(192,168,1,156);   //OpenGradeX Server
-IPAddress gradeControlIP(192,168,1,255);   // GradeControl Module IP
-IPAddress antennaIP(192,168,1,155);   // Antenna Module IP
+IPAddress openGradeIP(192,168,1,226);   //OpenGradeX Server
+IPAddress gradeControlIP(192,168,1,229);   // GradeControl Module IP
+IPAddress antennaIP(192,168,1,225);   // Antenna Module IP
 IPAddress gatewayIP(192,168,1,1);   // what we want the sp 32 IPAddress to be
 IPAddress Subnet(255, 255, 255, 0);
 IPAddress Dns(8,8,8,8);
@@ -110,13 +114,28 @@ int16_t dataSize = sizeof(OG_data);
 
 
 ///////////// Com Bytes///////////////
-byte b_Ki, b_Kp, b_Kd;
+struct Setup {
+  uint8_t b_Ki = 0;
+  uint8_t b_Kp = 0; 
+  uint8_t b_Kd = 0; 
+  uint8_t b_retDeadband = 0;
+  uint8_t b_extDeadband = 0;
+  uint8_t b_valveType = 0;
+};  Setup gradeConfig;          //6 bytes
+
+
+//EEPROM
+int16_t EEread = 0;
+#define EEP_Ident 0x5417 // Change this number to reset and reload default parameters To EEPROM
+
+
+//byte b_Ki, b_Kp, b_Kd;
 int b_autoState = 0, b_deltaDir = 0, b_cutDelta = 0;
 byte b_bladeOffsetOut = 0;
-byte b_retDeadband = 25;
-byte b_extDeadband = 75;
-byte b_valveType = 255;   // 0= CNH    1= Deere     2= Danfoss
-byte b_deadband = 1;
+//byte b_retDeadband = 25;
+//byte b_extDeadband = 75;
+//byte b_valveType = 255;   // 0= CNH    1= Deere     2= Danfoss
+byte b_deadband = 0;
 
 
 /////////////// CNH Valve /////////////////////////
@@ -158,9 +177,11 @@ Adafruit_MCP4725 Dac2 = Adafruit_MCP4725();
 
 void setup()
 { 
+  checkEEPROM();
   ConnectToOGX();  
   SetupGradeControlModule();  
-  CheckForUpdate();  
+  CheckForUpdate(); 
+ 
 }
   
 
@@ -322,32 +343,32 @@ void SetOutput()
 
 void SetValveLimits(){
 
-  switch(b_valveType) {
+  switch(gradeConfig.b_valveType) {
   
     case CNH:
-      retDeadband = VALVE_FLOAT - ((b_retDeadband/200.0)*4096);
-      extDeadband = VALVE_FLOAT + ((b_extDeadband/200.0)*4096);    
+      retDeadband = VALVE_FLOAT - ((gradeConfig.b_retDeadband/200.0)*4096);
+      extDeadband = VALVE_FLOAT + ((gradeConfig.b_extDeadband/200.0)*4096);    
       retMin = (CNH_MIN * 4096);
       extMax = (CNH_MAX * 4096);
       break;
       
     case DEERE:
-      retDeadband = VALVE_FLOAT - ((b_retDeadband/200.0)*4096);
-      extDeadband = VALVE_FLOAT + ((b_extDeadband/200.0)*4096);
+      retDeadband = VALVE_FLOAT - ((gradeConfig.b_retDeadband/200.0)*4096);
+      extDeadband = VALVE_FLOAT + ((gradeConfig.b_extDeadband/200.0)*4096);
       retMin = (DEERE_MIN * 4096);
       extMax = (DEERE_MIN * 4096);
       break;
       
     case DANFOSS:
-      retDeadband = VALVE_FLOAT - ((b_retDeadband/200.0)*4096);
-      extDeadband = VALVE_FLOAT + ((b_extDeadband/200.0)*4096);
+      retDeadband = VALVE_FLOAT - ((gradeConfig.b_retDeadband/200.0)*4096);
+      extDeadband = VALVE_FLOAT + ((gradeConfig.b_extDeadband/200.0)*4096);
       retMin = (DANFOSS_MIN * 4096);
       extMax = (DANFOSS_MAX * 4096);
       break;
 
     default:
-      retDeadband = VALVE_FLOAT - ((b_retDeadband/200.0)*4096);
-      extDeadband = VALVE_FLOAT + ((b_extDeadband/200.0)*4096);    
+      retDeadband = VALVE_FLOAT - ((gradeConfig.b_retDeadband/200.0)*4096);
+      extDeadband = VALVE_FLOAT + ((gradeConfig.b_extDeadband/200.0)*4096);    
       retMin = (CNH_MIN * 4096);
       extMax = (CNH_MAX * 4096);
       
@@ -377,7 +398,6 @@ bool SendUdpData(int _header)
       UdpGradeControl.print(voltage);
       UdpGradeControl.print(",");    
       UdpGradeControl.print(voltage2);     
-      UdpGradeControl.print("\r\n");   // End segment    
       UdpGradeControl.endPacket();  // Close communication        
       break;
 
@@ -403,7 +423,6 @@ bool SendUdpData(int _header)
       UdpGradeControl.print(255);
       UdpGradeControl.print(",");
       UdpGradeControl.print(version);     
-      UdpGradeControl.print("\r\n");   // End segment    
       UdpGradeControl.endPacket();  // Close communication
 
       DEBUG.printf("Version sent V%s", version);       
@@ -462,22 +481,47 @@ bool RecvUdpData()
         b_deltaDir =  atoi(OG_data[1]);   // Cut Delta Dir
         b_autoState =  atoi(OG_data[2]);    // Cut Delta 
         b_cutDelta =  atoi(OG_data[3]);   // Auto State
+        //b_deltaDir =  atoi(OG_data[1]);   // Cut Delta Dir
+        //b_autoState =  atoi(OG_data[2]);    // Cut Delta 
+        //b_cutDelta =  atoi(OG_data[3]);   // Auto State
         return true;
       break;
 
 
       case SETTINGS_HEADER:
         DEBUG.println("SETTINGS FOUND!");      
-        b_Kp = atoi(OG_data[1]);
-        b_Ki = atoi(OG_data[2]);
-        b_Kd = atoi(OG_data[3]);
-        b_retDeadband = atoi(OG_data[4]);
-        b_extDeadband = atoi(OG_data[5]);
-        b_valveType = atoi(OG_data[6]);
-        Kp = double(b_Kp);
-        Ki = double(b_Ki / 100);
-        Kd = double(b_Kp * 100);  
-        SetValveLimits();
+        gradeConfig.b_Kp = atoi(OG_data[1]);
+        gradeConfig.b_Ki = atoi(OG_data[2]);
+        gradeConfig.b_Kd = atoi(OG_data[3]);
+
+        gradeConfig.b_retDeadband = atoi(OG_data[4]);
+        gradeConfig.b_extDeadband = atoi(OG_data[5]);
+        gradeConfig.b_valveType = atoi(OG_data[6]);
+
+
+
+
+
+
+        Kp = double(gradeConfig.b_Kp);
+        Ki = double(gradeConfig.b_Ki / 100);
+        Kd = double(gradeConfig.b_Kp * 100);  
+
+        //store in EEPROM
+       
+
+        //b_Kp = atoi(OG_data[1]);
+        //b_Ki = atoi(OG_data[2]);
+        //b_Kd = atoi(OG_data[3]);
+        //b_retDeadband = atoi(OG_data[4]);
+        //b_extDeadband = atoi(OG_data[5]);
+        //b_valveType = atoi(OG_data[6]);        
+        //Kp = double(b_Kp);
+        //Ki = double(b_Ki / 100);
+        //Kd = double(b_Kp * 100);  
+        SetValveLimits(); 
+        EEPROM.put(10, gradeConfig);
+        EEPROM.commit();
         return true;
       break;
 
@@ -526,7 +570,21 @@ void ReconnectToOGX(){
   }
 }
 
+void checkEEPROM(){
 
+  EEPROM.begin(EEPROM_SIZE);  
+  EEPROM.get(0, EEread);            // read identifier
+  if (EEread != EEP_Ident)   // check on first start and write EEPROM
+  {
+    EEPROM.put(0, EEP_Ident);
+    EEPROM.put(10,  gradeConfig);    
+    EEPROM.commit();    
+  }
+  else
+  {
+    EEPROM.get(10, gradeConfig);     // read the Settings    
+  }
+}
 ///OTA
 
 void CheckForUpdate(){
@@ -535,7 +593,7 @@ void CheckForUpdate(){
   // ArduinoOTA.setPort(3232);
 
   // Hostname defaults to esp3232-[MAC]
-  // ArduinoOTA.setHostname("myesp32");
+  ArduinoOTA.setHostname("OGX_GradeControl");
 
   // No authentication by default
   // ArduinoOTA.setPassword("admin");

@@ -117,13 +117,13 @@
       <Value Profile="(Default)">9999</Value>
     </Setting>
     <Setting Name="setIP_AntennaIP" Type="System.String" Scope="User">
-      <Value Profile="(Default)">192.168.1.155</Value>
+      <Value Profile="(Default)">192.168.1.225</Value>
     </Setting>
     <Setting Name="setIP_AntennaPort" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">8888</Value>
     </Setting>
     <Setting Name="setIP_gradeControlIP" Type="System.String" Scope="User">
-      <Value Profile="(Default)">192.168.1.255</Value>
+      <Value Profile="(Default)">192.168.1.229</Value>
     </Setting>
     <Setting Name="setIP_gradeControlPort" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">7777</Value>

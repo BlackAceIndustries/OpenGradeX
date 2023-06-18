@@ -481,7 +481,7 @@ namespace OpenGrade.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("192.168.1.155")]
+        [global::System.Configuration.DefaultSettingValueAttribute("192.168.1.225")]
         public string setIP_AntennaIP {
             get {
                 return ((string)(this["setIP_AntennaIP"]));
@@ -505,7 +505,7 @@ namespace OpenGrade.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("192.168.1.255")]
+        [global::System.Configuration.DefaultSettingValueAttribute("192.168.1.229")]
         public string setIP_gradeControlIP {
             get {
                 return ((string)(this["setIP_gradeControlIP"]));

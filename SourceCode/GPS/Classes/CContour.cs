@@ -118,6 +118,8 @@ namespace OpenGrade
         public bool isDrawingRefLine;
         public bool isAutoDraw;
 
+        public double surveyHeight;
+
         //
         // Black Ace Industries
         //
@@ -141,8 +143,7 @@ namespace OpenGrade
         //the manually picked list
         public List<vec2> drawList = new List<vec2>();
 
-        //the autmatically picked list
-        //the manually picked list
+        //the autmatically picked list       
         public List<vec2> autoList = new List<vec2>();
 
 
@@ -178,26 +179,77 @@ namespace OpenGrade
             //reuse ptList
             ptList.Clear();
 
-            CContourPt point = new CContourPt(mf.pn.easting, mf.fixHeading, mf.pn.northing, mf.pn.altitude, mf.pn.latitude, mf.pn.longitude);
+            CContourPt point = new CContourPt(mf.pn.easting, mf.fixHeading, mf.pn.northing, (mf.pn.altitude - mf.ct.surveyHeight), mf.pn.latitude, mf.pn.longitude);
             ptList.Add(point);
         }
 
         //Add current position to ptList
         public void AddPoint()
         {
-            CContourPt point = new CContourPt(mf.pn.easting, mf.fixHeading, mf.pn.northing, mf.pn.altitude, mf.pn.latitude, mf.pn.longitude);
+            CContourPt point = new CContourPt(mf.pn.easting, mf.fixHeading, mf.pn.northing, (mf.pn.altitude - mf.ct.surveyHeight), mf.pn.latitude, mf.pn.longitude);
             ptList.Add(point);
         }
 
         //End the strip
         public void StopContourLine()
         {
-            CContourPt point = new CContourPt(mf.pn.easting, mf.fixHeading, mf.pn.northing, mf.pn.altitude, mf.pn.latitude, mf.pn.longitude);
+            CContourPt point = new CContourPt(mf.pn.easting, mf.fixHeading, mf.pn.northing, (mf.pn.altitude - mf.ct.surveyHeight), mf.pn.latitude, mf.pn.longitude);
             ptList.Add(point);
-
+            mf.ct.surveyHeight = 0;
             //turn it off
             isContourOn = false;
             
+        }
+
+        public void snapSurvey()
+        {
+            List<CContourPt> temp = new List<CContourPt>();
+            int ptCnt = ptList.Count;
+            int startPt = 0;
+            int cnt = 0;
+            int endPt = ptCnt - 1;
+
+            double minDist = 0; 
+            int closestPoint = 0;            
+            int distToClosestPoint = 0;
+            
+            if (ptCnt > 0)
+            {
+                minDist = 8000;                
+
+                //find the closest point to current fix
+                for (int t = 0; t < ptCnt - 1; t++)
+                {
+                    double dist = ((mf.pn.easting - ptList[t].easting) * (mf.pn.easting - ptList[t].easting))
+                                    + ((mf.pn.northing - ptList[t].northing) * (mf.pn.northing - ptList[t].northing));
+                    if (dist < minDist)
+                    {
+                        minDist = dist; closestPoint = t;
+                    }
+
+                }
+
+            }
+
+            double altitudeDifference = 0;
+
+            altitudeDifference = mf.pn.altitude - ptList[closestPoint].altitude;
+
+            for (int i = 0; i < ptCnt - 1 ; i++)
+            {
+                CContourPt point = new CContourPt(ptList[i].easting, ptList[i].heading,
+                    ptList[i].northing, ptList[i].altitude + altitudeDifference, ptList[i].latitude, ptList[i].longitude,
+                    ptList[i].cutAltitude + altitudeDifference, ptList[i].currentPassAltitude, ptList[i].lastPassAltitude,
+                    ptList[i].distance);
+                temp.Add(point);
+
+            }
+            ptList.Clear();
+            ptList.AddRange(temp);
+            
+
+
+
         }
 
         public void CheckSurveyDir()
@@ -520,7 +572,8 @@ namespace OpenGrade
                 }
             }
 
-           //if (mf.isAutoShoreOn)
+           //if (mf.
+           //ShoreOn)
            // {
            //     gl.LineWidth(2);
            //     gl.Color(0.98f, 0.2f, 0.0f);
@@ -603,6 +656,7 @@ namespace OpenGrade
                 }
             }
         }
+        
         public void DrawShoreLines()
         {
 
@@ -647,6 +701,373 @@ namespace OpenGrade
             
             
         }
+
+        public void AutoDrain()
+        {
+
+            vec2 temp = new vec2();
+
+            double distFromLastPlot = 0;
+            double minPtDist = 1; 
+            int drawPts;
+            int ptCnt = ptList.Count;
+            double minDeltaHt = 0;
+            double angle = -mf.vehicle.minSlope * 180;
+            int startPt = 0;
+            int endPt = -1;
+            int lowestPt = 0;
+            int lastPt = 0;
+            int upCnt = 0;
+            bool startFound = false;
+            //int maxCnt = 6;
+            //int MaxSearch = 30;
+
+            drawList.Clear();
+            // Find first point
+            if (true)  // Add if Find First low Later
+            {
+                for (int k = 1; k < ptCnt; k++)
+                {
+
+                    if (!startFound)
+                    {
+                        if (ptList[k].altitude <= ptList[k - 1].altitude)
+                        {
+                            lowestPt = k;
+                        }
+                        else
+                        {
+                            upCnt++;
+                        }
+
+                        if (upCnt == 2)
+                        {
+                            startPt = lowestPt;
+                            startFound = true;
+                            break;
+                        }
+                    }
+
+
+                    if (ptList[k].altitude <= ptList[k - 1].altitude)
+                    {
+                        lowestPt = k;
+                    }
+                }
+                endPt = lowestPt;
+            }
+            else
+            {
+                startPt = 5;
+                lowestPt = ptCnt - 5;
+            }
+
+
+            switch (mf.curMode)
+            {
+                case FormGPS.gradeMode.surface:
+
+                    for (int i = startPt; i < ptCnt; i++)
+                    {
+                        // check to see if drawlist has any points 
+                        drawPts = drawList.Count;
+
+                        if (drawPts > 0)
+                        {
+                            //calculate the distance from point i to last tempPt
+                            for (int h = (int)drawList[drawPts - 1].easting; h < i; h++)  // calculate distance from last point if first point is set
+                            {
+                                distFromLastPlot += ptList[h].distance;  // add distance all distances from lastPt to hPt 
+                            }
+                        }
+                        else
+                        {
+                            // add first point
+                            temp.easting = i;                 
+                            temp.northing = ((double)ptList[i].altitude);
+                            drawList.Add(temp);
+                            drawPts = drawList.Count;
+                        }
+
+                        minDeltaHt = (Math.Tan((angle * (Math.PI / 180))) * distFromLastPlot);     // distFromLastPlot                      
+
+                        temp.easting = i;
+                        temp.northing = ((double)ptList[i].altitude);
+
+                        if (ptList[i].altitude < drawList[drawPts - 1].northing + minDeltaHt)
+                        {
+
+                            if (distFromLastPlot > minPtDist)
+                            {
+                                drawList.Add(temp);
+                                lastPt = i;
+                            }
+                            
+                        }
+                        distFromLastPlot = 0;
+                        //endPt = drawPts - 1;
+                    }
+                    break;
+
+
+                case FormGPS.gradeMode.ditch:
+                   
+                    for (int i = startPt; i < ptCnt; i++)
+                    {
+                        // check to see if drawlist has any points 
+                        drawPts = drawList.Count;
+
+                        if (drawPts > 0)
+                        {
+                            //calculate the distance from point i to last tempPt
+                            for (int h = (int)drawList[drawPts - 1].easting; h < i; h++)  // calculate distance from last point if first point is set
+                            {
+                                distFromLastPlot += ptList[h].distance;  // add distance all distances from lastPt to hPt 
+                            }
+
+                        }
+                        else
+                        {
+                            // add first point
+                            temp.easting = i;   // (double)ct.ptList[i].easting;                            
+                            temp.northing = ((double)ptList[i].altitude);
+                            drawList.Add(temp);
+                            drawPts = drawList.Count;
+                            lastPt = i;
+
+                        }
+
+                        minDeltaHt = (Math.Tan((angle * (Math.PI / 180))) * distFromLastPlot);     // distFromLastPlot                      
+
+                        if (minDeltaHt != 0)
+                        {
+                            temp.easting = i;  // proposed point number
+                            temp.northing = ((double)ptList[i].altitude) - mf.vehicle.minDitchCut;  // proposed altitude
+                        }
+
+                        if (temp.northing <= (drawList[drawPts - 1].northing + minDeltaHt))
+                        {
+                            if (distFromLastPlot > minPtDist)
+                            {
+                                drawList.Add(temp);
+                                lastPt = i;
+                            }
+                        }
+
+                        distFromLastPlot = 0;
+                        endPt = i;
+                    }
+                    break;
+
+                case FormGPS.gradeMode.tile:
+
+                    for (int i = startPt; i < ptCnt; i++)
+                    {
+                        // check to see if drawlist has any points 
+                        drawPts = drawList.Count;
+
+                        if (drawPts > 0)
+                        {
+                            //calculate the distance from point i to last tempPt
+                            for (int h = (int)drawList[drawPts - 1].easting; h < i; h++)  // calculate distance from last point if first point is set
+                            {
+                                distFromLastPlot += ptList[h].distance;  // add distance all distances from lastPt to hPt 
+                            }
+                        }
+                        else
+                        {
+                            // add first point
+                            temp.easting = i;   // (double)ct.ptList[i].easting;                            
+                            temp.northing = ((double)ptList[i].altitude) - mf.vehicle.minTileCover;
+                            drawList.Add(temp);
+                            drawPts = drawList.Count;
+                        }
+                        //calculate min Delta
+                        minDeltaHt = (Math.Tan((angle * (Math.PI / 180))) * distFromLastPlot);     // distFromLastPlot        
+
+                        // set temp point and altitude
+                        temp.easting = i;
+                        temp.northing = ((double)ptList[i].altitude) - mf.vehicle.minTileCover;
+
+
+                        if (temp.northing <= (drawList[drawPts - 1].northing + minDeltaHt))
+                        {
+                            if (distFromLastPlot > minPtDist)
+                            {
+                                drawList.Add(temp);
+                                lastPt = i;
+                            }
+                        }
+
+                        distFromLastPlot = 0;
+                        endPt = i;
+                    }
+                    break;
+
+                default:
+
+
+
+                    break;
+
+            }
+        }
+
+        public class SimpleMovingAverage
+        {
+            private readonly int _k;
+            private double[] _values;
+
+            private int _index = 0;
+            private double _sum = 0;
+
+            public SimpleMovingAverage(int k, double val)
+            {
+                if (k <= 0) throw new ArgumentOutOfRangeException(nameof(k), "Must be greater than 0");
+
+                _k = k;
+                _values = new double[k];                
+
+
+            }
+
+            public double Update(double nextInput)
+            {
+                // calculate the new sum
+                _sum = _sum - _values[_index] + nextInput;
+
+                // overwrite the old value with the new one
+                _values[_index] = nextInput;
+
+                // increment the index (wrapping back to 0)
+                _index = (_index + 1) % _k;
+
+                // calculate the average
+                return ((double)_sum) / _k;               
+                
+            }
+        }
+
+        public void SmoothLine(int times)
+        {
+            
+            int ptCnt = ptList.Count;
+            var movingAvg = new SimpleMovingAverage(times, ptList[0].altitude);
+            vec2 Temp = new vec2();
+            autoList.Clear();
+
+
+            for (int j = 0; j < times - 1; j++)
+            {
+                movingAvg.Update(ptList[0].altitude);         
+            }
+
+            for (int k = 0; k < ptCnt; k++)
+            {
+                double sma = movingAvg.Update(ptList[k].altitude);
+
+                
+                Temp.easting = k;
+                Temp.northing = sma;                
+                autoList.Add(Temp);
+
+
+                //ptList[k].altitude = sma;
+                
+            }
+
+
+            
+
+        }
+
+        private bool CheckMaxCut()
+        {
+            int ptCnt = ptList.Count;
+            bool isOverMax = false;
+
+            switch (mf.curMode)
+            {
+                case FormGPS.gradeMode.surface:                    
+                    break;
+
+                case FormGPS.gradeMode.ditch:
+
+                    for (int i = 0; i < ptCnt - 1; i++)
+                    {
+                        if (ptList[i].cutAltitude < (ptList[i].altitude - mf.vehicle.maxDitchCut))//
+                        {
+                            string message = "Cut Plane exceeds maximum cut depth \n Increase Max Ditch Cut or Re-survey";
+                            string title = "Maxiumum Exceeded";
+                            mf.TimedMessageBox(1000, message, title);
+                            isOverMax = true;
+                            break;
+                        }
+                    }
+                    break;
+
+                case FormGPS.gradeMode.tile:
+
+                    for (int i = 0; i < ptCnt - 1; i++)
+                    {
+                        if (ptList[i].cutAltitude < (ptList[i].altitude - mf.vehicle.maxTileCut))
+                        {
+                            string message = "Cut Plane exceeds maximum cut depth \n Increase Max Tile Cut or Re-survey";
+                            string title = "Maxiumum Exceeded";
+                            mf.TimedMessageBox(1000, message, title);
+                            isOverMax = true;
+                            break;
+                        }
+                        else if (ptList[i].cutAltitude > (ptList[i].altitude - mf.vehicle.minTileCover))
+                        {
+                            string message = "Cut Plane exceeds minimum cover depth \n Increase min cover Cut or Re-survey";
+                            string title = "Minumum Exceeded";
+                            mf.TimedMessageBox(1000, message, title);
+                            isOverMax = true;
+                            break;
+
+                        }
+                    }
+                    break;
+
+                default:
+
+                    break;
+
+
+            }
+            return isOverMax;
+        }
+
+
+        private void radiusTile()
+        {
+            int x0 = 0;
+            int y0 = 0;
+            int x1 = 0;
+            int y1 = 0;
+            int x2 = 0;
+            int y2 = 0;
+
+
+            int r = (int)Math.Sqrt((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0));
+            
+            int x = x0 - r;
+            int y = y0 - r;
+            int width = 2 * r;
+            int height = 2 * r;
+            int startAngle = (int)(180 / Math.PI * Math.Atan2(y1 - y0, x1 - x0));
+            int endAngle = (int)(180 / Math.PI * Math.Atan2(y2 - y0, x2 - x0));
+            //
+            //graphics.drawArc(x, y, width, height, startAngle, endAngle);
+
+
+        }
+
+
+
+
+
 
         //Reset the contour to zip
         public void ResetContour()

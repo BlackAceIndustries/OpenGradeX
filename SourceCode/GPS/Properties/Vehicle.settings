@@ -27,7 +27,7 @@
       <Value Profile="(Default)">0.01</Value>
     </Setting>
     <Setting Name="setVehicle_plowHeight" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">0.5</Value>
+      <Value Profile="(Default)">500</Value>
     </Setting>
     <Setting Name="setVehicle_maxTileCut" Type="System.Double" Scope="User">
       <Value Profile="(Default)">0</Value>

@@ -284,20 +284,11 @@ namespace OpenGrade
                     byte[] localMsg = new byte[nBytesRecvd];
                     Array.Copy(data, localMsg, nBytesRecvd);
 
-                    // Write the data to the List
-                    //sbRTCM.Clear();
-                    //sbRTCM.Append(NTRIP_HEADER);
-                    //sbRTCM.Append(",");
                     
                     for (int i = 0; i < nBytesRecvd; i++)
                     {
-                        
-                        //sbRTCM.Append(data[i]);
-                        //sbRTCM.Append(",");
-
                         rtcmRaw += data[i];
                         rtcmRaw += " ";
-
 
                     }
                     //sbRTCM.Append("\r\n");

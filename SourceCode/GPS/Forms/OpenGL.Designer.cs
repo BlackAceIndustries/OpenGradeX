@@ -15,7 +15,7 @@ namespace OpenGrade
         //difference between blade tip and guide line
         public double cutDelta, distFromLastPass, distToTarget;
         public double autoCutDepth = 0;
-        private double minDist;
+        public double minDist;
         public int bladeOffset;
         public bool isAutoCutOn = false, isAutoShoreOn = false, isMapping = true;
 
@@ -250,7 +250,8 @@ namespace OpenGrade
                         string dist;
                         txtDistanceOffABLine.Visible = true;
                         //lblDelta.Visible = true;
-                        if (ct.distanceFromCurrentLine == 32000) ct.distanceFromCurrentLine = 0;
+                        
+                        //if (ct.distanceFromCurrentLine >= vehicle.plowHeight * 100) ct.distanceFromCurrentLine = 0;
 
                         DrawLightBar(openGLControl.Width, openGLControl.Height, ct.distanceFromCurrentLine * 0.1);
 
@@ -261,7 +262,6 @@ namespace OpenGrade
                             else dist = ((int)Math.Abs(ct.distanceFromCurrentLine / 2.54 * 0.1)) + " ->";
                             txtDistanceOffABLine.Text = dist;
                         }
-
                         else
                         {
                             txtDistanceOffABLine.ForeColor = Color.Red;
@@ -273,10 +273,9 @@ namespace OpenGrade
                         //if (guidanceLineHeadingDelta < 0) lblDelta.ForeColor = Color.Red;
                         //else lblDelta.ForeColor = Color.Green;
 
-                        if (guidanceLineDistanceOff == 32000 | guidanceLineDistanceOff == 32000) btnGradeControl.Text = "-";
-                        else btnGradeControl.Text = "Y";
+                        if (guidanceLineDistanceOff == 300 | guidanceLineDistanceOff == 300) btnGradeControl.Text = "-";
+                        else btnGradeControl.Text = "A";
                     }
-
                     else
                     {
                         if (ABLine.isABLineSet | ABLine.isABLineBeingSet)
@@ -476,21 +475,21 @@ namespace OpenGrade
             distFromLastPass = 9999;
             bladeOffset = Int16.Parse(lblBladeOffset.Text);
 
-            if (bladeOffset != 0) {
-                lblBladeOffset.Visible = true;
-                label5.Visible = true;
-            }
-
-
-            else
-            {
-               lblBladeOffset.Visible = false;
-               label5.Visible = false;
-            }
+            //if (bladeOffset != 0) {
+            //    lblBladeOffset.Visible = true;
+            //    label5.Visible = true;
+            //}
+            //else
+            //{
+            //   lblBladeOffset.Visible = false;
+            //   label5.Visible = false;
+            //}
 
 
             int closestPoint = 0;
             int ptCnt = ct.ptList.Count;
+            int autoCnt = ct.autoList.Count;
+            int distToClosestPoint = 0;
             gl.LineWidth(4);
             CalculateMinMaxZoom();
 
@@ -498,7 +497,7 @@ namespace OpenGrade
             {
                 if (ptCnt > 0)
                 {
-                    minDist = 50000000;
+                    minDist = 8000;
                     int ptCount = ct.ptList.Count - 1;//
 
                     //find the closest point to current fix
@@ -513,82 +512,93 @@ namespace OpenGrade
 
                     }
 
+
+
+                    
+
                     //Black Ace Industries 
 
-                    if (isSurfaceModeOn)
+                    switch (curMode)
                     {
-                        //draw the ground profile
-                        gl.Color(0.22f, 0.22f, 0.22f);
-                        gl.Begin(OpenGL.GL_TRIANGLE_STRIP);
-                        for (int i = 0; i < ptCnt; i++)
-                        {
-                            gl.Vertex(i,
-                              (((ct.ptList[i].altitude - centerY) * altitudeWindowGain) + centerY), 0);
-                            gl.Vertex(i, -10000, 0);
-                        }
-                        gl.End();
-                    }
+                        case gradeMode.surface:
+                            //draw the ground profile
+                            gl.Color(0.22f, 0.22f, 0.22f);
+                            gl.Begin(OpenGL.GL_TRIANGLE_STRIP);
+                            for (int i = 0; i < ptCnt; i++)
+                            {
+                                gl.Vertex(i,
+                                  (((ct.ptList[i].altitude - centerY) * altitudeWindowGain) + centerY), 0);
+                                gl.Vertex(i, -10000, 0);
+                            }
+                            gl.End();
+                            break;
 
-                    if (isDitchModeOn)
-                    {
-                        //draw the ground profile
-                        gl.Color(0.22f, 0.22f, 0.22f);
-                        gl.Begin(OpenGL.GL_TRIANGLE_STRIP);
-                        for (int i = 0; i < ptCnt; i++)
-                        {
-                            gl.Vertex(i,
-                              (((ct.ptList[i].altitude - centerY) * altitudeWindowGain) + centerY), 0);
-                            gl.Vertex(i, -10000, 0);
-                        }
-                        gl.End();
-                        
-                        gl.LineWidth(3);
-                        gl.Begin(OpenGL.GL_LINE_STRIP);
-                        gl.Color(1.0f, 0.2f, 0.2f); // MaxDepth
-                        for (int i = 0; i < ptCnt; i++)
-                        {                            
+                        case gradeMode.ditch:
+                            //draw the ground profile
+                            gl.Color(0.22f, 0.22f, 0.22f);
+                            gl.Begin(OpenGL.GL_TRIANGLE_STRIP);
+                            for (int i = 0; i < ptCnt; i++)
+                            {
+                                gl.Vertex(i,
+                                  (((ct.ptList[i].altitude - centerY) * altitudeWindowGain) + centerY), 0);
+                                gl.Vertex(i, -10000, 0);
+                            }
+                            gl.End();
+
+                            gl.LineWidth(3);
+                            gl.Begin(OpenGL.GL_LINE_STRIP);
+                            gl.Color(1.0f, 0.2f, 0.2f); // MaxDepth
+                            for (int i = 0; i < ptCnt; i++)
+                            {
                                 gl.Vertex(i, ((((ct.ptList[i].altitude - vehicle.maxDitchCut) - centerY) * altitudeWindowGain) + centerY), 0);
-                        }
-                        gl.End();
+                            }
+                            gl.End();
+                            break;
+
+                        case gradeMode.tile:
+                            //draw the ground profile
+                            gl.Color(0.22f, 0.22f, 0.22f);
+                            gl.Begin(OpenGL.GL_TRIANGLE_STRIP);
+                            for (int i = 0; i < ptCnt; i++)
+                            {
+                                gl.Vertex(i,
+                                  (((ct.ptList[i].altitude - centerY) * altitudeWindowGain) + centerY), 0);
+                                gl.Vertex(i, -10000, 0);
+                            }
+                            gl.End();
+
+                            gl.LineWidth(3);
+                            gl.Begin(OpenGL.GL_LINE_STRIP);
+
+                            gl.Color(1.0f, 0.2f, 0.2f); // MaxDepth 
+                            for (int i = 0; i < ptCnt; i++)
+                            {
+                                gl.Vertex(i, ((((ct.ptList[i].altitude - vehicle.maxTileCut) - centerY) * altitudeWindowGain) + centerY), 0);
+                            }
+                            gl.End();
+
+                            gl.LineWidth(3);
+                            gl.Begin(OpenGL.GL_LINE_STRIP);
+                            gl.Color(0.88f, 0.83f, 0.15f);  // MinCover
+                            for (int i = 0; i < ptCnt; i++)
+                            {
+                                gl.Vertex(i, ((((ct.ptList[i].altitude - vehicle.minTileCover) - centerY) * altitudeWindowGain) + centerY), 0);
+                            }
+                            gl.End();
+                            break;
+                       
+                        default:
+
+                            break;
 
                     }
-                    if (isPipeModeOn)
-                    {
-                        //draw the ground profile
-                        gl.Color(0.22f, 0.22f, 0.22f);
-                        gl.Begin(OpenGL.GL_TRIANGLE_STRIP);
-                        for (int i = 0; i < ptCnt; i++)
-                        {
-                            gl.Vertex(i,
-                              (((ct.ptList[i].altitude - centerY) * altitudeWindowGain) + centerY), 0);
-                            gl.Vertex(i, -10000, 0);
-                        }
-                        gl.End();
-
-                        gl.LineWidth(3);
-                        gl.Begin(OpenGL.GL_LINE_STRIP);                
-                                                
-                        gl.Color(1.0f, 0.2f, 0.2f); // MaxDepth 
-                        for (int i = 0; i < ptCnt; i++)
-                        {
-                            gl.Vertex(i, ((((ct.ptList[i].altitude - vehicle.maxTileCut) - centerY) * altitudeWindowGain) + centerY), 0);
-                        }
-                        gl.End();
-
-                        gl.LineWidth(3);
-                        gl.Begin(OpenGL.GL_LINE_STRIP);
-                        gl.Color(0.88f, 0.83f, 0.15f);  // MinCover
-                        for (int i = 0; i < ptCnt; i++)
-                        {
-                            gl.Vertex(i, ((((ct.ptList[i].altitude - vehicle.minTileCover) - centerY) * altitudeWindowGain) + centerY), 0);
-                        }
-                        gl.End();
-                    }                    
+                                        
 
                     //cut line drawn in full
                     int cutPts = ct.ptList.Count;
                     if (cutPts > 0)
                     {
+                        gl.LineWidth(2);
                         gl.Color(0.35f, 0.92f, 0.92f);
                         gl.Begin(OpenGL.GL_LINE_STRIP);
                         for (int i = 0; i < ptCnt; i++)
@@ -596,6 +606,17 @@ namespace OpenGrade
                             if (ct.ptList[i].cutAltitude > 0)
                                 gl.Vertex(i, (((ct.ptList[i].cutAltitude - centerY) * altitudeWindowGain) + centerY), 0);
                         }
+                        gl.End();
+                    }
+
+                    // proposed Smooting line
+                    if (autoCnt > 0)
+                    {
+
+                        gl.Color(0.25f, 0.75f, 0.92f);
+                        gl.Begin(OpenGL.GL_LINE_STRIP);
+                        for (int i = 0; i < autoCnt; i++)
+                            gl.Vertex(ct.autoList[i].easting, (((ct.autoList[i].northing - centerY) * altitudeWindowGain) + centerY), 0);
                         gl.End();
                     }
 
@@ -612,163 +633,17 @@ namespace OpenGrade
                     gl.Vertex(1000, (((screen2FieldPt.northing - centerY) * altitudeWindowGain) + centerY), 0);
                     gl.End();
                     gl.Disable(OpenGL.GL_LINE_STIPPLE);
+
+
+
                     /////  Black Ace Industries
-
-
-                    // record current pass 
-                    if (ct.ptList[closestPoint].cutAltitude > 0)
-                    {
-                        ct.ptList[closestPoint].currentPassAltitude = pn.altitude;
-                        ct.isOnPass = true;
-                        ct.isDoneCopy = false;
-                    }
-                    else
-                    {
-                        ct.isOnPass = false;
-                    }
-
-                    // light up isOnPass Indicator
-                    if (ct.isOnPass)
-                    {
-                        stripOnlineAutoSteer.Value = 100;
-                        
-                        ct.isContourBtnOn = true;
-                    }
-                    else
-                    {
-                        stripOnlineAutoSteer.Value = 0;
-                        
-                        ct.isContourBtnOn = false;
-
-                    }
-
-
-                    //draw current Antenna path as it is driven on ALL MODES               
-                    gl.LineWidth(3);
-                    gl.Begin(OpenGL.GL_LINE_STRIP);
-
-                    gl.Color(1.0f, 0.62f, 0.18f);  // orange
-                    for (int i = 0; i < ptCnt; i++)
-                    {
-                        if (ct.ptList[i].cutAltitude > 0 & ct.ptList[i].currentPassAltitude > 0)
-                            gl.Vertex(i, (((ct.ptList[i].currentPassAltitude - centerY) * altitudeWindowGain) + centerY), 0);
-                    }
-                    gl.End();
-
+                    ///
 
                     
 
-                    // if surface mode is ON
-                    if (isSurfaceModeOn)
-                    {   
-                        lblMaxDepth.Visible = false;
-                        sqrMaxDepth.Visible = false;                        
-                        lblMinCover.Visible = false;
-                        sqrMinCover.Visible = false;                    
-                        lblCutLine.Visible = true ;
-                        sqrCutLine1.Visible = true ;
-                        lblDitchCutLine.Visible = false ;
-                        sqrDitchCutLine.Visible = false ;
+                    if (Math.Abs(ct.distanceFromCurrentLine) < (vehicle.plowHeight * 100000.0)) {                                      
+                    //if (minDist < 200){// record current pass 
 
-                        gl.LineWidth(3);
-                        gl.Begin(OpenGL.GL_LINE_STRIP);
-
-                        gl.Color(0.2f, 0.1f, 0.75f);  //Blue
-                        for (int i = 0; i < ptCnt; i++)
-                        {
-                            if (ct.ptList[i].cutAltitude > 0 & ct.ptList[i].lastPassAltitude > 0)
-                                gl.Vertex(i, (((ct.ptList[i].lastPassAltitude - centerY) * altitudeWindowGain) + centerY), 0);
-                        }
-                        gl.End();
-                    }
-
-
-                    // if ditch mode is ON
-                    if (isDitchModeOn)
-                    {
-                        sqrMaxDepth.Visible = true;
-                        sqrMinCover.Visible = false;
-                        lblMaxDepth.Visible = true;
-                        lblMinCover.Visible = false;
-                        lblCutLine.Visible = true;
-                        sqrCutLine1.Visible = true;
-                        lblDitchCutLine.Visible = true;
-                        sqrDitchCutLine.Visible = true;
-
-                        gl.LineWidth(5);
-                        gl.Begin(OpenGL.GL_LINE_STRIP);
-
-                        gl.Color(0.46f, 0.60f, 0.20f);// Green 
-                        for (int i = 0; i < ptCnt; i++)
-                        {
-                            if (ct.ptList[i].cutAltitude > 0 & ct.ptList[i].currentPassAltitude > 0)
-                                gl.Vertex(i, ((((ct.ptList[i].currentPassAltitude - vehicle.maxDitchCut) - centerY) * altitudeWindowGain) + centerY), 0);
-                        }
-                        gl.End();
-
-                    }
-
-                    // if in pipe mode is ON
-                    if (isPipeModeOn)
-                    {
-                        sqrMaxDepth.Visible = true;
-                        sqrMinCover.Visible = true;
-                        lblMaxDepth.Visible = true;
-                        lblMinCover.Visible = true;
-                        lblCutLine.Visible = true;
-                        sqrCutLine1.Visible = true;
-                        lblDitchCutLine.Visible = true;
-                        sqrDitchCutLine.Visible = true;
-
-                        gl.LineWidth(5);
-                        gl.Begin(OpenGL.GL_LINE_STRIP);
-
-                        gl.Color(0.46f, 0.60f, 0.20f);// Green 
-                        for (int i = 0; i < ptCnt; i++)
-                        {
-                            if (ct.ptList[i].cutAltitude > 0 & ct.ptList[i].currentPassAltitude > 0)
-                                gl.Vertex(i, ((((ct.ptList[i].currentPassAltitude - vehicle.plowHeight) - centerY) * altitudeWindowGain) + centerY), 0);
-                        }
-                        gl.End();
-
-                    }
-
-                    UpdateLastPass(ptCnt);
-                    
-                    
-
-                    //draw the guide line being built
-                    if (ct.isDrawingRefLine)
-                    {
-                        gl.LineWidth(2);
-                        gl.Color(0.15f, 0.950f, 0.150f); // darking green while in process of drawing
-                        int cutCnt = ct.drawList.Count;
-                        if (cutCnt > 0)
-                        {
-                            gl.Begin(OpenGL.GL_LINE_STRIP);
-                            for (int i = 0; i < cutCnt; i++)
-                                gl.Vertex(ct.drawList[i].easting, (((ct.drawList[i].northing - centerY) * altitudeWindowGain) + centerY), 0);
-                            gl.End();
-
-                            if (slopeDraw < -vehicle.minSlope) gl.Color(0.25f, 0.970f, 0.350f); // lighter green when slope is clicked 
-                            else gl.Color(0.915f, 0.0f, 0.970f); // purple when above slope line
-                            gl.Begin(OpenGL.GL_LINES);
-                            //for (int i = 0; i < cutCnt; i++)
-                            gl.Vertex(ct.drawList[cutCnt - 1].easting, (((ct.drawList[cutCnt - 1].northing - centerY) * altitudeWindowGain) + centerY), 0);
-                            gl.Vertex(screen2FieldPt.easting, (((screen2FieldPt.northing - centerY) * altitudeWindowGain) + centerY), 0);
-                            gl.End();
-
-                            gl.Color(1.0f, 1.0f, 0.0f); // yellow
-                            gl.PointSize(4);
-                            gl.Begin(OpenGL.GL_POINTS);
-                            for (int i = 0; i < cutCnt; i++)
-                                gl.Vertex(ct.drawList[i].easting, (((ct.drawList[i].northing - centerY) * altitudeWindowGain) + centerY), 0);
-                            gl.End();
-                        }
-                    }
-
-                    if (minDist < 500)
-                    {
                         //draw the actual elevation lines and blade
                         gl.LineWidth(8);
                         gl.Begin(OpenGL.GL_LINES);
@@ -804,7 +679,7 @@ namespace OpenGrade
 
                             //AutoCut Active
                             if (isAutoCutOn)
-                            {                                
+                            {
                                 if (distToTarget < 0)//  && cutDepth < -5
                                 {
                                     cutDelta = distToTarget;
@@ -813,7 +688,7 @@ namespace OpenGrade
                                 {
                                     cutDelta = distFromLastPass - autoCutDepth;
                                 }
-                                
+
                             }
                             else
                             {
@@ -826,11 +701,170 @@ namespace OpenGrade
                         //AutoShore Active
                         if (isAutoShoreOn)
                         {
-                            double x = (Math.Tan(glm.toRadians(vehicle.minShoreSlope)) * ct.distanceFromCurrentLine);                            
+                            double x = (Math.Tan(glm.toRadians(vehicle.minShoreSlope)) * ct.distanceFromCurrentLine);
                             cutDelta += x;
                         }
+
+
+                        if (ct.ptList[closestPoint].cutAltitude > 0)
+                        {
+                            ct.ptList[closestPoint].currentPassAltitude = pn.altitude;
+                            ct.isOnPass = true;
+                            ct.isDoneCopy = false;
+                        }
+                        else
+                        {
+                            ct.isOnPass = false;
+                        }
+
+                        // light up isOnPass Indicator
+                        if (ct.isOnPass)
+                        {
+                            stripOnlineAutoSteer.Value = 100;
                         
+                            ct.isContourBtnOn = true;
+                        }
+                        else
+                        {
+                            stripOnlineAutoSteer.Value = 0;
+                        
+                            ct.isContourBtnOn = false;
+
+                        }
+
+
+                        //draw current Antenna path as it is driven on ALL MODES
+                        //
+                    
+                        gl.LineWidth(3);
+                        gl.Begin(OpenGL.GL_LINE_STRIP);
+
+                        gl.Color(1.0f, 0.62f, 0.18f);  // orange
+                        for (int i = 0; i < ptCnt; i++)
+                        {
+                            if (ct.ptList[i].cutAltitude > 0 & ct.ptList[i].currentPassAltitude > 0)
+                                gl.Vertex(i, (((ct.ptList[i].currentPassAltitude - centerY) * altitudeWindowGain) + centerY), 0);
+                        }
+                        gl.End();
+
                     }
+
+
+                    switch (curMode)
+                    {
+                        case gradeMode.surface:
+                            
+                            lblMaxDepth.Visible = false;
+                            sqrMaxDepth.Visible = false;
+                            lblMinCover.Visible = false;
+                            sqrMinCover.Visible = false;
+                            lblCutLine.Visible = true;
+                            sqrCutLine1.Visible = true;
+                            lblDitchCutLine.Visible = false;
+                            sqrDitchCutLine.Visible = false;
+
+                            gl.LineWidth(3);
+                            gl.Begin(OpenGL.GL_LINE_STRIP);
+
+                            gl.Color(0.2f, 0.1f, 0.75f);  //Blue
+                            for (int i = 0; i < ptCnt; i++)
+                            {
+                                if (ct.ptList[i].cutAltitude > 0 & ct.ptList[i].lastPassAltitude > 0)
+                                    gl.Vertex(i, (((ct.ptList[i].lastPassAltitude - centerY) * altitudeWindowGain) + centerY), 0);
+                            }
+                            gl.End();
+                            
+                            break;
+
+                        case gradeMode.ditch:
+                            sqrMaxDepth.Visible = true;
+                            sqrMinCover.Visible = false;
+                            lblMaxDepth.Visible = true;
+                            lblMinCover.Visible = false;
+                            lblCutLine.Visible = true;
+                            sqrCutLine1.Visible = true;
+                            lblDitchCutLine.Visible = true;
+                            sqrDitchCutLine.Visible = true;
+
+                            gl.LineWidth(5);
+                            gl.Begin(OpenGL.GL_LINE_STRIP);
+
+                            gl.Color(0.46f, 0.60f, 0.20f);// Green 
+                            for (int i = 0; i < ptCnt; i++)
+                            {
+                                if (ct.ptList[i].cutAltitude > 0 & ct.ptList[i].currentPassAltitude > 0)
+                                    gl.Vertex(i, ((((ct.ptList[i].currentPassAltitude - vehicle.maxDitchCut) - centerY) * altitudeWindowGain) + centerY), 0);
+                            }
+                            gl.End();
+
+                            break;
+
+                        case gradeMode.tile:
+                            sqrMaxDepth.Visible = true;
+                            sqrMinCover.Visible = true;
+                            lblMaxDepth.Visible = true;
+                            lblMinCover.Visible = true;
+                            lblCutLine.Visible = true;
+                            sqrCutLine1.Visible = true;
+                            lblDitchCutLine.Visible = true;
+                            sqrDitchCutLine.Visible = true;
+
+                            gl.LineWidth(5);
+                            gl.Begin(OpenGL.GL_LINE_STRIP);
+
+                            gl.Color(0.46f, 0.60f, 0.20f);// Green 
+                            for (int i = 0; i < ptCnt; i++)
+                            {
+                                if (ct.ptList[i].cutAltitude > 0 & ct.ptList[i].currentPassAltitude > 0)
+                                    gl.Vertex(i, ((((ct.ptList[i].currentPassAltitude) - centerY) * altitudeWindowGain) + centerY), 0);
+                            }
+                            gl.End();
+
+                            break;
+
+                        default:
+
+                            break;
+                    }
+
+                    UpdateLastPass(ptCnt);                    
+
+                    //draw the guide line being built
+                    if (ct.isDrawingRefLine)
+                    {
+                        gl.LineWidth(2);
+                        gl.Color(0.15f, 0.950f, 0.150f); // darking green while in process of drawing
+                        int cutCnt = ct.drawList.Count;
+                        
+                        
+                        if (cutCnt > 0)
+                        {
+                            gl.Begin(OpenGL.GL_LINE_STRIP);
+                            for (int i = 0; i < cutCnt; i++)
+                                gl.Vertex(ct.drawList[i].easting, (((ct.drawList[i].northing - centerY) * altitudeWindowGain) + centerY), 0);
+                            gl.End();
+
+                            if (slopeDraw < -vehicle.minSlope) gl.Color(0.25f, 0.970f, 0.350f); // lighter green when slope is clicked 
+                            else gl.Color(0.915f, 0.0f, 0.970f); // purple when above slope line
+
+
+                            gl.Begin(OpenGL.GL_LINES);
+                            //for (int i = 0; i < cutCnt; i++)
+                            gl.Vertex(ct.drawList[cutCnt - 1].easting, (((ct.drawList[cutCnt - 1].northing - centerY) * altitudeWindowGain) + centerY), 0);
+
+                            gl.Vertex(screen2FieldPt.easting, (((screen2FieldPt.northing - centerY) * altitudeWindowGain) + centerY), 0);
+
+                            gl.End();
+
+                            gl.Color(1.0f, 1.0f, 0.0f); // yellow
+                            gl.PointSize(4);
+                            gl.Begin(OpenGL.GL_POINTS);
+                            for (int i = 0; i < cutCnt; i++)
+                                gl.Vertex(ct.drawList[i].easting, (((ct.drawList[i].northing - centerY) * altitudeWindowGain) + centerY), 0);
+                            gl.End();
+                        }
+                    }
+
                 }
                
 
@@ -946,266 +980,10 @@ namespace OpenGrade
                 //is first point
                 else
                 {
+                    
                     ct.drawList.Add(plotPt);
                 }
             }
-        }
-
-
-
-        /// <summary>
-        /// Black Ace Industries Auto Drain 
-        /// </summary>
-        
-        public void AutoDrain()
-        {
-
-            vec2 temp = new vec2();
-                        
-            double distFromLastPlot = 0;
-            int drawPts;
-            int ptCnt = ct.ptList.Count;
-            double minDeltaHt = 0;
-            double angle = -vehicle.minSlope * 180;
-            int startPt = 0;
-            int endPt = -1;
-            int lowestPt = 0;
-            int upCnt = 0;
-            bool startFound = false;
-            //int maxCnt = 6;
-            //int MaxSearch = 30;
-
-            ct.drawList.Clear();
-
-            if (true)  // Add if Find First low Later
-            {
-                for (int k = 1; k < ptCnt; k++)
-                {
-
-                    if (!startFound)
-                    {
-                        if (ct.ptList[k].altitude <= ct.ptList[k - 1].altitude)
-                        {
-                            lowestPt = k;
-                        }
-                        else
-                        {
-                            upCnt++;
-                        }
-
-                        if (upCnt == 2)
-                        {
-                            startPt = lowestPt;                            
-                            startFound = true;
-                            break;
-                        }
-                    }
-
-                    
-                    if (ct.ptList[k].altitude <= ct.ptList[k - 1].altitude)
-                    {
-                        lowestPt = k;
-                    }
-                }
-                endPt = lowestPt;
-            }
-            else {
-                startPt = 5;
-                lowestPt = ptCnt - 5;
-            }
-
-            
-            
-            if (isSurfaceModeOn)
-            {
-                for (int i = startPt; i < ptCnt; i++)
-                {
-                    // check to see if drawlist has any points 
-                    drawPts = ct.drawList.Count;       
-                        
-                    if (drawPts > 0)
-                    {
-                        //calculate the distance from point i to last tempPt
-                        for (int h = (int)ct.drawList[drawPts -1].easting; h < i; h++)  // calculate distance from last point if first point is set
-                        {
-                            distFromLastPlot += ct.ptList[h].distance;  // add distance all distances from lastPt to hPt 
-                        }
-                    }
-                    else
-                    {
-                        // add first point
-                        temp.easting = i;   // (double)ct.ptList[i].easting;                            
-                        temp.northing = ((double)ct.ptList[i].altitude);
-                        ct.drawList.Add(temp);
-                        drawPts = ct.drawList.Count;                                                        
-                    }
-                        
-                    minDeltaHt = (Math.Tan((angle * (Math.PI / 180))) * distFromLastPlot);     // distFromLastPlot                      
-                        
-                    temp.easting = i;
-                    temp.northing = ((double)ct.ptList[i].altitude);                                 
-                                                
-                    if (ct.ptList[i].altitude < ct.drawList[drawPts - 1].northing + minDeltaHt) 
-                    {
-                        ct.drawList.Add(temp);                           
-                    }
-                    distFromLastPlot = 0;
-                    //endPt = drawPts - 1;
-                }                    
-                    
-            }
-
-            if (isDitchModeOn)
-            {
-                for (int i = startPt; i < ptCnt; i++)
-                {
-                    // check to see if drawlist has any points 
-                    drawPts = ct.drawList.Count;
-
-                    if (drawPts > 0)
-                    {
-                        //calculate the distance from point i to last tempPt
-                        for (int h = (int)ct.drawList[drawPts - 1].easting; h < i; h++)  // calculate distance from last point if first point is set
-                        {
-                            distFromLastPlot += ct.ptList[h].distance;  // add distance all distances from lastPt to hPt 
-                        }
-                        
-                    }
-                    else
-                    {
-                        // add first point
-                        temp.easting = i;   // (double)ct.ptList[i].easting;                            
-                        temp.northing = ((double)ct.ptList[i].altitude);
-                        ct.drawList.Add(temp);
-                        drawPts = ct.drawList.Count;
-
-                    }
-
-                    minDeltaHt = (Math.Tan((angle * (Math.PI / 180))) * distFromLastPlot);     // distFromLastPlot                      
-                    
-                    if (minDeltaHt != 0)
-                    {
-                        temp.easting = i;  // proposed point number
-                        temp.northing = ((double)ct.ptList[i].altitude);  // proposed altitude
-                    }                    
-                    
-                    if (temp.northing <= (ct.drawList[drawPts - 1].northing + minDeltaHt))
-                    {
-                        if (i != startPt || i != endPt)
-                        {
-                            temp.northing = temp.northing - vehicle.minDitchCut;
-                            ct.drawList.Add(temp);
-                        }
-                        else
-                        {
-                            ct.drawList.Add(temp);
-                        }                                                
-                    }
-    
-                    distFromLastPlot = 0;
-                    endPt = i;
-                }
-                
-            }
-
-            if (isPipeModeOn)
-            {
-                for (int i = startPt; i < ptCnt; i++)
-                {
-                    // check to see if drawlist has any points 
-                    drawPts = ct.drawList.Count;
-
-                    if (drawPts > 0)
-                    {
-                        //calculate the distance from point i to last tempPt
-                        for (int h = (int)ct.drawList[drawPts - 1].easting; h < i; h++)  // calculate distance from last point if first point is set
-                        {
-                            distFromLastPlot += ct.ptList[h].distance;  // add distance all distances from lastPt to hPt 
-                        }                        
-                    }
-                    else
-                    {
-                        // add first point
-                        temp.easting = i;   // (double)ct.ptList[i].easting;                            
-                        temp.northing = ((double)ct.ptList[i].altitude) - vehicle.minTileCover;
-                        
-                        ct.drawList.Add(temp);
-                        drawPts = ct.drawList.Count;
-                    }
-                    //calculate min Delta
-                    minDeltaHt = (Math.Tan((angle * (Math.PI / 180))) * distFromLastPlot);     // distFromLastPlot        
-                        
-                    // set temp point and altitude
-                    temp.easting = i;
-                    temp.northing = ((double)ct.ptList[i].altitude) - vehicle.minTileCover;
-
-
-                    if (temp.northing <= (ct.drawList[drawPts - 1].northing + minDeltaHt))
-                    {
-                        if (i != startPt || i != endPt)
-                        {
-                            //temp.northing = temp.northing ;
-                            ct.drawList.Add(temp);
-                        }
-                        else
-                        {
-                            //temp.northing = temp.northing - vehicle.minTileCover;
-                            ct.drawList.Add(temp);
-                        }
-                    }
-
-                    distFromLastPlot = 0;
-                    endPt = i;
-                }
-            }
-
-            
-        }
-
-        private bool CheckMaxCut()
-        {
-            int ptCnt = ct.ptList.Count;
-            bool isOverMax =  false;
-            
-            if (isDitchModeOn)
-            {
-                for (int i = 0; i < ptCnt - 1; i++)
-                {
-                    if (ct.ptList[i].cutAltitude < (ct.ptList[i].altitude - vehicle.maxDitchCut))//
-                    {   
-                        string message = "Cut Plane exceeds maximum cut depth \n Increase Max Ditch Cut or Re-survey";
-                        string title = "Maxiumum Exceeded";
-                        MessageBox.Show(message, title);
-                        isOverMax = true;                    
-                        break;
-                    }
-                }
-            }
-            else if (isPipeModeOn)
-            {   
-                for (int i = 0; i < ptCnt - 1; i++)
-                {
-                    if (ct.ptList[i].cutAltitude < (ct.ptList[i].altitude - vehicle.maxTileCut))
-                    {
-                        string message = "Cut Plane exceeds maximum cut depth \n Increase Max Tile Cut or Re-survey";
-                        string title = "Maxiumum Exceeded";
-                        MessageBox.Show(message, title);
-                        isOverMax = true;                        
-                        break;                        
-                    }
-                    else if(ct.ptList[i].cutAltitude > (ct.ptList[i].altitude - vehicle.minTileCover))
-                    {
-                        string message = "Cut Plane exceeds minimum cover depth \n Increase min cover Cut or Re-survey";
-                        string title = "Minumum Exceeded";
-                        MessageBox.Show(message, title);
-                        isOverMax = true;
-                        break;
-
-                    } 
-                }
-            }
-            
-            return isOverMax;
         }
 
         double maxFieldX, maxFieldY, minFieldX, minFieldY, centerX, centerY, cameraDistanceZ;
@@ -1250,23 +1028,29 @@ namespace OpenGrade
                 if (cameraDistanceZ < 10) cameraDistanceZ = 10;
                 if (cameraDistanceZ > 6000) cameraDistanceZ = 6000;
 
-                // Black Ace Industries
-                if (isSurfaceModeOn)
-                {
-                    maxFieldY = (maxFieldY + 1); // vehicle.viewDistAboveGnd
-                    minFieldY = (minFieldY - 1);    //  vehicle.viewDistUnderGnd
-                }
-                else if (isDitchModeOn)
-                {
-                    maxFieldY = (maxFieldY + 1);   
-                    minFieldY = (minFieldY - vehicle.maxDitchCut);   
-                }
-                else if (isPipeModeOn)
-                {
-                    maxFieldY = (maxFieldY + 1);   
-                    minFieldY = (minFieldY - vehicle.maxTileCut);
-                }
 
+                // Black Ace Industries
+                switch (curMode)
+                {
+                    case gradeMode.surface:
+                        maxFieldY = (maxFieldY + 1); // vehicle.viewDistAboveGnd
+                        minFieldY = (minFieldY - 1);    //  vehicle.viewDistUnderGnd
+                        break;
+
+                    case gradeMode.ditch:
+                        maxFieldY = (maxFieldY + 1);
+                        minFieldY = (minFieldY - vehicle.maxDitchCut);
+                        break;
+
+                    case gradeMode.tile:
+                        maxFieldY = (maxFieldY + 1);
+                        minFieldY = (minFieldY - vehicle.maxTileCut);
+                        break;
+
+                    default:
+
+                        break;
+                }
 
                 centerX = (maxFieldX + minFieldX) / 2.0;
                 centerY = (maxFieldY + minFieldY) / 2.0;                

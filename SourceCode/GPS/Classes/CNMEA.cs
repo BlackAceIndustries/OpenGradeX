@@ -131,8 +131,18 @@ namespace OpenGrade
                 words = nextNMEASentence.Split(',');
                 if (words.Length < 9) return;
 
-                if (words[0] == "$GPGGA" | words[0] == "$GNGGA") ParseGGA();
-                if (words[0] == "$GPVTG" | words[0] == "$GNVTG") ParseVTG();
+                if (words[0] == "$GPGGA" | words[0] == "$GNGGA")
+                {
+                    ParseGGA();
+                    //mf.TimedMessageBox(100, "GGA", "n5");
+
+                }
+                if (words[0] == "$GPVTG" | words[0] == "$GNVTG")
+                {
+
+                    ParseVTG();
+                    //mf.TimedMessageBox(100, "VTG", "n5");
+                }
             }// while still data
 
 
@@ -221,16 +231,16 @@ namespace OpenGrade
                 altitude -= mf.vehicle.antennaHeight;
 
                 //age of differential
-                double.TryParse(words[12], NumberStyles.Float, CultureInfo.InvariantCulture, out ageDiff);
+                bool isNill =  double.TryParse(words[13], NumberStyles.Float, CultureInfo.InvariantCulture, out ageDiff);
 
-                updatedGGA = true;
-                mf.recvCounter = 0;
-                
-                if (fixQuality != 4 && lastFixQuality == 4)
+                if (!isNill)
                 {
-                    mf.TimedMessageBox(2000, "RTK FIX LOST", "Check Correction Data");
+                    
                 }
 
+                //mf.TimedMessageBox(2000, "VTG", speed.ToString("n3"));
+                updatedGGA = true;
+                mf.recvCounter = 0;
                 lastFixQuality = fixQuality;
 
             }
@@ -239,6 +249,7 @@ namespace OpenGrade
 
         private void ParseVTG()
         {
+            
             //$GPVTG,054.7,T,034.4,M,005.5,N,010.2,K*48
             //   0     1   2   3   4   5   6   7   8  9 
             //   
@@ -258,15 +269,17 @@ namespace OpenGrade
            *    9- 48          Checksum
             */
 
-            //is the sentence GGA
-            if (!String.IsNullOrEmpty(words[1]) & !String.IsNullOrEmpty(words[7]))
+            //is the sentence VTG
+            if (!String.IsNullOrEmpty(words[1]) || !String.IsNullOrEmpty(words[7]))//   
             {
+                //True heading
+                double.TryParse(words[2], NumberStyles.Float, CultureInfo.InvariantCulture, out headingTrue);
+                
                 //kph for speed - kmh read
                 double.TryParse(words[7], NumberStyles.Float, CultureInfo.InvariantCulture, out speed);
                 speed = Math.Round(speed, 2);
 
-                //True heading
-                double.TryParse(words[1], NumberStyles.Float, CultureInfo.InvariantCulture, out headingTrue);
+                
 
                 //a valid VTG so set the flag
                 updatedVTG = true;

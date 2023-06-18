@@ -31,6 +31,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSettings));
             this.tabOpenGrade = new System.Windows.Forms.TabControl();
             this.tabVehicle = new System.Windows.Forms.TabPage();
+            this.label14 = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label11 = new System.Windows.Forms.Label();
+            this.nudSurveyHeight = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.nudPlowHeight = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
@@ -78,8 +82,11 @@
             this.lblInchesCm = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.bntOK = new System.Windows.Forms.Button();
+            this.label16 = new System.Windows.Forms.Label();
             this.tabOpenGrade.SuspendLayout();
             this.tabVehicle.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSurveyHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPlowHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudToolWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudAntennaHeight)).BeginInit();
@@ -117,6 +124,11 @@
             // 
             this.tabVehicle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             resources.ApplyResources(this.tabVehicle, "tabVehicle");
+            this.tabVehicle.Controls.Add(this.label16);
+            this.tabVehicle.Controls.Add(this.label14);
+            this.tabVehicle.Controls.Add(this.numericUpDown1);
+            this.tabVehicle.Controls.Add(this.label11);
+            this.tabVehicle.Controls.Add(this.nudSurveyHeight);
             this.tabVehicle.Controls.Add(this.label4);
             this.tabVehicle.Controls.Add(this.nudPlowHeight);
             this.tabVehicle.Controls.Add(this.label3);
@@ -133,11 +145,62 @@
             this.tabVehicle.Name = "tabVehicle";
             this.tabVehicle.UseVisualStyleBackColor = true;
             // 
+            // label14
+            // 
+            resources.ApplyResources(this.label14, "label14");
+            this.label14.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label14.Name = "label14";
+            this.label14.Click += new System.EventHandler(this.label14_Click);
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.BackColor = System.Drawing.SystemColors.MenuText;
+            this.numericUpDown1.DecimalPlaces = 1;
+            resources.ApplyResources(this.numericUpDown1, "numericUpDown1");
+            this.numericUpDown1.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Value = new decimal(new int[] {
+            15,
+            0,
+            0,
+            65536});
+            // 
+            // label11
+            // 
+            resources.ApplyResources(this.label11, "label11");
+            this.label11.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label11.Name = "label11";
+            this.label11.Click += new System.EventHandler(this.label11_Click);
+            // 
+            // nudSurveyHeight
+            // 
+            this.nudSurveyHeight.BackColor = System.Drawing.SystemColors.MenuText;
+            resources.ApplyResources(this.nudSurveyHeight, "nudSurveyHeight");
+            this.nudSurveyHeight.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.nudSurveyHeight.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.nudSurveyHeight.Name = "nudSurveyHeight";
+            this.nudSurveyHeight.Value = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.nudSurveyHeight.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged_1);
+            // 
             // label4
             // 
             resources.ApplyResources(this.label4, "label4");
             this.label4.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.label4.Name = "label4";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // nudPlowHeight
             // 
@@ -145,16 +208,17 @@
             resources.ApplyResources(this.nudPlowHeight, "nudPlowHeight");
             this.nudPlowHeight.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.nudPlowHeight.Maximum = new decimal(new int[] {
-            9999,
+            99999,
             0,
             0,
             0});
             this.nudPlowHeight.Name = "nudPlowHeight";
             this.nudPlowHeight.Value = new decimal(new int[] {
-            7,
+            100,
             0,
             0,
             0});
+            this.nudPlowHeight.ValueChanged += new System.EventHandler(this.nudPlowHeight_ValueChanged_1);
             // 
             // label3
             // 
@@ -638,6 +702,13 @@
             this.bntOK.UseVisualStyleBackColor = false;
             this.bntOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
+            // label16
+            // 
+            resources.ApplyResources(this.label16, "label16");
+            this.label16.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label16.Name = "label16";
+            this.label16.Click += new System.EventHandler(this.label16_Click);
+            // 
             // FormSettings
             // 
             resources.ApplyResources(this, "$this");
@@ -657,6 +728,8 @@
             this.tabOpenGrade.ResumeLayout(false);
             this.tabVehicle.ResumeLayout(false);
             this.tabVehicle.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSurveyHeight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPlowHeight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudToolWidth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudAntennaHeight)).EndInit();
@@ -739,5 +812,10 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.NumericUpDown nudSurveyHeight;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Label label16;
     }
 }

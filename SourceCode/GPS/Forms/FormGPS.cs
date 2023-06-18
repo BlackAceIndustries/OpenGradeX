@@ -65,8 +65,15 @@ namespace OpenGrade
         public bool isPureDisplayOn = true, isSkyOn = true, isBigAltitudeOn = false;
 
         //bool for whether or not a job is active
-        public bool isJobStarted = false, isAreaOnRight = true, isGradeControlBtnOn = false, isSurfaceModeOn = true, isPipeModeOn = false,
-            isDitchModeOn = false, isLevelOn = false, isFirstPtSet = false, isCutSaved = false;
+        public bool isJobStarted = false, isAreaOnRight = true, isGradeControlBtnOn = false,  isLevelOn = false, isFirstPtSet = false, isCutSaved = false;
+
+        // isSurfaceModeOn = true, isPipeModeOn = false, isDitchModeOn = false,
+        // 
+        // Grade Modes
+        public enum gradeMode {surface, ditch, tile }
+
+        public gradeMode curMode = gradeMode.surface;
+
 
         // Manual, 3 states possible
         public enum btnStates { Off, Rec, Work }
@@ -1012,12 +1019,14 @@ namespace OpenGrade
 
         private void btnIncCut_Click(object sender, EventArgs e)
         {
-            lblAutoCutDepth.Text = autoCutDepth++.ToString();
+            //lblAutoCutDepth.Text = autoCutDepth++.ToString();
+            rem.IncreaseBladeOffset();
         }
 
         private void btnDecCut_Click(object sender, EventArgs e)
         {
-            lblAutoCutDepth.Text = autoCutDepth--.ToString();
+            //lblAutoCutDepth.Text = autoCutDepth--.ToString();
+            rem.DecreaseBladeOffset();
         }
 
         private void toolStripDropDownBtnFuncs_Click(object sender, EventArgs e)
@@ -1049,7 +1058,7 @@ namespace OpenGrade
 
         private void label5_Click(object sender, EventArgs e)
         {
-
+            rem.ResetBladeOffset();
         }
 
         private void lblBladeOffset_Click(object sender, EventArgs e)
@@ -1059,17 +1068,19 @@ namespace OpenGrade
 
         private void fullscreenToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            if (this.FormBorderStyle == FormBorderStyle.None && this.WindowState != FormWindowState.Normal)
+            if (this.FormBorderStyle == FormBorderStyle.None ) //&& this.WindowState != FormWindowState.Normal
             {
                 this.FormBorderStyle = FormBorderStyle.Sizable;
                 this.WindowState = FormWindowState.Normal;
                 this.Padding = new Padding(5);
+                fullscreenToolStripMenuItem.Checked = false;
             }
             else
             {
                 this.FormBorderStyle = FormBorderStyle.None;
-                this.Padding = new Padding(5);
                 this.WindowState = FormWindowState.Maximized;
+                this.Padding = new Padding(5);                
+                fullscreenToolStripMenuItem.Checked = true; 
 
 
             }
@@ -1151,12 +1162,68 @@ namespace OpenGrade
                 if (f != null)
                 {
                     f.Close();
+
                     f = null;
                 }
                 toolStripMenuItem1.Checked = false;
 
             }
 
+
+        }
+
+        private void label17_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblFixQuality_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblRTKAge_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblRTKAgeDisplay_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblGPSHeading_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblEasting_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblNorthing_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label24_Click(object sender, EventArgs e)
+        {
 
         }
 
@@ -1170,10 +1237,58 @@ namespace OpenGrade
 
         private void btnAutoDrain_Click(object sender, EventArgs e)
         {
-            AutoDrain();
+            ct.AutoDrain();
         }
 
         private void labelDiagnostics_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void smoothLineToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+           
+
+        }
+
+        private void applyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int ptCnt = ct.ptList.Count;
+            for (int k = 0; k < ptCnt; k++)
+            {
+                ct.ptList[k].altitude = ct.autoList[k].northing;
+
+            }
+            ct.autoList.Clear();
+            applyToolStripMenuItem.Enabled = false;
+            applyToolStripMenuItem.BackColor = Color.LightGray;
+
+
+
+        }
+
+        private void verifyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (tStripSmootingCB.SelectedIndex != null)
+            {
+                int choice = tStripSmootingCB.SelectedIndex + 1;
+                ct.SmoothLine(choice);
+            }
+            else
+            {
+                int choice = 1;
+                ct.SmoothLine(choice);
+            }
+
+            applyToolStripMenuItem.Enabled = true;
+            applyToolStripMenuItem.BackColor = Color.Lime;
+
+
+
+        }
+
+
+        private void toolsToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
@@ -1182,12 +1297,10 @@ namespace OpenGrade
         {
 
 
-            if (isSurfaceModeOn)
+            if (curMode == gradeMode.surface)
             {
                 CalculateMinMaxZoom();
-                isSurfaceModeOn = false;
-                isDitchModeOn = true;
-                isPipeModeOn = false;
+                curMode = gradeMode.ditch;                
                 btnSurface.Image = Properties.Resources.ditchBtn;
                 btnAutoShore.Visible = false;
                 btnAutoCut.Visible = false;
@@ -1195,24 +1308,20 @@ namespace OpenGrade
                 isAutoCutOn = false;
                 //GradeControlOutToPort("Ditch Mode Active \n");
             }
-            else if (isDitchModeOn)
+            else if (curMode == gradeMode.ditch)
             {
                 CalculateMinMaxZoom();
-                isSurfaceModeOn = false;
-                isDitchModeOn = false;
-                isPipeModeOn = true;
+                curMode = gradeMode.tile;                
                 btnSurface.Image = Properties.Resources.pipeBtn;
                 btnAutoShore.Visible = false;
                 //GradeControlOutToPort("Pipe Mode Active \n");
                 //light Blue
                 sqrMaxDepth.BackColor = Color.Red; //light Blue Max Depth
             }
-            else if (isPipeModeOn)
+            else if (curMode == gradeMode.tile)
             {
                 CalculateMinMaxZoom();
-                isSurfaceModeOn = true;
-                isDitchModeOn = false;
-                isPipeModeOn = false;
+                curMode = gradeMode.surface;
                 btnSurface.Image = Properties.Resources.surfaceBtn;
                 btnAutoShore.Visible = true;
                 btnAutoCut.Visible = true;
@@ -1247,7 +1356,7 @@ namespace OpenGrade
                 if (isJobStarted)
                 {
                     btnAutoCut.Visible = true;
-                    if (isSurfaceModeOn) btnAutoShore.Visible = true;
+                    if (curMode == gradeMode.surface) btnAutoShore.Visible = true;
 
                 }
                 else
@@ -1271,8 +1380,8 @@ namespace OpenGrade
                 btnAutoCut.Visible = false;
                 btnAutoShore.Visible = false;
 
-                btnIncCut.Visible = false;
-                btnDecCut.Visible = false;
+                //btnIncCut.Visible = false;
+                //btnDecCut.Visible = false;
                 lblAutoCutDepth.Visible = false;
                 lblPassDepth.Visible = false;
 
@@ -1562,8 +1671,8 @@ namespace OpenGrade
 
             btnAutoCut.Visible = false;
             btnAutoShore.Visible = false;
-            btnIncCut.Visible = false;
-            btnDecCut.Visible = false;
+            //btnIncCut.Visible = false;
+            //btnDecCut.Visible = false;
             lblAutoCutDepth.Visible = false;
             lblPassDepth.Visible = false;
 
@@ -1770,6 +1879,13 @@ namespace OpenGrade
             form.Size = new Size(400, 200);
             form.Show();
         }
+
+        //public void TimedMessageBox(int timeout, string s1, string s2, bool timer)
+        //{
+        //    var form = new FormTimedMessage(timeout, s1, s2);
+        //    form.Size = new Size(400, 200);
+        //    form.Show();
+        //}
         //class FormGPS
 
     }

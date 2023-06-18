@@ -4,7 +4,7 @@
   <description asmv2:iconFile="OGX2Icon.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="OpenGradeX" version="1.3.6.0" language="neutral" processorArchitecture="x86" />
+    <assemblyIdentity name="OpenGradeX" version="1.4.3.0" language="neutral" processorArchitecture="x86" />
     <commandLine file="OpenGradeX.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OpenGradeX.exe" size="1500640">
-      <assemblyIdentity name="OpenGradeX" version="1.3.6.0" language="neutral" processorArchitecture="x86" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OpenGradeX.exe" size="1528792">
+      <assemblyIdentity name="OpenGradeX" version="1.4.3.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>UIzg8E1QcU3zzfaw3vZBw51XOQVkeeGM3WPfA4Rv9SA=</dsig:DigestValue>
+        <dsig:DigestValue>uWDDYu2jLJ/5aCR4Ey/ekghkBrM6SDGm8CSBIsPOHLs=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -195,13 +195,13 @@
       <dsig:DigestValue>AqGdcYW7NywLwl42uTmWrWjAQsTH8yXi19U5iaWKpKo=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="OpenGradeX.exe.config" size="21397">
+  <file name="OpenGradeX.exe.config" size="21398">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>GrYpBzxn5iDbVPVL+EAXcu7AxbuNHnj3s1U9jAR3dOg=</dsig:DigestValue>
+      <dsig:DigestValue>ioeMkpXVsICQ8NHUjO9g8VqBFXLQrRfKSem4MKZ/gkM=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

@@ -67,10 +67,10 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
-    <ManifestCertificateThumbprint>DD12827AF45138AEAA9C3E76A4DB08C5E96799D2</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>960063CAA5D1D657DB55CFB190670CE1454125E5</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>OpenGrade_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>OpenGrade_1_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -177,6 +177,12 @@
     </Compile>
     <Compile Include="Forms\FormSaveOrNot.Designer.cs">
       <DependentUpon>FormSaveOrNot.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormSurveyStart.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormSurveyStart.Designer.cs">
+      <DependentUpon>FormSurveyStart.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FormTimedMessage.cs">
       <SubType>Form</SubType>
@@ -325,6 +331,9 @@
     <EmbeddedResource Include="Forms\FormSource.resx">
       <DependentUpon>FormSource.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormSurveyStart.resx">
+      <DependentUpon>FormSurveyStart.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormtimedMessage.resx">
       <DependentUpon>FormTimedMessage.cs</DependentUpon>
     </EmbeddedResource>
@@ -351,6 +360,7 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="OpenGrade_1_TemporaryKey.pfx" />
     <None Include="OpenGrade_TemporaryKey.pfx" />
     <None Include="Properties\Remote.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -395,6 +405,7 @@
     <Content Include="aChangeLog.txt" />
     <None Include="btnImages\Metric.png" />
     <None Include="btnImages\Imperial.png" />
+    <None Include="btnImages\Snap3.png" />
     <Content Include="OGX2Icon.ico" />
     <Content Include="OGXicon.ico" />
     <None Include="btnImages\GradeControlOn1.png" />

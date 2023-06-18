@@ -176,6 +176,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "DRO\'s --- Touch To Zero";
             this.TopMost = true;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormAltSet_FormClosing);
             this.Load += new System.EventHandler(this.FormAltSet_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

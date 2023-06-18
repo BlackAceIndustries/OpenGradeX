@@ -73,6 +73,8 @@ namespace OpenGrade
             skyToolStripMenu.Checked = isSkyOn;
 
             simulatorOnToolStripMenuItem.Checked = Settings.Default.setMenu_isSimulatorOn;
+            
+            
             if (simulatorOnToolStripMenuItem.Checked)
             {
                 panelSimControls.Visible = true;
@@ -82,6 +84,7 @@ namespace OpenGrade
             {
                 panelSimControls.Visible = false;
                 timerSim.Enabled = false;
+
             }
 
             btnDoneDraw.Enabled = false;
@@ -228,6 +231,9 @@ namespace OpenGrade
                
                 case btnStates.Off:
 
+                    var form = new FormSurveyStart(this, 2000, "", "");
+                    form.Show();
+
                     if (ct.ptList.Count > 0 && !isCutSaved && btnSaveCut.Enabled == true)
                     {
                         DialogResult result3 = MessageBox.Show("Do you wish to start a new survey Line? \nThis will erase Your current cut if it has not been saved \n \n Do you wish to Continue?", "Do you wish to start a new survey Line?",
@@ -235,7 +241,7 @@ namespace OpenGrade
                         
                         if (result3 == DialogResult.Yes)
                         {
-                            manualBtnState = btnStates.Rec;
+                            
                             btnManualOffOn.Image = Properties.Resources.SurveyStop1;
                             userDistance = 0;
                             lblCut.Text = "*";
@@ -246,11 +252,12 @@ namespace OpenGrade
                             btnDoneDraw.Enabled = false;
                             btnDeleteLastPoint.Enabled = false;
                             btnStartDraw.Enabled = false;
+
                         }
                     }
                     else
                     {
-                        manualBtnState = btnStates.Rec;
+                        
                         btnManualOffOn.Image = Properties.Resources.SurveyStop1;
                         userDistance = 0;
                         lblCut.Text = "*";
@@ -263,7 +270,7 @@ namespace OpenGrade
                         btnStartDraw.Enabled = false;
 
                     }
-
+                    
                     break;
 
                 case btnStates.Rec:
@@ -325,7 +332,8 @@ namespace OpenGrade
 
         private void btnSnap_Click(object sender, EventArgs e)
         {
-            ABLine.SnapABLine();
+            //ABLine.SnapABLine();
+            ct.snapSurvey();
         }
 
         //panel buttons
@@ -947,14 +955,18 @@ namespace OpenGrade
         private void timerSim_Tick(object sender, EventArgs e)
         {
             //if a GPS is connected disable sim
-            if (antennaModuleTimeout > 50 )  // Need to change this
+            if (antennaModuleTimeout > 10 )  // Need to change this
             {
                 if (isGradeControlBtnOn) sim.DoSimTick(guidanceLineSteerAngle / 10.0);
                 else sim.DoSimTick(sim.steerAngleScrollBar);
             }
             else
             {
-                panelSimControls.Visible = false;   
+                simulatorOnToolStripMenuItem.Checked = false;
+                panelSimControls.Visible = false;
+                timerSim.Enabled = false;
+                timerSim.Enabled = false;
+
             }
         }
         private void tbarStepDistance_Scroll(object sender, EventArgs e)
@@ -1211,6 +1223,31 @@ namespace OpenGrade
                 lblFixQuality.Text = FixQuality;
                 lblFix.Text = FixQuality;
                 
+                if (pn.ageDiff == 0) lblRTKAgeDisplay.Text = "N/A";
+
+                else lblRTKAgeDisplay.Text = AgeDiff;
+
+
+                if (pn.fixQuality != 4 && pn.lastFixQuality  == 4 && isGradeControlBtnOn)
+                {                    
+                    btnGradeControl.PerformClick();
+                }    
+                
+                
+                if (pn.ageDiff > 10)
+                {
+                    lblRTKPopup.Visible = true;
+                    lblRTKPopupTime.Visible = true;
+                    lblRTKPopupTime.Text = AgeDiff;
+                }
+                else
+                {
+                    lblRTKPopup.Visible = false;
+                    lblRTKPopupTime.Visible = false;
+
+                }
+
+                
                 if (FixQuality == "RTK fix") lblFix.BackColor = Color.LimeGreen;
                 else if (FixQuality == "Flt RTK") lblFix.BackColor = Color.Yellow;
                 else lblFix.BackColor = Color.Tomato;       
@@ -1275,8 +1312,8 @@ namespace OpenGrade
                 sqrCutLine.Text = PureSteerAngle;
 
                
-                voltageBar.Value = ((int)(mc.voltage * 100)) + 12;
-                voltageBar2.Value = ((int)(mc.voltage2 * 100)) + 12;
+                voltageBar.Value = ((int)(mc.voltage * 100) +12) ;
+                voltageBar2.Value = ((int)(mc.voltage2 * 100) +12);
 
                 //
                 // Update all DRO's
@@ -1351,6 +1388,7 @@ namespace OpenGrade
                         // Black Ace Industries
                         lblCutDelta.Text = distFromLastPass.ToString("N1");
                         lblCutDelta2.Text = distFromLastPass.ToString("N1");
+                        mc.GradeControlData[mc.gcDeltaDir] = 1;
 
                     }
                     else
@@ -1389,8 +1427,6 @@ namespace OpenGrade
                     pbarCutAbove.Value = 0;
                     pbarCutBelow.Value = 0;
                     mc.GradeControlData[mc.gcDeltaDir] = 3;
-                    
-                    //Output to serial for blade control
                 }
                 else
                 {
@@ -1445,15 +1481,27 @@ namespace OpenGrade
                         }
                         
                     }
-
-
+    
                     lblCutDelta.BackColor = SystemColors.ControlText;
 
-                    if (cutDelta > 0)
+                    if (cutDelta < 0) // Postive Cut Delta
                     {
-                        int val = (int)(cutDelta / barGraphMax * -100);
+                        int val = (int)((cutDelta / barGraphMax) * -100);
                         pbarCutAbove.Value = 0;
                         pbarCutBelow.Value = val;
+                        //pbarCutBelow.Value = 50;
+                    }                    
+                    else if (cutDelta > 0) // Negative Cut Delta
+                    {
+                        int val = (int)((cutDelta / barGraphMax) * 100 );
+                        pbarCutBelow.Value = 0;
+                        pbarCutAbove.Value = val;
+                        //pbarCutAbove.Value = 50;
+                    }
+                    else
+                    {
+                        pbarCutBelow.Value = 0;
+                        pbarCutAbove.Value = 0;
                     }
 
 

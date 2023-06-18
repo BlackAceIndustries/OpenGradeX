@@ -44,9 +44,9 @@ namespace OpenGrade
         private static int antennaPort = 8888; // Antenna Port
         private static int senderPort;
         ///Ip Addresses
-        private static byte[] openGrade = new byte[] { 192, 168, 0, 156 };
-        private static byte[] gradeControl = new byte[] { 192, 168, 0, 255 };
-        private static byte[] antennaModule = new byte[] { 192, 168, 0, 155 };
+        private static byte[] openGrade = new byte[] { 192, 168, 0, 226 };
+        private static byte[] gradeControl = new byte[] { 192, 168, 0, 229 };
+        private static byte[] antennaModule = new byte[] { 192, 168, 0, 225 };
 
         private static IPAddress openGradeIP = new IPAddress(openGrade);   //OpenGradeX Server
         private static IPAddress gradeControlIP = new IPAddress(gradeControl);   // GradeControl Module IP
@@ -69,9 +69,7 @@ namespace OpenGrade
 
         public void SendUDPMessageNTRIP(int header, byte[] byteData)
         {
-            tboxNTRIPBuffer.Text = byteData.Length.ToString();         
-            
-            
+            tboxNTRIPBuffer.Text = byteData.Length.ToString();  
             
             try
             { 
@@ -413,7 +411,9 @@ namespace OpenGrade
                         //mf.mc.atFirmware = words[1];                        
 
                     }
+                    //SendUDPMessage(FormGPS.SETTINGS_HEADER, mf.epGradeControl);
                     break;
+                    
 
                 case WIFI_HEADER:
 

@@ -118,9 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="start" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\btnImages\start.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="AutoSteerOff" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\btnImages\AutoSteerOff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -172,11 +169,11 @@
   <data name="ColorField" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\btnImages\ColorField.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ComPorts" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\btnImages\ComPorts.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="DnArrow321" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\btnImages\DnArrow32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="AutoSteerConf" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\btnImages\AutoSteerConf.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ZoomIn48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\btnImages\ZoomIn48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -187,11 +184,17 @@
   <data name="JobActive" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\btnImages\JobActive.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="TiltDown" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\btnImages\TiltDown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="ZoomOut48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\btnImages\ZoomOut48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ManualOff" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\btnImages\ManualOff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BoundaryRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\btnImages\BoundaryRight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ABLineOff" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\btnImages\ABLineOff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -220,8 +223,8 @@
   <data name="back_button" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\btnImages\back-button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TiltDown" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\btnImages\TiltDown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="AutoSteerConf" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\btnImages\AutoSteerConf.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="FlagRed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\btnImages\FlagRed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -250,8 +253,8 @@
   <data name="AcHa" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\btnImages\AcHa.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ComPorts" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\btnImages\ComPorts.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="start" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\btnImages\start.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="BoundaryRecord" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\btnImages\BoundaryRecord.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -264,6 +267,9 @@
   </data>
   <data name="ABLineOn" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\btnImages\ABLineOn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Imperial" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\btnImages\Imperial.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="FileOpen" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\btnImages\FileOpen.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -292,9 +298,6 @@
   <data name="SectionMasterOn" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\btnImages\SectionMasterOn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="PointDone" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\btnImages\PointDone.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="UpArrow64" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\btnImages\UpArrow64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -307,8 +310,8 @@
   <data name="boundaryStop" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\btnImages\boundaryStop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="BoundaryRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\btnImages\BoundaryRight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="PointDone" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\btnImages\PointDone.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="PointStart" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\btnImages\PointStart.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -318,6 +321,9 @@
   </data>
   <data name="UDPConfig" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\btnImages\UDPConfig.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Metric" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\btnImages\Metric.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Batman48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\btnImages\Batman48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -337,10 +343,7 @@
   <data name="levelOffBtn" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\btnImages\levelOffBtn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Metric" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\btnImages\Metric.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Imperial" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\btnImages\Imperial.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Snap3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\btnImages\Snap3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

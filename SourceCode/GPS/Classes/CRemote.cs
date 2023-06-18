@@ -155,21 +155,21 @@ namespace OpenGrade
             mf.tabGradeControl.SelectTab(tab);
         }
 
-        private void IncreaseBladeOffset()
+        public void IncreaseBladeOffset()
         {
             mf.bladeOffset++;
             if (mf.bladeOffset > 50) mf.bladeOffset = 50;
             mf.lblBladeOffset.Text = mf.bladeOffset.ToString();
         }
 
-        private void DecreaseBladeOffset()
+        public void DecreaseBladeOffset()
         {
             mf.bladeOffset--;
             if (mf.bladeOffset < -50) mf.bladeOffset = -50;
             mf.lblBladeOffset.Text = mf.bladeOffset.ToString();
         }
 
-        private void ResetBladeOffset()
+        public void ResetBladeOffset()
         {
             mf.bladeOffset = 0;
             mf.lblBladeOffset.Text = mf.bladeOffset.ToString();

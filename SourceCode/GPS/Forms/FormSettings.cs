@@ -277,6 +277,36 @@ namespace OpenGrade
 
         }
 
+        private void label11_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDown1_ValueChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label14_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void nudPlowHeight_ValueChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label16_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void nudKd_ValueChanged_1(object sender, EventArgs e)
         {
             KdGain = (byte)nudKd.Value;            

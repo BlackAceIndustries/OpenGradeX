@@ -14,7 +14,8 @@
 #include <ArduinoOTA.h>
 #include <ESPmDNS.h>
 #include <Adafruit_Sensor.h>
-#include <Adafruit_BNO055.h>
+//#include <Adafruit_BNO055.h>
+#include <Adafruit_BNO08x.h>
 #include <utility/imumaths.h>
 #include <SPI.h>
 #include <Wire.h>
@@ -33,7 +34,7 @@
 /////////////////
 //BUILD VERSION//
 /////////////////
-const char *version = "1.3.5.0";
+const char *version = "2.1.3.0";
 
 //////////////////////////////////
 //Function STUBS for Platform IO//
@@ -44,6 +45,20 @@ bool SetupAntennaModule();
 // IMU
 bool SetupIMU();
 void GetIMUData();
+void setReports(sh2_SensorId_t reportType, long report_interval);
+
+struct euler_t {
+  float yaw;
+  float pitch;
+  float roll;
+} ypr;
+
+
+void quaternionToEuler(float qr, float qi, float qj, float qk, euler_t* ypr, bool degrees);
+void quaternionToEulerRV(sh2_RotationVectorWAcc_t* rotational_vector, euler_t* ypr, bool degrees);
+void quaternionToEulerGI(sh2_GyroIntegratedRV_t* rotational_vector, euler_t* ypr, bool degrees);
+
+
 // UDP
 bool SetupUdp();
 void RelayGPSData();
@@ -61,7 +76,7 @@ void CheckForUpdate();
 
 /// UDP Variables
 WiFiUDP UdpAntenna;  // Creation of wifi UdpAntenna instance
-const char *ssid = {"OpenGradeX"};
+const char *ssid = {"OGX"};
 char *hotspotSSID; 
 char *hotspotSSID_Pass;
 char buff[1460];
@@ -82,9 +97,9 @@ uint16_t gradeControlPort = 7777; // GradeControl  Port
 uint16_t antennaPort = 8888; // Antenna Port
 uint16_t senderPort;
 ///Ip Addresses
-IPAddress openGradeIP(192,168,1,156);   //OpenGradeX Server
-IPAddress gradeControlIP(192,168,1,255);   // GradeControl Module IP
-IPAddress antennaIP(192,168,1,155);   // Antenna Module IP
+IPAddress openGradeIP(192,168,1,226);   //OpenGradeX Server
+IPAddress gradeControlIP(192,168,1,229);   // GradeControl Module IP
+IPAddress antennaIP(192,168,1,225);   // Antenna Module IP
 IPAddress gatewayIP(192,168,1,1);   // what we want the sp 32 IPAddress to be
 IPAddress Subnet(255, 255, 255, 0);
 IPAddress Dns(8,8,8,8);
@@ -130,6 +145,17 @@ float headingIMUSetPos= 0;
 float rollIMUSetPos = 0;
 float pitchIMUSetPos = 0;
 
+
+
+#ifdef FAST_MODE
+  // Top frequency is reported to be 1000Hz (but freq is somewhat variable)
+  sh2_SensorId_t reportType = SH2_GYRO_INTEGRATED_RV;
+  long reportIntervalUs = 2000;
+#else
+  // Top frequency is about 250Hz but this report is more accurate
+  sh2_SensorId_t reportType = SH2_ARVR_STABILIZED_RV;
+  long reportIntervalUs = 5000;
+#endif
 ////////////TIMING//////////
 
 //loop time variables in milliseconds
@@ -154,7 +180,12 @@ bool isRtcmNext = false;
 // I2C
 TwoWire esp = TwoWire(5);
 // IMU
-Adafruit_BNO055 bnoIMU = Adafruit_BNO055(IMU_ID, 0x28, &esp);  
+#define BNO08X_RESET -1
+
+Adafruit_BNO08x  bnoIMU(BNO08X_RESET);
+sh2_SensorValue_t sensorValue;
+
+//Adafruit_BNO055 bnoIMU = Adafruit_BNO055(IMU_ID, 0x28, &esp);  
 
 
 void setup()
@@ -238,31 +269,107 @@ bool SetupAntennaModule()
 
 bool SetupIMU()
 {  
-  if(!bnoIMU.begin())
-  {
-    /* There was a problem detecting the BNO055 ... check your connections */
-    Serial.print("NO IMU");
-    while(1);
-  }   
-   
-  /* Use external crystal for better accuracy */
-  bnoIMU.setExtCrystalUse(true);
+
+  // Try to initialize!
+  if (!bnoIMU.begin_I2C()) {
+  //if (!bno08x.begin_UART(&Serial1)) {  // Requires a device with > 300 byte UART buffer!
+  //if (!bno08x.begin_SPI(BNO08X_CS, BNO08X_INT)) {
+    Serial.println("Failed to find BNO08x chip");
+    while (1) { delay(10); }
+  }
+  Serial.println("BNO08x Found!");
+
+  for (int n = 0; n < bnoIMU.prodIds.numEntries; n++) {
+    Serial.print("Part ");
+    Serial.print(bnoIMU.prodIds.entry[n].swPartNumber);
+    Serial.print(": Version :");
+    Serial.print(bnoIMU.prodIds.entry[n].swVersionMajor);
+    Serial.print(".");
+    Serial.print(bnoIMU.prodIds.entry[n].swVersionMinor);
+    Serial.print(".");
+    Serial.print(bnoIMU.prodIds.entry[n].swVersionPatch);
+    Serial.print(" Build ");
+    Serial.println(bnoIMU.prodIds.entry[n].swBuildNumber);
+  }
+
+  setReports(reportType, reportIntervalUs);
+
+  Serial.println("Reading events");
+
+  
+
   return true;
 }
 
 void GetIMUData()
 {  
-  /* Get a new sensor event*/ 
-  sensors_event_t event;
-  bnoIMU.getEvent(&event);  
+
+  if (bnoIMU.wasReset()) {
+    Serial.print("sensor was reset ");
+    setReports(reportType, reportIntervalUs);
+  }
   
-  rawHeadingIMU = (360 - (float)event.orientation.x); // YAW  
-  rawPitchIMU = ((float)event.orientation.y); // PITCH
-  rawRollIMU = ((float)event.orientation.z); // ROLL
+  if (bnoIMU.getSensorEvent(&sensorValue)) {
+    // in this demo only one report type will be received depending on FAST_MODE define (above)
+    switch (sensorValue.sensorId) {
+      case SH2_ARVR_STABILIZED_RV:
+        quaternionToEulerRV(&sensorValue.un.arvrStabilizedRV, &ypr, true);
+      case SH2_GYRO_INTEGRATED_RV:
+        // faster (more noise?)
+        quaternionToEulerGI(&sensorValue.un.gyroIntegratedRV, &ypr, true);
+        break;
+    }
+    static long last = 0;
+    long now = micros();
+    Serial.print(now - last);             Serial.print("\t");
+    last = now;
+    Serial.print(sensorValue.status);     Serial.print("\t");  // This is accuracy in the range of 0 to 3
+    Serial.print(ypr.yaw);                Serial.print("\t");
+    Serial.print(ypr.pitch);              Serial.print("\t");
+    Serial.println(ypr.roll);
+  }
+  
+  
+  rawHeadingIMU = ((float)ypr.yaw); // YAW  
+  rawPitchIMU =  ((float)ypr.pitch);// PITCH
+  rawRollIMU = ((float)ypr.roll); // ROLL
 
   headingIMU = rawHeadingIMU - headingIMUSetPos; // YAW  
   pitchIMU = rawPitchIMU - pitchIMUSetPos; // PITCH
   rollIMU = rawRollIMU -rollIMUSetPos; // ROLL 
+}
+
+void quaternionToEuler(float qr, float qi, float qj, float qk, euler_t* ypr, bool degrees = false) {
+
+    float sqr = sq(qr);
+    float sqi = sq(qi);
+    float sqj = sq(qj);
+    float sqk = sq(qk);
+
+    ypr->yaw = atan2(2.0 * (qi * qj + qk * qr), (sqi - sqj - sqk + sqr));
+    ypr->pitch = asin(-2.0 * (qi * qk - qj * qr) / (sqi + sqj + sqk + sqr));
+    ypr->roll = atan2(2.0 * (qj * qk + qi * qr), (-sqi - sqj + sqk + sqr));
+
+    if (degrees) {
+      ypr->yaw *= RAD_TO_DEG;
+      ypr->pitch *= RAD_TO_DEG;
+      ypr->roll *= RAD_TO_DEG;
+    }
+}
+
+void quaternionToEulerRV(sh2_RotationVectorWAcc_t* rotational_vector, euler_t* ypr, bool degrees = false) {
+    quaternionToEuler(rotational_vector->real, rotational_vector->i, rotational_vector->j, rotational_vector->k, ypr, degrees);
+}
+
+void quaternionToEulerGI(sh2_GyroIntegratedRV_t* rotational_vector, euler_t* ypr, bool degrees = false) {
+    quaternionToEuler(rotational_vector->real, rotational_vector->i, rotational_vector->j, rotational_vector->k, ypr, degrees);
+}
+
+void setReports(sh2_SensorId_t reportType, long report_interval) {
+  Serial.println("Setting desired reports");
+  if (! bnoIMU.enableReport(reportType, report_interval)) {
+    Serial.println("Could not enable stabilized remote vector");
+  }
 }
 
 ///////
@@ -272,6 +379,7 @@ void GetIMUData()
 void RelayGPSData(){
     
   if(RTK.available()){   
+    
     
     int size = RTK.readBytesUntil('\n', buff, sizeof(buff));  
     for(int h = 0; h < size; h++) 
@@ -303,6 +411,7 @@ bool SetupUdp(){
 
 bool SendUdpData(int _header)
 { 
+  //DEBUG.println("GPS RECIEVED");
   switch (_header){
     case DATA_HEADER:      
       
@@ -318,9 +427,8 @@ bool SendUdpData(int _header)
         UdpAntenna.beginPacket(openGradeIP,openGradePort);   //Initiate transmission of data
         UdpAntenna.print(_header);
         UdpAntenna.print(",");
-        UdpAntenna.print(GNGGA);
-        UdpAntenna.print(GNVTG);
-        UdpAntenna.print("\r\n"); // End segment    
+        UdpAntenna.println(GNGGA);
+        UdpAntenna.println(GNVTG);
         sent = UdpAntenna.endPacket();  // Close communication
         
         while (RTK.available()){
@@ -347,7 +455,6 @@ bool SendUdpData(int _header)
       UdpAntenna.print(pitchIMU);
       UdpAntenna.print(",");
       UdpAntenna.print(rollIMU);      
-      UdpAntenna.print("\r\n");   // End segment    
       UdpAntenna.endPacket();  // Close communication
         
         break;
@@ -362,7 +469,6 @@ bool SendUdpData(int _header)
       UdpAntenna.print(155);
       UdpAntenna.print(",");
       UdpAntenna.print(version);     
-      UdpAntenna.print("\r\n");   // End segment    
       UdpAntenna.endPacket();  // Close communication    
          
 
@@ -380,8 +486,7 @@ bool SendUdpData(int _header)
         DEBUG.print(",");
         DEBUG.print(SSID[i]); 
       }
-      DEBUG.print("END\r\n"); 
-      UdpAntenna.print("\r\n");   // End segment    
+      DEBUG.print("END\r\n");  
       UdpAntenna.endPacket();  // Close communication  
       
     break;
@@ -412,8 +517,8 @@ bool RecvUdpData()
     UdpAntenna.read(packetBuffer, sizeof(packetBuffer));      
     
     watchdogTimer = 0;   
-    DEBUG.print("Num Bytes Recv-> ");
-    DEBUG.println(packetSize);
+    //DEBUG.print("Num Bytes Recv-> ");
+    //DEBUG.println(packetSize);
 
     int index = 0;
     ptr = strtok(packetBuffer, ",");  // takes a list of delimiters        
@@ -452,7 +557,7 @@ bool RecvUdpData()
       break;
   
       case IMU_HEADER:
-          DEBUG.println("IMU FOUND!");
+          //DEBUG.println("IMU FOUND!");
           headingIMUSetPos = rawHeadingIMU;
           pitchIMUSetPos = rawPitchIMU;
           rollIMUSetPos = rawRollIMU; 
@@ -512,9 +617,6 @@ bool RecvUdpData()
       RTK.write(packetBuffer, sizeof(packetBuffer));  /// lines of code....... that being said im going to do it anyways cause im lazy   
       isRtcmNext = false;                
     }
-
-    memset(packetBuffer, 0, sizeof(packetBuffer));
-    memset(OG_data, 0, sizeof(OG_data));
     return true;
   }
 
@@ -587,7 +689,7 @@ void CheckForUpdate(){
   // ArduinoOTA.setPort(3232);
 
   // Hostname defaults to esp3232-[MAC]
-  // ArduinoOTA.setHostname("myesp32");
+   ArduinoOTA.setHostname("OGX_Antenna");
 
   // No authentication by default
   // ArduinoOTA.setPassword("admin");

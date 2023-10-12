@@ -364,12 +364,18 @@ namespace OpenGrade
             //get the directory where the fields are stored
             //string directoryName = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)+ "\\fields\\";
 
+            
+
             if (_openType == "Resume")
             {
                 //Either exit or update running save
                 fileAndDirectory = fieldsDirectory + currentFieldDirectory + "\\Field.txt";
                 if (!File.Exists(fileAndDirectory)) return;
+
+                //curFieldName = Path.GetFileName(fieldsDirectory + currentFieldDirectory);
+                //curFieldName = Path.GetDirectoryName(fileAndDirectory);
             }
+
 
             //open file dialog instead
             else
@@ -384,11 +390,23 @@ namespace OpenGrade
                 ofd.RestoreDirectory = true;
 
                 //set the filter to text files only
-                ofd.Filter = "Field files (Field.txt)|Field.txt";
+                ofd.Filter = "Field files (Field.txt)|Field.txt";                
 
                 //was a file selected
                 if (ofd.ShowDialog() == DialogResult.Cancel) return;
                 else fileAndDirectory = ofd.FileName;
+
+                //fileAndDirectory = fileAndDirectory.TrimEnd(Path.DirectorySeparatorChar);
+                //
+
+                //curFieldName = Path.GetFileName(fieldsDirectory + currentFieldDirectory);
+
+
+                //curFieldName = Path.GetFileName(ofd.FileName);
+                //curFieldName = Path.GetDirectoryName(ofd.FileName);
+                //curFieldName = Path.GetFileName(fileAndDirectory);
+                //curFieldName = Path.GetDirectoryName(fileAndDirectory);
+
             }
 
             //close the existing job and reset everything
@@ -446,6 +464,11 @@ namespace OpenGrade
                     JobClose();
                     return;
                 }
+
+
+                curFieldName = Path.GetFileName(fieldsDirectory + currentFieldDirectory);
+
+
             }
 
             // Contour points ----------------------------------------------------------------------------
@@ -795,6 +818,56 @@ namespace OpenGrade
                 }
             }
 
+            cutName = Path.GetFileNameWithoutExtension(fileAndDirectory);// fieldsDirectory + currentFieldDirectory
+
+                curFieldName = Path.GetFileName(fieldsDirectory + currentFieldDirectory);
+
+        }
+
+        public void FileCreateFarm()
+        {
+            //Saturday, February 11, 2017  -->  7:26:52 AM
+            //$FieldDir
+            //Bob_Feb11
+            //$Offsets
+            //533172,5927719,12 - offset easting, northing, zone
+            //$Sections
+            //10 - points in this patch
+            //10.1728031317344,0.723157039771303 -easting, northing
+
+            if (!isJobStarted)
+            {
+                using (var form = new FormTimedMessage(3000, "Ooops, Job Not Started", "Start a Job First"))
+                { form.Show(); }
+                return;
+            }
+            string myFileName, dirField;
+
+            //get the directory and make sure it exists, create if not
+            dirField = fieldsDirectory + currentFieldDirectory + "\\";
+            string directoryName = Path.GetDirectoryName(dirField);
+
+
+            if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
+            { Directory.CreateDirectory(directoryName); }
+
+            myFileName = "Field.txt";
+
+            using (StreamWriter writer = new StreamWriter(dirField + myFileName))
+            {
+                //Write out the date
+                writer.WriteLine(DateTime.Now.ToString("yyyy-MMMM-dd hh:mm:ss tt", CultureInfo.InvariantCulture));
+
+                writer.WriteLine("$FieldDir");
+                writer.WriteLine(currentFieldDirectory.ToString(CultureInfo.InvariantCulture));
+
+                //write out the easting and northing Offsets
+                writer.WriteLine("$Offsets");
+                writer.WriteLine(pn.utmEast.ToString(CultureInfo.InvariantCulture) + "," +
+                    pn.utmNorth.ToString(CultureInfo.InvariantCulture) + "," +
+                    pn.zone.ToString(CultureInfo.InvariantCulture));
+            }
+
         }
 
         //creates the field file when starting new field
@@ -821,6 +894,8 @@ namespace OpenGrade
             dirField = fieldsDirectory + currentFieldDirectory + "\\";
             string directoryName = Path.GetDirectoryName(dirField);
 
+           
+
             if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
             { Directory.CreateDirectory(directoryName); }
 
@@ -840,6 +915,8 @@ namespace OpenGrade
                     pn.utmNorth.ToString(CultureInfo.InvariantCulture) + "," + 
                     pn.zone.ToString(CultureInfo.InvariantCulture));
             }
+
+            curFieldName = Path.GetFileName(fieldsDirectory + currentFieldDirectory);
 
         }
 
@@ -1289,6 +1366,65 @@ namespace OpenGrade
             }
         }
 
+        
+
+        //save the survey points for testing (check easting/northing to lat/lon conversion
+        public void FileSaveSurveyPt2text()
+        {
+            //1  - points in patch
+            //64.697,0.168,-21.654,0 - east, heading, north, altitude
+            //Saturday, February 11, 2017  -->  7:26:52 AM
+            //12  - points in patch
+            //64.697,0.168,-21.654,0 - east, heading, north, altitude
+            //$ContourDir
+            //Bob_Feb11
+            //$Offsets
+            //533172,5927719,12
+
+            //get the directory and make sure it exists, create if not
+            string dirField = fieldsDirectory + currentFieldDirectory + "\\";
+
+            string directoryName = Path.GetDirectoryName(dirField);
+            if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
+            { Directory.CreateDirectory(directoryName); }
+
+            string myFileName = "Survey.txt";
+
+            //write out the file
+            using (StreamWriter writer = new StreamWriter(dirField + myFileName))
+            {
+
+
+
+                //make sure there is something to save
+                if (ct.surveyList.Count() > 0)
+                {
+                    int count4 = ct.surveyList.Count;
+
+                    //for every new chunk of patch in the whole section
+                    writer.WriteLine("easting, northing, latitude, longitude, altitude, code, fixQuality");
+                    //writer.WriteLine(count4.ToString(CultureInfo.InvariantCulture));
+
+                    for (int i = 0; i < count4; i++)
+                    {
+
+                        writer.WriteLine(Math.Round((ct.surveyList[i].easting), 3).ToString(CultureInfo.InvariantCulture) + ", " +
+                        Math.Round((ct.surveyList[i].northing), 3).ToString(CultureInfo.InvariantCulture) + ", " +
+                        Math.Round((ct.surveyList[i].latitude), 9).ToString(CultureInfo.InvariantCulture) + ", " +
+                        Math.Round(ct.surveyList[i].longitude, 9).ToString(CultureInfo.InvariantCulture) + ", " +
+                        Math.Round(ct.surveyList[i].altitude, 3).ToString(CultureInfo.InvariantCulture) + ", " +
+                        Math.Round(ct.surveyList[i].code, 0).ToString(CultureInfo.InvariantCulture) + ", " +
+                        (ct.surveyList[i].fixQuality).ToString(CultureInfo.InvariantCulture));
+
+                    }
+                }
+            }
+
+            //set saving flag off
+            //isSavingFile = false;
+        }
+
+
         //save all the flag markers
         public void FileSaveABLine()
         {
@@ -1492,237 +1628,799 @@ namespace OpenGrade
             }
         }
 
-    //    //generate KML file from Cuts
-    //    public void FileSaveCutKML()
-    //    {
-    //        //get the directory and make sure it exists, create if not
-    //        string dirCut = fieldsDirectory + currentFieldDirectory + "\\CutPaths\\";
-    //        string kmlCut = dirCut + "\\KML Files\\";
-
-    //        string directoryName = Path.GetDirectoryName(dirCut);
-    //        if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
-    //        { Directory.CreateDirectory(directoryName); }
-
-    //        string directoryName2 = Path.GetDirectoryName(kmlCut);
-    //        if ((directoryName2.Length > 0) && (!Directory.Exists(directoryName2)))
-    //        { Directory.CreateDirectory(directoryName2); }
-
-    //        string myFileName = "Cut_" + ct.cutNum + ".kml";
-
-    //        while (File.Exists(kmlCut + myFileName))
-    //        {
-    //            ct.cutNum++;
-    //            myFileName = "Cut_" + ct.cutNum + ".kml";
-
-    //        }
-
-    //        int cutCnt = ct.cutList.Count();
-            
-    //        XmlTextWriter kml = new XmlTextWriter(kmlCut + myFileName, Encoding.UTF8);
-
-    //        kml.Formatting = Formatting.Indented;
-    //        kml.Indentation = 3;
-
-    //        kml.WriteStartDocument();
-    //        kml.WriteStartElement("kml", "http://www.opengis.net/kml/2.2");
-    //        kml.WriteStartElement("Document");
-
-            
-    //        // Each Point
-    //        if (cutCnt > 0)
-    //        {
-    //            kml.WriteStartElement("Folder");
-    //            kml.WriteElementString("name", "Swath Pts");
-    //            string Balloon = "\r<Style id=\"balloon\">";
-    //            Balloon += "\r\t<BalloonStyle>";
-    //            Balloon += "\r\t\t<text>";
-
-    //            Balloon += "\r\t\t\t<![CDATA[<b><font size=5>Field:</font><br>" + currentFieldDirectory + "</b><br><hr><table border=\"0\"";
-    //            Balloon += "\r\t\t\t\t<tr><td><b>Swath:</b><td><td>$[Numb]</td></tr>";
-    //            Balloon += "\r\t\t\t\t<tr><td><b>Point:</b><td><td>$[PtNbr]</td></tr>";
-    //            Balloon += "\r\t\t\t\t<tr><td><b>Altitude:</b><td><td>$[alt]</td></tr>";
-    //            Balloon += "\r\t\t\t\t<tr><td><b>Cut Altitude:</b><td><td>$[Calt]</td></tr>";
-    //            Balloon += "\r\t\t\t\t<tr><td><b>Pass Altitude:</b><td><td>$[Palt]</td></tr>";
-    //            Balloon += "\r\t\t\t\t<tr><td><b>Latitude:</b><td><td>$[lat]</td></tr>";
-    //            Balloon += "\r\t\t\t\t<tr><td><b>Longitude:</b><td><td>$[lon]</td></tr>";
-    //            Balloon += "\r\t\t\t</table>]]>";
-
-    //            Balloon += "\r\t\t</text>";
-    //            Balloon += "\r\t</BalloonStyle>";
-    //            Balloon += "\r</Style>\r";
-    //            kml.WriteRaw(Balloon);
-
-                
-
-    //            for (int i = 0; i < cutCnt; i++)
-    //            {
-    //                kml.WriteStartElement("Placemark");
-    //                kml.WriteElementString("name", "Tree_" + i.ToString());
-
-    //                Balloon = "\r\t\t<styleUrl>#balloon</styleUrl>";
-    //                Balloon += "\r\t<ExtendedData>";
-    //                //Balloon += "\r\t\t<Data name= \"Numb\">";
-    //                //Balloon += "\r\t\t\t<value>" + ct.cutList[i].swathNbr + "</value>";
-    //                //Balloon += "\r\t\t</Data>";
-    //                Balloon += "\r\t\t<Data name= \"PtNbr\">";
-    //                Balloon += "\r\t\t\t<value>" + i + "</value>";
-    //                Balloon += "\r\t\t</Data>";
-    //                Balloon += "\r\t\t<Data name= \"alt\">";
-    //                Balloon += "\r\t\t\t<value>" + ct.cutList[i].altitude + "</value>";
-    //                Balloon += "\r\t\t</Data>";
-    //                Balloon += "\r\t\t<Data name= \"Calt\">";
-    //                Balloon += "\r\t\t\t<value>" + ct.cutList[i].cutAltitude + "</value>";
-    //                Balloon += "\r\t\t</Data>";
-    //                Balloon += "\r\t\t<Data name= \"Palt\">";
-    //                Balloon += "\r\t\t\t<value>" + ct.cutList[i].lastPassAltitude + "</value>";
-    //                Balloon += "\r\t\t</Data>";
-    //                Balloon += "\r\t\t<Data name= \"lat\">";
-    //                Balloon += "\r\t\t\t<value>" + ct.cutList[i].latitude + "</value>";
-    //                Balloon += "\r\t\t</Data>";
-    //                Balloon += "\r\t\t<Data name= \"lon\">";
-    //                Balloon += "\r\t\t\t<value>" + ct.cutList[i].longitude + "</value>";
-    //                Balloon += "\r\t\t</Data>";
-
-    //                Balloon += "\r\t</ExtendedData>";
-    //                kml.WriteRaw(Balloon);
-
-    //                kml.WriteStartElement("Style");
-    //                kml.WriteStartElement("IconStyle");
-
-
-    //                kml.WriteElementString("color", "ff44ff00");
-    //                kml.WriteStartElement("Icon");
-    //                kml.WriteElementString("href", "http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png");
-    //                kml.WriteEndElement();//Icon
-    //                kml.WriteEndElement(); //IconStyle
-    //                kml.WriteEndElement(); //Style
-
-    //                //Turn this on to write number of swath for GE
-    //                //kml.WriteElementString("name", oldSwathNbr.ToString(CultureInfo.InvariantCulture) + "," + swathPtCnt.ToString(CultureInfo.InvariantCulture));
-    //                kml.WriteElementString("name", " ");
-    //                kml.WriteStartElement("Point");
-    //                kml.WriteElementString("coordinates", ct.cutList[i].longitude.ToString(CultureInfo.InvariantCulture) +
-    //                    "," + ct.cutList[i].latitude.ToString(CultureInfo.InvariantCulture) + ",0");
-    //                kml.WriteEndElement(); //Point
-    //                kml.WriteEndElement(); // <Placemark>
-    //            }
-    //            kml.WriteEndElement(); // <Folder>   
-
-    //        }
-    //        //End of Swath Point
-
-    //        // Swath on the Surface
-    //        kml.WriteStartElement("Folder");
-    //        kml.WriteElementString("name", "Swath_Path");
-    //        kml.WriteElementString("visibility", "0");
-
-    //        string linePts = "";
-
-            
-
-    //        if (cutCnt >= 0)
-    //        {
-
-
-    //            for (int i = 0; i <= cutCnt; i++)
-    //            {
-    //                linePts = "";
-    //                kml.WriteStartElement("Placemark");
-    //                kml.WriteElementString("visibility", "0");
-
-    //                kml.WriteElementString("name", "Swath " + i);
-    //                kml.WriteStartElement("Style");
-
-    //                kml.WriteStartElement("LineStyle");
-    //                kml.WriteElementString("color", "ff6699ff");
-    //                kml.WriteElementString("width", "2");
-    //                kml.WriteEndElement(); // <LineStyle>
-    //                kml.WriteEndElement(); //Style
-
-    //                kml.WriteStartElement("LineString");
-    //                kml.WriteElementString("extrude", "1");
-    //                kml.WriteElementString("tessellate", "1");
-    //                kml.WriteElementString("altitudeMode", "absolute");
-    //                kml.WriteStartElement("coordinates");
-
-    //                for (int j = 0; j < ct.cutList.Count; j++)
-    //                {                       
-    //                    linePts += ct.cutList[j].longitude.ToString("N9", CultureInfo.InvariantCulture) + ',' + ct.cutList[j].latitude.ToString("N9", CultureInfo.InvariantCulture) + ',' + ct.cutList[j].altitude.ToString("N3", CultureInfo.InvariantCulture) + ' ';
-    //                    //(utmLon.ToString("N7", CultureInfo.InvariantCulture) + ',' + utmLat.ToString("N7", CultureInfo.InvariantCulture) + ",0 ");
-                       
-    //                }
-    //                kml.WriteRaw(linePts);
-
-    //                kml.WriteEndElement(); // <coordinates>
-    //                kml.WriteEndElement(); // <LineString>
-
-    //                kml.WriteEndElement(); // <Placemark>
-    //            }
-    //        }
-    //        kml.WriteEndElement(); // <Folder>
 
 
 
-    //        //Swath tool Height
-    //        kml.WriteStartElement("Folder");
-    //        kml.WriteElementString("name", "Swath_Tool_Height");
-    //        kml.WriteElementString("visibility", "0");
-
-    //        //string linePts = "";
 
 
-    //        if (true)
-    //        {
+        // ############################################ 3D #######################
+        //Load the Optisuface design file, by Pat
 
-    //            for (int i = 0; i <= cutCnt; i++)
-    //            {
-    //                linePts = "";
-    //                kml.WriteStartElement("Placemark");
-    //                kml.WriteElementString("visibility", "0");
+        //save the contour points which include elevation values in a optisurface compatible ags file.
+        public void FileSaveSurveyPt()
+        {
+            //1  - points in patch
+            //64.697,0.168,-21.654,0 - east, heading, north, altitude
+            //Saturday, February 11, 2017  -->  7:26:52 AM
+            //12  - points in patch
+            //64.697,0.168,-21.654,0 - east, heading, north, altitude
+            //$ContourDir
+            //Bob_Feb11
+            //$Offsets
+            //533172,5927719,12
 
-    //                kml.WriteElementString("name", "Tool Height " + i);
-    //                kml.WriteStartElement("Style");
+            //get the directory and make sure it exists, create if not
+            string dirField = fieldsDirectory + currentFieldDirectory + "\\";
 
-    //                kml.WriteStartElement("LineStyle");
-    //                kml.WriteElementString("color", "ff6699ff");
-    //                kml.WriteElementString("width", "2");
-    //                kml.WriteEndElement(); // <LineStyle>
-    //                kml.WriteEndElement(); //Style
+            string directoryName = Path.GetDirectoryName(dirField);
+            if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
+            { Directory.CreateDirectory(directoryName); }
 
-    //                kml.WriteStartElement("LineString");
-    //                kml.WriteElementString("extrude", "1");
-    //                //kml.WriteElementString("tessellate", "1");
-    //                kml.WriteElementString("altitudeMode", "absolute");
-    //                kml.WriteStartElement("coordinates");
+            string myFileName = "Survey_" + String.Format("{0}", DateTime.Now.ToString("yyyy_MMM_dd HH_mm", CultureInfo.InvariantCulture)) + ".ags";
 
-    //                for (int j = 0; j < cutCnt; j++)
-    //                {
-                                             
-    //                   linePts += ct.cutList[j].longitude.ToString("N9", CultureInfo.InvariantCulture) + ',' + ct.cutList[j].latitude.ToString("N9", CultureInfo.InvariantCulture) + ',' + ct.cutList[j].lastPassAltitude.ToString("N3", CultureInfo.InvariantCulture) + ' ';
-    //                   //(utmLon.ToString("N7", CultureInfo.InvariantCulture) + ',' + utmLat.ToString("N7", CultureInfo.InvariantCulture) + ",0 ");
-                       
-    //                }
-    //                kml.WriteRaw(linePts);
+            //write out the file
+            using (StreamWriter writer = new StreamWriter(dirField + myFileName))
+            {
+                //make sure there is something to save
+                if (ct.surveyList.Count() > 0)
+                {
+                    int count4 = ct.surveyList.Count;
 
-    //                kml.WriteEndElement(); // <coordinates>
-    //                kml.WriteEndElement(); // <LineString>
+                    //for every new chunk of patch in the whole section
 
-    //                kml.WriteEndElement(); // <Placemark>
-    //            }
-    //        }
-    //        kml.WriteEndElement(); // <Folder>             
+                    //writer.WriteLine(count4.ToString(CultureInfo.InvariantCulture));
 
-    //        //end of document
-    //        kml.WriteEndElement(); // <Document>
-    //        kml.WriteEndElement(); // <kml>
+                    for (int i = 0; i < count4; i++)
+                    {
+                        if (ct.surveyList[i].code == 0)
+                        {
+                            writer.WriteLine(Math.Round((ct.surveyList[i].latitude), 9).ToString(CultureInfo.InvariantCulture) + ", " +
 
-    //        //The end
-    //        kml.WriteEndDocument();
+                            Math.Round(ct.surveyList[i].longitude, 9).ToString(CultureInfo.InvariantCulture) + ", " +
+                            Math.Round(ct.surveyList[i].altitude, 3).ToString(CultureInfo.InvariantCulture) + ", " +
+                            Math.Round(ct.surveyList[i].code, 0).ToString(CultureInfo.InvariantCulture) + "mb_4g");
 
-    //        kml.Flush();
+                        }
 
-    //        //Write the XML to file and close the kml
-    //        kml.Close();
-    //    }
+                        if (ct.surveyList[i].code == 2)
+                        {
+                            writer.WriteLine(Math.Round((ct.surveyList[i].latitude), 9).ToString(CultureInfo.InvariantCulture) + ", " +
+
+                            Math.Round(ct.surveyList[i].longitude, 9).ToString(CultureInfo.InvariantCulture) + ", " +
+                            Math.Round(ct.surveyList[i].altitude, 3).ToString(CultureInfo.InvariantCulture) + ", " +
+                            Math.Round(ct.surveyList[i].code, 0).ToString(CultureInfo.InvariantCulture) + "PER");
+
+                        }
+
+                        if (ct.surveyList[i].code == 3)
+                        {
+                            writer.WriteLine(Math.Round((ct.surveyList[i].latitude), 9).ToString(CultureInfo.InvariantCulture) + ", " +
+
+                            Math.Round(ct.surveyList[i].longitude, 9).ToString(CultureInfo.InvariantCulture) + ", " +
+                            Math.Round(ct.surveyList[i].altitude, 3).ToString(CultureInfo.InvariantCulture) + ", " +
+                            Math.Round(ct.surveyList[i].code, 0).ToString(CultureInfo.InvariantCulture) + "GRD");
+
+                        }
+
+
+
+                    }
+                }
+            }
+            FileSaveSurveyPt2text();
+            //set saving flag off
+            //isSavingFile = false;
+        }
+
+        public void FileOpenAgdDesign()
+        {
+            ct.designList.Clear();
+
+            OpenFileDialog ofd = new OpenFileDialog();
+
+            //get the directory where the fields are stored
+            string directoryName = fieldsDirectory;
+
+            //make sure the directory exists, if not, create it
+            if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
+            { Directory.CreateDirectory(directoryName); }
+
+            //the initial directory, fields, for the open dialog
+            ofd.InitialDirectory = directoryName;
+
+            //When leaving dialog put windows back where it was
+            ofd.RestoreDirectory = true;
+
+            //set the filter to agd files only
+            ofd.Filter = "agd files (*.agd)|*.agd";
+
+            //was a file selected
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                //if job started close it
+                //if (isJobStarted) JobClose();
+
+                //make sure the file if fully valid and vehicle matches sections
+                string line;
+                using (StreamReader reader = new StreamReader(ofd.FileName))
+                {
+                    try
+                    {
+                        //read the lines and skip them
+                        line = reader.ReadLine();
+
+
+                        while (!reader.EndOfStream)
+                        {
+                            //read how many vertices in the following patch
+                            //line = reader.ReadLine();
+                            //int verts = int.Parse(line);
+                            //CContourPt vecFix = new vec4(0, 0, 0, 0);
+
+                            //for (int v = 0; v < verts; v++)
+                            {
+                                line = reader.ReadLine();
+                                string[] words = line.Split(',');
+
+                                if (words[5] == "MB" | words[5] == " MB" | words[5] == "0MB" | words[5] == " 0MB")
+                                {
+                                    designPt point = new designPt(
+                                    double.Parse(words[0], CultureInfo.InvariantCulture),
+                                    double.Parse(words[1], CultureInfo.InvariantCulture),
+                                    double.Parse(words[2], CultureInfo.InvariantCulture),
+                                    -1,
+                                    -1,
+                                    0, 0, 0
+                                    );
+
+                                    ct.designList.Add(point);
+                                }
+
+                                if (words[5] == "2PER" | words[5] == " 2PER")
+                                {
+                                    designPt point = new designPt(
+                                    double.Parse(words[0], CultureInfo.InvariantCulture),
+                                    double.Parse(words[1], CultureInfo.InvariantCulture),
+                                    double.Parse(words[2], CultureInfo.InvariantCulture),
+                                    -1,
+                                    -1,
+                                    2, 0, 0
+                                    );
+
+                                    ct.designList.Add(point);
+                                }
+
+                                if (words[5] == "2SUBZONE1" | words[5] == " 2SUBZONE1")
+                                {
+                                    designPt point = new designPt(
+                                    double.Parse(words[0], CultureInfo.InvariantCulture),
+                                    double.Parse(words[1], CultureInfo.InvariantCulture),
+                                    double.Parse(words[2], CultureInfo.InvariantCulture),
+                                    -1,
+                                    -1,
+                                    21, 0, 0
+                                    );
+
+                                    ct.designList.Add(point);
+                                }
+
+                                if (words[5] == "2SUBZONE2" | words[5] == " 2SUBZONE2")
+                                {
+                                    designPt point = new designPt(
+                                    double.Parse(words[0], CultureInfo.InvariantCulture),
+                                    double.Parse(words[1], CultureInfo.InvariantCulture),
+                                    double.Parse(words[2], CultureInfo.InvariantCulture),
+                                    -1,
+                                    -1,
+                                    22, 0, 0
+                                    );
+
+                                    ct.designList.Add(point);
+                                }
+
+                                if (words[5] == "2SUBZONE3" | words[5] == " 2SUBZONE3")
+                                {
+                                    designPt point = new designPt(
+                                    double.Parse(words[0], CultureInfo.InvariantCulture),
+                                    double.Parse(words[1], CultureInfo.InvariantCulture),
+                                    double.Parse(words[2], CultureInfo.InvariantCulture),
+                                    -1,
+                                    -1,
+                                    23, 0, 0
+                                    );
+
+                                    ct.designList.Add(point);
+                                }
+
+                                if (words[5] == "2SUBZONE4" | words[5] == " 2SUBZONE4")
+                                {
+                                    designPt point = new designPt(
+                                    double.Parse(words[0], CultureInfo.InvariantCulture),
+                                    double.Parse(words[1], CultureInfo.InvariantCulture),
+                                    double.Parse(words[2], CultureInfo.InvariantCulture),
+                                    -1,
+                                    -1,
+                                    24, 0, 0
+                                    );
+
+                                    ct.designList.Add(point);
+                                }
+
+                                if (words[5] == "2SUBZONE5" | words[5] == " 2SUBZONE5")
+                                {
+                                    designPt point = new designPt(
+                                    double.Parse(words[0], CultureInfo.InvariantCulture),
+                                    double.Parse(words[1], CultureInfo.InvariantCulture),
+                                    double.Parse(words[2], CultureInfo.InvariantCulture),
+                                    -1,
+                                    -1,
+                                    25, 0, 0
+                                    );
+
+                                    ct.designList.Add(point);
+                                }
+
+                                if (words[5] == "2SUBZONE6" | words[5] == " 2SUBZONE6")
+                                {
+                                    designPt point = new designPt(
+                                    double.Parse(words[0], CultureInfo.InvariantCulture),
+                                    double.Parse(words[1], CultureInfo.InvariantCulture),
+                                    double.Parse(words[2], CultureInfo.InvariantCulture),
+                                    -1,
+                                    -1,
+                                    26, 0, 0
+                                    );
+
+                                    ct.designList.Add(point);
+                                }
+
+                                if (words[5] == "2SUBZONE7" | words[5] == " 2SUBZONE7")
+                                {
+                                    designPt point = new designPt(
+                                    double.Parse(words[0], CultureInfo.InvariantCulture),
+                                    double.Parse(words[1], CultureInfo.InvariantCulture),
+                                    double.Parse(words[2], CultureInfo.InvariantCulture),
+                                    -1,
+                                    -1,
+                                    27, 0, 0
+                                    );
+
+                                    ct.designList.Add(point);
+                                }
+
+                                if (words[5] == "2SUBZONE8" | words[5] == " 2SUBZONE8")
+                                {
+                                    designPt point = new designPt(
+                                    double.Parse(words[0], CultureInfo.InvariantCulture),
+                                    double.Parse(words[1], CultureInfo.InvariantCulture),
+                                    double.Parse(words[2], CultureInfo.InvariantCulture),
+                                    -1,
+                                    -1,
+                                    28, 0, 0
+                                    );
+
+                                    ct.designList.Add(point);
+                                }
+
+                                if (words[5] == "2SUBZONE9" | words[5] == " 2SUBZONE9")
+                                {
+                                    designPt point = new designPt(
+                                    double.Parse(words[0], CultureInfo.InvariantCulture),
+                                    double.Parse(words[1], CultureInfo.InvariantCulture),
+                                    double.Parse(words[2], CultureInfo.InvariantCulture),
+                                    -1,
+                                    -1,
+                                    29, 0, 0
+                                    );
+
+                                    ct.designList.Add(point);
+                                }
+
+                                if (words[5] == "3GRD" | words[5] == " 3GRD")
+                                {
+                                    if (words[2] == "  " | words[2] == " " | words[2] == "" | words[2] == "0" | words[2] == " 0")
+                                    {
+
+
+
+
+
+                                    }
+                                    else if (words[3] == "  " | words[4] == "  " |
+                                        words[3] == " " | words[3] == "" | words[3] == "0" | words[3] == " 0" |
+                                        words[4] == " " | words[4] == "")
+
+                                    {
+                                        designPt point = new designPt(
+                                        double.Parse(words[0], CultureInfo.InvariantCulture),
+                                        double.Parse(words[1], CultureInfo.InvariantCulture),
+                                        double.Parse(words[2], CultureInfo.InvariantCulture),
+                                        -1,
+                                        -1,
+                                        3, 0, 0
+                                        );
+
+                                        ct.designList.Add(point);
+                                    }
+                                    else
+                                    {
+                                        designPt point = new designPt(
+                                        double.Parse(words[0], CultureInfo.InvariantCulture),
+                                        double.Parse(words[1], CultureInfo.InvariantCulture),
+                                        double.Parse(words[2], CultureInfo.InvariantCulture),
+                                        double.Parse(words[3], CultureInfo.InvariantCulture),
+                                        double.Parse(words[4], CultureInfo.InvariantCulture),
+                                        3, 0, 0
+                                        );
+
+                                        ct.designList.Add(point);
+                                    }
+
+                                }
+
+
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        WriteErrorLog("Loading Design file" + e.ToString());
+
+                        var form = new FormTimedMessage(4000, "Design File is Corrupt", "But Field is Loaded");
+                        form.Show();
+                    }
+
+                    //calc mins maxes
+                    //CalculateMinMaxZoom();
+                    //CalculateTotalCutFillLabels();
+                    //ct.mapList.Clear();
+                    //CalculateMinMaxEastNort();
+                }
+
+
+                FileSaveDesignList(); // for testing
+                ct.designList2ptList();
+
+            }
+            //cancelled out of open file
+
+
+
+        }//end of open file
+
+        //save the design (the converted agd pts) list for testing only
+        public void FileSaveDesignList()
+        {
+            //1  - points in patch
+            //64.697,0.168,-21.654,0 - east, heading, north, altitude
+            //Saturday, February 11, 2017  -->  7:26:52 AM
+            //12  - points in patch
+            //64.697,0.168,-21.654,0 - east, heading, north, altitude
+            //$ContourDir
+            //Bob_Feb11
+            //$Offsets
+            //533172,5927719,12
+
+            //get the directory and make sure it exists, create if not
+            string dirField = fieldsDirectory + currentFieldDirectory + "\\";
+
+            string directoryName = Path.GetDirectoryName(dirField);
+            if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
+            { Directory.CreateDirectory(directoryName); }
+
+            string myFileName = "DesignList.txt";
+
+            //write out the file
+            using (StreamWriter writer = new StreamWriter(dirField + myFileName))
+            {
+                //Write out the date
+                writer.WriteLine(DateTime.Now.ToString("yyyy-MMMM-dd hh:mm:ss tt", CultureInfo.InvariantCulture));
+                writer.WriteLine("Latitude (deg), Longitude (deg), Elevation Existing(m), Elevation Proposed(m), CutFill(m), Code, easting");
+
+                //which field directory
+                writer.WriteLine("$DesignListDir");
+                writer.WriteLine(currentFieldDirectory);
+
+                //write out the easting and northing Offsets
+                writer.WriteLine("$Offsets");
+                writer.WriteLine(pn.utmEast.ToString(CultureInfo.InvariantCulture) +
+                    "," + pn.utmNorth.ToString(CultureInfo.InvariantCulture) + "," + pn.zone.ToString(CultureInfo.InvariantCulture));
+
+
+                //make sure there is something to save
+                if (ct.designList.Count() > 0)
+                {
+                    int count3 = ct.designList.Count;
+
+                    //for every new chunk of patch in the whole section
+
+                    writer.WriteLine(count3.ToString(CultureInfo.InvariantCulture));
+
+                    for (int i = 0; i < count3; i++)
+                    {
+                        writer.WriteLine(Math.Round((ct.designList[i].latitude), 9).ToString(CultureInfo.InvariantCulture) + "," +
+
+                            Math.Round(ct.designList[i].longitude, 9).ToString(CultureInfo.InvariantCulture) + "," +
+                            Math.Round(ct.designList[i].altitude, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                            Math.Round(ct.designList[i].cutAltitude, 3).ToString(CultureInfo.InvariantCulture) + "," +
+
+                            Math.Round(ct.designList[i].cutfill, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                            Math.Round(ct.designList[i].code, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                            Math.Round(ct.designList[i].easting, 3).ToString(CultureInfo.InvariantCulture));
+
+                    }
+                }
+            }
+            //set saving flag off
+            //isSavingFile = false;
+        }
+
+        //save the boundary points which include elevation values
+        public void FileSaveBoundaryList()
+        {
+            //1  - points in patch
+            //64.697,0.168,-21.654,0 - east, heading, north, altitude
+            //Saturday, February 11, 2017  -->  7:26:52 AM
+            //12  - points in patch
+            //64.697,0.168,-21.654,0 - east, heading, north, altitude
+            //$ContourDir
+            //Bob_Feb11
+            //$Offsets
+            //533172,5927719,12
+
+            //get the directory and make sure it exists, create if not
+            string dirField = fieldsDirectory + currentFieldDirectory + "\\";
+
+            string directoryName = Path.GetDirectoryName(dirField);
+            if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
+            { Directory.CreateDirectory(directoryName); }
+
+            string myFileName = "BoundaryList.txt";
+
+            //write out the file
+            using (StreamWriter writer = new StreamWriter(dirField + myFileName))
+            {
+                //Write out the date
+                writer.WriteLine(DateTime.Now.ToString("yyyy-MMMM-dd hh:mm:ss tt", CultureInfo.InvariantCulture));
+                writer.WriteLine("easting, heading, northing, altitude, latitude, longitude, cutAltitude, code");
+
+                //which field directory
+                writer.WriteLine("$BoundaryDir");
+                writer.WriteLine(currentFieldDirectory);
+
+                //write out the easting and northing Offsets
+                writer.WriteLine("$Offsets");
+                writer.WriteLine(pn.utmEast.ToString(CultureInfo.InvariantCulture) +
+                    "," + pn.utmNorth.ToString(CultureInfo.InvariantCulture) + "," + pn.zone.ToString(CultureInfo.InvariantCulture));
+
+
+                //make sure there is something to save
+                if (ct.boundaryList.Count() > 0)
+                {
+                    int count2 = ct.boundaryList.Count;
+
+                    //for every new chunk of patch in the whole section
+
+                    writer.WriteLine(count2.ToString(CultureInfo.InvariantCulture));
+
+                    for (int i = 0; i < count2; i++)
+                    {
+                        writer.WriteLine(Math.Round((ct.boundaryList[i].easting), 3).ToString(CultureInfo.InvariantCulture) + "," +
+                            Math.Round(ct.boundaryList[i].heading, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                            Math.Round(ct.boundaryList[i].northing, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                            Math.Round(ct.boundaryList[i].altitude, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                            Math.Round(ct.boundaryList[i].latitude, 9).ToString(CultureInfo.InvariantCulture) + "," +
+                            Math.Round(ct.boundaryList[i].longitude, 9).ToString(CultureInfo.InvariantCulture) + "," +
+                            Math.Round(ct.boundaryList[i].cutAltitude, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                            Math.Round(ct.boundaryList[i].code, 0).ToString(CultureInfo.InvariantCulture));
+                    }
+                }
+            }
+            //set saving flag off
+            //isSavingFile = false;
+        }
+
+        //save the contour (mapping) points which include elevation values
+        public void FileSaveMapPt()
+        {
+            //1  - points in patch
+            //64.697,0.168,-21.654,0 - east, heading, north, altitude
+            //Saturday, February 11, 2017  -->  7:26:52 AM
+            //12  - points in patch
+            //64.697,0.168,-21.654,0 - east, heading, north, altitude
+            //$ContourDir
+            //Bob_Feb11
+            //$Offsets
+            //533172,5927719,12
+
+            //get the directory and make sure it exists, create if not
+            string dirField = fieldsDirectory + currentFieldDirectory + "\\";
+
+            string directoryName = Path.GetDirectoryName(dirField);
+            if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
+            { Directory.CreateDirectory(directoryName); }
+
+            string myFileName = "MapPt.txt";
+
+            //write out the file
+            using (StreamWriter writer = new StreamWriter(dirField + myFileName))
+            {
+                //Write out the date
+                writer.WriteLine(DateTime.Now.ToString("yyyy-MMMM-dd hh:mm:ss tt", CultureInfo.InvariantCulture));
+                writer.WriteLine("easting, northing, pts distance, Elevation Existing(m), Elevation Proposed(m), CutFill(m), last pass altitude, saved blade altitude ");
+
+                //which field directory
+                writer.WriteLine("$MapPtDir");
+                writer.WriteLine(currentFieldDirectory);
+
+                //write out the easting and northing Offsets
+                writer.WriteLine("$Offsets");
+                writer.WriteLine(pn.utmEast.ToString(CultureInfo.InvariantCulture) +
+                    "," + pn.utmNorth.ToString(CultureInfo.InvariantCulture) + "," + pn.zone.ToString(CultureInfo.InvariantCulture));
+
+
+                //make sure there is something to save
+                if (ct.mapList.Count() > 0)
+                {
+                    int count3 = ct.mapList.Count;
+
+                    //for every new chunk of patch in the whole section
+
+                    writer.WriteLine(count3.ToString(CultureInfo.InvariantCulture));
+
+                    for (int i = 0; i < count3; i++)
+                    {
+                        writer.WriteLine(Math.Round((ct.mapList[i].eastingMap), 3).ToString(CultureInfo.InvariantCulture) + "," +
+
+                            Math.Round(ct.mapList[i].northingMap, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                            Math.Round(ct.mapList[i].drawPtWidthMap, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                            Math.Round(ct.mapList[i].altitudeMap, 3).ToString(CultureInfo.InvariantCulture) + "," +
+
+                            Math.Round(ct.mapList[i].cutAltitudeMap, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                            Math.Round(ct.mapList[i].cutDeltaMap, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                            Math.Round(ct.mapList[i].lastPassAltitudeMap, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                            Math.Round(ct.mapList[i].lastPassRealAltitudeMap, 3).ToString(CultureInfo.InvariantCulture));
+
+                    }
+                }
+            }
+            //set saving flag off
+            //isSavingFile = false;
+        }
+
+
+
+        //    //generate KML file from Cuts
+        //    public void FileSaveCutKML()
+        //    {
+        //        //get the directory and make sure it exists, create if not
+        //        string dirCut = fieldsDirectory + currentFieldDirectory + "\\CutPaths\\";
+        //        string kmlCut = dirCut + "\\KML Files\\";
+
+        //        string directoryName = Path.GetDirectoryName(dirCut);
+        //        if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
+        //        { Directory.CreateDirectory(directoryName); }
+
+        //        string directoryName2 = Path.GetDirectoryName(kmlCut);
+        //        if ((directoryName2.Length > 0) && (!Directory.Exists(directoryName2)))
+        //        { Directory.CreateDirectory(directoryName2); }
+
+        //        string myFileName = "Cut_" + ct.cutNum + ".kml";
+
+        //        while (File.Exists(kmlCut + myFileName))
+        //        {
+        //            ct.cutNum++;
+        //            myFileName = "Cut_" + ct.cutNum + ".kml";
+
+        //        }
+
+        //        int cutCnt = ct.cutList.Count();
+
+        //        XmlTextWriter kml = new XmlTextWriter(kmlCut + myFileName, Encoding.UTF8);
+
+        //        kml.Formatting = Formatting.Indented;
+        //        kml.Indentation = 3;
+
+        //        kml.WriteStartDocument();
+        //        kml.WriteStartElement("kml", "http://www.opengis.net/kml/2.2");
+        //        kml.WriteStartElement("Document");
+
+
+        //        // Each Point
+        //        if (cutCnt > 0)
+        //        {
+        //            kml.WriteStartElement("Folder");
+        //            kml.WriteElementString("name", "Swath Pts");
+        //            string Balloon = "\r<Style id=\"balloon\">";
+        //            Balloon += "\r\t<BalloonStyle>";
+        //            Balloon += "\r\t\t<text>";
+
+        //            Balloon += "\r\t\t\t<![CDATA[<b><font size=5>Field:</font><br>" + currentFieldDirectory + "</b><br><hr><table border=\"0\"";
+        //            Balloon += "\r\t\t\t\t<tr><td><b>Swath:</b><td><td>$[Numb]</td></tr>";
+        //            Balloon += "\r\t\t\t\t<tr><td><b>Point:</b><td><td>$[PtNbr]</td></tr>";
+        //            Balloon += "\r\t\t\t\t<tr><td><b>Altitude:</b><td><td>$[alt]</td></tr>";
+        //            Balloon += "\r\t\t\t\t<tr><td><b>Cut Altitude:</b><td><td>$[Calt]</td></tr>";
+        //            Balloon += "\r\t\t\t\t<tr><td><b>Pass Altitude:</b><td><td>$[Palt]</td></tr>";
+        //            Balloon += "\r\t\t\t\t<tr><td><b>Latitude:</b><td><td>$[lat]</td></tr>";
+        //            Balloon += "\r\t\t\t\t<tr><td><b>Longitude:</b><td><td>$[lon]</td></tr>";
+        //            Balloon += "\r\t\t\t</table>]]>";
+
+        //            Balloon += "\r\t\t</text>";
+        //            Balloon += "\r\t</BalloonStyle>";
+        //            Balloon += "\r</Style>\r";
+        //            kml.WriteRaw(Balloon);
+
+
+
+        //            for (int i = 0; i < cutCnt; i++)
+        //            {
+        //                kml.WriteStartElement("Placemark");
+        //                kml.WriteElementString("name", "Tree_" + i.ToString());
+
+        //                Balloon = "\r\t\t<styleUrl>#balloon</styleUrl>";
+        //                Balloon += "\r\t<ExtendedData>";
+        //                //Balloon += "\r\t\t<Data name= \"Numb\">";
+        //                //Balloon += "\r\t\t\t<value>" + ct.cutList[i].swathNbr + "</value>";
+        //                //Balloon += "\r\t\t</Data>";
+        //                Balloon += "\r\t\t<Data name= \"PtNbr\">";
+        //                Balloon += "\r\t\t\t<value>" + i + "</value>";
+        //                Balloon += "\r\t\t</Data>";
+        //                Balloon += "\r\t\t<Data name= \"alt\">";
+        //                Balloon += "\r\t\t\t<value>" + ct.cutList[i].altitude + "</value>";
+        //                Balloon += "\r\t\t</Data>";
+        //                Balloon += "\r\t\t<Data name= \"Calt\">";
+        //                Balloon += "\r\t\t\t<value>" + ct.cutList[i].cutAltitude + "</value>";
+        //                Balloon += "\r\t\t</Data>";
+        //                Balloon += "\r\t\t<Data name= \"Palt\">";
+        //                Balloon += "\r\t\t\t<value>" + ct.cutList[i].lastPassAltitude + "</value>";
+        //                Balloon += "\r\t\t</Data>";
+        //                Balloon += "\r\t\t<Data name= \"lat\">";
+        //                Balloon += "\r\t\t\t<value>" + ct.cutList[i].latitude + "</value>";
+        //                Balloon += "\r\t\t</Data>";
+        //                Balloon += "\r\t\t<Data name= \"lon\">";
+        //                Balloon += "\r\t\t\t<value>" + ct.cutList[i].longitude + "</value>";
+        //                Balloon += "\r\t\t</Data>";
+
+        //                Balloon += "\r\t</ExtendedData>";
+        //                kml.WriteRaw(Balloon);
+
+        //                kml.WriteStartElement("Style");
+        //                kml.WriteStartElement("IconStyle");
+
+
+        //                kml.WriteElementString("color", "ff44ff00");
+        //                kml.WriteStartElement("Icon");
+        //                kml.WriteElementString("href", "http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png");
+        //                kml.WriteEndElement();//Icon
+        //                kml.WriteEndElement(); //IconStyle
+        //                kml.WriteEndElement(); //Style
+
+        //                //Turn this on to write number of swath for GE
+        //                //kml.WriteElementString("name", oldSwathNbr.ToString(CultureInfo.InvariantCulture) + "," + swathPtCnt.ToString(CultureInfo.InvariantCulture));
+        //                kml.WriteElementString("name", " ");
+        //                kml.WriteStartElement("Point");
+        //                kml.WriteElementString("coordinates", ct.cutList[i].longitude.ToString(CultureInfo.InvariantCulture) +
+        //                    "," + ct.cutList[i].latitude.ToString(CultureInfo.InvariantCulture) + ",0");
+        //                kml.WriteEndElement(); //Point
+        //                kml.WriteEndElement(); // <Placemark>
+        //            }
+        //            kml.WriteEndElement(); // <Folder>   
+
+        //        }
+        //        //End of Swath Point
+
+        //        // Swath on the Surface
+        //        kml.WriteStartElement("Folder");
+        //        kml.WriteElementString("name", "Swath_Path");
+        //        kml.WriteElementString("visibility", "0");
+
+        //        string linePts = "";
+
+
+
+        //        if (cutCnt >= 0)
+        //        {
+
+
+        //            for (int i = 0; i <= cutCnt; i++)
+        //            {
+        //                linePts = "";
+        //                kml.WriteStartElement("Placemark");
+        //                kml.WriteElementString("visibility", "0");
+
+        //                kml.WriteElementString("name", "Swath " + i);
+        //                kml.WriteStartElement("Style");
+
+        //                kml.WriteStartElement("LineStyle");
+        //                kml.WriteElementString("color", "ff6699ff");
+        //                kml.WriteElementString("width", "2");
+        //                kml.WriteEndElement(); // <LineStyle>
+        //                kml.WriteEndElement(); //Style
+
+        //                kml.WriteStartElement("LineString");
+        //                kml.WriteElementString("extrude", "1");
+        //                kml.WriteElementString("tessellate", "1");
+        //                kml.WriteElementString("altitudeMode", "absolute");
+        //                kml.WriteStartElement("coordinates");
+
+        //                for (int j = 0; j < ct.cutList.Count; j++)
+        //                {                       
+        //                    linePts += ct.cutList[j].longitude.ToString("N9", CultureInfo.InvariantCulture) + ',' + ct.cutList[j].latitude.ToString("N9", CultureInfo.InvariantCulture) + ',' + ct.cutList[j].altitude.ToString("N3", CultureInfo.InvariantCulture) + ' ';
+        //                    //(utmLon.ToString("N7", CultureInfo.InvariantCulture) + ',' + utmLat.ToString("N7", CultureInfo.InvariantCulture) + ",0 ");
+
+        //                }
+        //                kml.WriteRaw(linePts);
+
+        //                kml.WriteEndElement(); // <coordinates>
+        //                kml.WriteEndElement(); // <LineString>
+
+        //                kml.WriteEndElement(); // <Placemark>
+        //            }
+        //        }
+        //        kml.WriteEndElement(); // <Folder>
+
+
+
+        //        //Swath tool Height
+        //        kml.WriteStartElement("Folder");
+        //        kml.WriteElementString("name", "Swath_Tool_Height");
+        //        kml.WriteElementString("visibility", "0");
+
+        //        //string linePts = "";
+
+
+        //        if (true)
+        //        {
+
+        //            for (int i = 0; i <= cutCnt; i++)
+        //            {
+        //                linePts = "";
+        //                kml.WriteStartElement("Placemark");
+        //                kml.WriteElementString("visibility", "0");
+
+        //                kml.WriteElementString("name", "Tool Height " + i);
+        //                kml.WriteStartElement("Style");
+
+        //                kml.WriteStartElement("LineStyle");
+        //                kml.WriteElementString("color", "ff6699ff");
+        //                kml.WriteElementString("width", "2");
+        //                kml.WriteEndElement(); // <LineStyle>
+        //                kml.WriteEndElement(); //Style
+
+        //                kml.WriteStartElement("LineString");
+        //                kml.WriteElementString("extrude", "1");
+        //                //kml.WriteElementString("tessellate", "1");
+        //                kml.WriteElementString("altitudeMode", "absolute");
+        //                kml.WriteStartElement("coordinates");
+
+        //                for (int j = 0; j < cutCnt; j++)
+        //                {
+
+        //                   linePts += ct.cutList[j].longitude.ToString("N9", CultureInfo.InvariantCulture) + ',' + ct.cutList[j].latitude.ToString("N9", CultureInfo.InvariantCulture) + ',' + ct.cutList[j].lastPassAltitude.ToString("N3", CultureInfo.InvariantCulture) + ' ';
+        //                   //(utmLon.ToString("N7", CultureInfo.InvariantCulture) + ',' + utmLat.ToString("N7", CultureInfo.InvariantCulture) + ",0 ");
+
+        //                }
+        //                kml.WriteRaw(linePts);
+
+        //                kml.WriteEndElement(); // <coordinates>
+        //                kml.WriteEndElement(); // <LineString>
+
+        //                kml.WriteEndElement(); // <Placemark>
+        //            }
+        //        }
+        //        kml.WriteEndElement(); // <Folder>             
+
+        //        //end of document
+        //        kml.WriteEndElement(); // <Document>
+        //        kml.WriteEndElement(); // <kml>
+
+        //        //The end
+        //        kml.WriteEndDocument();
+
+        //        kml.Flush();
+
+        //        //Write the XML to file and close the kml
+        //        kml.Close();
+        //    }
     }
 }

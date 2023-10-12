@@ -111,19 +111,19 @@
       <Value Profile="(Default)">20</Value>
     </Setting>
     <Setting Name="setMenu_isPureOn" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="setIP_thisPort" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">9999</Value>
     </Setting>
     <Setting Name="setIP_AntennaIP" Type="System.String" Scope="User">
-      <Value Profile="(Default)">192.168.1.155</Value>
+      <Value Profile="(Default)">192.168.1.225</Value>
     </Setting>
     <Setting Name="setIP_AntennaPort" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">8888</Value>
     </Setting>
     <Setting Name="setIP_gradeControlIP" Type="System.String" Scope="User">
-      <Value Profile="(Default)">192.168.1.255</Value>
+      <Value Profile="(Default)">192.168.1.229</Value>
     </Setting>
     <Setting Name="setIP_gradeControlPort" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">7777</Value>
@@ -232,6 +232,15 @@
     </Setting>
     <Setting Name="setUser4_Alt" Type="System.Double" Scope="User">
       <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="set_isAvgPt" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="set_noAvgDist" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.1</Value>
+    </Setting>
+    <Setting Name="set_levelDistFactor" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">100</Value>
     </Setting>
   </Settings>
 </SettingsFile>

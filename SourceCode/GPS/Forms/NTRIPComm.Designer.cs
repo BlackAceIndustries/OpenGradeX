@@ -111,7 +111,7 @@ namespace OpenGrade
                 return;
             }
 
-            tboxNTRIPBuffer.Text = "Start";
+            //tboxNTRIPBuffer.Text = "Start";
 
             string actualIP = Properties.Settings.Default.setNTRIP_casterURL.Trim();
             try
@@ -132,16 +132,16 @@ namespace OpenGrade
             password = Properties.Settings.Default.setNTRIP_userPassword; //Insert your password!            
             sendGGAInterval = Properties.Settings.Default.setNTRIP_sendGGAInterval; //how often to send fixes
 
-            tboxNTRIPBuffer.Text += "  Ip -> " + broadCasterIP + " Port -> " + 
-                broadCasterPort + " Mount -> " + mount + " GGA -> " + sendGGAInterval.ToString() + 
-                " Connection Attempt -> " + reconnectCounter + "\r\n\r\n";
+            //tboxNTRIPBuffer.Text += "  Ip -> " + broadCasterIP + " Port -> " + 
+            //    broadCasterPort + " Mount -> " + mount + " GGA -> " + sendGGAInterval.ToString() + 
+            //    " Connection Attempt -> " + reconnectCounter + "\r\n\r\n";
             
 
 
             //if we had a timer already, kill it
             if (tmr != null)
             {
-                tboxNTRIPBuffer.Text += "Timer Killed \r\n";
+                //tboxNTRIPBuffer.Text += "Timer Killed \r\n";
                 tmr.Dispose();
             }
 
@@ -159,7 +159,7 @@ namespace OpenGrade
                 // Close the socket if it is still open
                 if (clientSocket != null && clientSocket.Connected)
                 {
-                    tboxNTRIPBuffer.Text += "Close Socket \r\n";
+                    //tboxNTRIPBuffer.Text += "Close Socket \r\n";
                     clientSocket.Shutdown(SocketShutdown.Both);
                     System.Threading.Thread.Sleep(100);
                     clientSocket.Close();
@@ -222,7 +222,7 @@ namespace OpenGrade
                 //grab location sentence
                 BuildGGA();
                 GGASentence = sbGGA.ToString();
-                tboxNTRIPBuffer.Text += " Send Authorization" + '\n';
+                //tboxNTRIPBuffer.Text += " Send Authorization" + '\n';
 
                 string htt;
                 if (Properties.Settings.Default.setNTRIP_isHTTP10) htt = "1.0";
@@ -237,7 +237,7 @@ namespace OpenGrade
                     "Connection: close \r\n" +                                          //str += GGASentence; //this line can be removed if no position feedback is needed                
                     "\r\n";
 
-                tboxNTRIPBuffer.Text += " Authorization String > \r\n" + str + "\r\n";
+                //tboxNTRIPBuffer.Text += " Authorization String > \r\n" + str + "\r\n";
                 // Convert to byte array and send.
                 Byte[] byteDateLine = Encoding.ASCII.GetBytes(str.ToCharArray());
                 clientSocket.Send(byteDateLine, byteDateLine.Length, 0);
@@ -251,7 +251,7 @@ namespace OpenGrade
                 isNTRIP_Starting = false;
                 isNTRIP_Connecting = false;
                 isNTRIPOn = true;
-                tboxNTRIPBuffer.Text += " Authorization Sent" + '\n';
+                //tboxNTRIPBuffer.Text += " Authorization Sent" + '\n';
                 
 
                 //btnStartStopNtrip.Text = gStr.gsStop;
@@ -284,20 +284,11 @@ namespace OpenGrade
                     byte[] localMsg = new byte[nBytesRecvd];
                     Array.Copy(data, localMsg, nBytesRecvd);
 
-                    // Write the data to the List
-                    //sbRTCM.Clear();
-                    //sbRTCM.Append(NTRIP_HEADER);
-                    //sbRTCM.Append(",");
                     
                     for (int i = 0; i < nBytesRecvd; i++)
                     {
-                        
-                        //sbRTCM.Append(data[i]);
-                        //sbRTCM.Append(",");
-
                         rtcmRaw += data[i];
                         rtcmRaw += " ";
-
 
                     }
                     //sbRTCM.Append("\r\n");
@@ -322,7 +313,7 @@ namespace OpenGrade
             sbRTCM.Append("Total Bytes Recieved -> " + tripBytes.ToString() + "\r\n");
             sbRTCM.Append("Message Recieved -> " + rtcmRaw + "\r\n");
             sbRTCM.Append("\r\n");
-            tboxNTRIPBuffer.Text = sbRTCM.ToString();
+            //tboxNTRIPBuffer.Text = sbRTCM.ToString();
             sbRTCM.Clear();
             rtcmRaw = "";
             

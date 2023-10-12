@@ -9,7 +9,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>OpenGrade</RootNamespace>
-    <AssemblyName>OpenGradeX</AssemblyName>
+    <AssemblyName>OXG_3D</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -58,7 +58,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>OGX2Icon.ico</ApplicationIcon>
+    <ApplicationIcon>OGXicon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
@@ -67,10 +67,10 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
-    <ManifestCertificateThumbprint>DD12827AF45138AEAA9C3E76A4DB08C5E96799D2</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>960063CAA5D1D657DB55CFB190670CE1454125E5</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>OpenGrade_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>OpenGrade_1_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -124,6 +124,12 @@
     <Compile Include="Classes\CVehicle.cs" />
     <Compile Include="Classes\CWaypoint.cs" />
     <Compile Include="Classes\CWorldGrid.cs" />
+    <Compile Include="Forms\Form2dSurvey.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Form2dSurvey.Designer.cs">
+      <DependentUpon>Form2dSurvey.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormAltSet.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -178,6 +184,12 @@
     <Compile Include="Forms\FormSaveOrNot.Designer.cs">
       <DependentUpon>FormSaveOrNot.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormSurveyStart.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormSurveyStart.Designer.cs">
+      <DependentUpon>FormSurveyStart.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormTimedMessage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -189,6 +201,12 @@
     </Compile>
     <Compile Include="Forms\FormWebCam.Designer.cs">
       <DependentUpon>FormWebCam.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form3dSurvey.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Form3dSurvey.Designer.cs">
+      <DependentUpon>Form3dSurvey.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\GUI.Designer.cs">
       <SubType>Form</SubType>
@@ -278,6 +296,9 @@
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Forms\Form2dSurvey.resx">
+      <DependentUpon>Form2dSurvey.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormAltSet.resx">
       <DependentUpon>FormAltSet.cs</DependentUpon>
     </EmbeddedResource>
@@ -325,6 +346,9 @@
     <EmbeddedResource Include="Forms\FormSource.resx">
       <DependentUpon>FormSource.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormSurveyStart.resx">
+      <DependentUpon>FormSurveyStart.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormtimedMessage.resx">
       <DependentUpon>FormTimedMessage.cs</DependentUpon>
     </EmbeddedResource>
@@ -334,6 +358,9 @@
     <EmbeddedResource Include="Forms\FormUDP.resx">
       <DependentUpon>FormUDP.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Form3dSurvey.resx">
+      <DependentUpon>Form3dSurvey.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Form_About.resx">
       <DependentUpon>Form_About.cs</DependentUpon>
@@ -351,6 +378,7 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="OpenGrade_1_TemporaryKey.pfx" />
     <None Include="OpenGrade_TemporaryKey.pfx" />
     <None Include="Properties\Remote.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -393,8 +421,406 @@
     <Content Include="AppIcon.ico" />
     <Content Include="AppIcon64.ico" />
     <Content Include="aChangeLog.txt" />
+    <None Include="Resources\ABLineDelete.png" />
+    <None Include="Resources\ABLineCycle.png" />
+    <None Include="Resources\AddNew.png" />
+    <None Include="Resources\ABTramLine.png" />
+    <None Include="Resources\ABSwapPoints.png" />
+    <None Include="Resources\ABSmooth.png" />
+    <None Include="Resources\ABLineSnapEdit.png" />
+    <None Include="Resources\ABLineOn.png" />
+    <None Include="Resources\ABLineOff.png" />
+    <None Include="Resources\ABLineEdit.png" />
+    <None Include="Resources\bing.png" />
+    <None Include="Resources\back-button.png" />
+    <None Include="Resources\AutoStop.png" />
+    <None Include="Resources\AutoSteerOn.png" />
+    <None Include="Resources\AutoSteerOff.png" />
+    <None Include="Resources\AutoSteerConf.png" />
+    <None Include="Resources\AutoManualIsAuto.png" />
+    <None Include="Resources\ArrowRight.png" />
+    <None Include="Resources\ArrowLeft.png" />
+    <None Include="Resources\AntennaTractor.png" />
+    <None Include="Resources\AntennaHarvester.png" />
+    <None Include="Resources\Antenna4WD.png" />
+    <None Include="Resources\AgIO.png" />
+    <None Include="Resources\Boundary.png" />
+    <None Include="Resources\CameraNorth64.png" />
+    <None Include="Resources\CameraNorth2D.png" />
+    <None Include="Resources\Camera54.png" />
+    <None Include="Resources\Camera3D64.png" />
+    <None Include="Resources\Camera2D64.png" />
+    <None Include="Resources\BrightnessUp.png" />
+    <None Include="Resources\BrightnessDn.png" />
+    <None Include="Resources\boundaryStop.png" />
+    <None Include="Resources\BoundaryRight.png" />
+    <None Include="Resources\BoundaryRecord.png" />
+    <None Include="Resources\boundaryPlay.png" />
+    <None Include="Resources\boundaryPause.png" />
+    <None Include="Resources\BoundaryOuter.png" />
+    <None Include="Resources\BoundaryLoadMultiFromGE.png" />
+    <None Include="Resources\BoundaryLoadFromGE.png" />
+    <None Include="Resources\BoundaryLeft.png" />
+    <None Include="Resources\BoundaryDeleteAll.png" />
+    <None Include="Resources\BoundaryDelete.png" />
+    <None Include="Resources\BoundaryCurveLine.png" />
+    <None Include="Resources\FileDontSave.png" />
+    <None Include="Resources\FileDelete.png" />
+    <None Include="Resources\FileCopy.png" />
+    <None Include="Resources\FieldClose.png" />
+    <None Include="Resources\ExitAOG.png" />
+    <None Include="Resources\DnArrow64.png" />
+    <None Include="Resources\CurveOn.png" />
+    <None Include="Resources\CurveOff.png" />
+    <None Include="Resources\ContourPriorityRight.png" />
+    <None Include="Resources\ContourPriorityLeft.png" />
+    <None Include="Resources\ContourOn.png" />
+    <None Include="Resources\ContourOff.png" />
+    <None Include="Resources\Con_SourcesRTKAlarm.png" />
+    <None Include="Resources\Con_SourcesGPSSingle.png" />
+    <None Include="Resources\Con_SourcesGPSDual.png" />
+    <None Include="Resources\ColourPick.png" />
+    <None Include="Resources\ColorUnlocked.png" />
+    <None Include="Resources\ColorLocked.png" />
+    <None Include="Resources\ColorField.png" />
+    <None Include="Resources\ColorBackGnd.png" />
+    <None Include="Resources\Color.png" />
+    <None Include="Resources\Chart.png" />
+    <None Include="Resources\Cancel64.png" />
+    <None Include="Resources\FileNewAndGo.png" />
+    <None Include="Resources\FileNew.png" />
+    <None Include="Resources\fileMenu.png" />
+    <None Include="Resources\FileExplorerWindows.png" />
+    <None Include="Resources\FileEditName.png" />
+    <None Include="Resources\ManualOn.png" />
+    <None Include="Resources\ManualOff.png" />
+    <None Include="Resources\MakeBoundaryContour.png" />
+    <None Include="Resources\MakeBoundaryContour.jpg" />
+    <None Include="Resources\MakeBoundary.png" />
+    <None Include="Resources\Lock.png" />
+    <None Include="Resources\LetterBBlue.png" />
+    <None Include="Resources\LetterABlue.png" />
+    <None Include="Resources\LatLon.png" />
+    <None Include="Resources\KeyHole.png" />
+    <None Include="Resources\JobNameTime.png" />
+    <None Include="Resources\JobNameCalendar.png" />
+    <None Include="Resources\JobClose.png" />
+    <None Include="Resources\JobActive.png" />
+    <None Include="Resources\ImplementSettings.png" />
+    <None Include="Resources\HydraulicLiftOn.png" />
+    <None Include="Resources\HydraulicLiftOff.png" />
+    <None Include="Resources\HideContour.png" />
+    <None Include="Resources\HelpCancel.png" />
+    <None Include="Resources\Help.png" />
+    <None Include="Resources\HeadlandTouchSave.png" />
+    <None Include="Resources\HeadlandOn.png" />
+    <None Include="Resources\HeadlandOff.png" />
+    <None Include="Resources\HeadlandMenu.png" />
+    <None Include="Resources\HeadlandDeletePoints.png" />
+    <None Include="Resources\GoogleEarth.png" />
+    <None Include="Resources\FlagYel.png" />
+    <None Include="Resources\FlagRed.png" />
+    <None Include="Resources\FlagGrn.png" />
+    <None Include="Resources\FlagDeleteAll.png" />
+    <None Include="Resources\FlagDelete.png" />
+    <None Include="Resources\First.gif" />
+    <None Include="Resources\FileUse.png" />
+    <None Include="Resources\FileSaveAs.png" />
+    <None Include="Resources\FileSave.png" />
+    <None Include="Resources\FilePrevious.png" />
+    <None Include="Resources\FileOpen.png" />
+    <None Include="Resources\RadiusWheelBase4WD.png" />
+    <None Include="Resources\RadiusWheelBase.png" />
+    <None Include="Resources\radar-icon.png" />
+    <None Include="Resources\Previous.png" />
+    <None Include="Resources\PointStart.png" />
+    <None Include="Resources\PointDone.png" />
+    <None Include="Resources\PointDelete.png" />
+    <None Include="Resources\PointAdd.png" />
+    <None Include="Resources\Play.png" />
+    <None Include="Resources\pathResumeStart.png" />
+    <None Include="Resources\pathResumeLast.png" />
+    <None Include="Resources\pathResumeClose.png" />
+    <None Include="Resources\OpManual.png" />
+    <None Include="Resources\OK64.png" />
+    <None Include="Resources\Next.png" />
+    <None Include="Resources\NEWS.png" />
+    <None Include="Resources\NavigationSettings.png" />
+    <None Include="Resources\ModeStanley.png" />
+    <None Include="Resources\ModePurePursuit.png" />
+    <None Include="Resources\Marker.png" />
+    <None Include="Resources\MappingOn.png" />
+    <None Include="Resources\MappingOff.png" />
+    <None Include="Resources\MapGray.png" />
+    <None Include="Resources\MapColor.png" />
+    <None Include="Resources\SnapLeftHalf.png" />
+    <None Include="Resources\SnapLeft.png" />
+    <None Include="Resources\skull.png" />
+    <None Include="Resources\SettingsGearOnly.png" />
+    <None Include="Resources\SettingsGear64.png" />
+    <None Include="Resources\Settings48.png" />
+    <None Include="Resources\SemiCircle.png" />
+    <None Include="Resources\SectionWidth.png" />
+    <None Include="Resources\SectionsExample.png" />
+    <None Include="Resources\SectionOffBoundary.png" />
+    <None Include="Resources\SectionOffBelow.png" />
+    <None Include="Resources\SectionMasterOn.png" />
+    <None Include="Resources\SectionMasterOff.png" />
+    <None Include="Resources\SectionMapping.png" />
+    <None Include="Resources\ResetTool.png" />
+    <None Include="Resources\Reset_Default.png" />
+    <None Include="Resources\RecPath.png" />
+    <None Include="Resources\RadiusWheelBaseHarvester.png" />
+    <None Include="Resources\SnapToPivot.png" />
+    <None Include="Resources\SnapRightHalf.png" />
+    <None Include="Resources\SnapRight.png" />
+    <None Include="Resources\VehFileSaveAs.png" />
+    <None Include="Resources\VehFileSave.png" />
+    <None Include="Resources\VehFileLoad.png" />
+    <None Include="Resources\VehFileDelete.png" />
+    <None Include="Resources\UpArrow64.png" />
+    <None Include="Resources\Trash.png" />
+    <None Include="Resources\TramOuter.png" />
+    <None Include="Resources\TramOff.png" />
+    <None Include="Resources\TramLines.png" />
+    <None Include="Resources\TramAll.png" />
+    <None Include="Resources\ToolPage1.jpg" />
+    <None Include="Resources\ToolHitchPageTrailing.png" />
+    <None Include="Resources\ToolHitchPageTBT.png" />
+    <None Include="Resources\ToolHitchPageRear.png" />
+    <None Include="Resources\ToolHitchPageFront.png" />
+    <None Include="Resources\ToolChkTrailing.png" />
+    <None Include="Resources\ToolChkTBT.png" />
+    <None Include="Resources\ToolChkRear.png" />
+    <None Include="Resources\ToolChkFront.png" />
+    <None Include="Resources\ToolAcceptChange.png" />
+    <None Include="Resources\Time.png" />
+    <None Include="Resources\TiltUp.png" />
+    <None Include="Resources\TiltDown.png" />
+    <None Include="Resources\SwitchOn.png" />
+    <None Include="Resources\SwitchOff.png" />
+    <None Include="Resources\SwitchActiveOpen.png" />
+    <None Include="Resources\SwitchActiveClosed.png" />
+    <None Include="Resources\Stop.png" />
+    <None Include="Resources\SteerZeroSmall.png" />
+    <None Include="Resources\SteerZero.png" />
+    <None Include="Resources\SteerTab.png" />
+    <None Include="Resources\SteerRight.png" />
+    <None Include="Resources\SteerLeft.png" />
+    <None Include="Resources\SteerDriveOn.png" />
+    <None Include="Resources\SteerDriveOff.png" />
+    <None Include="Resources\SteerCenter.png" />
+    <None Include="Resources\Splash.gif" />
+    <None Include="Resources\SpecialFunctions.png" />
+    <None Include="Resources\Sort.png" />
+    <None Include="Resources\WindowMaximize.png" />
+    <None Include="Resources\WindowDayMode.png" />
+    <None Include="Resources\WindowClose.png" />
+    <None Include="Resources\WideReturn.png" />
+    <None Include="Resources\Webcam.png" />
+    <None Include="Resources\VideoLink.png" />
+    <None Include="Resources\vehiclePageTractor.png" />
+    <None Include="Resources\vehiclePageHarvester.png" />
+    <None Include="Resources\vehiclePage4WD.png" />
+    <None Include="Resources\ZoomOut48.png" />
+    <None Include="Resources\ZoomIn48.png" />
+    <None Include="Resources\ZeroPitchRoll.png" />
+    <None Include="Resources\YouTurnReverse.png" />
+    <None Include="Resources\YouTurnNo.png" />
+    <None Include="Resources\YouTurn80.png" />
+    <None Include="Resources\YouSkipOn.png" />
+    <None Include="Resources\YouSkipOff.png" />
+    <None Include="Resources\www.png" />
+    <None Include="Resources\WorkSwitch.jpg" />
+    <None Include="Resources\WizWasZeroReset.png" />
+    <None Include="Resources\WizWasZero.png" />
+    <None Include="Resources\WizSteerDot.png" />
+    <None Include="Resources\WizardWand.png" />
+    <None Include="Resources\WindowNightMode.png" />
+    <None Include="Resources\WindowMinimize.png" />
+    <None Include="Resources\SpecialFunctions.bmp" />
+    <None Include="Resources\Image1.bmp" />
     <None Include="btnImages\Metric.png" />
     <None Include="btnImages\Imperial.png" />
+    <None Include="btnImages\Snap3.png" />
+    <None Include="btnImages\ABLineCycle.png" />
+    <None Include="btnImages\ABLineDelete.png" />
+    <None Include="btnImages\ABLineEdit.png" />
+    <None Include="btnImages\ABLineOff.png" />
+    <None Include="btnImages\ABLineOn.png" />
+    <None Include="btnImages\ABLineSnapEdit.png" />
+    <None Include="btnImages\ABSmooth.png" />
+    <None Include="btnImages\ABSwapPoints.png" />
+    <None Include="btnImages\ABTramLine.png" />
+    <None Include="btnImages\AddNew.png" />
+    <None Include="btnImages\AgIO.png" />
+    <None Include="btnImages\Antenna4WD.png" />
+    <None Include="btnImages\AntennaHarvester.png" />
+    <None Include="btnImages\AntennaTractor.png" />
+    <None Include="btnImages\AutoManualIsAuto.png" />
+    <None Include="btnImages\AutoStop.png" />
+    <None Include="btnImages\bing.png" />
+    <None Include="btnImages\Boundary.png" />
+    <None Include="btnImages\BoundaryCurveLine.png" />
+    <None Include="btnImages\BoundaryDeleteAll.png" />
+    <None Include="btnImages\BoundaryLoadFromGE.png" />
+    <None Include="btnImages\BoundaryLoadMultiFromGE.png" />
+    <None Include="btnImages\BrightnessDn.png" />
+    <None Include="btnImages\BrightnessUp.png" />
+    <None Include="btnImages\Camera2D64.png" />
+    <None Include="btnImages\Camera3D64.png" />
+    <None Include="btnImages\Camera54.png" />
+    <None Include="btnImages\CameraNorth2D.png" />
+    <None Include="btnImages\CameraNorth64.png" />
+    <None Include="btnImages\Cancel64.png" />
+    <None Include="btnImages\Chart.png" />
+    <None Include="btnImages\ColorBackGnd.png" />
+    <None Include="btnImages\ColorLocked.png" />
+    <None Include="btnImages\ColorUnlocked.png" />
+    <None Include="btnImages\ColourPick.png" />
+    <None Include="btnImages\Con_SourcesGPSDual.png" />
+    <None Include="btnImages\Con_SourcesGPSSingle.png" />
+    <None Include="btnImages\Con_SourcesRTKAlarm.png" />
+    <None Include="btnImages\ContourPriorityLeft.png" />
+    <None Include="btnImages\ContourPriorityRight.png" />
+    <None Include="btnImages\CurveOff.png" />
+    <None Include="btnImages\CurveOn.png" />
+    <None Include="btnImages\ExitAOG.png" />
+    <None Include="btnImages\FieldClose.png" />
+    <None Include="btnImages\FieldView.png" />
+    <None Include="btnImages\FileCopy.png" />
+    <None Include="btnImages\FileDelete.png" />
+    <None Include="btnImages\FileEditName.png" />
+    <None Include="btnImages\fileMenu.png" />
+    <None Include="btnImages\FileNewAndGo.png" />
+    <None Include="btnImages\FileSaveAs.png" />
+    <None Include="btnImages\FileUse.png" />
+    <None Include="btnImages\First.gif" />
+    <None Include="btnImages\Grade64Icon.ico" />
+    <None Include="btnImages\GradeControlOff.png" />
+    <None Include="btnImages\GradeControlOn.png" />
+    <None Include="btnImages\HeadlandDeletePoints.png" />
+    <None Include="btnImages\HeadlandMenu.png" />
+    <None Include="btnImages\HeadlandOff.png" />
+    <None Include="btnImages\HeadlandOn.png" />
+    <None Include="btnImages\HeadlandTouchSave.png" />
+    <None Include="btnImages\Help.png" />
+    <None Include="btnImages\HelpCancel.png" />
+    <None Include="btnImages\HideContour.png" />
+    <None Include="btnImages\Home64.png" />
+    <None Include="btnImages\HydraulicLiftOff.png" />
+    <None Include="btnImages\HydraulicLiftOn.png" />
+    <None Include="btnImages\JobClose.png" />
+    <None Include="btnImages\JobNameCalendar.png" />
+    <None Include="btnImages\JobNameTime.png" />
+    <None Include="btnImages\LatLon.png" />
+    <None Include="btnImages\LetterABlue.png" />
+    <None Include="btnImages\LetterBBlue.png" />
+    <None Include="btnImages\Lock.png" />
+    <None Include="btnImages\MakeBoundary.png" />
+    <None Include="btnImages\MakeBoundaryContour.jpg" />
+    <None Include="btnImages\MakeBoundaryContour.png" />
+    <None Include="btnImages\MapColor.png" />
+    <None Include="btnImages\MapGray.png" />
+    <None Include="btnImages\MappingOff.png" />
+    <None Include="btnImages\MappingOn.png" />
+    <None Include="btnImages\Marker.png" />
+    <None Include="btnImages\ModePurePursuit.png" />
+    <None Include="btnImages\ModeStanley.png" />
+    <None Include="btnImages\NavigationSettings.png" />
+    <None Include="btnImages\NEWS.png" />
+    <None Include="btnImages\Next.png" />
+    <None Include="btnImages\OGX.ico" />
+    <None Include="btnImages\OGX.png" />
+    <None Include="btnImages\OGX2Icon.ico" />
+    <None Include="btnImages\OGX2Icon.png" />
+    <None Include="btnImages\OGXicon.ico" />
+    <None Include="btnImages\OK64.png" />
+    <None Include="btnImages\OpenGradeIcon.png" />
+    <None Include="btnImages\OpManual.png" />
+    <None Include="btnImages\pathResumeClose.png" />
+    <None Include="btnImages\pathResumeLast.png" />
+    <None Include="btnImages\pathResumeStart.png" />
+    <None Include="btnImages\PointAdd.png" />
+    <None Include="btnImages\Previous.png" />
+    <None Include="btnImages\radar-icon.png" />
+    <None Include="btnImages\RadiusWheelBase.png" />
+    <None Include="btnImages\RadiusWheelBase4WD.png" />
+    <None Include="btnImages\RadiusWheelBaseHarvester.png" />
+    <None Include="btnImages\RecPath.png" />
+    <None Include="btnImages\Reset_Default.png" />
+    <None Include="btnImages\ResetTool.png" />
+    <None Include="btnImages\SateliteIcon.png" />
+    <None Include="btnImages\Scraper.png" />
+    <None Include="btnImages\SectionMapping.png" />
+    <None Include="btnImages\SectionMasterOff.png" />
+    <None Include="btnImages\SectionMasterOn.png" />
+    <None Include="btnImages\SectionOffBelow.png" />
+    <None Include="btnImages\SectionOffBoundary.png" />
+    <None Include="btnImages\SectionsExample.png" />
+    <None Include="btnImages\SectionWidth.png" />
+    <None Include="btnImages\SettingsGearOnly.png" />
+    <None Include="btnImages\SettingsIcon.png" />
+    <None Include="btnImages\skull.png" />
+    <None Include="btnImages\SnapLeft.png" />
+    <None Include="btnImages\SnapLeftHalf.png" />
+    <None Include="btnImages\SnapRight.png" />
+    <None Include="btnImages\SnapRightHalf.png" />
+    <None Include="btnImages\SnapToPivot.png" />
+    <None Include="btnImages\Sort.png" />
+    <None Include="btnImages\SpecialFunctions.png" />
+    <None Include="btnImages\Splash.gif" />
+    <None Include="btnImages\SteerCenter.png" />
+    <None Include="btnImages\SteerDriveOff.png" />
+    <None Include="btnImages\SteerDriveOn.png" />
+    <None Include="btnImages\SteerLeft.png" />
+    <None Include="btnImages\SteerRight.png" />
+    <None Include="btnImages\SteerTab.png" />
+    <None Include="btnImages\SteerZero.png" />
+    <None Include="btnImages\SteerZeroSmall.png" />
+    <None Include="btnImages\SwitchActiveClosed.png" />
+    <None Include="btnImages\SwitchActiveOpen.png" />
+    <None Include="btnImages\SwitchOff.png" />
+    <None Include="btnImages\SwitchOn.png" />
+    <None Include="btnImages\Time.png" />
+    <None Include="btnImages\ToolAcceptChange.png" />
+    <None Include="btnImages\ToolChkFront.png" />
+    <None Include="btnImages\ToolChkRear.png" />
+    <None Include="btnImages\ToolChkTBT.png" />
+    <None Include="btnImages\ToolChkTrailing.png" />
+    <None Include="btnImages\ToolHitchPageFront.png" />
+    <None Include="btnImages\ToolHitchPageRear.png" />
+    <None Include="btnImages\ToolHitchPageTBT.png" />
+    <None Include="btnImages\ToolHitchPageTrailing.png" />
+    <None Include="btnImages\ToolPage1.jpg" />
+    <None Include="btnImages\TramAll.png" />
+    <None Include="btnImages\TramLines.png" />
+    <None Include="btnImages\TramOff.png" />
+    <None Include="btnImages\TramOuter.png" />
+    <None Include="btnImages\Trash.png" />
+    <None Include="btnImages\UpArrow64.png" />
+    <None Include="btnImages\VehFileDelete.png" />
+    <None Include="btnImages\VehFileLoad.png" />
+    <None Include="btnImages\VehFileSave.png" />
+    <None Include="btnImages\VehFileSaveAs.png" />
+    <None Include="btnImages\vehiclePage4WD.png" />
+    <None Include="btnImages\vehiclePageHarvester.png" />
+    <None Include="btnImages\vehiclePageTractor.png" />
+    <None Include="btnImages\VideoLink.png" />
+    <None Include="btnImages\Webcam.png" />
+    <None Include="btnImages\WiFi.png" />
+    <None Include="btnImages\WindowClose.png" />
+    <None Include="btnImages\WindowDayMode.png" />
+    <None Include="btnImages\WindowMaximize.png" />
+    <None Include="btnImages\WindowMinimize.png" />
+    <None Include="btnImages\WindowNightMode.png" />
+    <None Include="btnImages\WizardWand.png" />
+    <None Include="btnImages\WizSteerDot.png" />
+    <None Include="btnImages\WizWasZero.png" />
+    <None Include="btnImages\WizWasZeroReset.png" />
+    <None Include="btnImages\www.png" />
+    <None Include="btnImages\YouSkipOff.png" />
+    <None Include="btnImages\YouSkipOn.png" />
     <Content Include="OGX2Icon.ico" />
     <Content Include="OGXicon.ico" />
     <None Include="btnImages\GradeControlOn1.png" />
@@ -537,9 +963,7 @@
     </Content>
     <Content Include="ALicense.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

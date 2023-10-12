@@ -130,9 +130,11 @@ namespace OpenGrade
 
         }
 
+        private void FormAltSet_FormClosing(object sender, EventArgs e)
+        {
+            mf.toolStripMenuItem1.Checked = false;
 
-
-        
+        }
     }
 
 }

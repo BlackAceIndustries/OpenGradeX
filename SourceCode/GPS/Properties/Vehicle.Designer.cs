@@ -12,7 +12,7 @@ namespace OpenGrade.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.2.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.4.0.0")]
     internal sealed partial class Vehicle : global::System.Configuration.ApplicationSettingsBase {
         
         private static Vehicle defaultInstance = ((Vehicle)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Vehicle())));
@@ -121,7 +121,7 @@ namespace OpenGrade.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.5")]
+        [global::System.Configuration.DefaultSettingValueAttribute("500")]
         public double setVehicle_plowHeight {
             get {
                 return ((double)(this["setVehicle_plowHeight"]));
@@ -188,6 +188,18 @@ namespace OpenGrade.Properties {
             }
             set {
                 this["setVehicle_minShoreSlope"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.5")]
+        public double setVehicle_GradeDistFromLine {
+            get {
+                return ((double)(this["setVehicle_GradeDistFromLine"]));
+            }
+            set {
+                this["setVehicle_GradeDistFromLine"] = value;
             }
         }
     }

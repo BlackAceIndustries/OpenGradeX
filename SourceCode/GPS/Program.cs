@@ -12,7 +12,7 @@ namespace OpenGrade
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        static readonly Mutex Mutex = new Mutex(true, "{8F6F0AC5-B9A1-55fd-A8CF-72F04E6BDE8F}");
+        static readonly Mutex Mutex = new Mutex(true, "{8F6F0AC7-B9A1-55fd-A8CF-72F04E6BDE8F}");
         [STAThread]
         static void Main()
         {

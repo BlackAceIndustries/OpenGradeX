@@ -12,7 +12,7 @@ namespace OpenGrade.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.2.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.4.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -457,7 +457,7 @@ namespace OpenGrade.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool setMenu_isPureOn {
             get {
                 return ((bool)(this["setMenu_isPureOn"]));
@@ -481,7 +481,7 @@ namespace OpenGrade.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("192.168.1.155")]
+        [global::System.Configuration.DefaultSettingValueAttribute("192.168.1.225")]
         public string setIP_AntennaIP {
             get {
                 return ((string)(this["setIP_AntennaIP"]));
@@ -505,7 +505,7 @@ namespace OpenGrade.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("192.168.1.255")]
+        [global::System.Configuration.DefaultSettingValueAttribute("192.168.1.229")]
         public string setIP_gradeControlIP {
             get {
                 return ((string)(this["setIP_gradeControlIP"]));
@@ -944,6 +944,42 @@ namespace OpenGrade.Properties {
             }
             set {
                 this["setUser4_Alt"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool set_isAvgPt {
+            get {
+                return ((bool)(this["set_isAvgPt"]));
+            }
+            set {
+                this["set_isAvgPt"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
+        public double set_noAvgDist {
+            get {
+                return ((double)(this["set_noAvgDist"]));
+            }
+            set {
+                this["set_noAvgDist"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public double set_levelDistFactor {
+            get {
+                return ((double)(this["set_levelDistFactor"]));
+            }
+            set {
+                this["set_levelDistFactor"] = value;
             }
         }
     }

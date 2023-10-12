@@ -73,14 +73,30 @@ namespace OpenGrade
             //draw the vehicle Body
             gl.Color(0.25, 0.25, 0.25);
             gl.Begin(OpenGL.GL_TRIANGLE_FAN);            
-            gl.Vertex(0.75, -antennaPivot, 0.0);
-            gl.Vertex(0, -antennaPivot + 2.5, 0.0);
+            gl.Vertex(0.75, -antennaPivot - 1.5, 0.0);
+            gl.Vertex(0, -antennaPivot , 0.0);
             gl.Color(0.45, 0.45, 0.45);
-            gl.Vertex(-0.75, -antennaPivot, 0.0);
-            gl.Vertex(1.0, -antennaPivot, 0.0);
+            gl.Vertex(-0.75, -antennaPivot - 1.5, 0.0);
+            gl.Vertex(0, -antennaPivot, 0.0);
             gl.End();
+          
 
-           
+            // gl.Translate(mf.ct.goalPointCT.easting, mf.ct.goalPointCT.northing, 0);
+
+            //gl.Translate(mf.ct.goalPointCT.easting, mf.ct.goalPointCT.northing, 0);
+            //gl.PointSize(6.0f);
+            //gl.Begin(OpenGL.GL_POINTS);
+            //gl.Color(0.0f, 0.0f, 1.0f);
+            //gl.Vertex(0, 0, 0.0);
+            //gl.End();
+
+            //gl.Color(0.25, 0.25, 0.85);
+            //gl.PointSize(8);
+            //gl.Begin(OpenGL.GL_POINTS);                 
+            //gl.Vertex(mf.ct.goalPointCT.easting, mf.ct.goalPointCT.northing, 0.0);
+            //gl.End();
+
+
             if (mf.isTurningRight && mf.isTurning) // Vehicle is turning to the right
             {
                 //gl.Rotate(glm.toDegrees(-mf.fixHeading), 0.0, 0.0, 1.0);
@@ -102,19 +118,19 @@ namespace OpenGrade
 
             //Hitch
             gl.Color(0.0f, 0.99f, 0.0f, 0.99f);            
-            gl.Begin(OpenGL.GL_POLYGON);
-            gl.Vertex(antennaPivot - .075, 0, 0);
-            gl.Vertex(antennaPivot + .075, 0, 0);
-            gl.Vertex(antennaPivot + .15, -3, 0);
-            gl.Vertex(antennaPivot - .15, -3, 0);
-            gl.End();
+            //gl.Begin(OpenGL.GL_POLYGON);
+            //gl.Vertex(antennaPivot - .075, 0, 0);
+            //gl.Vertex(antennaPivot + .075, 0, 0);
+            //gl.Vertex(antennaPivot + .15, -3, 0);
+            //gl.Vertex(antennaPivot - .15, -3, 0);
+            //gl.End();
 
             //Scraper front 
             gl.Color(0.0f, 0.99f, 0.0f, 0.65f);
             gl.LineWidth(5);
             gl.Begin(OpenGL.GL_LINES);
-            gl.Vertex(-toolWidth /1.5, -3);
-            gl.Vertex(toolWidth /1.5, -3);
+            gl.Vertex(-toolWidth / 2.0, 0);
+            gl.Vertex(toolWidth /2.0, 0);
             gl.End();
 
             /*//Scraper left edge 

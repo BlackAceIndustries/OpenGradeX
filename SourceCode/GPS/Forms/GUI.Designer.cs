@@ -19,7 +19,7 @@ namespace OpenGrade
         private void LoadGUI()
         {
             //set the flag mark button to red dot
-            btnFlag.Image = Properties.Resources.FlagRed;
+            //btnFlag.Image = Properties.Resources.FlagRed;
 
             //metric settings
             isMetric = Settings.Default.setMenu_isMetric;
@@ -27,21 +27,21 @@ namespace OpenGrade
 
             if (isMetric)
             {
-                lblSpeedUnits.Text = "kmh";
-                lblAltitudeUnits.Text = "M";
-                lblAltitudeUnits2.Text = "M";
+                //lblSpeedUnits.Text = "kmh";
+                //lblAltitudeUnits.Text = "M";
+                //lblAltitudeUnits2.Text = "M";
                 metricToolStrip.Checked = true;
                 imperialToolStrip.Checked = false;
-                btnUnits.Image = Properties.Resources.Metric;
+                //btnUnits.Image = Properties.Resources.Metric;
             }
             else
             {
-                lblSpeedUnits.Text = "mph";
-                lblAltitudeUnits.Text = "FT";
-                lblAltitudeUnits2.Text = "FT";
+                //lblSpeedUnits.Text = "mph";
+                //lblAltitudeUnits.Text = "FT";
+                //lblAltitudeUnits2.Text = "FT";
                 metricToolStrip.Checked = false;
                 imperialToolStrip.Checked = true;
-                btnUnits.Image = Properties.Resources.Imperial;
+                //btnUnits.Image = Properties.Resources.Imperial;
             }
 
             //load up colors
@@ -73,6 +73,8 @@ namespace OpenGrade
             skyToolStripMenu.Checked = isSkyOn;
 
             simulatorOnToolStripMenuItem.Checked = Settings.Default.setMenu_isSimulatorOn;
+            
+            
             if (simulatorOnToolStripMenuItem.Checked)
             {
                 panelSimControls.Visible = true;
@@ -82,11 +84,12 @@ namespace OpenGrade
             {
                 panelSimControls.Visible = false;
                 timerSim.Enabled = false;
+
             }
 
-            btnDoneDraw.Enabled = false;
-            btnDeleteLastPoint.Enabled = false;
-            btnStartDraw.Enabled = true;
+            //btnDoneDraw.Enabled = false;
+            //btnDeleteLastPoint.Enabled = false;
+            //btnStartDraw.Enabled = true;
             lblBarGraphMax.Text = (barGraphMax/10).ToString();
         }
 
@@ -95,12 +98,12 @@ namespace OpenGrade
         {
             if (openGLControlBack.Visible)
             {
-                openGLControl.Height = this.Height - 200;
+                openGLControl.Height = this.Height - 100;
                 openGLControlBack.Visible = false;
             }
             else
             {
-                openGLControl.Height = 300;
+                openGLControl.Height = 500;
                 openGLControlBack.Visible = true;
             }
         }
@@ -165,13 +168,13 @@ namespace OpenGrade
             if (ct.isContourBtnOn)
             {
                 ct.isContourBtnOn = !ct.isContourBtnOn;
-                btnContour.Image = Properties.Resources.ContourOff;
+                //btnContour.Image = Properties.Resources.ContourOff;
             }
 
             using (var form = new FormABLine(this))
             {
                 ABLine.isABLineBeingSet = true;
-                txtDistanceOffABLine.Visible = true;
+                //txtDistanceOffABLine.Visible = true;
                 var result = form.ShowDialog();
 
                 //Comes back
@@ -180,9 +183,9 @@ namespace OpenGrade
                 if (!ABLine.isABLineSet)
                 {
                     ABLine.isABLineBeingSet = false;
-                    txtDistanceOffABLine.Visible = false;
+                    //txtDistanceOffABLine.Visible = false;
                     //change image to reflect on off
-                    btnABLine.Image = Properties.Resources.ABLineOff;
+                    //btnABLine.Image = Properties.Resources.ABLineOff;
                     ABLine.isABLineBeingSet = false;
 
                     if (isGradeControlBtnOn) btnGradeControl.PerformClick();
@@ -200,7 +203,7 @@ namespace OpenGrade
         private void btnContour_Click(object sender, EventArgs e)
         {
             ct.isContourBtnOn = !ct.isContourBtnOn;
-            btnContour.Image = ct.isContourBtnOn ? Properties.Resources.ContourOn : Properties.Resources.ContourOff;
+            //btnContour.Image = ct.isContourBtnOn ? Properties.Resources.ContourOn : Properties.Resources.ContourOff;
         }
 
         //zoom up close and far away
@@ -222,66 +225,218 @@ namespace OpenGrade
 
         //button for Manual On Off of the sections
         private void btnManualOffOn_Click(object sender, EventArgs e)
-        { 
+        {
+
+
             switch (manualBtnState)
             {
-               
                 case btnStates.Off:
+                    manualBtnState = btnStates.Stdby;
+                    //btnManualOffOn.Image = null;
+                    //btnManualOffOn.Text = "BenchMark";
+                    userDistance = 0;
 
-                    if (ct.ptList.Count > 0 && !isCutSaved && btnSaveCut.Enabled == true)
-                    {
-                        DialogResult result3 = MessageBox.Show("Do you wish to start a new survey Line? \nThis will erase Your current cut if it has not been saved \n \n Do you wish to Continue?", "Do you wish to start a new survey Line?",
-                                             MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning); 
-                        
-                        if (result3 == DialogResult.Yes)
-                        {
-                            manualBtnState = btnStates.Rec;
-                            btnManualOffOn.Image = Properties.Resources.SurveyStop1;
-                            userDistance = 0;
-                            lblCut.Text = "*";
-                            lblFill.Text = "*";
-                            lblCutFillRatio.Text = "*";
-                            lblDrawSlope.Text = "*";
+                    //cboxLastPass.Checked = false;
+                    //cboxRecLastOnOff.Checked = false;
+                    //cboxLaserModeOnOff.Checked = false;
+                    //btnDoneDraw.Enabled = false;
+                    //btnDeleteLastPoint.Enabled = false;
+                    //btnStartDraw.Enabled = false;
+                    ct.isSurveyOn = true;
+                    ct.clearSurveyList = true;
+                    ct.isBtnStartPause = false;
+                    //btnStartPause.Text = "START";
 
-                            btnDoneDraw.Enabled = false;
-                            btnDeleteLastPoint.Enabled = false;
-                            btnStartDraw.Enabled = false;
-                        }
-                    }
-                    else
-                    {
-                        manualBtnState = btnStates.Rec;
-                        btnManualOffOn.Image = Properties.Resources.SurveyStop1;
-                        userDistance = 0;
-                        lblCut.Text = "*";
-                        lblFill.Text = "*";
-                        lblCutFillRatio.Text = "*";
-                        lblDrawSlope.Text = "*";
+                    break;
 
-                        btnDoneDraw.Enabled = false;
-                        btnDeleteLastPoint.Enabled = false;
-                        btnStartDraw.Enabled = false;
+                case btnStates.Stdby:
+                    manualBtnState = btnStates.RecBnd;
+                    //btnManualOffOn.Image = null;
+                   // btnManualOffOn.Text = "Recording Boundary";
+                    userDistance = 0;
+                    //btnStartPause.Visible = true;
+                    //btnBoundarySide.Visible = true;
+                    ct.isBtnStartPause = false;
+                    //btnStartPause.Text = "START";
 
-                    }
+
+                    // cboxLastPass.Checked = false;
+                    //cboxRecLastOnOff.Checked = false;
+                    //cboxLaserModeOnOff.Checked = false;
+                    //btnDoneDraw.Enabled = false;
+                    //btnDeleteLastPoint.Enabled = false;
+                    //btnStartDraw.Enabled = false;
+                    ct.isSurveyOn = true;
+                    ct.markBM = true;
+
+
+
+                    break;
+
+                case btnStates.RecBnd:
+                    manualBtnState = btnStates.Rec;
+                   // btnManualOffOn.Image = Properties.Resources.ManualOn;
+                    //btnManualOffOn.Text = null;
+                    userDistance = 0;
+                    //btnBoundarySide.Visible = false;
+                    ct.isBtnStartPause = false;
+                    //btnStartPause.Text = "START";
+
+                    //cboxLastPass.Checked = false;
+                    //cboxRecLastOnOff.Checked = false;
+                    //cboxLaserModeOnOff.Checked = false;
+                    //btnDoneDraw.Enabled = false;
+                    //btnDeleteLastPoint.Enabled = false;
+                    //btnStartDraw.Enabled = false;
+                    ct.isSurveyOn = true;
+                    ct.recBoundary = false;
+                    ct.recSurveyPt = true;
+
 
                     break;
 
                 case btnStates.Rec:
-
-                    
                     manualBtnState = btnStates.Off;
-                    btnManualOffOn.Image = Properties.Resources.SurveyStart;                    
-                    CalculateContourPointDistances();                    
-                    FileSaveContour();
-                    btnDoneDraw.Enabled = false;
-                    btnDeleteLastPoint.Enabled = false;
-                    btnStartDraw.Enabled = true;
+                    //btnManualOffOn.Image = Properties.Resources.ManualOff;
+                   // btnManualOffOn.Text = null;
+                    //CalculateContourPointDistances();
+                    //FileSaveContour();
+                    //btnDoneDraw.Enabled = false;
+                    //btnDeleteLastPoint.Enabled = false;
+                    //btnStartDraw.Enabled = true;
+                    ct.isSurveyOn = false;
+                    //btnStartPause.Visible = false;
 
-                    btnSaveCut.Enabled = true;
-                    isCutSaved = false;
+
 
                     break;
             }
+
+
+
+
+
+
+            //switch (manualBtnState)
+            //{
+               
+            //    case btnStates.Off:
+            //        {
+
+
+
+            //            var form = new FormSurveyStart(this, 2000, "", "");
+            //            form.Show();
+
+            //            if (ct.ptList.Count > 0 && !isCutSaved && btnSaveCut.Enabled == true)
+            //            {
+            //                DialogResult result3 = MessageBox.Show("Do you wish to start a new survey Line? \nThis will erase Your current cut if it has not been saved \n \n Do you wish to Continue?", "Do you wish to start a new survey Line?",
+            //                                     MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+
+            //                if (result3 == DialogResult.Yes)
+            //                {
+
+            //                    btnManualOffOn.Image = Properties.Resources.SurveyStop1;
+            //                    userDistance = 0;
+            //                    lblCut.Text = "*";
+            //                    lblFill.Text = "*";
+            //                    lblCutFillRatio.Text = "*";
+            //                    lblDrawSlope.Text = "*";
+
+            //                    btnDoneDraw.Enabled = false;
+            //                    btnDeleteLastPoint.Enabled = false;
+            //                    btnStartDraw.Enabled = false;
+
+            //                }
+            //            }
+
+
+
+            //            else
+            //            {
+
+            //                btnManualOffOn.Image = Properties.Resources.SurveyStop1;
+            //                userDistance = 0;
+            //                lblCut.Text = "*";
+            //                lblFill.Text = "*";
+            //                lblCutFillRatio.Text = "*";
+            //                lblDrawSlope.Text = "*";
+
+            //                btnDoneDraw.Enabled = false;
+            //                btnDeleteLastPoint.Enabled = false;
+            //                btnStartDraw.Enabled = false;
+
+            //            }
+
+            //            break;
+            //        }
+
+
+
+            //    case btnStates.Rec:
+            //        {
+            //            manualBtnState = btnStates.Off;
+            //            btnManualOffOn.Image = Properties.Resources.SurveyStart;                    
+            //            CalculateContourPointDistances();                    
+            //            FileSaveContour();
+            //            btnDoneDraw.Enabled = false;
+            //            btnDeleteLastPoint.Enabled = false;
+            //            btnStartDraw.Enabled = true;
+
+            //            btnSaveCut.Enabled = true;
+            //            isCutSaved = false;
+
+            //            break;
+
+            //        }
+
+            //    case btnStates.Stdby:
+            //        manualBtnState = btnStates.RecBnd;
+            //        btnManualOffOn.Image = null;
+            //        btnManualOffOn.Text = "Recording Boundary";
+            //        userDistance = 0;
+            //        //btnStartPause.Visible = true;
+            //       // btnBoundarySide.Visible = true;
+            //        ct.isBtnStartPause = false;
+            //        //btnStartPause.Text = "START";
+
+
+            //        //cboxLastPass.Checked = false;
+            //        //cboxRecLastOnOff.Checked = false;
+            //        //cboxLaserModeOnOff.Checked = false;
+            //        //btnDoneDraw.Enabled = false;
+            //        //btnDeleteLastPoint.Enabled = false;
+            //        //btnStartDraw.Enabled = false;
+            //        ct.isSurveyOn = true;
+            //        ct.markBM = true;
+
+
+
+            //        break;
+
+            //    case btnStates.RecBnd:
+            //        manualBtnState = btnStates.Rec;
+            //        btnManualOffOn.Image = Properties.Resources.ManualOn;
+            //        btnManualOffOn.Text = null;
+            //        userDistance = 0;
+            //       // btnBoundarySide.Visible = false;
+            //        ct.isBtnStartPause = false;
+            //        //btnStartPause.Text = "START";
+
+            //        //cboxLastPass.Checked = false;
+            //        //cboxRecLastOnOff.Checked = false;
+            //        //cboxLaserModeOnOff.Checked = false;
+            //        //btnDoneDraw.Enabled = false;
+            //        //btnDeleteLastPoint.Enabled = false;
+            //        //btnStartDraw.Enabled = false;
+            //        ct.isSurveyOn = true;
+            //        ct.recBoundary = false;
+            //        ct.recSurveyPt = true;
+
+
+            //        break;
+
+            //}
         }
 
         //The main flag marker button 
@@ -325,7 +480,8 @@ namespace OpenGrade
 
         private void btnSnap_Click(object sender, EventArgs e)
         {
-            ABLine.SnapABLine();
+            //ABLine.SnapABLine();
+            ct.snapSurvey();
         }
 
         //panel buttons
@@ -347,23 +503,23 @@ namespace OpenGrade
             if (!isMetric)
             {
                 isMetric = true;
-                lblSpeedUnits.Text = "kmh";
-                lblAltitudeUnits.Text = "M";
-                lblAltitudeUnits2.Text = "M";
+                //lblSpeedUnits.Text = "kmh";
+                //lblAltitudeUnits.Text = "M";
+               // lblAltitudeUnits2.Text = "M";
                 metricToolStrip.Checked = true;
                 imperialToolStrip.Checked = false;                
-                btnUnits.Image = Properties.Resources.Metric;
+                //btnUnits.Image = Properties.Resources.Metric;
                 
             }
             else
             {
                 isMetric = false;
-                lblSpeedUnits.Text = "mph";
-                lblAltitudeUnits.Text = "FT";
-                lblAltitudeUnits2.Text = "FT";
+                //lblSpeedUnits.Text = "mph";
+                //lblAltitudeUnits.Text = "FT";
+                //lblAltitudeUnits2.Text = "FT";
                 metricToolStrip.Checked = false;
                 imperialToolStrip.Checked = true;
-                btnUnits.Image = Properties.Resources.Imperial;
+                //btnUnits.Image = Properties.Resources.Imperial;
             }
             Settings.Default.setMenu_isMetric = isMetric;
             Settings.Default.Save();
@@ -409,27 +565,27 @@ namespace OpenGrade
             
             if (ct.ptList.Count > 5)
             {
-                btnAutoDrain.Visible = true;
+                //btnAutoDrain.Visible = true;
                 ct.drawList.Clear();
                 ct.isDrawingRefLine = true;
-                lblCut.Text = "-";
-                lblFill.Text = "-";
-                lblCutFillRatio.Text = "-";
+                //lblCut.Text = "-";
+                //lblFill.Text = "-";
+                //lblCutFillRatio.Text = "-";
 
-                btnDoneDraw.Enabled = true;
-                btnDeleteLastPoint.Enabled = true;
-                btnStartDraw.Enabled = false;
+                //btnDoneDraw.Enabled = true;
+                //btnDeleteLastPoint.Enabled = true;
+                //btnStartDraw.Enabled = false;
             }
             else TimedMessageBox(1500, "No Surveyed Points", "Survey a Contour First");
             
         }
         private void btnDoneDraw_Click(object sender, EventArgs e)
         {
-            btnSaveCut.Enabled = true;
-            btnAutoDrain.Visible = false;
-            btnDoneDraw.Enabled = false;
-            btnDeleteLastPoint.Enabled = false;
-            btnStartDraw.Enabled = true;
+            //btnSaveCut.Enabled = true;
+            //btnAutoDrain.Visible = false;
+            //btnDoneDraw.Enabled = false;
+            //btnDeleteLastPoint.Enabled = false;
+            //btnStartDraw.Enabled = true;
 
             ct.isDrawingRefLine = false;
             int cnt = ct.ptList.Count;
@@ -476,7 +632,7 @@ namespace OpenGrade
 
         private void CalculateTotalCutFillLabels()
         {
-            lblDrawSlope.Text = "-";
+            //lblDrawSlope.Text = "-";
 
             double cut = 0; double fill = 0; double delta;
             int cnt = ct.ptList.Count;
@@ -505,23 +661,23 @@ namespace OpenGrade
                 }
                 if (isMetric)
                 {
-                    lblCut.Text = cut.ToString("N2");
-                    lblFill.Text = fill.ToString("N2");
+                    //lblCut.Text = cut.ToString("N2");
+                    //lblFill.Text = fill.ToString("N2");
                 }
                 else
                 {
-                    lblCut.Text = (1.308 * cut).ToString("N2");
-                    lblFill.Text = (1.308 * fill).ToString("N2");
+                    //lblCut.Text = (1.308 * cut).ToString("N2");
+                    //lblFill.Text = (1.308 * fill).ToString("N2");
                 }
 
                 delta = (cut - fill);
-                lblCutFillRatio.Text = delta.ToString("N2");
+                //lblCutFillRatio.Text = delta.ToString("N2");
             }
             else
             {
-                lblCut.Text = "-";
-                lblFill.Text = "-";
-                lblCutFillRatio.Text = "-";
+                //lblCut.Text = "-";
+                //lblFill.Text = "-";
+                //lblCutFillRatio.Text = "-";
             }
         }
         private void btnDeleteLastPoint_Click(object sender, EventArgs e)
@@ -686,7 +842,7 @@ namespace OpenGrade
             isMetric = true;
             Settings.Default.setMenu_isMetric = isMetric;
             Settings.Default.Save();
-            lblSpeedUnits.Text = "kmh";
+            //lblSpeedUnits.Text = "kmh";
         }
         private void skyToolStripMenu_Click(object sender, EventArgs e)
         {
@@ -702,7 +858,7 @@ namespace OpenGrade
             isMetric = false;
             Settings.Default.setMenu_isMetric = isMetric;
             Settings.Default.Save();
-            lblSpeedUnits.Text = "mph";
+            //lblSpeedUnits.Text = "mph";
 
         }
         private void simulatorOnToolStripMenuItem_Click(object sender, EventArgs e)
@@ -814,12 +970,12 @@ namespace OpenGrade
             if (mc.isImuCorrection)
             {
                 mc.isImuCorrection = false;
-                btnTogggleImu.BackColor = Color.Tomato;
+                //btnTogggleImu.BackColor = Color.Tomato;
             }
             else
             {
                 mc.isImuCorrection = true;
-                btnTogggleImu.BackColor = Color.Lime;
+                //btnTogggleImu.BackColor = Color.Lime;
             }
         }
 
@@ -843,17 +999,17 @@ namespace OpenGrade
         private void toolStripMenuItemFlagRed_Click(object sender, EventArgs e)
         {
             flagColor = 0;
-            btnFlag.Image = Properties.Resources.FlagRed;
+            //btnFlag.Image = Properties.Resources.FlagRed;
         }
         private void toolStripMenuGrn_Click(object sender, EventArgs e)
         {
             flagColor = 1;
-            btnFlag.Image = Properties.Resources.FlagGrn;
+            //btnFlag.Image = Properties.Resources.FlagGrn;
         }
         private void toolStripMenuYel_Click(object sender, EventArgs e)
         {
             flagColor = 2;
-            btnFlag.Image = Properties.Resources.FlagYel;
+            //btnFlag.Image = Properties.Resources.FlagYel;
         }
         private void toolStripMenuFlagDelete_Click(object sender, EventArgs e)
         {
@@ -947,14 +1103,18 @@ namespace OpenGrade
         private void timerSim_Tick(object sender, EventArgs e)
         {
             //if a GPS is connected disable sim
-            if (antennaModuleTimeout > 50 )  // Need to change this
+            if (antennaModuleTimeout > 10 )  // Need to change this
             {
                 if (isGradeControlBtnOn) sim.DoSimTick(guidanceLineSteerAngle / 10.0);
                 else sim.DoSimTick(sim.steerAngleScrollBar);
             }
             else
             {
-                panelSimControls.Visible = false;   
+                simulatorOnToolStripMenuItem.Checked = false;
+                panelSimControls.Visible = false;
+                timerSim.Enabled = false;
+                timerSim.Enabled = false;
+
             }
         }
         private void tbarStepDistance_Scroll(object sender, EventArgs e)
@@ -1179,8 +1339,10 @@ namespace OpenGrade
                 fiveSecondCounter = 0;
 
             }
-                    
+
             
+
+
             if (antennaModuleTimeout > 50) {                
                 ledAntenna.BackColor = Color.Black;                
             }
@@ -1206,15 +1368,94 @@ namespace OpenGrade
                 //{
 
                 //both
-                lblLatitude.Text = Latitude;
-                lblLongitude.Text = Longitude;
-                lblFixQuality.Text = FixQuality;
-                lblFix.Text = FixQuality;
+                //lblLatitude.Text = Latitude;
+                //lblLongitude.Text = Longitude;
+                //lblFixQuality.Text = FixQuality;
+                //lblFix.Text = FixQuality;
                 
-                if (FixQuality == "RTK fix") lblFix.BackColor = Color.LimeGreen;
-                else if (FixQuality == "Flt RTK") lblFix.BackColor = Color.Yellow;
-                else lblFix.BackColor = Color.Tomato;       
+                //if (pn.ageDiff == 0) lblRTKAgeDisplay.Text = "N/A";
+
+               //else lblRTKAgeDisplay.Text = AgeDiff;
+
+
+                if (pn.fixQuality != 4 && pn.lastFixQuality  == 4 && isGradeControlBtnOn)
+                {                    
+                    btnGradeControl.PerformClick();
+                }    
                 
+                
+                if (pn.ageDiff > 10)
+                {
+                    lblRTKPopup.Visible = true;
+                    lblRTKPopupTime.Visible = true;
+                    lblRTKPopupTime.Text = AgeDiff;
+                }
+                else
+                {
+                    lblRTKPopup.Visible = false;
+                    lblRTKPopupTime.Visible = false;
+
+                }
+
+
+                if (FixQuality == "RTK fix") ledRTK.BackColor = Color.LimeGreen;
+                else if (FixQuality == "Flt RTK") ledRTK.BackColor = Color.Yellow;
+                else if (FixQuality == "PPS fix") ledRTK.BackColor = Color.Purple;
+                else ledRTK.BackColor = Color.Tomato;       
+
+
+                if (FixQuality == "RTK fix" || FixQuality == "Flt RTK")
+                {
+                    if (!isNTRIP_Connected) ledRadio.BackColor = Color.Lime;
+                }
+                else ledRadio.BackColor = Color.Black;
+
+
+
+                if (ct.surveyMode == false)
+                {
+                    ledSurvey.BackColor = Color.Tomato;
+
+                }
+                else
+                {
+                    ledSurvey.BackColor = Color.CornflowerBlue;
+
+                }
+
+
+
+                if (curMode == gradeMode.surface)
+                {
+                    lblMode.Text = "SURFACE";
+
+                }
+                else if (curMode == gradeMode.ditch)
+                {
+                    lblMode.Text = "DITCH";
+                }
+                else if (curMode == gradeMode.tile)
+                {
+                    lblMode.Text = "TILE";
+                }
+                else if (curMode == gradeMode.contour)
+                {
+                    lblMode.Text = "CONTOUR";
+                }
+
+
+                lblFarm.Text = "Westhill";
+                lblField.Text = curFieldName;
+                lblTask.Text = cutName;
+
+                //mf.fieldsDirectory + mf.currentFieldDirectory;
+
+
+
+
+
+
+
                 if (FixQuality == "RTK fix" || FixQuality == "Flt RTK")
                 {  
                     if (!isNTRIP_Connected) ledRadio.BackColor = Color.Lime;                    
@@ -1222,26 +1463,26 @@ namespace OpenGrade
                 else ledRadio.BackColor = Color.Black;
 
                 
-                lblSats.Text = SatsTracked;
-                lblRoll.Text = RollInDegrees;
-                lblGyroHeading.Text = GyroInDegrees;
-                lblPitch.Text = PitchInDegrees;
-                lblGPSHeading.Text = GPSHeading;                     
+                //lblSats.Text = SatsTracked;
+               //lblRoll.Text = RollInDegrees;
+                //lblGyroHeading.Text = GyroInDegrees;
+                //lblPitch.Text = PitchInDegrees;
+                //lblGPSHeading.Text = GPSHeading;                     
 
                 //up in the menu a few pieces of info
                 if (isJobStarted)
                 {
-                    lblEasting.Text = "E: " + Math.Round(pn.easting, 1).ToString();
-                    lblNorthing.Text = "N: " + Math.Round(pn.northing, 1).ToString();
+                    //lblEasting.Text = "E: " + Math.Round(pn.easting, 1).ToString();
+                    //lblNorthing.Text = "N: " + Math.Round(pn.northing, 1).ToString();
                 }
                 else
                 {
-                    lblEasting.Text = "E: " + ((int)pn.actualEasting).ToString();
-                    lblNorthing.Text = "N: " + ((int)pn.actualNorthing).ToString();
+                    //lblEasting.Text = "E: " + ((int)pn.actualEasting).ToString();
+                    //lblNorthing.Text = "N: " + ((int)pn.actualNorthing).ToString();
                 }
 
-                lblZone.Text = pn.zone.ToString();
-                tboxSentence.Text = recvSentenceSettings;
+                //lblZone.Text = pn.zone.ToString();
+                //tboxSentence.Text = pn.rawBuffer;
                 
                 // }
 
@@ -1249,34 +1490,34 @@ namespace OpenGrade
                 if (isMetric)  //metric or imperial
                 {
                     //Hectares on the master section soft control and sections
-                    lblSpeed.Text = SpeedKPH;
+                    //lblSpeed.Text = SpeedKPH;
 
                     //status strip values
                     stripDistance.Text = Convert.ToString((UInt16)(userDistance)) + " m";
-                    lblAltitude.Text = Altitude;
-                    lblAltitude2.Text = Altitude;
+                    //lblAltitude.Text = Altitude;
+                    //lblAltitude2.Text = Altitude;
                     //btnZeroAltitude.Text = (pn.altitude - ct.zeroAltitude).ToString("N2");
                 }
                 else  //Imperial Measurements
                 {
                     //acres on the master section soft control and sections
-                    lblSpeed.Text = SpeedMPH;
+                    //lblSpeed.Text = SpeedMPH;
 
                     //status strip values
                     stripDistance.Text = Convert.ToString((UInt16)(userDistance * 3.28084)) + " ft";
-                    lblAltitude.Text = AltitudeFeet;
-                    lblAltitude2.Text = AltitudeFeet;
+                    //lblAltitude.Text = AltitudeFeet;
+                    //lblAltitude2.Text = AltitudeFeet;
                     //btnZeroAltitude.Text = ((pn.altitude - ct.zeroAltitude) * glm.m2ft).ToString("N2");
                 }
 
                 //not Metric/Standard units sensitive
-                lblHeading.Text = Heading;
+                //lblHeading.Text = Heading;
                 btnABLine.Text = PassNumber;
-                sqrCutLine.Text = PureSteerAngle;
+                //sqrCutLine.Text = PureSteerAngle;
 
                
-                voltageBar.Value = ((int)(mc.voltage * 100)) + 12;
-                voltageBar2.Value = ((int)(mc.voltage2 * 100)) + 12;
+                voltageBar.Value = ((int)(mc.voltage * 100) +12) ;
+                voltageBar2.Value = ((int)(mc.voltage2 * 100) +12);
 
                 //
                 // Update all DRO's
@@ -1288,12 +1529,12 @@ namespace OpenGrade
                     lblCurrentCutDepth.Text = "--";
                     lblCurrentCutDepth.BackColor = Color.Black;
                     isAutoCutOn = false;
-                    btnAutoCut.Enabled = false;
+                    //btnAutoCut.Enabled = false;
 
                 }
                 else
                 {
-                    btnAutoCut.Enabled = true;
+                    //btnAutoCut.Enabled = true;
 
                     if (isMetric)  //metric or imperial
                     {
@@ -1351,6 +1592,7 @@ namespace OpenGrade
                         // Black Ace Industries
                         lblCutDelta.Text = distFromLastPass.ToString("N1");
                         lblCutDelta2.Text = distFromLastPass.ToString("N1");
+                        mc.GradeControlData[mc.gcDeltaDir] = 1;
 
                     }
                     else
@@ -1389,8 +1631,6 @@ namespace OpenGrade
                     pbarCutAbove.Value = 0;
                     pbarCutBelow.Value = 0;
                     mc.GradeControlData[mc.gcDeltaDir] = 3;
-                    
-                    //Output to serial for blade control
                 }
                 else
                 {
@@ -1445,15 +1685,27 @@ namespace OpenGrade
                         }
                         
                     }
-
-
+    
                     lblCutDelta.BackColor = SystemColors.ControlText;
 
-                    if (cutDelta > 0)
+                    if (cutDelta < 0) // Postive Cut Delta
                     {
-                        int val = (int)(cutDelta / barGraphMax * -100);
+                        int val = (int)((cutDelta / barGraphMax) * -100);
                         pbarCutAbove.Value = 0;
                         pbarCutBelow.Value = val;
+                        //pbarCutBelow.Value = 50;
+                    }                    
+                    else if (cutDelta > 0) // Negative Cut Delta
+                    {
+                        int val = (int)((cutDelta / barGraphMax) * 100 );
+                        pbarCutBelow.Value = 0;
+                        pbarCutAbove.Value = val;
+                        //pbarCutAbove.Value = 50;
+                    }
+                    else
+                    {
+                        pbarCutBelow.Value = 0;
+                        pbarCutAbove.Value = 0;
                     }
 
 
@@ -1479,10 +1731,10 @@ namespace OpenGrade
                 if (recvCounter > 50)
                 {
                     stripOnlineGPS.Value = 1;
-                    lblEasting.Text = "-";
-                    lblNorthing.Text = gStr.gsNoGPS;
-                    lblZone.Text = "-";
-                    tboxSentence.Text = gStr.gsNoSentenceData;
+                    //lblEasting.Text = "-";
+                    //lblNorthing.Text = gStr.gsNoGPS;
+                    //lblZone.Text = "-";
+                    //tboxSentence.Text = gStr.gsNoSentenceData;
                     
                 }
                 else stripOnlineGPS.Value = 100;

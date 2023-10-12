@@ -28,6 +28,16 @@ namespace OpenGrade
         public double latitude = 53.436026;
         //public double longitude = -111.160047;
         public double longitude = -111.260047;
+
+        //public double latitude = 46.5056345;
+        ////public double longitude = -111.160047;
+        //public double longitude = -72.343996;
+
+
+
+        
+
+
         private double latDeg, latMinu, longDeg, longMinu, latNMEA, longNMEA;
         public double speed = 0.3, headingTrue, stepDistance = 0.25, steerAngle;
         public double steerAngleScrollBar = 0;
@@ -135,9 +145,9 @@ namespace OpenGrade
 
         public void ResetSim()
         {
-            latitude = 53.436026;
+            latitude = Properties.Settings.Default.setSim_lastLat;//53.436026;
             //longitude = -111.160047;
-            longitude = -111.260047;
+            longitude = Properties.Settings.Default.setSim_lastLong;//-111.260047;
         }
 
         private void BuildGGA()

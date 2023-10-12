@@ -22,12 +22,15 @@ namespace OpenGrade
         private double sectionTriggerDistance;
         private vec2 prevContourPos = new vec2();
 
+
+
+       
+
         //how many fix updates per sec
         public int fixUpdateHz = 5;
         public double fixUpdateTime = 0.2;
 
-        //Current fix positions
-        public double fixZ = 0.0;
+
 
         public vec2 fix = new vec2(0, 3.0);
 
@@ -40,7 +43,7 @@ namespace OpenGrade
         public bool isTurning = false;
 
         //a distance between previous and current fix
-        private double distance = 0.0, userDistance = 0;
+        public double distance = 0.0, userDistance = 0;
           
         //step distances and positions for boundary, 4 meters before next point
         public double boundaryTriggerDistance = 4.0;
@@ -115,6 +118,7 @@ namespace OpenGrade
 
                 //update all data for new frame
                 UpdateFixPosition();
+                UpdateBladePosition();
             }
 
             //must make sure arduinos are kept off
@@ -273,6 +277,7 @@ namespace OpenGrade
 
             //do the distance from line calculations for contour and AB
             if (ct.isContourBtnOn) ct.DistanceFromContourLine();
+
             if (ABLine.isABLineSet && !ct.isContourBtnOn)
             {
                 ABLine.GetCurrentABLine();
@@ -321,6 +326,241 @@ namespace OpenGrade
 
         //end of UppdateFixPosition
         }
+
+        private void UpdateFixPosition3D()
+        {
+            startCounter++;
+            totalFixSteps = fixUpdateHz * 4;
+
+            if (!isGPSPositionInitialized) { InitializeFirstFewGPSPositions(); return; }
+
+            #region Roll
+            if (mc.isImuCorrection)
+            {
+                if (mc.rollIMU != 9999)
+                {
+                    //calculate how far the antenna moves based on sidehill roll
+                    double roll = Math.Sin(glm.toRadians(mc.rollIMU / 16.0));
+                    double roll2 = Math.Cos(glm.toRadians(mc.rollIMU / 16.0));
+
+                    rollCorrectionDistance = Math.Abs(roll * vehicle.antennaHeight);
+                    rollCorrectionAltitude = Math.Abs(vehicle.antennaHeight / roll);
+
+                    // tilt to left is positive  **** important!!
+                    if (roll > 0)
+                    {
+                        pn.easting += (Math.Cos(fixHeading) * rollCorrectionDistance);
+                        pn.altitude -= (Math.Tan(fixHeading) * rollCorrectionDistance);
+                        pn.northing += (Math.Sin(fixHeading) * -rollCorrectionDistance);
+                    }
+                    else
+                    {
+                        pn.easting += (Math.Cos(fixHeading) * -rollCorrectionDistance);
+                        pn.altitude -= (Math.Tan(fixHeading) * rollCorrectionDistance);
+                        pn.northing += (Math.Sin(fixHeading) * rollCorrectionDistance);
+                    }
+                }
+            }
+
+            //tiltDistance = (pitch * vehicle.antennaHeight);
+            ////pn.easting = (Math.Sin(fixHeading) * tiltDistance) + pn.easting;
+            //pn.northing = (Math.Cos(fixHeading) * tiltDistance) + pn.northing;
+
+            #endregion Roll
+
+            
+
+
+
+
+
+            #region Step Fix
+
+            //grab the most current fix and save the distance from the last fix
+            distanceCurrentStepFix = pn.Distance(pn.northing, pn.easting, stepFixPts[0].northing, stepFixPts[0].easting);
+            fixStepDist = distanceCurrentStepFix;
+
+            //if  min distance isn't exceeded, keep adding old fixes till it does
+            if (distanceCurrentStepFix <= minFixStepDist)
+            {
+                for (currentStepFix = 0; currentStepFix < totalFixSteps; currentStepFix++)
+                {
+                    fixStepDist += stepFixPts[currentStepFix].heading;
+                    if (fixStepDist > minFixStepDist)
+                    {
+                        //if we reached end, keep the oldest and stay till distance is exceeded
+                        if (currentStepFix < (totalFixSteps - 1)) currentStepFix++;
+                        isFixHolding = false;
+                        break;
+                    }
+                    else isFixHolding = true;
+                }
+            }
+
+            // only takes a single fix to exceeed min distance
+            else currentStepFix = 0;
+
+            //if total distance is less then the addition of all the fixes, keep last one as reference
+            if (isFixHolding)
+            {
+                if (isFixHoldLoaded == false)
+                {
+                    vHold = stepFixPts[(totalFixSteps - 1)];
+                    isFixHoldLoaded = true;
+                }
+
+                //cycle thru like normal
+                for (int i = totalFixSteps - 1; i > 0; i--) stepFixPts[i] = stepFixPts[i - 1];
+
+                //fill in the latest distance and fix
+                stepFixPts[0].heading = pn.Distance(pn.northing, pn.easting, stepFixPts[0].northing, stepFixPts[0].easting);
+                stepFixPts[0].easting = pn.easting;
+                stepFixPts[0].northing = pn.northing;
+
+                //reload the last position that was triggered.
+                stepFixPts[(totalFixSteps - 1)].heading = pn.Distance(vHold.northing, vHold.easting, stepFixPts[(totalFixSteps - 1)].northing, stepFixPts[(totalFixSteps - 1)].easting);
+                stepFixPts[(totalFixSteps - 1)].easting = vHold.easting;
+                stepFixPts[(totalFixSteps - 1)].northing = vHold.northing;
+            }
+
+            else //distance is exceeded, time to do all calcs and next frame
+            {
+                //positions and headings 
+                CalculatePositionHeading();
+
+                //get rid of hold position
+                isFixHoldLoaded = false;
+
+                //don't add the total distance again
+                stepFixPts[(totalFixSteps - 1)].heading = 0;
+
+                //grab sentences for logging
+                if (isLogNMEA)
+                {
+                    if (ct.isContourOn)
+                    {
+                        pn.logNMEASentence.Append(recvSentenceSettings);
+                    }
+                }
+
+                //add another point if on
+                //AddSectionContourPathPoints();
+
+                //To prevent drawing high numbers of triangles, determine and test before drawing vertex
+                sectionTriggerDistance = pn.Distance(pn.northing, pn.easting, prevContourPos.northing, prevContourPos.easting);
+
+                //section on off and points, contour points
+                if (sectionTriggerDistance > 0.2)
+                {
+                    prevContourPos.easting = pn.easting;
+                    prevContourPos.northing = pn.northing;
+                    AddSectionContourPathPoints();
+                }
+
+
+                //calc distance travelled since last GPS fix
+                distance = pn.Distance(pn.northing, pn.easting, prevFix.northing, prevFix.easting);
+                if ((userDistance += distance) > 9000) userDistance = 0; ;//userDistance can be reset
+
+                //most recent fixes are now the prev ones
+                prevFix.easting = pn.easting; prevFix.northing = pn.northing;
+
+                //load up history with valid data
+                for (int i = totalFixSteps - 1; i > 0; i--) stepFixPts[i] = stepFixPts[i - 1];
+                stepFixPts[0].heading = pn.Distance(pn.northing, pn.easting, stepFixPts[0].northing, stepFixPts[0].easting);
+                stepFixPts[0].easting = pn.easting;
+                stepFixPts[0].northing = pn.northing;
+            }
+            #endregion fix
+
+            #region AutoSteer
+
+            guidanceLineDistanceOff = 32000;    //preset the values
+
+            //do the distance from line calculations for contour and AB
+            if (ct.isContourBtnOn) ct.DistanceFromContourLine();
+            if (ABLine.isABLineSet && !ct.isContourBtnOn)
+            {
+                ABLine.GetCurrentABLine();
+            }
+
+            // autosteer at full speed of updates
+            if (!isGradeControlBtnOn) //32020 means auto steer is off
+            {
+                guidanceLineDistanceOff = 32020;
+            }
+
+            // If Drive button enabled be normal, or just fool the autosteer and fill values
+            if (!isInFreeDriveMode)
+            {
+
+                //fill up0 the auto steer array with new values
+                mc.autoSteerData[mc.sdSpeed] = (byte)(pn.speed * 4.0);
+
+                mc.autoSteerData[mc.sdDistanceHi] = (byte)(guidanceLineDistanceOff >> 8);
+                mc.autoSteerData[mc.sdDistanceLo] = (byte)guidanceLineDistanceOff;
+
+                mc.autoSteerData[mc.sdSteerAngleHi] = (byte)(guidanceLineSteerAngle >> 8);
+                mc.autoSteerData[mc.sdSteerAngleLo] = (byte)guidanceLineSteerAngle;
+
+
+
+                //SendUDPMessage(guidanceLineSteerAngle + "," + guidanceLineDistanceOff);
+            }
+
+            else
+            {
+                //fill up the auto steer array with free drive values
+                mc.autoSteerData[mc.sdSpeed] = (byte)(pn.speed * 4.0 + 8);
+
+                //make steer module think everything is normal
+                mc.autoSteerData[mc.sdDistanceHi] = (byte)(0);
+                mc.autoSteerData[mc.sdDistanceLo] = (byte)0;
+
+
+
+            }
+            #endregion
+
+            //openGLControl_Draw routine triggered manuallyrollIMU
+            openGLControl.DoRender();
+
+            //end of UppdateFixPosition
+        }
+
+
+        private void UpdateBladePosition()
+        {
+
+            pn.bladeLeft.easting = pn.easting;
+            pn.bladeLeft.northing = pn.northing;
+            pn.bladeLeft.heading = pn.headingTrue;
+            pn.bladeLeft.altitude = pn.altitude;
+            pn.bladeRight.easting = pn_2.easting;
+            pn.bladeRight.northing = pn_2.northing;
+            pn.bladeRight.heading = pn_2.headingTrue;
+            pn.bladeRight.altitude = pn_2.altitude;
+
+            if (pn.bladeLeft.altitude >= pn.bladeRight.altitude)
+            {
+                pn.isLeftHigher = true;
+                pn.eDiff = pn.bladeLeft.altitude - pn.bladeRight.altitude;
+                pn.bladeCenter.altitude = (pn.eDiff / 2) + pn.bladeRight.altitude;
+                //pn.bladeAngle = Math.Cos(pn.eDiff / (mf.vehicle.toolWidth / 2));
+
+            }
+            else
+            {
+                pn.isLeftHigher = false;
+                pn.eDiff = pn.bladeRight.altitude - pn.bladeLeft.altitude;
+                pn.bladeCenter.altitude = (pn.eDiff / 2) + pn.bladeLeft.altitude;
+                //pn.bladeAngle = Math.Cos(pn.eDiff / (mf.vehicle.toolWidth / 2));
+            }
+
+            pn.bladeCenter.heading = (pn.bladeRight.heading + pn.bladeLeft.heading) / 2;
+
+        }
+
 
         //all the hitch, pivot, section, trailing hitch, headings and fixes
         private void CalculatePositionHeading()

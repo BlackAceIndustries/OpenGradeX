@@ -93,6 +93,16 @@ namespace OpenGrade.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ABLineEdit1 {
+            get {
+                object obj = ResourceManager.GetObject("ABLineEdit1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ABLineOff {
             get {
                 object obj = ResourceManager.GetObject("ABLineOff", resourceCulture);
@@ -206,6 +216,26 @@ namespace OpenGrade.Properties {
         internal static System.Drawing.Bitmap AntennaHarvester {
             get {
                 object obj = ResourceManager.GetObject("AntennaHarvester", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AntennaPitch {
+            get {
+                object obj = ResourceManager.GetObject("AntennaPitch", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AntennaRoll {
+            get {
+                object obj = ResourceManager.GetObject("AntennaRoll", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -653,6 +683,16 @@ namespace OpenGrade.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Color2 {
+            get {
+                object obj = ResourceManager.GetObject("Color2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ColorBackGnd {
             get {
                 object obj = ResourceManager.GetObject("ColorBackGnd", resourceCulture);
@@ -676,6 +716,16 @@ namespace OpenGrade.Properties {
         internal static System.Drawing.Bitmap ColorField1 {
             get {
                 object obj = ResourceManager.GetObject("ColorField1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ColorField2 {
+            get {
+                object obj = ResourceManager.GetObject("ColorField2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -733,6 +783,16 @@ namespace OpenGrade.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Con_SourcesGPSDual1 {
+            get {
+                object obj = ResourceManager.GetObject("Con_SourcesGPSDual1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Con_SourcesGPSSingle {
             get {
                 object obj = ResourceManager.GetObject("Con_SourcesGPSSingle", resourceCulture);
@@ -743,9 +803,209 @@ namespace OpenGrade.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Con_SourcesGPSSingle1 {
+            get {
+                object obj = ResourceManager.GetObject("Con_SourcesGPSSingle1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Con_SourcesHead {
+            get {
+                object obj = ResourceManager.GetObject("Con_SourcesHead", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Con_SourcesRTKAlarm {
             get {
                 object obj = ResourceManager.GetObject("Con_SourcesRTKAlarm", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Con_SourcesRTKAlarm1 {
+            get {
+                object obj = ResourceManager.GetObject("Con_SourcesRTKAlarm1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ConD_ExtraGuides {
+            get {
+                object obj = ResourceManager.GetObject("ConD_ExtraGuides", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ConD_FullScreenBegin {
+            get {
+                object obj = ResourceManager.GetObject("ConD_FullScreenBegin", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ConD_Grid {
+            get {
+                object obj = ResourceManager.GetObject("ConD_Grid", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ConD_Imperial {
+            get {
+                object obj = ResourceManager.GetObject("ConD_Imperial", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ConD_LightBar {
+            get {
+                object obj = ResourceManager.GetObject("ConD_LightBar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ConD_LogNMEA {
+            get {
+                object obj = ResourceManager.GetObject("ConD_LogNMEA", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ConD_Metric {
+            get {
+                object obj = ResourceManager.GetObject("ConD_Metric", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ConD_Poligons {
+            get {
+                object obj = ResourceManager.GetObject("ConD_Poligons", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ConD_RollHelper {
+            get {
+                object obj = ResourceManager.GetObject("ConD_RollHelper", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ConD_Sky {
+            get {
+                object obj = ResourceManager.GetObject("ConD_Sky", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ConD_Speedometer {
+            get {
+                object obj = ResourceManager.GetObject("ConD_Speedometer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ConDa_InvertRoll {
+            get {
+                object obj = ResourceManager.GetObject("ConDa_InvertRoll", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ConDa_RemoveOffset {
+            get {
+                object obj = ResourceManager.GetObject("ConDa_RemoveOffset", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ConDa_ResetIMU {
+            get {
+                object obj = ResourceManager.GetObject("ConDa_ResetIMU", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ConDa_ResetIMU1 {
+            get {
+                object obj = ResourceManager.GetObject("ConDa_ResetIMU1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ConDa_RollSetZero {
+            get {
+                object obj = ResourceManager.GetObject("ConDa_RollSetZero", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ConS_VehicleDim {
+            get {
+                object obj = ResourceManager.GetObject("ConS_VehicleDim", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -813,6 +1073,46 @@ namespace OpenGrade.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ConV_ABLineLength {
+            get {
+                object obj = ResourceManager.GetObject("ConV_ABLineLength", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ConV_GuidanceLookAhead {
+            get {
+                object obj = ResourceManager.GetObject("ConV_GuidanceLookAhead", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ConV_LineWith {
+            get {
+                object obj = ResourceManager.GetObject("ConV_LineWith", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ConV_SnapDistance {
+            get {
+                object obj = ResourceManager.GetObject("ConV_SnapDistance", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap CurveOff {
             get {
                 object obj = ResourceManager.GetObject("CurveOff", resourceCulture);
@@ -826,6 +1126,16 @@ namespace OpenGrade.Properties {
         internal static System.Drawing.Bitmap CurveOn {
             get {
                 object obj = ResourceManager.GetObject("CurveOn", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Display {
+            get {
+                object obj = ResourceManager.GetObject("Display", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1233,6 +1543,56 @@ namespace OpenGrade.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap GradeHigh1 {
+            get {
+                object obj = ResourceManager.GetObject("GradeHigh1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap GradeHigh2 {
+            get {
+                object obj = ResourceManager.GetObject("GradeHigh2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap GradeLow1 {
+            get {
+                object obj = ResourceManager.GetObject("GradeLow1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap GradeLow2 {
+            get {
+                object obj = ResourceManager.GetObject("GradeLow2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap GradeOK {
+            get {
+                object obj = ResourceManager.GetObject("GradeOK", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap HeadlandDeletePoints {
             get {
                 object obj = ResourceManager.GetObject("HeadlandDeletePoints", resourceCulture);
@@ -1306,6 +1666,16 @@ namespace OpenGrade.Properties {
         internal static System.Drawing.Bitmap HideContour {
             get {
                 object obj = ResourceManager.GetObject("HideContour", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap HorizontalOffset {
+            get {
+                object obj = ResourceManager.GetObject("HorizontalOffset", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2493,6 +2863,96 @@ namespace OpenGrade.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Toggle_Laser_AUTO {
+            get {
+                object obj = ResourceManager.GetObject("Toggle_Laser_AUTO", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Toggle_Laser_MANUAL {
+            get {
+                object obj = ResourceManager.GetObject("Toggle_Laser_MANUAL", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Toggle_Laser_Settings {
+            get {
+                object obj = ResourceManager.GetObject("Toggle_Laser_Settings", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Toggle_Laser_SetZero {
+            get {
+                object obj = ResourceManager.GetObject("Toggle_Laser_SetZero", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Toggle_Laser_SetZero_BLK {
+            get {
+                object obj = ResourceManager.GetObject("Toggle_Laser_SetZero_BLK", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Toggle_Tilt_AUTO {
+            get {
+                object obj = ResourceManager.GetObject("Toggle_Tilt_AUTO", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Toggle_Tilt_MANUAL {
+            get {
+                object obj = ResourceManager.GetObject("Toggle_Tilt_MANUAL", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Toggle_Vert_AUTO {
+            get {
+                object obj = ResourceManager.GetObject("Toggle_Vert_AUTO", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Toggle_Vert_MANUAL {
+            get {
+                object obj = ResourceManager.GetObject("Toggle_Vert_MANUAL", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ToolAcceptChange {
             get {
                 object obj = ResourceManager.GetObject("ToolAcceptChange", resourceCulture);
@@ -2643,6 +3103,16 @@ namespace OpenGrade.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap TripOdometer {
+            get {
+                object obj = ResourceManager.GetObject("TripOdometer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap UDPConfig {
             get {
                 object obj = ResourceManager.GetObject("UDPConfig", resourceCulture);
@@ -2693,9 +3163,39 @@ namespace OpenGrade.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap VehFileDelete1 {
+            get {
+                object obj = ResourceManager.GetObject("VehFileDelete1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap VehFileLoad {
             get {
                 object obj = ResourceManager.GetObject("VehFileLoad", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap VehFileLoad1 {
+            get {
+                object obj = ResourceManager.GetObject("VehFileLoad1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap VehFileLoad2 {
+            get {
+                object obj = ResourceManager.GetObject("VehFileLoad2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2716,6 +3216,16 @@ namespace OpenGrade.Properties {
         internal static System.Drawing.Bitmap VehFileSaveAs {
             get {
                 object obj = ResourceManager.GetObject("VehFileSaveAs", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap VehFileSaveAs1 {
+            get {
+                object obj = ResourceManager.GetObject("VehFileSaveAs1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2746,6 +3256,16 @@ namespace OpenGrade.Properties {
         internal static System.Drawing.Bitmap vehiclePageTractor {
             get {
                 object obj = ResourceManager.GetObject("vehiclePageTractor", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap VerticalOffset {
+            get {
+                object obj = ResourceManager.GetObject("VerticalOffset", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2826,6 +3346,16 @@ namespace OpenGrade.Properties {
         internal static System.Drawing.Bitmap WindowNightMode {
             get {
                 object obj = ResourceManager.GetObject("WindowNightMode", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap WindowRestore {
+            get {
+                object obj = ResourceManager.GetObject("WindowRestore", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2936,6 +3466,16 @@ namespace OpenGrade.Properties {
         internal static System.Drawing.Bitmap YouTurnReverse {
             get {
                 object obj = ResourceManager.GetObject("YouTurnReverse", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap z_Speedo {
+            get {
+                object obj = ResourceManager.GetObject("z_Speedo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

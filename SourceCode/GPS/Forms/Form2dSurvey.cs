@@ -262,9 +262,9 @@ namespace OpenGrade
                 //Fill in cut and fill
                 //mf.CalculateTotalCutFillLabels();
             }
-            mf.isCutSaved = true;
-            mf.ct.SaveToCut();
-            this.Close();
+            //mf.isCutSaved = true;
+            //mf.ct.SaveToCut();
+            //this.Close();
 
             //CheckMaxCut();
         }

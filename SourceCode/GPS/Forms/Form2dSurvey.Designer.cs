@@ -44,7 +44,7 @@
             this.button1.BackColor = System.Drawing.Color.Black;
             this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.button1.Image = global::OpenGrade.Properties.Resources.OK64;
-            this.button1.Location = new System.Drawing.Point(131, 380);
+            this.button1.Location = new System.Drawing.Point(131, 378);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(110, 70);
             this.button1.TabIndex = 10;
@@ -133,7 +133,7 @@
             this.btnSerialCancel.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSerialCancel.ForeColor = System.Drawing.Color.Black;
             this.btnSerialCancel.Image = global::OpenGrade.Properties.Resources.Cancel64;
-            this.btnSerialCancel.Location = new System.Drawing.Point(37, 380);
+            this.btnSerialCancel.Location = new System.Drawing.Point(33, 378);
             this.btnSerialCancel.Name = "btnSerialCancel";
             this.btnSerialCancel.Size = new System.Drawing.Size(88, 71);
             this.btnSerialCancel.TabIndex = 267;
@@ -170,7 +170,7 @@
             this.Controls.Add(this.btnDeleteLastPoint);
             this.Controls.Add(this.btnStartDraw);
             this.Controls.Add(this.button1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.HelpButton = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;

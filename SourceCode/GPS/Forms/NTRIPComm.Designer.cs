@@ -85,8 +85,9 @@ namespace OpenGrade
             {   
                 isNTRIPOn = false;                
                 TimedMessageBox(2500, "NTRIP DATA TIMEOUT", "RECONNECTING");
-                ledNTRIP.BackColor = Color.Orange;
-                
+                //ledNTRIP.BackColor = Color.Orange;
+                NTRIP_LED.Value = 100;
+                NTRIP_LED.BackColor = Color.Orange;
                 ReconnectRequest();
             }
             

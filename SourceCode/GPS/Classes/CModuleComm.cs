@@ -1,4 +1,7 @@
 ﻿
+using System.Drawing;
+using System.Windows.Forms;
+
 namespace OpenGrade
 {
     public class CModuleComm
@@ -48,6 +51,7 @@ namespace OpenGrade
         public int workSwitchValue;
 
         public bool isImuCorrection = false;
+        public bool isPitchCorrection = false;
 
         public float headingIMU = 9999, prevHeadingIMU = 9999, rollIMU = 9999, pitchIMU = 9999;
         
@@ -90,5 +94,28 @@ namespace OpenGrade
             mf.SendUDPMessage(FormGPS.IMU_HEADER, mf.epAntennaModule);
 
         }
+
+        public void ToggleIMUCorrection()
+        {
+            if (isImuCorrection)
+            {
+                isImuCorrection = false;
+                mf.tStripRoll.ForeColor = Color.Yellow;
+                mf.tStripPitch.ForeColor = Color.Yellow;
+            }
+            else
+            {
+                isImuCorrection = true;
+                mf.tStripRoll.ForeColor = Color.Lime;
+                mf.tStripPitch.ForeColor = Color.Lime;
+            }
+
+
+        }
+
+
+        
+
+
     }
 }

@@ -18,7 +18,7 @@ namespace OpenGrade
         public double minSlope, minShoreSlope;      ///this is number one min slope
 
         // Black Ace Industries
-        public double antennaHeight, plowHeight, maxDitchCut, minDitchCut, maxTileCut, minTileCover;
+        public double antennaHeight, plowHeight, maxDitchCut, minDitchCut, maxTileCut, minTileCover, disFromSurvey;
 
         public byte KpGain, KiGain, KdGain, retDeadband, extDeadband, valveType;
 
@@ -26,6 +26,14 @@ namespace OpenGrade
 
         //width of cutting tool
         public double toolWidth;
+        public double toolHeight = .30;
+        public double toolThickness = .05;
+
+
+
+
+
+
 
 
 
@@ -43,7 +51,7 @@ namespace OpenGrade
 
             //from settings grab the vehicle specifics
             antennaHeight = Properties.Vehicle.Default.setVehicle_antennaHeight;
-            plowHeight = Properties.Vehicle.Default.setVehicle_plowHeight;
+            disFromSurvey = Properties.Vehicle.Default.setVehicle_plowHeight;
             toolWidth = Properties.Vehicle.Default.setVehicle_toolWidth;
             
             // Black Ace Industries
@@ -73,10 +81,10 @@ namespace OpenGrade
             //draw the vehicle Body
             gl.Color(0.25, 0.25, 0.25);
             gl.Begin(OpenGL.GL_TRIANGLE_FAN);            
-            gl.Vertex(0.75, -antennaPivot - 1.5, 0.0);
+            gl.Vertex(0.36, -antennaPivot - .75, 0.0);
             gl.Vertex(0, -antennaPivot , 0.0);
             gl.Color(0.45, 0.45, 0.45);
-            gl.Vertex(-0.75, -antennaPivot - 1.5, 0.0);
+            gl.Vertex(-0.36, -antennaPivot - .75, 0.0);
             gl.Vertex(0, -antennaPivot, 0.0);
             gl.End();
           
@@ -126,8 +134,8 @@ namespace OpenGrade
             //gl.End();
 
             //Scraper front 
-            gl.Color(0.0f, 0.99f, 0.0f, 0.65f);
-            gl.LineWidth(5);
+            gl.Color(0.0f, 0.0f, 0.0f, 0.65f);
+            gl.LineWidth(10);
             gl.Begin(OpenGL.GL_LINES);
             gl.Vertex(-toolWidth / 2.0, 0);
             gl.Vertex(toolWidth /2.0, 0);

@@ -317,17 +317,17 @@ namespace OpenGrade
                         camera.camPitch = Properties.Settings.Default.setCam_pitch;
 
                         isMetric = Properties.Settings.Default.setMenu_isMetric;
-                        metricToolStrip.Checked = isMetric;
-                        imperialToolStrip.Checked = isMetric;
+                        //metricToolStrip.Checked = isMetric;
+                       // imperialToolStrip.Checked = isMetric;
 
                         isGridOn = Properties.Settings.Default.setMenu_isGridOn;
-                        gridToolStripMenuItem.Checked = (isGridOn);
+                        //gridToolStripMenuItem.Checked = (isGridOn);
 
                         isLightbarOn = Properties.Settings.Default.setMenu_isLightbarOn;
-                        lightbarToolStripMenuItem.Checked = isLightbarOn;
+                        //lightbarToolStripMenuItem.Checked = isLightbarOn;
 
                         isPureDisplayOn = Properties.Settings.Default.setMenu_isPureOn;
-                        pursuitLineToolStripMenuItem.Checked = isPureDisplayOn;
+                        //pursuitLineToolStripMenuItem.Checked = isPureDisplayOn;
 
                         redSections = Properties.Settings.Default.setF_SectionColorR;
                         grnSections = Properties.Settings.Default.setF_SectionColorG;
@@ -638,7 +638,7 @@ namespace OpenGrade
                         if (isAB)
                         {
                             //set gui image button on
-                            btnABLine.Image = global::OpenGrade.Properties.Resources.ABLineOn;
+                            //btnABLine.Image = global::OpenGrade.Properties.Resources.ABLineOn;
 
                             //Heading  , ,refPoint2x,z                    
                             line = reader.ReadLine();

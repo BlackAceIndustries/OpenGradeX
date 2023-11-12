@@ -139,7 +139,7 @@ namespace OpenGrade
 
         private void ToggleAutoCut()
         {
-            mf.btnGradeControl.PerformClick();
+            //mf.btnGradeControl.PerformClick();
         }
 
         private void ToggleSurvey()
@@ -159,20 +159,21 @@ namespace OpenGrade
         {
             mf.bladeOffset++;
             if (mf.bladeOffset > 50) mf.bladeOffset = 50;
-            mf.lblBladeOffset.Text = mf.bladeOffset.ToString();
+            mf.tStripVerticalOffset.Text = mf.bladeOffset.ToString("F2");
+           
         }
 
         public void DecreaseBladeOffset()
         {
             mf.bladeOffset--;
             if (mf.bladeOffset < -50) mf.bladeOffset = -50;
-            mf.lblBladeOffset.Text = mf.bladeOffset.ToString();
+            mf.tStripVerticalOffset.Text = mf.bladeOffset.ToString("F2");
         }
 
         public void ResetBladeOffset()
         {
             mf.bladeOffset = 0;
-            mf.lblBladeOffset.Text = mf.bladeOffset.ToString();
+            mf.tStripVerticalOffset.Text = mf.bladeOffset.ToString("F2");
         }
 
         private void OpenJobTab()

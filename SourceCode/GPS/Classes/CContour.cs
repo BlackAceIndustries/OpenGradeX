@@ -19,7 +19,7 @@ namespace OpenGrade
         private double mappingDist;
 
 
-        public bool isContourOn, isContourBtnOn;
+        public bool isContourOn, isContourBtnOn =true;
         public bool surveyMode;
         public bool isSurveyOn;
         public bool markBM;
@@ -27,13 +27,13 @@ namespace OpenGrade
         public bool recBoundary;
         public bool recSurveyPt;
         public bool isBtnStartPause;
-        public bool isBoundarySideRight =true;
+        public bool isBoundarySideRight = true;
         public bool isOpenGLControlBackVisible = true;
         public bool FloatIsOK;
-        public bool isOKtoSurvey =true;
+        public bool isOKtoSurvey = true;
         public bool drawTheMap = true;
         //public bool isSimulatorOn;
-        double halfToolWidth = (Properties.Vehicle.Default.setVehicle_toolWidth) / 2;
+
 
         //for the diferent maps views
         public bool isElevation;
@@ -48,7 +48,7 @@ namespace OpenGrade
         public double maxAltitude = -9999, minAltitude = 9999, maxCut = 0, maxFill = 0, midAltitude;
 
         public double slope = 0.002;
-        public double zeroAltitude = 0;
+        public double LaserSetAltitude = 100.0;
 
         //All the stuff for the height averaging
         private double distanceFromNline;
@@ -151,10 +151,10 @@ namespace OpenGrade
         public bool isDrawingRefLine;
         public bool isAutoDraw;
 
-        
+
 
         public double bladeAngle = 0;
-       
+
         public double surveyHeight;
 
         //
@@ -581,14 +581,14 @@ namespace OpenGrade
 
 
         }
-        
 
 
 
 
 
 
-//########################################## 2D ###########################################################
+
+        //########################################## 2D ###########################################################
 
 
 
@@ -680,7 +680,7 @@ namespace OpenGrade
 
 
             }
-            
+
             if (true)//mf.isPureDisplayOn
             {
                 const int numSegments = 100;
@@ -720,7 +720,7 @@ namespace OpenGrade
                     gl.Vertex(goalPointCT.easting, goalPointCT.northing, 0.0);
 
                     //mf.lblGoalEasting.Text = goalPointCT.easting.ToString();
-                   // mf.lblGoalNorthing.Text = goalPointCT.easting.ToString();
+                    // mf.lblGoalNorthing.Text = goalPointCT.easting.ToString();
 
                     gl.End();
                     gl.PointSize(1.0f);
@@ -1140,59 +1140,7 @@ namespace OpenGrade
             if (ptList != null) ptList.Clear();
         }
 
-        private void UpdateBladePosition()
-        {
-            if (!mf.isDualAntenna) // Pretend the Blade is Flat 
-            {
 
-                mf.pn.bladeRight.easting = mf.pn.easting + Math.Sin(mf.fixHeading - glm.PIBy2) * -halfToolWidth + mf.pn.utmEast;
-                mf.pn.bladeRight.northing = mf.pn.northing + Math.Cos(mf.fixHeading - glm.PIBy2) * -halfToolWidth + mf.pn.utmNorth;
-                mf.pn.bladeRight.heading = mf.pn.headingTrue;
-                mf.pn.bladeRight.altitude = mf.pn.altitude;
-
-                mf.pn.bladeLeft.easting = mf.pn.easting + Math.Sin(mf.fixHeading - glm.PIBy2) * halfToolWidth + mf.pn.utmEast;
-                mf.pn.bladeLeft.northing = mf.pn.northing + Math.Cos(mf.fixHeading - glm.PIBy2) * halfToolWidth + mf.pn.utmNorth;
-                mf.pn.bladeLeft.heading = mf.pn.headingTrue;
-                mf.pn.bladeLeft.altitude = mf.pn.altitude;
-
-                mf.pn.bladeCenter.easting = mf.pn.easting;
-                mf.pn.bladeCenter.northing = mf.pn.northing;
-                mf.pn.bladeCenter.heading = mf.pn.headingTrue;
-                mf.pn.bladeCenter.altitude = mf.pn.altitude;
-
-            }
-            else
-            {
-                mf.pn.bladeLeft.easting = mf.pn.easting;
-                mf.pn.bladeLeft.northing = mf.pn.northing;
-                mf.pn.bladeLeft.heading = mf.pn.headingTrue;
-                mf.pn.bladeLeft.altitude = mf.pn.altitude;
-                mf.pn.bladeRight.easting = mf.pn_2.easting;
-                mf.pn.bladeRight.northing = mf.pn_2.northing;
-                mf.pn.bladeRight.heading = mf.pn_2.headingTrue;
-                mf.pn.bladeRight.altitude = mf.pn_2.altitude;
-
-                if (mf.pn.bladeLeft.altitude >= mf.pn.bladeRight.altitude)
-                {
-                    mf.pn.isLeftHigher = true;
-                    mf.pn.eDiff = mf.pn.bladeLeft.altitude - mf.pn.bladeRight.altitude;
-                    mf.pn.bladeCenter.altitude = (mf.pn.eDiff / 2) + mf.pn.bladeRight.altitude;
-                    bladeAngle = Math.Cos(mf.pn.eDiff / (mf.vehicle.toolWidth / 2));
-
-                }
-                else
-                {
-                    mf.pn.isLeftHigher = false;
-                    mf.pn.eDiff = mf.pn.bladeRight.altitude - mf.pn.bladeLeft.altitude;
-                    mf.pn.bladeCenter.altitude = (mf.pn.eDiff / 2) + mf.pn.bladeLeft.altitude;
-                    bladeAngle = Math.Cos(mf.pn.eDiff / (mf.vehicle.toolWidth / 2));
-                }
-                mf.pn.bladeCenter.heading = averageDualHead(mf.pn.bladeRight.heading, mf.pn.bladeLeft.heading);
-            }
-
-
-
-        }
 
         public double averageDualHead(double head1, double head2)
         {
@@ -1204,53 +1152,48 @@ namespace OpenGrade
         {
 
 
-            if (recBoundary)
+            double halfToolWidth = (Properties.Vehicle.Default.setVehicle_toolWidth) / 2;
+
+
+            // translate the survey pt to the side of the tool
+            double sideEasting;
+            double sideNorthing;
+
+            if (isBoundarySideRight)
             {
-                double halfToolWidth = (Properties.Vehicle.Default.setVehicle_toolWidth) / 2;
+                sideEasting = mf.pn.easting + Math.Sin(mf.fixHeading - glm.PIBy2) * -halfToolWidth;
+                sideNorthing = mf.pn.northing + Math.Cos(mf.fixHeading - glm.PIBy2) * -halfToolWidth;
+            }
+            else
+            {
+                sideEasting = mf.pn.easting + Math.Sin(mf.fixHeading - glm.PIBy2) * halfToolWidth;
+                sideNorthing = mf.pn.northing + Math.Cos(mf.fixHeading - glm.PIBy2) * halfToolWidth;
+            }
 
-                if (isBtnStartPause)
-                {
-                    // translate the survey pt to the side of the tool
-                    double sideEasting;
-                    double sideNorthing;
+            //check dist from last point 
 
-                    if (isBoundarySideRight)
-                    {
-                        sideEasting = mf.pn.easting + Math.Sin(mf.fixHeading - glm.PIBy2) * -halfToolWidth;
-                        sideNorthing = mf.pn.northing + Math.Cos(mf.fixHeading - glm.PIBy2) * -halfToolWidth;
-                    }
-                    else
-                    {
-                        sideEasting = mf.pn.easting + Math.Sin(mf.fixHeading - glm.PIBy2) * halfToolWidth;
-                        sideNorthing = mf.pn.northing + Math.Cos(mf.fixHeading - glm.PIBy2) * halfToolWidth;
-                    }
+            double surveyDistance = ((nearestSurveyEasting - sideEasting) * (nearestSurveyEasting - sideEasting) +
+            (nearestSurveyNorthing - sideNorthing) * (nearestSurveyNorthing - sideNorthing));
 
-                    //check dist from last point 
+            if (surveyDistance > 9)
+            {
+                // convert the utm from the side of the blade to lat long
+                double actualEasting = sideEasting + mf.pn.utmEast;
+                double actualNorthing = sideNorthing + mf.pn.utmNorth;
 
-                    double surveyDistance = ((nearestSurveyEasting - sideEasting) * (nearestSurveyEasting - sideEasting) +
-                    (nearestSurveyNorthing - sideNorthing) * (nearestSurveyNorthing - sideNorthing));
+                mf.UTMToLatLon(actualEasting, actualNorthing);
 
-                    if (surveyDistance > 9)
-                    {
-                        // convert the utm from the side of the blade to lat long
-                        double actualEasting = sideEasting + mf.pn.utmEast;
-                        double actualNorthing = sideNorthing + mf.pn.utmNorth;
+                SurveyPt point = new SurveyPt(sideEasting, sideNorthing, mf.utmLat, mf.utmLon, mf.pn.altitude, 2, mf.pn.fixQuality);
+                surveyList.Add(point);
 
-                        mf.UTMToLatLon(actualEasting, actualNorthing);
-
-                        SurveyPt point = new SurveyPt(sideEasting, sideNorthing, mf.utmLat, mf.utmLon, mf.pn.altitude, 2, mf.pn.fixQuality);
-                        surveyList.Add(point);
-
-                        nearestSurveyEasting = mf.pn.easting;
-                        nearestSurveyNorthing = mf.pn.northing;
-
-                    }
-
-                }
+                nearestSurveyEasting = mf.pn.easting;
+                nearestSurveyNorthing = mf.pn.northing;
 
             }
 
-        }
+        } 
+
+
 
         public void RecordBoundary()
         {
@@ -1329,6 +1272,7 @@ namespace OpenGrade
             //mf.textBox1.Text = "BM_REC";
             if (isSurveyOn)
             {
+                double halfToolWidth2 = (Properties.Vehicle.Default.setVehicle_toolWidth) / 2;
                 //mf.textBox1.Text = "SURVEY_1";
                 if (clearSurveyList)
                 {
@@ -1369,7 +1313,7 @@ namespace OpenGrade
                     if (recBoundary)
                     {
                         //mf.textBox1.Text = "BND_REC";
-                        double halfToolWidth = (Properties.Vehicle.Default.setVehicle_toolWidth) / 2;
+                        //
 
                         if (isBtnStartPause)
                         {
@@ -1380,13 +1324,13 @@ namespace OpenGrade
 
                             if (isBoundarySideRight)
                             {
-                                sideEasting = mf.pn.easting + Math.Sin(mf.fixHeading - glm.PIBy2) * -halfToolWidth;
-                                sideNorthing = mf.pn.northing + Math.Cos(mf.fixHeading - glm.PIBy2) * -halfToolWidth;
+                                sideEasting = mf.pn.easting + Math.Sin(mf.fixHeading - glm.PIBy2) * -halfToolWidth2;
+                                sideNorthing = mf.pn.northing + Math.Cos(mf.fixHeading - glm.PIBy2) * -halfToolWidth2;
                             }
                             else
                             {
-                                sideEasting = mf.pn.easting + Math.Sin(mf.fixHeading - glm.PIBy2) * halfToolWidth;
-                                sideNorthing = mf.pn.northing + Math.Cos(mf.fixHeading - glm.PIBy2) * halfToolWidth;
+                                sideEasting = mf.pn.easting + Math.Sin(mf.fixHeading - glm.PIBy2) * halfToolWidth2;
+                                sideNorthing = mf.pn.northing + Math.Cos(mf.fixHeading - glm.PIBy2) * halfToolWidth2;
                             }
 
                             //check dist from last point 
@@ -1462,7 +1406,18 @@ namespace OpenGrade
                 }
             }
 
-            
+            //int ptCount = surveyList.Count;
+            //gl.LineWidth(2);
+            //gl.Color(0.98f, 0.2f, 0.0f);
+            //gl.Begin(OpenGL.GL_LINE_STRIP);
+            //for (int h = 0; h < ptCount; h++)
+            //{
+            //    if (surveyList[h].code == 2)
+            //        gl.Vertex(surveyList[h].easting, surveyList[h].northing, 0);
+
+            //}
+            //gl.End();
+
 
             if (surveyMode)
             {
@@ -1470,20 +1425,21 @@ namespace OpenGrade
                 //mf.textBox1.Text = ptCount.ToString();
                 if (ptCount > 0)
                 {
-
-
                     gl.PointSize(4.0f);
                     gl.Begin(OpenGL.GL_POINTS);
 
-                    gl.Color(0.97f, 0.42f, 0.45f);
+                    gl.Color(0.97f, 0.42f, 0.80f);
                     for (int h = 0; h < ptCount; h++)
                     {
-                        gl.Color(0.97f, 0.42f, 0.45f);
+                        gl.Color(0.97f, 0.42f, 0.80f);
 
-                        if (surveyList[h].code == 0) gl.Color(0.97f, 0.82f, 0.05f);
-                        if (surveyList[h].code == 2) gl.Color(0.5f, 0.82f, 0.55f);
+                        if (surveyList[h].code == 0) gl.Color(0.97f, 0.82f, 0.95f);
+                        if (surveyList[h].code == 2) gl.Color(0.5f, 0.82f, 0.95f);
+
+
 
                         gl.Vertex(surveyList[h].easting, surveyList[h].northing, 0);
+
                     }
 
                     gl.End();
@@ -1499,7 +1455,7 @@ namespace OpenGrade
                 gl.Begin(OpenGL.GL_LINE_STRIP);
                 for (int h = 0; h < ptCount; h++)
                 {
-                    if (surveyList[h].code == 2)
+                    //if (surveyList[h].code == 2)
                         gl.Vertex(surveyList[h].easting, surveyList[h].northing, 0);
 
                 }
@@ -1509,6 +1465,9 @@ namespace OpenGrade
             }
             else
             {
+
+
+
                 //now paint the map, by Pat
                 int ptCount = mapList.Count;
                 if (maxAltitude == -9999 | minAltitude == 9999 | maxCut == -9999 | maxFill == 9999) drawTheMap = true;
@@ -1792,30 +1751,49 @@ namespace OpenGrade
 
 
 
-                        //gl.Vertex(, 0, 0);
-                        //for (int h = 0; h < 300; h++)
-                        //{
-                        //    if (eleViewList2[h].easting != 0 && eleViewList2[h].northing != 0)
-                        //        gl.Vertex(eleViewList2[h].easting, eleViewList2[h].northing, 0);
+                        gl.Vertex(0, 0, 0);
+                        for (int h = 0; h < 300; h++)
+                        {
+                            if (eleViewList2[h].easting != 0 && eleViewList2[h].northing != 0)
+                                gl.Vertex(eleViewList2[h].easting, eleViewList2[h].northing, 0);
 
-                        //}
-                        //gl.End();
+                        }
+                        gl.End();
                     }
                 }
 
-                // Paint the design pts
+                // Paint the 2D design pts
                 if (mf.isLightbarOn)
                 {
                     int count = ptList.Count;
 
                     if (count > 0)
                     {
-                        gl.PointSize(3.0f);
+                        gl.PointSize(5.0f);
                         gl.Begin(OpenGL.GL_POINTS);
-                        gl.Color(1.0f, 0.5f, 0.0f);
+                        gl.Color(.05f, 0.05f, 0.05f);
+                        calc3DContour();
+                        for (int j = 0; j < count; j++) {
 
-                        for (int j = 0; j < count; j++) gl.Vertex(ptList[j].easting, ptList[j].northing, 0);
+                            
+                            gl.Vertex(ptList[j].easting, ptList[j].northing, 0); 
+                        }
+                        gl.End();
+                    }
 
+                    if (count > 0)
+                    {
+                        gl.Begin(OpenGL.GL_LINE_STRIP);
+                        gl.LineWidth(3.0f);
+                        
+                        gl.Color(.10f, 0.10f, 0.10f);
+                        //calc3DContour();
+                        for (int j = 0; j < count; j++)
+                        {
+
+
+                            gl.Vertex(ptList[j].easting, ptList[j].northing, 0);
+                        }
                         gl.End();
                     }
                 }
@@ -1825,7 +1803,7 @@ namespace OpenGrade
 
                 if (usedPtcnt > 0)
                 {
-                    gl.PointSize(4.0f);
+                    gl.PointSize(20.0f);
                     gl.Begin(OpenGL.GL_POINTS);
 
                     if (usedPtcnt > 1)
@@ -1833,14 +1811,16 @@ namespace OpenGrade
 
                         for (int h = 1; h < usedPtcnt; h++)
                         {
-                            if (usedPtList[h].used == 1) gl.Color(1.0f, 0.5f, 0.0f);
-                            else gl.Color(0.0f, 0.0f, 1.0f);
+                            if (usedPtList[h].used == 1) gl.Color(.5f, 0.5f, 0.5f);
+                            else gl.Color(0.75f, 0.75f, .75f);
                             gl.Vertex(usedPtList[h].easting, usedPtList[h].northing, 0);
 
                         }
+                        
                     }
                     //PAINT the closeset pt
-                    gl.Color(1.0f, 0.0f, 0.0f);
+                    
+                    gl.Color(0.88f, 0.88f, 0.88f);
                     gl.Vertex(usedPtList[0].easting, usedPtList[0].northing, 0);
 
                     gl.End();
@@ -1896,12 +1876,25 @@ namespace OpenGrade
 
             // DRAWLOOK AHEAD POINT
             double lookAheadDistance = 10;
+            double crossDistance = 500;
             lookAheadDistance = mf.pn.speed * .01 * lookAheadDistance;
+            double halfToolWidth = (Properties.Vehicle.Default.setVehicle_toolWidth) / 2;
 
+            
+
+            
+            // GUIDE CROSS
+            mf.pn.GuideLine1.easting = mf.pn.easting + Math.Cos(mf.fixHeading + glm.PIBy2) * -crossDistance;
+            mf.pn.GuideLine1.northing = mf.pn.northing + Math.Sin(mf.fixHeading - glm.PIBy2) * -crossDistance;
+            mf.pn.GuideLine2.easting = mf.pn.easting + Math.Cos(mf.fixHeading + glm.PIBy2) * crossDistance;
+            mf.pn.GuideLine2.northing = mf.pn.northing + Math.Sin(mf.fixHeading - glm.PIBy2) * crossDistance;
+            mf.pn.GuideLine3.easting = mf.pn.easting + Math.Sin(mf.fixHeading - glm.PIBy2) * -crossDistance;
+            mf.pn.GuideLine3.northing = mf.pn.northing + Math.Cos(mf.fixHeading - glm.PIBy2) * -crossDistance;
+            mf.pn.GuideLine4.easting = mf.pn.easting + Math.Sin(mf.fixHeading - glm.PIBy2) * crossDistance;
+            mf.pn.GuideLine4.northing = mf.pn.northing + Math.Cos(mf.fixHeading - glm.PIBy2) * crossDistance;
 
             mf.pn.lookaheadCenter.easting = mf.pn.easting + Math.Cos(mf.fixHeading + glm.PIBy2) * -lookAheadDistance;
             mf.pn.lookaheadCenter.northing = mf.pn.northing + Math.Sin(mf.fixHeading - glm.PIBy2) * -lookAheadDistance;
-
             mf.pn.lookaheadRight.easting = mf.pn.easting + Math.Sin(mf.fixHeading - glm.PIBy2) * -halfToolWidth;
             mf.pn.lookaheadRight.northing = mf.pn.northing + Math.Cos(mf.fixHeading - glm.PIBy2) * -halfToolWidth;
             mf.pn.lookaheadRight.easting = mf.pn.lookaheadRight.easting + Math.Cos(mf.fixHeading + glm.PIBy2) * -lookAheadDistance;
@@ -1924,73 +1917,34 @@ namespace OpenGrade
 
             //gl.Vertex(mf.pn.lookaheadCenter.easting, mf.pn.lookaheadCenter.northing, 0.0);
 
-
+            // Draw Lookahead Line
             gl.LineWidth(2);
             gl.Color(0.73f, 0.27f, 0.69f);
             gl.Begin(OpenGL.GL_LINE_STRIP);
             gl.Vertex(mf.pn.lookaheadRight.easting, mf.pn.lookaheadRight.northing, 0.0);
-
             gl.Vertex(mf.pn.lookaheadLeft.easting, mf.pn.lookaheadLeft.northing, 0.0);
-
-
-            //gl.Vertex(mf.pn.lookAheadEasting - mf.vehicle.toolWidth / 2.0 , mf.pn.lookAheadNorthing, 0.0);
-            //gl.Vertex(mf.pn.lookAheadEasting + mf.vehicle.toolWidth / 2.0, mf.pn.lookAheadNorthing, 0.0);
             gl.End();
             gl.PointSize(1.0f);
 
-            //gl.Vertex(-mf.vehicle.toolWidth / 2.0, 0);
-            //gl.Vertex(mf.vehicle.toolWidth /  2.0, 0);
-            ////mf.vehicle.toolWidth
-
-            //mf.lblGoalEasting.Text = lookAheadDistance.ToString();
-            //mf.lblGoalNorthing.Text = mf.pn.speed.ToString();
 
 
+            gl.LineWidth(2);
+            gl.Color(0.01f, 0.99f, 0.01f, .75f);
+            gl.Begin(OpenGL.GL_LINE_STRIP);
+            gl.Vertex(mf.pn.GuideLine1.easting, mf.pn.GuideLine1.northing, 0.0);
+            gl.Vertex(mf.pn.GuideLine2.easting, mf.pn.GuideLine2.northing, 0.0);
+            gl.End();
+            gl.PointSize(1.0f);
+            //Draw HeadingLine
 
+            gl.LineWidth(2);
+            //gl.Color(0.15f, 0.15f, 0.15f);
+            gl.Begin(OpenGL.GL_LINE_STRIP);
+            gl.Vertex(mf.pn.GuideLine3.easting, mf.pn.GuideLine3.northing, 0.0);
+            gl.Vertex(mf.pn.GuideLine4.easting, mf.pn.GuideLine4.northing, 0.0);
+            gl.End();
+            gl.PointSize(1.0f);
 
-
-
-
-
-
-
-
-
-            //else
-            //{
-            ////draw the guidance line
-            //int ptCount = ptList.Count;
-            //gl.LineWidth(2);
-            //gl.Color(0.98f, 0.2f, 0.0f);
-            //gl.Begin(OpenGL.GL_LINE_STRIP);
-            //for (int h = 0; h < ptCount; h++) gl.Vertex(ptList[h].easting, ptList[h].northing, 0);
-            //gl.End();
-
-            //gl.PointSize(4.0f);
-            //gl.Begin(OpenGL.GL_POINTS);
-
-            //gl.Color(0.97f, 0.42f, 0.45f);
-            //for (int h = 0; h < ptCount; h++) gl.Vertexv(ptList[h].easting, ptList[h].northing, 0);
-
-            // gl.End();
-            //gl.PointSize(1.0f);
-
-            //draw the reference line
-            //gl.PointSize(3.0f);
-            //if (isContourBtnOn)
-            //{
-            //ptCount = ptList.Count;
-            //if (ptCount > 0)
-            //{
-            //gl.Begin(OpenGL.GL_POINTS);
-            //for (int i = 0; i < ptCount; i++)
-            //{
-            // gl.Vertex(ptList[i].easting, ptList[i].northing, 0);
-            //}
-            //gl.End();
-            //}
-            //}
-            //}
 
 
             //*---------  end paste

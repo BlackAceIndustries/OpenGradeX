@@ -13,10 +13,10 @@ namespace OpenGrade
         public double[] frustum = new double[24];
 
         //difference between blade tip and guide line
-        public double cutDelta, distFromLastPass, distToTarget;
+        public double cutDelta, cutDeltaLeft, cutDeltaRight, distFromLastPass, distToTarget;
         public double autoCutDepth = 0;
         public double minDist;
-        public int bladeOffset;
+        public double bladeOffset;
         public bool isAutoCutOn = false, isAutoShoreOn = false, isMapping = true;
 
         //############################### 3D ####################################
@@ -286,6 +286,142 @@ namespace OpenGrade
                 //draw the vehicle/implement
                 vehicle.DrawVehicle();
 
+
+
+
+                //gl.Translate(pn.easting, pn.northing, 0);
+                //gl.Rotate(glm.toDegrees(-fixHeading), 0.0, 0.0, 1.0);
+
+                double cut = 0.0;
+                if (cutDelta != 9999)
+                {
+                    cut = cutDelta;
+
+                }
+                if (cutDelta == 0)
+                {
+                    cut = cutDelta + 0.01;
+
+                }
+                gl.Color(0.0f, 0.0f, 0.0f, 0.35f);
+                if (cutDelta < -3)//Blue
+                {
+                    
+                    //gl.Color(42,127,255,100);
+                    gl.Color(0.25f, .5f, 0.99f, 0.50f);
+
+                }
+
+                if (cutDelta > 3)// Red
+                {
+
+                    //gl.Color(255,0,0,100);
+                    gl.Color(0.99f, .01f, 0.01f, 0.50f);
+                   
+
+                }
+
+                if (cutDelta > -3 && cutDelta < 3)  //GREEN
+                {
+
+                    //gl.Color(18,130,18,100);
+                    gl.Color(0.15, .45f, .15f, .5f);
+
+
+                }
+                
+
+                //Hitch
+                
+
+                //Blade Face1 LeftSide
+                gl.Begin(OpenGL.GL_POLYGON);                
+                gl.Vertex( -vehicle.toolWidth / 2.0, 0.0f, cut / 100);//blade Btm
+                gl.Vertex( -vehicle.toolWidth / 2.0, 0.0f, vehicle.toolHeight + cut / 100); //blade top
+                gl.Vertex( -vehicle.toolWidth / 2.0, vehicle.toolThickness, vehicle.toolHeight + cut / 100);//blade top
+                gl.Vertex( -vehicle.toolWidth / 2.0, vehicle.toolThickness, cut / 100); //blade Btm
+                gl.End();
+
+
+
+                //Blade Face2   RightSide
+                gl.Begin(OpenGL.GL_POLYGON);
+                gl.Vertex(vehicle.toolWidth / 2.0, 0.0f, cut / 100);//blade Btm
+                gl.Vertex(vehicle.toolWidth / 2.0, 0.0f, vehicle.toolHeight + cut / 100); //blade top
+                gl.Vertex(vehicle.toolWidth / 2.0, vehicle.toolThickness, vehicle.toolHeight + cut / 100);//blade top
+                gl.Vertex(vehicle.toolWidth / 2.0, vehicle.toolThickness, cut / 100); //blade Btm
+                gl.End();
+
+                
+
+                //Blade Face3 BackSide
+                gl.Begin(OpenGL.GL_POLYGON);
+                gl.Vertex(-vehicle.toolWidth / 2.0, 0.0f, cut / 100);//blade Btm
+                gl.Vertex(-vehicle.toolWidth / 2.0, 0.0f, vehicle.toolHeight + cut / 100); //blade top
+                gl.Vertex(vehicle.toolWidth / 2.0, 0.0f,  vehicle.toolHeight + cut / 100);//blade top
+                gl.Vertex(vehicle.toolWidth / 2.0, 0.0f, cut / 100); //blade Btm
+                gl.End();
+
+                //Blade Face4 FrontSide
+                gl.Begin(OpenGL.GL_POLYGON);
+                //Left
+                gl.Vertex(-vehicle.toolWidth / 2.0, vehicle.toolThickness,cut / 100);//blade Btm
+                gl.Vertex(-vehicle.toolWidth / 2.0, vehicle.toolThickness, vehicle.toolHeight + cut / 100); //blade top
+                //Right
+                gl.Vertex(vehicle.toolWidth / 2.0, vehicle.toolThickness,   vehicle.toolHeight + cut / 100);//blade top
+                gl.Vertex(vehicle.toolWidth / 2.0, vehicle.toolThickness, cut / 100); //blade Btm
+                gl.End();
+
+
+                ////Blade Face5 BTM
+                //gl.Begin(OpenGL.GL_POLYGON);
+                ////Left
+                //gl.Vertex(-vehicle.toolWidth / 2.0, vehicle.toolThickness, cut / 100);//blade Btm
+                //gl.Vertex(-vehicle.toolWidth / 2.0, 0.0f, cut / 100); //blade top
+                ////Right
+                //gl.Vertex(vehicle.toolWidth / 2.0, 0.0f,  cut / 100);//blade top
+                //gl.Vertex(vehicle.toolWidth / 2.0,vehicle.toolThickness , cut / 100); //blade Btm
+                //gl.End();
+
+
+
+                //Blade Face6 TOP
+                gl.Begin(OpenGL.GL_POLYGON);
+                //Left
+                gl.Vertex(-vehicle.toolWidth / 2.0, vehicle.toolThickness, vehicle.toolHeight + cut / 100);//blade Btm
+                gl.Vertex(-vehicle.toolWidth / 2.0, 0.0f, vehicle.toolHeight + cut / 100); //blade top
+                //Right
+                gl.Vertex(vehicle.toolWidth / 2.0, 0.0f, vehicle.toolHeight + cut / 100);//blade top
+                gl.Vertex(vehicle.toolWidth / 2.0, vehicle.toolThickness, vehicle.toolHeight + cut / 100); //blade Btm
+                gl.End();
+
+
+
+
+                ////Scraper front 
+                //gl.Color(0.0f, 0.99f, 0.0f, 0.65f);
+                //gl.LineWidth(5);
+                //gl.Begin(OpenGL.GL_LINES);
+                //gl.Vertex(-toolWidth / 2.0, 0);
+                //gl.Vertex(toolWidth / 2.0, 0);
+                //gl.End();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 //Back to normal
                 gl.Color(0.98f, 0.98f, 0.98f);
                 gl.Disable(OpenGL.GL_BLEND);
@@ -340,7 +476,7 @@ namespace OpenGrade
                         //txtDistanceOffABLine.Visible = true;
                         //lblDelta.Visible = true;
                         
-                        //if (ct.distanceFromCurrentLine >= vehicle.plowHeight * 100) ct.distanceFromCurrentLine = 0;
+                        //if (ct.distanceFromCurrentLine >= vehicle.disFromSurvey * 100) ct.distanceFromCurrentLine = 0;
 
                         DrawLightBar(openGLControl.Width, openGLControl.Height, ct.distanceFromCurrentLine * 0.1);
 
@@ -362,8 +498,8 @@ namespace OpenGrade
                         //if (guidanceLineHeadingDelta < 0) lblDelta.ForeColor = Color.Red;
                         //else lblDelta.ForeColor = Color.Green;
 
-                        if (guidanceLineDistanceOff == 300 | guidanceLineDistanceOff == 300) btnGradeControl.Text = "-";
-                        else btnGradeControl.Text = "A";
+                        //if (guidanceLineDistanceOff == 300 | guidanceLineDistanceOff == 300) btnGradeControl.Text = "-";
+                       // else btnGradeControl.Text = "A";
                     }
                     else
                     {
@@ -394,8 +530,8 @@ namespace OpenGrade
 
                             //if (guidanceLineHeadingDelta < 0) lblDelta.ForeColor = Color.Red;
                             //else lblDelta.ForeColor = Color.Green;
-                            if (guidanceLineDistanceOff == 32020 | guidanceLineDistanceOff == 32000) btnGradeControl.Text = "-";
-                            else btnGradeControl.Text = "A";
+                            if (guidanceLineDistanceOff == 32020 | guidanceLineDistanceOff == 32000) ;//btnGradeControl.Text = "-"
+                            else ;//btnGradeControl.Text = "A"
                         }
                     }
 
@@ -403,13 +539,13 @@ namespace OpenGrade
                     if (!ABLine.isABLineSet & !ABLine.isABLineBeingSet & !ct.isContourBtnOn)
                     {
                         //txtDistanceOffABLine.Visible = false;
-                        btnGradeControl.Text = "-";
+                        //btnGradeControl.Text = "-";
                     }
                 }
                 else
                 {
                     //txtDistanceOffABLine.Visible = false;
-                    btnGradeControl.Text = "-";
+                    //btnGradeControl.Text = "-";
                 }
 
                 gl.Flush();//finish openGL commands
@@ -562,7 +698,7 @@ namespace OpenGrade
             cutDelta = 9999;
             distToTarget = 9999;
             distFromLastPass = 9999;
-            bladeOffset = Int16.Parse(lblBladeOffset.Text);
+            //bladeOffset = Int16.Parse(tStripVerticalOffset.Text);
 
             //if (bladeOffset != 0) {
             //    lblBladeOffset.Visible = true;
@@ -730,10 +866,16 @@ namespace OpenGrade
 
                     /////  Black Ace Industries
                     ///
+                    if (isMetric)
+                    {
+                        tStripHorizontalOffset.Text = (ct.distanceFromCurrentLine ).ToString("F2");
+                    }
+                    else
+                    {
+                        tStripHorizontalOffset.Text = (ct.distanceFromCurrentLine).ToString("F2");
+                    }
 
-                    
-
-                    if (Math.Abs(ct.distanceFromCurrentLine) < (vehicle.plowHeight * 100000.0)) {                                      
+                    if (Math.Abs(ct.distanceFromCurrentLine) < vehicle.disFromSurvey * 10000.0) {      //(vehicle.disFromSurvey*10000 )                                
                     //if (minDist < 200){// record current pass 
 
                         //draw the actual elevation lines and blade
@@ -760,6 +902,10 @@ namespace OpenGrade
                         gl.Begin(OpenGL.GL_POINTS);
                         gl.Vertex(closestPoint, (((pn.altitude - centerY) * altitudeWindowGain) + centerY), 0);
                         gl.End();
+
+                        //rge
+
+
 
                         //calculate blade to guideline delta
                         //double temp = (double)closestPoint / (double)count2;
@@ -812,13 +958,13 @@ namespace OpenGrade
                         // light up isOnPass Indicator
                         if (ct.isOnPass)
                         {
-                            stripOnlineAutoSteer.Value = 100;
+                            //stripOnlineAutoSteer.Value = 100;
                         
                             ct.isContourBtnOn = true;
                         }
                         else
                         {
-                            stripOnlineAutoSteer.Value = 0;
+                            //stripOnlineAutoSteer.Value = 0;
                         
                             ct.isContourBtnOn = false;
 
@@ -961,10 +1107,10 @@ namespace OpenGrade
                
 
             }
-            else
+            else // LEVEL MODE
             {           
-                cutDelta = ((pn.altitude - ct.zeroAltitude)*100)-bladeOffset;
-                distToTarget = ((pn.altitude - ct.zeroAltitude) * 100) - bladeOffset;                
+                cutDelta = ((pn.altitude - ct.LaserSetAltitude)*100)-bladeOffset;
+                distToTarget = ((pn.altitude - ct.LaserSetAltitude) * 100) - bladeOffset;                
 
             }
         }
@@ -988,7 +1134,7 @@ namespace OpenGrade
             screen2FieldPt.northing = ((double)screenPt.Y) * (double)cameraDistanceZ / (openGLControlBack.Height * altitudeWindowGain);
             screen2FieldPt.northing += centerY;
 
-            stripTopoLocation.Text = ((int)(screen2FieldPt.easting)).ToString() + ": " + screen2FieldPt.northing.ToString("N3");
+            //stripTopoLocation.Text = ((int)(screen2FieldPt.easting)).ToString() + ": " + screen2FieldPt.northing.ToString("N3");
             
             if (ct.ptList.Count > 0 && !ct.isContourOn)
             {                 
@@ -1001,24 +1147,28 @@ namespace OpenGrade
                 
                 if (isMetric)
                 {
+                    tStriptoSurvey.Text = x.ToString("F2");
+                    tStripToDesign.Text = y.ToString("F2");
 
-                    stripDepth.Text = x.ToString("N0") + " CM";
-                    stripDepthtoTarget.Text = y.ToString("N0") + " CM";
+                    //stripDepth.Text = x.ToString("N0") + " CM";
+                    //stripDepthtoTarget.Text = y.ToString("N0") + " CM";
 
                 }
                 else
                 {
                     x *= 0.393701;
                     y *= 0.393701;
-                    stripDepth.Text = x.ToString("N1") + " Inches";
-                    stripDepthtoTarget.Text = y.ToString("N1") + " Inches";
+                    tStriptoSurvey.Text = x.ToString("F2");
+                    tStripToDesign.Text = y.ToString("F2");
+                    //stripDepth.Text = x.ToString("N1") + " Inches";
+                    //stripDepthtoTarget.Text = y.ToString("N1") + " Inches";
                 }
                 
-                if (y < 0) stripDepth.ForeColor = Color.Red;               
-                else stripDepth.ForeColor = Color.Lime;
+                //if (y < 0) stripDepth.ForeColor = Color.Red;               
+                //else stripDepth.ForeColor = Color.Lime;
                 
-                if (x < 0) stripDepthtoTarget.ForeColor = Color.Red;
-                else stripDepthtoTarget.ForeColor = Color.Lime;
+                //if (x < 0) stripDepthtoTarget.ForeColor = Color.Red;
+                //else stripDepthtoTarget.ForeColor = Color.Lime;
             }
             if (ct.isDrawingRefLine)
             {
@@ -1105,7 +1255,7 @@ namespace OpenGrade
                 }                
             }
 
-            stripMinMax.Text = "MAX " + maxFieldY.ToString("N2") + "m : MIN " + minFieldY.ToString("N2") + "m : " + (maxFieldY - minFieldY).ToString("N2") + "m";
+            //stripMinMax.Text = "MAX " + maxFieldY.ToString("N2") + "m : MIN " + minFieldY.ToString("N2") + "m : " + (maxFieldY - minFieldY).ToString("N2") + "m";
 
             if (maxFieldX == -9999999 | minFieldX == 9999999 | maxFieldY == -9999999 | minFieldY == 9999999)
             {
@@ -1160,7 +1310,7 @@ namespace OpenGrade
         {
             vec2 temp = new vec2();
             int i = 0;
-            double cut = 0; double fill = 0, delta, slope;
+            double cut = 0; double fill = 0, delta = 0, slope;
 
             //empty the temp drawList
             tList.Clear();
@@ -1216,6 +1366,9 @@ namespace OpenGrade
 
                 //clean out the list
                 tList.Clear();
+
+
+                tStrip3.Text = cut.ToString("F2");
 
                 //lblCut.Text = cut.ToString("N2");
                 //lblFill.Text = fill.ToString("N2");

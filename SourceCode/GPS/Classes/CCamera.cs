@@ -14,7 +14,7 @@ namespace OpenGrade
 
         public double camPitch;
         public double offset;
-        public double camSetDistance = -75;
+        public double camSetDistance = -30;
         //private double camDelta = 0;
 
         public CCamera()

@@ -4,6 +4,7 @@ using System.Net;
 using System.Windows.Forms;
 using System.Reflection;
 using System.Windows;
+using System.Runtime.Remoting;
 
 namespace OpenGrade
 {
@@ -173,6 +174,18 @@ namespace OpenGrade
 
         private void btnSerialCancel_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void btnResetGradeControl_Click(object sender, EventArgs e)
+        {
+            mf.SendUDPMessage(FormGPS.RESET_HEADER, mf.epGradeControl);
+
+        }
+
+        private void btnResetAntenna_Click(object sender, EventArgs e)
+        {
+            mf.SendUDPMessage(FormGPS.RESET_HEADER, mf.epAntennaModule);
 
         }
     }

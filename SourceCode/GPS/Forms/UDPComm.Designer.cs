@@ -344,9 +344,13 @@ namespace OpenGrade
                     if (temp < 5)
                     {
                         gradeControlTimeout = 0;
-                        ledGradeControl.BackColor = Color.Lime;
-                        voltageBar.BarColorSolid = Color.RoyalBlue;
-                        voltageBar2.BarColorSolid = Color.RoyalBlue;
+
+                        //GRADECONTROL_LED.Value= 100;
+                        //GRADECONTROL_LED.BackColor = Color.Lime;
+                        
+
+                        //voltageBar.BarColorSolid = Color.RoyalBlue;
+                        //voltageBar2.BarColorSolid = Color.RoyalBlue;
 
                         int.TryParse(words[1], out mc.autoState);
                         double.TryParse(words[2], out mc.voltage);
@@ -356,14 +360,16 @@ namespace OpenGrade
                     else if ((temp > 5))
                     {
                         gradeControlTimeout = 0;
-                        ledGradeControl.BackColor = Color.Lime;
-                        voltageBar.BarColorSolid = Color.RoyalBlue;
+                        
+                        //voltageBar.BarColorSolid = Color.RoyalBlue;
 
                         int.TryParse(words[1], out mc.autoState);
                         double.TryParse(words[2], out mc.voltage);
                         float.TryParse(words[3], out mc.headingIMU);
                         float.TryParse(words[4], out mc.pitchIMU);
                         float.TryParse(words[5], out mc.rollIMU);
+                        mc.pitchIMU *= -1;
+
                     }
                     break;
 
@@ -372,8 +378,8 @@ namespace OpenGrade
 
                 case GPS_HEADER:
                     antennaModuleTimeout = 0;
-                    if (antennaModuleTimeout < 50) ledAntenna.BackColor = Color.Lime;
-                    else ledAntenna.BackColor = Color.Orange;
+                    //if (antennaModuleTimeout < 50) ANTENNA1_LED.BackColor = Color.Lime;
+                    //else ANTENNA1_LED.BackColor = Color.Orange;
                     pn.rawBuffer = recvd.Remove(0, 6);  // Remove the GPS, Header
                     recvSentenceSettings = pn.rawBuffer;
 
@@ -384,11 +390,13 @@ namespace OpenGrade
                 case IMU_HEADER:
                     mc.prevHeadingIMU = mc.headingIMU;
                     antennaModuleTimeout = 0;
-                    if (antennaModuleTimeout < 50) ledAntenna.BackColor = Color.Lime;
-                    else ledAntenna.BackColor = Color.Orange;
+                    //if (antennaModuleTimeout < 50) ANTENNA1_LED.BackColor = Color.Lime;
+                    //else ANTENNA1_LED.BackColor = Color.Orange;
                     float.TryParse(words[1], out mc.headingIMU);
                     float.TryParse(words[2], out mc.pitchIMU);
                     float.TryParse(words[3], out mc.rollIMU);
+
+                    mc.pitchIMU *= -1;
                     break;
 
                 case RESET_HEADER:

@@ -69,6 +69,8 @@
             this.lblProgramName = new System.Windows.Forms.Label();
             this.lblOGXVersion = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.btnResetAntenna = new System.Windows.Forms.Button();
+            this.btnResetGradeControl = new System.Windows.Forms.Button();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudThisPort)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudAutoSteerPort)).BeginInit();
@@ -219,7 +221,7 @@
             this.btnSerialCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnSerialCancel.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSerialCancel.Image = global::OpenGrade.Properties.Resources.Cancel64;
-            this.btnSerialCancel.Location = new System.Drawing.Point(299, 469);
+            this.btnSerialCancel.Location = new System.Drawing.Point(507, 469);
             this.btnSerialCancel.Name = "btnSerialCancel";
             this.btnSerialCancel.Size = new System.Drawing.Size(88, 76);
             this.btnSerialCancel.TabIndex = 71;
@@ -234,7 +236,7 @@
             this.btnSerialOK.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSerialOK.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnSerialOK.Image = ((System.Drawing.Image)(resources.GetObject("btnSerialOK.Image")));
-            this.btnSerialOK.Location = new System.Drawing.Point(419, 469);
+            this.btnSerialOK.Location = new System.Drawing.Point(627, 469);
             this.btnSerialOK.Name = "btnSerialOK";
             this.btnSerialOK.Size = new System.Drawing.Size(156, 76);
             this.btnSerialOK.TabIndex = 70;
@@ -601,13 +603,47 @@
             this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // btnResetAntenna
+            // 
+            this.btnResetAntenna.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnResetAntenna.BackColor = System.Drawing.Color.Silver;
+            this.btnResetAntenna.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnResetAntenna.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnResetAntenna.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnResetAntenna.Image = global::OpenGrade.Properties.Resources.Cancel64;
+            this.btnResetAntenna.Location = new System.Drawing.Point(605, 134);
+            this.btnResetAntenna.Name = "btnResetAntenna";
+            this.btnResetAntenna.Size = new System.Drawing.Size(194, 76);
+            this.btnResetAntenna.TabIndex = 99;
+            this.btnResetAntenna.Text = "RESET ANTENNA";
+            this.btnResetAntenna.UseVisualStyleBackColor = false;
+            this.btnResetAntenna.Click += new System.EventHandler(this.btnResetAntenna_Click);
+            // 
+            // btnResetGradeControl
+            // 
+            this.btnResetGradeControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnResetGradeControl.BackColor = System.Drawing.Color.Silver;
+            this.btnResetGradeControl.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnResetGradeControl.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnResetGradeControl.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnResetGradeControl.Image = global::OpenGrade.Properties.Resources.Cancel64;
+            this.btnResetGradeControl.Location = new System.Drawing.Point(605, 217);
+            this.btnResetGradeControl.Name = "btnResetGradeControl";
+            this.btnResetGradeControl.Size = new System.Drawing.Size(194, 76);
+            this.btnResetGradeControl.TabIndex = 100;
+            this.btnResetGradeControl.Text = "RESET GRADE";
+            this.btnResetGradeControl.UseVisualStyleBackColor = false;
+            this.btnResetGradeControl.Click += new System.EventHandler(this.btnResetGradeControl_Click);
+            // 
             // FormUDP
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
-            this.ClientSize = new System.Drawing.Size(603, 578);
+            this.ClientSize = new System.Drawing.Size(811, 578);
             this.ControlBox = false;
+            this.Controls.Add(this.btnResetGradeControl);
+            this.Controls.Add(this.btnResetAntenna);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -681,5 +717,7 @@
         private System.Windows.Forms.Label lblProgramName;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.CheckBox cbSavePassword;
+        private System.Windows.Forms.Button btnResetAntenna;
+        private System.Windows.Forms.Button btnResetGradeControl;
     }
 }

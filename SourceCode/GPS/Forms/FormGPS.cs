@@ -1,5 +1,6 @@
 ﻿//Please, if you use this, share the improvements
 
+using Microsoft.Win32;
 using OpenGrade.Properties;
 using SharpGL;
 using System;
@@ -46,7 +47,7 @@ namespace OpenGrade
         public string ablinesDirectory;
 
         //colors for sections and field background
-        private byte redSections, grnSections, bluSections;
+        public byte redSections, grnSections, bluSections;
 
         public byte redField, grnField, bluField;
 
@@ -71,7 +72,7 @@ namespace OpenGrade
 
 
         //polygon mode for section drawing
-        private bool isDrawPolygons;
+        public bool isDrawPolygons;
 
         //flag for free drive window to control autosteer
         public bool isInFreeDriveMode;
@@ -83,14 +84,16 @@ namespace OpenGrade
         private int flagNumberPicked = 0;
 
         //Is it in 2D or 3D, metric or imperial, display lightbar, display grid etc
-        public bool isIn3D = true, isDualAntenna = false, isMetric = true, isLightbarOn = true, isGridOn, isSideGuideLines = true;
+        public bool isIn3D = true, isDualAntenna = false, isImuAsDual = false, isMetric = true, isLightbarOn = true, isGridOn = true, isSideGuideLines = true, isFullScreen = false;
 
-        
 
-        public bool isPureDisplayOn = true, isSkyOn = true, isBigAltitudeOn = false;
+
+        public bool isPureDisplayOn = true, isSkyOn = true, isBigAltitudeOn = false, isSimOn = false, isGuidelineOn = true;
 
         //bool for whether or not a job is active
         public bool isJobStarted = false, isAreaOnRight = true, isGradeControlBtnOn = false,  isLevelOn = false, isFirstPtSet = false, isCutSaved = false;
+
+        public bool isAutoTiltOn = false, isAutoVertOn = false;
 
         // isSurfaceModeOn = true, isPipeModeOn = false, isDitchModeOn = false,
         // 
@@ -115,7 +118,7 @@ namespace OpenGrade
         //Zoom variables
         public double gridZoom;
 
-        public double zoomValue = 10;
+        public double zoomValue = 3.5;
         public double triangleResolution = 1.0;
         private double previousZoom = 25;
         public uint[] texture = new uint[3];
@@ -151,7 +154,7 @@ namespace OpenGrade
         /// The NMEA class that decodes it
         /// </summary>
         public CNMEA pn;
-        public CNMEA pn_2;
+        public CNMEA pn2;
 
         /// <summary>
         /// AB Line object
@@ -590,7 +593,7 @@ namespace OpenGrade
             //NMEA Parser1
             pn = new CNMEA(this);
             //NMEA PArser2
-            pn_2 = new CNMEA(this);
+            pn2 = new CNMEA(this);
 
             //create the ABLine instance
             ABLine = new CABLine(gl, this);
@@ -720,7 +723,7 @@ namespace OpenGrade
             //Open Job
             if (keyData == (Keys.Escape))
             {
-                fullscreenToolStripMenuItem.PerformClick();
+                //fullscreenToolStripMenuItem.PerformClick();
                 return true;    // indicate that you handled this keystroke
             }
 
@@ -832,7 +835,7 @@ namespace OpenGrade
         {
             //tooltips of controls
             ToolTip ToolTip1 = new ToolTip();
-            ToolTip1.SetToolTip(btnABLine, "Set and configure\n an ABLine");
+            //ToolTip1.SetToolTip(btnABLine, "Set and configure\n an ABLine");
 
             if (Settings.Default.setF_workingDirectory == "Default")
                 baseDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\OpenGradeX\\";
@@ -939,6 +942,60 @@ namespace OpenGrade
                 for (int i = 0; i < cnnt; i++) ct.ptList[i].currentPassAltitude = -1;
             }
         }
+        public void ToggleFullscreen()
+        {
+            
+            if (FormBorderStyle == FormBorderStyle.None) //&& this.WindowState != FormWindowState.Normal
+            {
+                FormBorderStyle = FormBorderStyle.Sizable;
+                WindowState = FormWindowState.Normal;
+                Padding = new Padding(5);
+                isFullScreen = false;
+            }
+            else
+            {
+                FormBorderStyle = FormBorderStyle.None;
+                WindowState = FormWindowState.Maximized;
+                Padding = new Padding(5);
+                isFullScreen = true;
+            }
+        
+        }
+
+        public bool ToggleSim()
+        {
+
+            if (!isSimOn)
+            {
+                panelSimControls.Visible = true;
+                nudElevation.Visible = true;
+                timerSim.Enabled = true;
+                isSimOn = true;
+                Settings.Default.setMenu_isSimulatorOn = isSimOn;
+                Settings.Default.Save();
+
+                return true;
+            }
+            else
+            {
+                panelSimControls.Visible = false;
+                nudElevation.Visible = false;
+                timerSim.Enabled = false;
+                isSimOn = false;
+
+                Settings.Default.setMenu_isSimulatorOn = isSimOn;
+                Settings.Default.Save();
+                return false;
+            }
+
+            
+
+
+        }
+
+
+
+
 
 
         private void remoteConfigurationToolStripMenuItem_Click(object sender, EventArgs e)
@@ -987,8 +1044,7 @@ namespace OpenGrade
                     isAutoCutOn = true;
                     //btnAutoCut.BackColor = Color.Green;
                     //btnAutoCut.ForeColor = Color.Black;
-                    btnIncCut.Visible = true;
-                    btnDecCut.Visible = true;
+                    
                     //lblAutoCutDepth.Visible = true;
                     //lblPassDepth.Visible = true;
 
@@ -999,8 +1055,7 @@ namespace OpenGrade
                     //btnAutoCut.BackColor = Color.Black;
                     //btnAutoCut.Text = "Auto\nCut";
                     //btnAutoCut.ForeColor = Color.White;
-                    btnIncCut.Visible = false;
-                    btnDecCut.Visible = false;
+                    
                     //lblAutoCutDepth.Visible = false;
                     //lblPassDepth.Visible = false;
 
@@ -1098,25 +1153,7 @@ namespace OpenGrade
 
         }
 
-        private void fullscreenToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            if (this.FormBorderStyle == FormBorderStyle.None ) //&& this.WindowState != FormWindowState.Normal
-            {
-                this.FormBorderStyle = FormBorderStyle.Sizable;
-                this.WindowState = FormWindowState.Normal;
-                this.Padding = new Padding(5);
-                fullscreenToolStripMenuItem.Checked = false;
-            }
-            else
-            {
-                this.FormBorderStyle = FormBorderStyle.None;
-                this.WindowState = FormWindowState.Maximized;
-                this.Padding = new Padding(5);                
-                fullscreenToolStripMenuItem.Checked = true; 
-
-
-            }
-        }
+        
 
         private void toolstripNTripConfig_Click(object sender, EventArgs e)
         {
@@ -1173,37 +1210,7 @@ namespace OpenGrade
 
         }
 
-        Form f = null;
-        private void toolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            
-
-            if(!toolStripMenuItem1.Checked)
-            {               
-
-                if (f == null)
-                {
-                    f = new FormAltSet(this);
-                    f.Show();
-                }
-                toolStripMenuItem1.Checked = true;
-            }
-            else
-            {
-
-                if (f != null)
-                {
-                    f.Close();
-
-                    f = null;
-                }
-                toolStripMenuItem1.Checked = false;
-
-            }
-
-
-        }
-
+       
         private void label17_Click(object sender, EventArgs e)
         {
 
@@ -1501,45 +1508,45 @@ namespace OpenGrade
         {
 
 
-            if (curMode == gradeMode.surface)
-            {
-                CalculateMinMaxZoom();
-                curMode = gradeMode.ditch;
-                //btnSurface.Image = Properties.Resources.ditchBtn;
-                //btnAutoShore.Visible = false;
-                //btnAutoCut.Visible = false;
-                isAutoShoreOn = false;
-                isAutoCutOn = false;
-                //GradeControlOutToPort("Ditch Mode Active \n");
-            }
-            else if (curMode == gradeMode.ditch)
-            {
-                CalculateMinMaxZoom();
-                curMode = gradeMode.tile;
-                //btnSurface.Image = Properties.Resources.pipeBtn;
-                //btnAutoShore.Visible = false;
-                //GradeControlOutToPort("Pipe Mode Active \n");
-                //light Blue
-                sqrMaxDepth.BackColor = Color.Red; //light Blue Max Depth
-            }
-            else if (curMode == gradeMode.tile)
-            {
-                CalculateMinMaxZoom();
-                curMode = gradeMode.contour;
-               // btnSurface.Image = Properties.Resources.surfaceBtn;
-                //btnAutoShore.Visible = true;
-                //btnAutoCut.Visible = true;
-                //GradeControlOutToPort("Surface Mode Active \n");
-            }
-            else if (curMode == gradeMode.contour)
-            {
-                CalculateMinMaxZoom();
-                curMode = gradeMode.surface;
-                //btnSurface.Image = Properties.Resources.boundaryStop;
-                //btnAutoShore.Visible = false;
-                //btnAutoCut.Visible = false;
-                //GradeControlOutToPort("Surface Mode Active \n");
-            }
+            //if (curMode == gradeMode.surface)
+            //{
+            //    CalculateMinMaxZoom();
+            //    curMode = gradeMode.ditch;
+            //    //btnSurface.Image = Properties.Resources.ditchBtn;
+            //    //btnAutoShore.Visible = false;
+            //    //btnAutoCut.Visible = false;
+            //    isAutoShoreOn = false;
+            //    isAutoCutOn = false;
+            //    //GradeControlOutToPort("Ditch Mode Active \n");
+            //}
+            //else if (curMode == gradeMode.ditch)
+            //{
+            //    CalculateMinMaxZoom();
+            //    curMode = gradeMode.tile;
+            //    //btnSurface.Image = Properties.Resources.pipeBtn;
+            //    //btnAutoShore.Visible = false;
+            //    //GradeControlOutToPort("Pipe Mode Active \n");
+            //    //light Blue
+            //    sqrMaxDepth.BackColor = Color.Red; //light Blue Max Depth
+            //}
+            //else if (curMode == gradeMode.tile)
+            //{
+            //    CalculateMinMaxZoom();
+            //    curMode = gradeMode.contour;
+            //   // btnSurface.Image = Properties.Resources.surfaceBtn;
+            //    //btnAutoShore.Visible = true;
+            //    //btnAutoCut.Visible = true;
+            //    //GradeControlOutToPort("Surface Mode Active \n");
+            //}
+            //else if (curMode == gradeMode.contour)
+            //{
+            //    CalculateMinMaxZoom();
+            //    curMode = gradeMode.surface;
+            //    //btnSurface.Image = Properties.Resources.boundaryStop;
+            //    //btnAutoShore.Visible = false;
+            //    //btnAutoCut.Visible = false;
+            //    //GradeControlOutToPort("Surface Mode Active \n");
+            //}
         }
 
         private void toolStrip3DSurveyToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1620,12 +1627,12 @@ namespace OpenGrade
             if (mc.isImuCorrection)
             {
                 mc.isImuCorrection = false;
-                pictureBox1.BackColor = Color.Tomato;
+                //pictureBox1.BackColor = Color.Tomato;
             }
             else
             {
                 mc.isImuCorrection = true;
-                pictureBox1.BackColor = Color.Lime;
+                //pictureBox1.BackColor = Color.Lime;
             }
         }
 
@@ -1668,14 +1675,7 @@ namespace OpenGrade
         {
 
 
-            if (panelCutDelta.Visible)
-            {
-                panelCutDelta.Visible = false;
-
-            }
-            else
-            {
-                panelCutDelta.Visible = true;          }
+           
 
 
             
@@ -1684,15 +1684,15 @@ namespace OpenGrade
 
         private void button2_Click_2(object sender, EventArgs e)
         {
-            if (panelpBar.Visible)
-            {
-                panelpBar.Visible = false;
+            //if (panelpBar.Visible)
+            //{
+            //    panelpBar.Visible = false;
 
-            }
-            else
-            {
-                panelpBar.Visible = true;
-            }
+            //}
+            //else
+            //{
+            //    panelpBar.Visible = true;
+            //}
 
 
         }
@@ -1803,8 +1803,8 @@ namespace OpenGrade
         {
 
             if (zoomValue <= 20)
-            { if ((zoomValue -= zoomValue * 0.1) < 6.0) zoomValue = 6.0; }
-            else { if ((zoomValue -= zoomValue * 0.05) < 6.0) zoomValue = 6.0; }
+            { if ((zoomValue -= zoomValue * 0.1) < 1.5) zoomValue = 1.5; }
+            else { if ((zoomValue -= zoomValue * 0.05) < 1.5) zoomValue = 1.5; }
 
             camera.camSetDistance = zoomValue * zoomValue * -1;
             SetZoom();
@@ -1834,31 +1834,405 @@ namespace OpenGrade
             sim.ResetSim();
         }
 
-        private void button1_Click_2(object sender, EventArgs e)
+        private void label21_Click(object sender, EventArgs e)
         {
-            if (panelCutDelta.Visible)
+
+        }
+
+        private void button4_Click_3(object sender, EventArgs e)
+        {
+            //if (panelStats.Visible)
+            //{
+            //    panelStats.Visible = false;
+
+            //}
+            //else
+            //{
+            //    panelStats.Visible = true;
+            //}
+        }
+
+        private void pbarCutAbove_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pbarCutBelow_Load(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+        private void stripDepth_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripTextBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripStatusLabel2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void statusStrip2_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void stripMinMax_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripStatusLabel27_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripStatusLabel3_Click(object sender, EventArgs e)
+        {
+            rem.IncreaseBladeOffset();
+        }
+
+        private void toolStripStatusLabel4_Click(object sender, EventArgs e)
+        {
+            rem.DecreaseBladeOffset();
+        }
+
+        private void cOLOURSToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnVertAuto_Click(object sender, EventArgs e)
+        {
+            if (isAutoVertOn)
             {
-                panelCutDelta.Visible = false;
+                isAutoVertOn = false;
+                btnVertAuto.Image = Properties.Resources.Toggle_Vert_MANUAL;
+                mc.GradeControlData[mc.gcisAutoActive] = 0;
+                section[1].TurnMappingOff();
 
             }
             else
             {
-                panelCutDelta.Visible = true;
+                isAutoVertOn = true;
+                btnVertAuto.Image = Properties.Resources.Toggle_Vert_AUTO;
+                mc.GradeControlData[mc.gcisAutoActive] = 1;
+                section[1].TurnMappingOn();
+
+
             }
+
+
+
+
+
+        }
+
+        private void btnTiltAuto_Click(object sender, EventArgs e)
+        {
+            if (isAutoTiltOn)
+            {
+                isAutoTiltOn = false;
+                btnTiltAuto.Image = Properties.Resources.Toggle_Tilt_MANUAL;
+                mc.GradeControlData[mc.gcisAutoActive] = 0;
+                section[1].TurnMappingOff();
+
+            }
+            else
+            {
+                isAutoTiltOn = true;
+                btnTiltAuto.Image = Properties.Resources.Toggle_Tilt_AUTO;
+                mc.GradeControlData[mc.gcisAutoActive] = 1;
+                section[1].TurnMappingOn();
+
+            }
+
+        }
+
+        private void gPSDATAToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form form = new FormGPSData(this);
+            form.Show();
+        }
+
+        private void tStripVerticalOffset_Click(object sender, EventArgs e)
+        {
+            rem.ResetBladeOffset();
+        }
+
+        private void eXITToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void mAPToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (panelNavigation.Visible)
+            {
+                panelNavigation.Visible = false;
+            }
+            else
+            {
+                panelNavigation.Visible = true;
+                //navPanelCounter = 2;
+            }
+        }
+
+        private void rEMOTEToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form form = new FormRemote(this);
+            form.Show();
+        }
+
+        private void colorsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rEADOUTSToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+             
+            
+            //if (!toolStripMenuItem1.Checked)
+            //{
+
+            //    if (f == null)
+            //    {
+            //        f = new FormAltSet(this);
+            //        f.Show();
+            //    }
+            //    toolStripMenuItem1.Checked = true;
+            //}
+            //else
+            //{
+
+            //    if (f != null)
+            //    {
+            //        f.Close();
+
+            //        f = null;
+            //    }
+            //    toolStripMenuItem1.Checked = false;
+
+            //}
+        }
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            if (isJobStarted)
+            {
+                if (ct.ptList.Count < 1)
+                    FileOpenAgdDesign();
+                else
+                {
+                    var form = new FormTimedMessage(3000, "Contour.txt already exist", "Delete the Contour.txt or create a new Field");
+                    form.Show();
+                }
+            }
+            else
+            {
+                var form = new FormTimedMessage(3000, "No field open", "Open a field First");
+                form.Show();
+            }
+        }
+
+        private void btnABLine_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void helpToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void flagsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (isJobStarted)
+            {
+                //save new copy of flags
+                FileSaveFlagsKML();
+
+                //Process.Start(@"C:\Program Files (x86)\Google\Google Earth\client\googleearth", workingDirectory + currentFieldDirectory + "\\Flags.KML");
+                Process.Start(fieldsDirectory + currentFieldDirectory + "\\Flags.KML");
+            }
+            else
+            {
+                var form = new FormTimedMessage(1500, gStr.gsFieldNotOpen, gStr.gsStartNewField);
+                form.Show();
+            }
+        }
+
+        private void webCamToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Form form = new FormWebCam();
+            form.Show();
+        }
+
+        private void windowsExplorerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (isJobStarted)
+            {
+                var form = new FormTimedMessage(2000, gStr.gsFieldIsOpen, gStr.gsCloseFieldFirst);
+                form.Show();
+                return;
+            }
+
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            fbd.ShowNewFolderButton = true;
+            fbd.Description = "Currently: " + Settings.Default.setF_workingDirectory;
+
+            if (Settings.Default.setF_workingDirectory == "Default") fbd.SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            else fbd.SelectedPath = Settings.Default.setF_workingDirectory;
+
+            if (fbd.ShowDialog() == DialogResult.OK)
+            {
+                RegistryKey regKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\OpenGrade", true);
+
+                if (fbd.SelectedPath != Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments))
+                {
+                    //save the user set directory in Registry
+                    regKey.SetValue("Directory", fbd.SelectedPath);
+                    regKey.Close();
+                    Settings.Default.setF_workingDirectory = fbd.SelectedPath;
+                    Settings.Default.Save();
+                }
+                else
+                {
+                    regKey.SetValue("Directory", "Default");
+                    regKey.Close();
+                    Settings.Default.setF_workingDirectory = "Default";
+                    Settings.Default.Save();
+                }
+
+                //restart program
+                MessageBox.Show(gStr.gsProgramExitAndRestart);
+                Close();
+            }
+        }
+
+        private void fORCECLOSEToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void lblHz_Click(object sender, EventArgs e)
+        {
+            ToggleSim();
+        }
+
+        private void lOGNMEAToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rESETALLToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnLaserToggle_Click(object sender, EventArgs e)
+        {
+            
+                
+                ToggleLaserMode();
+               
+
+
+        }
+
+        private void toolStripStatusLabel22_Click(object sender, EventArgs e)
+        {
+            mc.ToggleIMUCorrection();
+        }
+
+        private void toolStripStatusLabel28_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripStatusLabel17_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripStatusLabel14_Click(object sender, EventArgs e)
+        {
+            mc.ToggleIMUCorrection();
+        }
+
+        private void PanelDisplays_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void toolStripProgressBar1_Click(object sender, EventArgs e)
+        {
+            SelectMode();
+        }
+
+        private void btnLaserSettings_Click(object sender, EventArgs e)
+        {
+            ct.LaserSetAltitude = pn.altitude;
+        }
+
+        private void fORCERESETALLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (isJobStarted)
+            {
+                MessageBox.Show(gStr.gsCloseFieldFirst);
+            }
+            else
+            {
+                DialogResult result2 = MessageBox.Show("Really Reset Everything?", "Reset settings",
+                    MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+
+                if (result2 == DialogResult.Yes)
+                {
+                    Settings.Default.Reset();
+                    Settings.Default.Save();
+                    Vehicle.Default.Reset();
+                    Vehicle.Default.Save();
+                    MessageBox.Show(gStr.gsProgramExitAndRestart);
+                    //Application.Exit();
+                }
+            }
+        }
+
+        private void btnDayNightMode_Click(object sender, EventArgs e)
+        {
+            ToggleFullscreen();
+        }
+
+        private void button1_Click_2(object sender, EventArgs e)
+        {
+            
 
         }
 
         private void button2_Click_3(object sender, EventArgs e)
         {
-            if (panelDirectory.Visible)
-            {
-                panelDirectory.Visible = false;
+            //if (panelDirectory.Visible)
+            //{
+            //    panelDirectory.Visible = false;
 
-            }
-            else
-            {
-                panelDirectory.Visible = true;
-            }
+            //}
+            //else
+            //{
+            //    panelDirectory.Visible = true;
+            //}
         }
 
         private void btnAutoDrain_Click(object sender, EventArgs e)
@@ -1877,8 +2251,9 @@ namespace OpenGrade
 
         }
 
-        private void applyToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ApplySmoothContour(object sender, EventArgs e)
         {
+
             int ptCnt = ct.ptList.Count;
             for (int k = 0; k < ptCnt; k++)
             {
@@ -1886,32 +2261,62 @@ namespace OpenGrade
 
             }
             ct.autoList.Clear();
-            applyToolStripMenuItem.Enabled = false;
-            applyToolStripMenuItem.BackColor = Color.LightGray;
-
-
 
         }
 
-        private void verifyToolStripMenuItem_Click(object sender, EventArgs e)
+
+        private void SmoothContour(object sender, EventArgs e)
         {
-            if (tStripSmootingCB.SelectedIndex != null)
-            {
-                int choice = tStripSmootingCB.SelectedIndex + 1;
-                ct.SmoothLine(choice);
-            }
-            else
-            {
-                int choice = 1;
-                ct.SmoothLine(choice);
-            }
-
-            applyToolStripMenuItem.Enabled = true;
-            applyToolStripMenuItem.BackColor = Color.Lime;
-
+            //if (tStripSmootingCB.SelectedIndex != null)
+            //{
+            //    int choice = tStripSmootingCB.SelectedIndex + 1;
+            //    ct.SmoothLine(choice);
+            //}
+            //else
+            //{
+            //    int choice = 1;
+            //    ct.SmoothLine(choice);
+            //}    
 
 
         }
+
+        //private void applyToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    int ptCnt = ct.ptList.Count;
+        //    for (int k = 0; k < ptCnt; k++)
+        //    {
+        //        ct.ptList[k].altitude = ct.autoList[k].northing;
+
+        //    }
+        //    ct.autoList.Clear();
+        //    applyToolStripMenuItem.Enabled = false;
+        //    applyToolStripMenuItem.BackColor = Color.LightGray;
+
+
+
+        //}
+
+
+        //private void verifyToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    if (tStripSmootingCB.SelectedIndex != null)
+        //    {
+        //        int choice = tStripSmootingCB.SelectedIndex + 1;
+        //        ct.SmoothLine(choice);
+        //    }
+        //    else
+        //    {
+        //        int choice = 1;
+        //        ct.SmoothLine(choice);
+        //    }
+
+        //    applyToolStripMenuItem.Enabled = true;
+        //    applyToolStripMenuItem.BackColor = Color.Lime;
+
+
+
+        //}
 
 
         private void toolsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1932,14 +2337,15 @@ namespace OpenGrade
 
         }
 
-        private void btnLevel_Click(object sender, EventArgs e)
+        private void ToggleLaserMode()
         {
             if (isLevelOn)
             {
                 isLevelOn = false;
+                btnLaserSettings.Visible = false;
                 //btnSurface.Enabled = true;
-                btnLevel.Image = Properties.Resources.levelOffBtn;
-
+                
+                btnLaserToggle.Image = Properties.Resources.Toggle_Laser_MANUAL;
                 lblMaxDepth.Visible = false;
                 sqrMaxDepth.Visible = false;
                 lblMinCover.Visible = false;
@@ -1957,12 +2363,16 @@ namespace OpenGrade
                 }
                 else
                 {
-                    btnGradeControl.Enabled = false;
+                    //btnGradeControl.Enabled = false;
+                    btnTiltAuto.Enabled = false;
+                    btnVertAuto.Enabled = false;
+
                 }
             }
 
             else
             {
+                isLevelOn = true;
                 lblMaxDepth.Visible = false;
                 sqrMaxDepth.Visible = false;
                 lblMinCover.Visible = false;
@@ -1971,6 +2381,7 @@ namespace OpenGrade
                 sqrCutLine1.Visible = false;
                 lblDitchCutLine.Visible = false;
                 sqrDitchCutLine.Visible = false;
+                btnLaserSettings.Visible = true;
 
 
                 ///btnAutoCut.Visible = false;
@@ -1981,14 +2392,20 @@ namespace OpenGrade
                 //lblAutoCutDepth.Visible = false;
                 //lblPassDepth.Visible = false;
 
-                isLevelOn = true;
-                //btnSurface.Enabled = false;
-                btnLevel.Image = Properties.Resources.levelBtn;
-                ct.zeroAltitude = pn.altitude;
 
-                btnGradeControl.Enabled = true;
+                //btnSurface.Enabled = false;
+                
+                btnLaserToggle.Image = Properties.Resources.Toggle_Laser_AUTO;
+                //ct.LaserSetAltitude = pn.altitude;
+
+                //btnGradeControl.Enabled = true;
+                btnTiltAuto.Enabled = true;
+                btnVertAuto.Enabled = true;
             }
+
         }
+
+       
 
         //form is closing so tidy up and save settings
         private void FormGPS_FormClosing(object sender, FormClosingEventArgs e)
@@ -2058,12 +2475,47 @@ namespace OpenGrade
         //called everytime window is resized, clean up button positions
         private void FormGPS_Resize(object sender, EventArgs e)
         {
+
+            if (PanelDisplays.Visible)
+            {
+                PanelDisplays.Height = this.Height - 225;
+                PanelDisplays.Width = this.Width - 115;
+
+                //openGLControl.Height = PanelDisplays.Height - 250  ;
+                Point pbarL = new Point(0, 0);
+                Point pbarR = new Point(0, 0);
+                pbarCutAboveL.Height = ((PanelDisplays.Height-24)/2) ;
+                pbarCutBelowL.Height = ((PanelDisplays.Height-24)/2) ;
+                pbarCutAboveR.Height = ((PanelDisplays.Height - 24) / 2);
+                pbarCutBelowR.Height = ((PanelDisplays.Height - 24) / 2);
+
+                
+                pbarL.X = 30;
+                pbarL.Y = (PanelDisplays.Height ) / 2;
+                pbarCutBelowL.Location = (pbarL);
+
+
+                pbarR.X = voltageBar2.Location.X - 29 - voltageBar2.Width;
+                pbarR.Y = (PanelDisplays.Height) / 2;
+                pbarCutBelowR.Location = (pbarR);
+
+
+
+                //pbarCutBelowL.Height = (PanelDisplays.Height / 2);
+
+                // Adjust pBar
+
+
+
+            }
+
+
             if (openGLControlBack.Visible)
             {
-                openGLControl.Height = 500;
-                pbarCutAbove.Height = openGLControlBack.Height / 2;
-                pbarCutBelow.Height = pbarCutAbove.Height;
-                pbarCutBelow.Top = pbarCutAbove.Top + pbarCutAbove.Height;
+                openGLControl.Height = 450;
+                //pbarCutAbove.Height = openGLControlBack.Height / 2;
+                //pbarCutBelow.Height = pbarCutAbove.Height;
+                //pbarCutBelow.Top = pbarCutAbove.Top + pbarCutAbove.Height;
             }
             else
             {
@@ -2254,9 +2706,12 @@ namespace OpenGrade
             startCounter = 0;
             //btnManualOffOn.Enabled = true;
             //btnManualOffOn.Image = Properties.Resources.SurveyStart;
-            btnABLine.Enabled = true;
+            //btnABLine.Enabled = true;
             //btnContour.Enabled = true;
-            btnGradeControl.Enabled = true;
+            //btnGradeControl.Enabled = true;
+
+            btnTiltAuto.Enabled = true;
+            btnVertAuto.Enabled = true;
             ABLine.abHeading = 0.00;
             //btnFlag.Enabled = true;
             ct.isContourBtnOn = false;
@@ -2278,7 +2733,7 @@ namespace OpenGrade
             }
 
             //update the menu
-            fieldToolStripMenuItem.Text = gStr.gsCloseField;
+            //fieldToolStripMenuItem.Text = gStr.gsCloseField;
         }
 
         //close the current job
@@ -2300,10 +2755,21 @@ namespace OpenGrade
             //btnFlag.Enabled = false;
 
             //reset the buttons
-            btnABLine.Enabled = false;
+            //btnABLine.Enabled = false;
             //btnContour.Enabled = false;
-            btnGradeControl.Enabled = false;
+            //btnGradeControl.Enabled = false;
             isGradeControlBtnOn = false;
+
+
+            btnTiltAuto.Enabled = false;
+            isAutoTiltOn = false;       
+
+            btnVertAuto.Enabled = false;
+            isAutoVertOn = false;
+
+
+
+
 
             //btnAutoCut.Visible = false;
             //btnAutoShore.Visible = false;
@@ -2331,7 +2797,7 @@ namespace OpenGrade
             //change images to reflect on off
             //btnABLine.Image = Properties.Resources.ABLineOff;
             //btnContour.Image = Properties.Resources.ContourOff;
-            btnGradeControl.Image = Properties.Resources.GradeControlOff1;
+            //btnGradeControl.Image = Properties.Resources.GradeControlOff1;
 
             //fix ManualOffOnAuto buttons
            // btnManualOffOn.Enabled = false;
@@ -2341,7 +2807,7 @@ namespace OpenGrade
             ABLine.ResetABLine();
 
             //update the menu
-            fieldToolStripMenuItem.Text = gStr.gsStartNewField;
+            //fieldToolStripMenuItem.Text = gStr.gsStartNewField;
 
             //reset all Port Module values
             mc.ResetAllModuleCommValues();

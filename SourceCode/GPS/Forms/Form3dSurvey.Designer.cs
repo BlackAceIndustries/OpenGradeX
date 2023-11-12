@@ -44,7 +44,7 @@
             this.button1.BackColor = System.Drawing.Color.Black;
             this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.button1.Image = global::OpenGrade.Properties.Resources.OK64;
-            this.button1.Location = new System.Drawing.Point(335, 187);
+            this.button1.Location = new System.Drawing.Point(335, 114);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(100, 100);
             this.button1.TabIndex = 10;
@@ -53,13 +53,12 @@
             // 
             // btnFixQuality
             // 
-            this.btnFixQuality.Location = new System.Drawing.Point(12, 116);
+            this.btnFixQuality.Location = new System.Drawing.Point(134, 31);
             this.btnFixQuality.Name = "btnFixQuality";
-            this.btnFixQuality.Size = new System.Drawing.Size(108, 58);
+            this.btnFixQuality.Size = new System.Drawing.Size(69, 58);
             this.btnFixQuality.TabIndex = 263;
-            this.btnFixQuality.Text = "RTK fix only";
+            this.btnFixQuality.Text = "RTK ONLY";
             this.btnFixQuality.UseVisualStyleBackColor = true;
-            this.btnFixQuality.Visible = false;
             this.btnFixQuality.Click += new System.EventHandler(this.btnFixQuality_Click);
             // 
             // btnBoundarySide
@@ -77,7 +76,7 @@
             this.btnStartPause.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btnStartPause.Font = new System.Drawing.Font("Tahoma", 22F, System.Drawing.FontStyle.Bold);
             this.btnStartPause.Image = global::OpenGrade.Properties.Resources.BoundaryRecord;
-            this.btnStartPause.Location = new System.Drawing.Point(220, 187);
+            this.btnStartPause.Location = new System.Drawing.Point(229, 114);
             this.btnStartPause.Name = "btnStartPause";
             this.btnStartPause.Size = new System.Drawing.Size(100, 100);
             this.btnStartPause.TabIndex = 261;
@@ -94,7 +93,7 @@
             this.btnManualOffOn.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
             this.btnManualOffOn.Font = new System.Drawing.Font("Tahoma", 14.25F);
             this.btnManualOffOn.Image = ((System.Drawing.Image)(resources.GetObject("btnManualOffOn.Image")));
-            this.btnManualOffOn.Location = new System.Drawing.Point(-922, 1);
+            this.btnManualOffOn.Location = new System.Drawing.Point(-922, -72);
             this.btnManualOffOn.Name = "btnManualOffOn";
             this.btnManualOffOn.Size = new System.Drawing.Size(90, 90);
             this.btnManualOffOn.TabIndex = 260;
@@ -108,7 +107,7 @@
             this.button2.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
             this.button2.Font = new System.Drawing.Font("Tahoma", 12F);
             this.button2.Image = ((System.Drawing.Image)(resources.GetObject("button2.Image")));
-            this.button2.Location = new System.Drawing.Point(13, 187);
+            this.button2.Location = new System.Drawing.Point(13, 114);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(100, 100);
             this.button2.TabIndex = 265;
@@ -141,7 +140,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
-            this.ClientSize = new System.Drawing.Size(450, 299);
+            this.ClientSize = new System.Drawing.Size(450, 226);
             this.Controls.Add(this.btnPointDelete);
             this.Controls.Add(this.btnAddPoint);
             this.Controls.Add(this.button2);
@@ -150,7 +149,7 @@
             this.Controls.Add(this.btnStartPause);
             this.Controls.Add(this.btnManualOffOn);
             this.Controls.Add(this.button1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Form3dSurvey";
             this.Text = "3D Survey";
             this.TopMost = true;

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using SharpGL;
 using System.Drawing;
+using OpenGrade.Properties;
 
 namespace OpenGrade
 {
@@ -67,6 +68,9 @@ namespace OpenGrade
         
         //IMU 
         double rollCorrectionDistance = 0, rollCorrectionAltitude = 0;
+        double pitchCorrectionDistance = 0, pitchCorrectionAltitude = 0;
+
+
         public double rollZero = 0, pitchZero = 0;
         public double gyroDelta, gyroCorrection, gyroRaw, gyroCorrected, turnDelta, turnDelta2;
 
@@ -144,33 +148,84 @@ namespace OpenGrade
                 if (mc.rollIMU != 9999)
                 {
                     //calculate how far the antenna moves based on sidehill roll
-                    double roll = Math.Sin(glm.toRadians(mc.rollIMU / 16.0));
-                    double roll2 = Math.Cos(glm.toRadians(mc.rollIMU / 16.0));
+                    double rolldist = Math.Sin(glm.toRadians(mc.rollIMU));
+                    double rollalt = Math.Cos(glm.toRadians(mc.rollIMU));
 
-                    rollCorrectionDistance = Math.Abs(roll * vehicle.antennaHeight);
-                    rollCorrectionAltitude = Math.Abs(vehicle.antennaHeight / roll);
+
+                    rollCorrectionDistance = Math.Abs(rolldist * vehicle.antennaHeight);         
+                    rollCorrectionAltitude = Math.Abs(rollalt * vehicle.antennaHeight);
+                    rollCorrectionAltitude = rollCorrectionAltitude - vehicle.antennaHeight;
+
+
+                    //tStripHorizontalOffset.Text = rollCorrectionAltitude.ToString("F2");
+                    //tStripVerticalOffset.Text = rollCorrectionDistance.ToString("F2");
+
+                    tStripRollCorrection.Text = rollCorrectionAltitude.ToString("F3");
+                    tStripPitchCorrection.Text = rollCorrectionDistance.ToString("F3");
+
 
                     // tilt to left is positive  **** important!!
-                    if (roll > 0)
+                    if (rolldist > 0)
                     {
-                        pn.easting += (Math.Cos(fixHeading) * rollCorrectionDistance);
-                        pn.altitude -= (Math.Tan(fixHeading) * rollCorrectionDistance);
+                        pn.easting += (Math.Cos(fixHeading) * rollCorrectionDistance);                        
                         pn.northing += (Math.Sin(fixHeading) * -rollCorrectionDistance);
+                        pn.altitude += rollCorrectionAltitude;
                     }
                     else
                     {
-                        pn.easting += (Math.Cos(fixHeading) * -rollCorrectionDistance);
-                        pn.altitude -= (Math.Tan(fixHeading) * rollCorrectionDistance);
+                        pn.easting += (Math.Cos(fixHeading) * -rollCorrectionDistance);                        
                         pn.northing += (Math.Sin(fixHeading) * rollCorrectionDistance);
+                        pn.altitude += rollCorrectionAltitude;
                     }
                 }
             }
+            #endregion Roll
+
+            #region Pitch
+            if (mc.isImuCorrection)
+            {
+                if (mc.pitchIMU != 9999)
+                {
+                    //calculate how far the antenna moves based on sidehill roll
+                    double pitchdist = Math.Sin(glm.toRadians(mc.pitchIMU));
+                    double pitchalt = Math.Cos(glm.toRadians(mc.pitchIMU));
+
+
+                    pitchCorrectionDistance = Math.Abs(pitchdist * vehicle.antennaHeight);
+                    pitchCorrectionAltitude = Math.Abs(pitchalt * vehicle.antennaHeight);
+                    pitchCorrectionAltitude =  pitchCorrectionAltitude - vehicle.antennaHeight;
+
+
+                    //tStripHorizontalOffset.Text = rollCorrectionAltitude.ToString("F2");
+                    //tStripVerticalOffset.Text = rollCorrectionDistance.ToString("F2");
+
+                    tStripRollCorrection.Text = pitchCorrectionDistance.ToString("F3");
+                    tStripPitchCorrection.Text = pitchCorrectionAltitude.ToString("F3");
+
+
+                    // tilt to front is positive  **** important!!
+                    if (pitchdist > 0)
+                    {
+                        pn.easting += (Math.Sin(fixHeading) * pitchCorrectionDistance);                        
+                        pn.northing += (Math.Cos(fixHeading) * -pitchCorrectionDistance);
+                        pn.altitude += pitchCorrectionAltitude;
+                    }
+                    else
+                    {
+                        pn.easting += (Math.Sin(fixHeading) * -pitchCorrectionDistance);                        
+                        pn.northing += (Math.Cos(fixHeading) * pitchCorrectionDistance);
+                        pn.altitude += pitchCorrectionAltitude;
+                    }
+                }
+            }
+
+
 
             //tiltDistance = (pitch * vehicle.antennaHeight);
             ////pn.easting = (Math.Sin(fixHeading) * tiltDistance) + pn.easting;
             //pn.northing = (Math.Cos(fixHeading) * tiltDistance) + pn.northing;
 
-            #endregion Roll
+            #endregion Pitch
 
             #region Step Fix
 
@@ -345,6 +400,8 @@ namespace OpenGrade
 
                     rollCorrectionDistance = Math.Abs(roll * vehicle.antennaHeight);
                     rollCorrectionAltitude = Math.Abs(vehicle.antennaHeight / roll);
+
+                    tStripHorizontalOffset.Text = rollCorrectionAltitude.ToString("F2");
 
                     // tilt to left is positive  **** important!!
                     if (roll > 0)
@@ -536,10 +593,10 @@ namespace OpenGrade
             pn.bladeLeft.northing = pn.northing;
             pn.bladeLeft.heading = pn.headingTrue;
             pn.bladeLeft.altitude = pn.altitude;
-            pn.bladeRight.easting = pn_2.easting;
-            pn.bladeRight.northing = pn_2.northing;
-            pn.bladeRight.heading = pn_2.headingTrue;
-            pn.bladeRight.altitude = pn_2.altitude;
+            pn.bladeRight.easting = pn2.easting;
+            pn.bladeRight.northing = pn2.northing;
+            pn.bladeRight.heading = pn2.headingTrue;
+            pn.bladeRight.altitude = pn2.altitude;
 
             if (pn.bladeLeft.altitude >= pn.bladeRight.altitude)
             {

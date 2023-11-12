@@ -71,6 +71,8 @@
             this.label23 = new System.Windows.Forms.Label();
             this.lblPitch = new System.Windows.Forms.Label();
             this.lblGyro = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.lblSpeed = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // timer1
@@ -84,7 +86,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label4.Location = new System.Drawing.Point(270, 36);
+            this.label4.Location = new System.Drawing.Point(242, 38);
             this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(83, 23);
@@ -96,7 +98,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label5.Location = new System.Drawing.Point(279, 60);
+            this.label5.Location = new System.Drawing.Point(254, 64);
             this.label5.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(71, 23);
@@ -108,7 +110,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label6.Location = new System.Drawing.Point(274, 90);
+            this.label6.Location = new System.Drawing.Point(248, 90);
             this.label6.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(77, 23);
@@ -192,7 +194,7 @@
             this.lblLatitude.AutoSize = true;
             this.lblLatitude.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblLatitude.ForeColor = System.Drawing.Color.Lime;
-            this.lblLatitude.Location = new System.Drawing.Point(360, 93);
+            this.lblLatitude.Location = new System.Drawing.Point(336, 93);
             this.lblLatitude.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblLatitude.Name = "lblLatitude";
             this.lblLatitude.Size = new System.Drawing.Size(77, 19);
@@ -204,7 +206,7 @@
             this.lblEasting.AutoSize = true;
             this.lblEasting.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEasting.ForeColor = System.Drawing.Color.Lime;
-            this.lblEasting.Location = new System.Drawing.Point(360, 63);
+            this.lblEasting.Location = new System.Drawing.Point(336, 67);
             this.lblEasting.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblEasting.Name = "lblEasting";
             this.lblEasting.Size = new System.Drawing.Size(69, 19);
@@ -216,7 +218,7 @@
             this.lblNorthing.AutoSize = true;
             this.lblNorthing.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNorthing.ForeColor = System.Drawing.Color.Lime;
-            this.lblNorthing.Location = new System.Drawing.Point(360, 39);
+            this.lblNorthing.Location = new System.Drawing.Point(336, 41);
             this.lblNorthing.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblNorthing.Name = "lblNorthing";
             this.lblNorthing.Size = new System.Drawing.Size(80, 19);
@@ -228,7 +230,7 @@
             this.lblLongitude.AutoSize = true;
             this.lblLongitude.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblLongitude.ForeColor = System.Drawing.Color.Lime;
-            this.lblLongitude.Location = new System.Drawing.Point(360, 118);
+            this.lblLongitude.Location = new System.Drawing.Point(336, 119);
             this.lblLongitude.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblLongitude.Name = "lblLongitude";
             this.lblLongitude.Size = new System.Drawing.Size(90, 19);
@@ -240,7 +242,7 @@
             this.lblAltitude.AutoSize = true;
             this.lblAltitude.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAltitude.ForeColor = System.Drawing.Color.Lime;
-            this.lblAltitude.Location = new System.Drawing.Point(359, 143);
+            this.lblAltitude.Location = new System.Drawing.Point(336, 145);
             this.lblAltitude.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblAltitude.Name = "lblAltitude";
             this.lblAltitude.Size = new System.Drawing.Size(75, 19);
@@ -253,7 +255,7 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label7.Location = new System.Drawing.Point(254, 115);
+            this.label7.Location = new System.Drawing.Point(228, 116);
             this.label7.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(97, 23);
@@ -265,7 +267,7 @@
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label8.Location = new System.Drawing.Point(278, 140);
+            this.label8.Location = new System.Drawing.Point(252, 142);
             this.label8.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(73, 23);
@@ -328,7 +330,7 @@
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label11.Location = new System.Drawing.Point(297, 12);
+            this.label11.Location = new System.Drawing.Point(273, 12);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(52, 23);
             this.label11.TabIndex = 114;
@@ -339,7 +341,7 @@
             this.lblZone.AutoSize = true;
             this.lblZone.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblZone.ForeColor = System.Drawing.Color.Lime;
-            this.lblZone.Location = new System.Drawing.Point(360, 15);
+            this.lblZone.Location = new System.Drawing.Point(336, 15);
             this.lblZone.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblZone.Name = "lblZone";
             this.lblZone.Size = new System.Drawing.Size(49, 19);
@@ -580,11 +582,40 @@
             this.lblGyro.Text = "Gyro";
             this.lblGyro.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label20.Location = new System.Drawing.Point(262, 168);
+            this.label20.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(63, 23);
+            this.label20.TabIndex = 133;
+            this.label20.Text = "Speed";
+            this.label20.Click += new System.EventHandler(this.label20_Click_1);
+            // 
+            // lblSpeed
+            // 
+            this.lblSpeed.AutoSize = true;
+            this.lblSpeed.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSpeed.ForeColor = System.Drawing.Color.Lime;
+            this.lblSpeed.Location = new System.Drawing.Point(336, 171);
+            this.lblSpeed.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.lblSpeed.Name = "lblSpeed";
+            this.lblSpeed.Size = new System.Drawing.Size(59, 19);
+            this.lblSpeed.TabIndex = 132;
+            this.lblSpeed.Text = "Speed";
+            this.lblSpeed.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblSpeed.Click += new System.EventHandler(this.label24_Click);
+            // 
             // FormGPSData
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.ClientSize = new System.Drawing.Size(508, 599);
+            this.Controls.Add(this.label20);
+            this.Controls.Add(this.lblSpeed);
             this.Controls.Add(this.lblGyro);
             this.Controls.Add(this.lblPitch);
             this.Controls.Add(this.label23);
@@ -684,5 +715,7 @@
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label lblPitch;
         private System.Windows.Forms.Label lblGyro;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label lblSpeed;
     }
 }

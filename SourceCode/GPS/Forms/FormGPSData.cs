@@ -45,6 +45,7 @@ namespace OpenGrade
             lblLatitude.Text = mf.pn.latitude.ToString();
             lblLongitude.Text = mf.pn.longitude.ToString();
             lblAltitude.Text = mf.pn.altitude.ToString();
+            lblSpeed.Text = mf.pn.speed.ToString();
 
 
             lblPitch.Text = mf.mc.pitchIMU.ToString();
@@ -105,6 +106,16 @@ namespace OpenGrade
         }
 
         private void label20_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label20_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label24_Click(object sender, EventArgs e)
         {
 
         }

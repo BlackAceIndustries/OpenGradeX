@@ -956,10 +956,43 @@ namespace OpenGrade
             {
                 FormBorderStyle = FormBorderStyle.None;
                 WindowState = FormWindowState.Maximized;
-                Padding = new Padding(5);
+                Padding = new Padding(15);
+                //PanelDisplays.Height = this.Height - 200;
                 isFullScreen = true;
+
+                PanelDisplays.Height = this.Height - 200;
+                PanelDisplays.Width = this.Width - 115;
+
+                //openGLControl.Height = PanelDisplays.Height - 250  ;
+                Point pbarL = new Point(0, 0);
+                Point pbarR = new Point(0, 0);
+                pbarCutAboveL.Height = ((PanelDisplays.Height - 24) / 2);
+                pbarCutBelowL.Height = ((PanelDisplays.Height - 24) / 2);
+                pbarCutAboveR.Height = ((PanelDisplays.Height - 24) / 2);
+                pbarCutBelowR.Height = ((PanelDisplays.Height - 24) / 2);
+
+
+                pbarL.X = 30;
+                pbarL.Y = (PanelDisplays.Height) / 2;
+                pbarCutBelowL.Location = (pbarL);
+
+
+                pbarR.X = voltageBar2.Location.X - 29 - voltageBar2.Width;
+                pbarR.Y = (PanelDisplays.Height) / 2;
+                pbarCutBelowR.Location = (pbarR);
+
+
+
+                //pbarCutBelowL.Height = (PanelDisplays.Height / 2);
+
+                // Adjust pBar
+
+
+
+
+
             }
-        
+
         }
 
         public bool ToggleSim()
@@ -2368,6 +2401,12 @@ namespace OpenGrade
                     btnVertAuto.Enabled = false;
 
                 }
+
+                openGLControlBack.Visible = true;
+                openGLControl.Height = 390;
+
+            //    PanelDisplays.Height = this.Height - 225;
+            //    PanelDisplays.Width = this.Width - 115;
             }
 
             else
@@ -2401,7 +2440,10 @@ namespace OpenGrade
                 //btnGradeControl.Enabled = true;
                 btnTiltAuto.Enabled = true;
                 btnVertAuto.Enabled = true;
-            }
+
+                    openGLControlBack.Visible = false;
+                    openGLControl.Height = this.Height - 210 - 24;
+               }
 
         }
 
@@ -2478,7 +2520,7 @@ namespace OpenGrade
 
             if (PanelDisplays.Visible)
             {
-                PanelDisplays.Height = this.Height - 225;
+                PanelDisplays.Height = this.Height - 210;
                 PanelDisplays.Width = this.Width - 115;
 
                 //openGLControl.Height = PanelDisplays.Height - 250  ;
@@ -2510,17 +2552,17 @@ namespace OpenGrade
             }
 
 
-            if (openGLControlBack.Visible)
-            {
-                openGLControl.Height = 450;
-                //pbarCutAbove.Height = openGLControlBack.Height / 2;
-                //pbarCutBelow.Height = pbarCutAbove.Height;
-                //pbarCutBelow.Top = pbarCutAbove.Top + pbarCutAbove.Height;
-            }
-            else
-            {
-                openGLControl.Height = this.Height - 200;
-            }
+            //if (openGLControlBack.Visible)
+            //{
+            //    openGLControl.Height = 390;
+            //    //pbarCutAbove.Height = openGLControlBack.Height / 2;
+            //    //pbarCutBelow.Height = pbarCutAbove.Height;
+            //    //pbarCutBelow.Top = pbarCutAbove.Top + pbarCutAbove.Height;
+            //}
+            //else
+            //{
+            //    openGLControl.Height = this.Height - 210;
+            //}
         }
 
         // Select between Grade Mode and Survey Mode

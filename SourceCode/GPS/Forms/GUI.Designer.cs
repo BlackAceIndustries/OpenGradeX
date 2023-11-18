@@ -1528,8 +1528,8 @@ namespace OpenGrade
                 //lblPitch.Text = mc.pitchIMU.ToString();
 
                 tStripSpeed.Text = pn.speed.ToString();
-                tStripRoll.Text = mc.rollIMU.ToString();
-                tStripPitch.Text = mc.pitchIMU.ToString();
+                tStripRoll.Text = mc.avgrollIMU.ToString("F2");
+                tStripPitch.Text = mc.avgpitchIMU.ToString("F2");
                 tStripAltitude.Text = pn.altitude.ToString("F3");
                 tStripHeading.Text =pn.hdop.ToString("F2");
                 //tStripVDOP.Text = pn

@@ -142,23 +142,26 @@ namespace OpenGrade
             totalFixSteps = fixUpdateHz * 4;
             if (!isGPSPositionInitialized) { InitializeFirstFewGPSPositions(); return; }
 
+            mc.AvgRoll();
+            mc.AvgPitch();
+
             #region Roll
             if (mc.isImuCorrection)
             {
                 if (mc.rollIMU != 9999)
                 {
                     //calculate how far the antenna moves based on sidehill roll
-                    double rolldist = Math.Sin(glm.toRadians(mc.rollIMU));
-                    double rollalt = Math.Cos(glm.toRadians(mc.rollIMU));
+                    double rolldist = Math.Sin(glm.toRadians(mc.avgrollIMU));                    
+                    double rollalt = Math.Cos(glm.toRadians(mc.avgrollIMU));
 
 
-                    rollCorrectionDistance = Math.Abs(rolldist * vehicle.antennaHeight);         
-                    rollCorrectionAltitude = Math.Abs(rollalt * vehicle.antennaHeight);
-                    rollCorrectionAltitude = rollCorrectionAltitude - vehicle.antennaHeight;
+                    rollCorrectionDistance = Math.Abs(rolldist * vehicle.antennaHeight);
+                    rollCorrectionDistance = rollCorrectionDistance / 10;
 
+                    rollCorrectionAltitude = Math.Abs(vehicle.antennaHeight * rollalt);    
+                    rollCorrectionAltitude = vehicle.antennaHeight - rollCorrectionAltitude;
+                    rollCorrectionAltitude = rollCorrectionAltitude / 10;
 
-                    //tStripHorizontalOffset.Text = rollCorrectionAltitude.ToString("F2");
-                    //tStripVerticalOffset.Text = rollCorrectionDistance.ToString("F2");
 
                     tStripRollCorrection.Text = rollCorrectionAltitude.ToString("F3");
                     tStripPitchCorrection.Text = rollCorrectionDistance.ToString("F3");
@@ -167,13 +170,13 @@ namespace OpenGrade
                     // tilt to left is positive  **** important!!
                     if (rolldist > 0)
                     {
-                        pn.easting += (Math.Cos(fixHeading) * rollCorrectionDistance);                        
+                        pn.easting += (Math.Cos(fixHeading) * rollCorrectionDistance);
                         pn.northing += (Math.Sin(fixHeading) * -rollCorrectionDistance);
                         pn.altitude += rollCorrectionAltitude;
                     }
                     else
                     {
-                        pn.easting += (Math.Cos(fixHeading) * -rollCorrectionDistance);                        
+                        pn.easting += (Math.Cos(fixHeading) * -rollCorrectionDistance);
                         pn.northing += (Math.Sin(fixHeading) * rollCorrectionDistance);
                         pn.altitude += rollCorrectionAltitude;
                     }
@@ -187,20 +190,21 @@ namespace OpenGrade
                 if (mc.pitchIMU != 9999)
                 {
                     //calculate how far the antenna moves based on sidehill roll
-                    double pitchdist = Math.Sin(glm.toRadians(mc.pitchIMU));
-                    double pitchalt = Math.Cos(glm.toRadians(mc.pitchIMU));
-
+                    double pitchdist = Math.Sin(glm.toRadians(mc.avgpitchIMU));
+                    double pitchalt = Math.Cos(glm.toRadians(mc.avgpitchIMU));        
 
                     pitchCorrectionDistance = Math.Abs(pitchdist * vehicle.antennaHeight);
-                    pitchCorrectionAltitude = Math.Abs(pitchalt * vehicle.antennaHeight);
-                    pitchCorrectionAltitude =  pitchCorrectionAltitude - vehicle.antennaHeight;
+                    pitchCorrectionDistance = pitchCorrectionDistance / 10;
 
+                    pitchCorrectionAltitude = Math.Abs(pitchalt * vehicle.antennaHeight);
+                    pitchCorrectionAltitude =   vehicle.antennaHeight - pitchCorrectionAltitude;
+                    pitchCorrectionAltitude = pitchCorrectionAltitude / 10;
 
                     //tStripHorizontalOffset.Text = rollCorrectionAltitude.ToString("F2");
                     //tStripVerticalOffset.Text = rollCorrectionDistance.ToString("F2");
 
-                    tStripRollCorrection.Text = pitchCorrectionDistance.ToString("F3");
-                    tStripPitchCorrection.Text = pitchCorrectionAltitude.ToString("F3");
+                    //tStripRollCorrection.Text = pitchCorrectionDistance.ToString("F3");
+                    //tStripPitchCorrection.Text = pitchCorrectionAltitude.ToString("F3");
 
 
                     // tilt to front is positive  **** important!!
@@ -209,21 +213,23 @@ namespace OpenGrade
                         pn.easting += (Math.Sin(fixHeading) * pitchCorrectionDistance);                        
                         pn.northing += (Math.Cos(fixHeading) * -pitchCorrectionDistance);
                         pn.altitude += pitchCorrectionAltitude;
+
+                        //pn.PitchCorrectedFix.easting += (Math.Sin(fixHeading) * pitchCorrectionDistance);
+                        //pn.PitchCorrectedFix.northing += (Math.Cos(fixHeading) * -pitchCorrectionDistance);
+                        //pn.PitchCorrectedFix.altitude += pitchCorrectionAltitude;
                     }
                     else
                     {
                         pn.easting += (Math.Sin(fixHeading) * -pitchCorrectionDistance);                        
                         pn.northing += (Math.Cos(fixHeading) * pitchCorrectionDistance);
                         pn.altitude += pitchCorrectionAltitude;
+
+                        //pn.PitchCorrectedFix.easting += (Math.Sin(fixHeading) * -pitchCorrectionDistance);
+                        //pn.PitchCorrectedFix.northing += (Math.Cos(fixHeading) * pitchCorrectionDistance);
+                        //pn.PitchCorrectedFix.altitude += pitchCorrectionAltitude;
                     }
                 }
             }
-
-
-
-            //tiltDistance = (pitch * vehicle.antennaHeight);
-            ////pn.easting = (Math.Sin(fixHeading) * tiltDistance) + pn.easting;
-            //pn.northing = (Math.Cos(fixHeading) * tiltDistance) + pn.northing;
 
             #endregion Pitch
 
@@ -401,7 +407,7 @@ namespace OpenGrade
                     rollCorrectionDistance = Math.Abs(roll * vehicle.antennaHeight);
                     rollCorrectionAltitude = Math.Abs(vehicle.antennaHeight / roll);
 
-                    tStripHorizontalOffset.Text = rollCorrectionAltitude.ToString("F2");
+                    //tStripHorizontalOffset.Text = rollCorrectionAltitude.ToString("F2");
 
                     // tilt to left is positive  **** important!!
                     if (roll > 0)
@@ -636,61 +642,61 @@ namespace OpenGrade
 
 
             //make sure there is a gyro otherwise 9999 are sent from autosteer
-            if (mc.isImuCorrection)
-            {
-                if (mc.headingIMU != 9999)
-                {
-                    mc.headingIMU = -mc.headingIMU;
-                    //current gyro angle in radians
-                    gyroRaw = (glm.toRadians((double)mc.prevHeadingIMU));
+            //if (mc.isImuCorrection)
+            //{
+            //    if (mc.headingIMU != 9999)
+            //    {
+            //        mc.headingIMU = -mc.headingIMU;
+            //        //current gyro angle in radians
+            //        gyroRaw = (glm.toRadians((double)mc.prevHeadingIMU));
 
-                    //Difference between the IMU heading and the GPS heading
-                    gyroDelta = (gyroRaw + gyroCorrection) - gpsHeading;
-                    if (gyroDelta < 0) gyroDelta += glm.twoPI;
+            //        //Difference between the IMU heading and the GPS heading
+            //        gyroDelta = (gyroRaw + gyroCorrection) - gpsHeading;
+            //        if (gyroDelta < 0) gyroDelta += glm.twoPI;
 
-                    //calculate delta based on circular data problem 0 to 360 to 0, clamp to +- 2 Pi
-                    if (gyroDelta >= -glm.PIBy2 && gyroDelta <= glm.PIBy2) gyroDelta *= -1.0;
-                    else
-                    {
-                        if (gyroDelta > glm.PIBy2) { gyroDelta = glm.twoPI - gyroDelta; }
-                        else { gyroDelta = (glm.twoPI + gyroDelta) * -1.0; }
-                    }
-                    if (gyroDelta > glm.twoPI) gyroDelta -= glm.twoPI;
-                    if (gyroDelta < -glm.twoPI) gyroDelta += glm.twoPI;
+            //        //calculate delta based on circular data problem 0 to 360 to 0, clamp to +- 2 Pi
+            //        if (gyroDelta >= -glm.PIBy2 && gyroDelta <= glm.PIBy2) gyroDelta *= -1.0;
+            //        else
+            //        {
+            //            if (gyroDelta > glm.PIBy2) { gyroDelta = glm.twoPI - gyroDelta; }
+            //            else { gyroDelta = (glm.twoPI + gyroDelta) * -1.0; }
+            //        }
+            //        if (gyroDelta > glm.twoPI) gyroDelta -= glm.twoPI;
+            //        if (gyroDelta < -glm.twoPI) gyroDelta += glm.twoPI;
 
-                    //calculate current turn rate of vehicle
-                    prevPrevGPSHeading = prevGPSHeading;
-                    prevGPSHeading = gpsHeading;
-                    turnDelta = Math.Abs(Math.Atan2(Math.Sin(fixHeading - prevPrevGPSHeading), Math.Cos(fixHeading - prevPrevGPSHeading)));
+            //        //calculate current turn rate of vehicle
+            //        prevPrevGPSHeading = prevGPSHeading;
+            //        prevGPSHeading = gpsHeading;
+            //        turnDelta = Math.Abs(Math.Atan2(Math.Sin(fixHeading - prevPrevGPSHeading), Math.Cos(fixHeading - prevPrevGPSHeading)));
 
 
-                    //Only adjust gyro if going in a straight line 
-                    if (turnDelta < 0.01 && pn.speed > 1) //
-                    {
-                        //a bit of delta and add to correction to current gyro
-                        gyroCorrection += (gyroDelta * (0.4 / fixUpdateHz));
-                        if (gyroCorrection > glm.twoPI) gyroCorrection -= glm.twoPI;
-                        if (gyroCorrection < -glm.twoPI) gyroCorrection += glm.twoPI;
-                        gyroRaw = (glm.toRadians((double)mc.headingIMU));
-                    }
+            //        //Only adjust gyro if going in a straight line 
+            //        if (turnDelta < 0.01 && pn.speed > 1) //
+            //        {
+            //            //a bit of delta and add to correction to current gyro
+            //            gyroCorrection += (gyroDelta * (0.4 / fixUpdateHz));
+            //            if (gyroCorrection > glm.twoPI) gyroCorrection -= glm.twoPI;
+            //            if (gyroCorrection < -glm.twoPI) gyroCorrection += glm.twoPI;
+            //            gyroRaw = (glm.toRadians((double)mc.headingIMU));
+            //        }
 
-                    //if the gyro and GPS delta are > 10 degrees speed up filter
-                    if (Math.Abs(gyroDelta) > 0.18)
-                    {
-                        //a bit of delta and add to correction to current gyro
-                        gyroCorrection += (gyroDelta * (2.0 / fixUpdateHz));
-                        if (gyroCorrection > glm.twoPI) gyroCorrection -= glm.twoPI;
-                        if (gyroCorrection < -glm.twoPI) gyroCorrection += glm.twoPI;
-                        gyroRaw = (glm.toRadians((double)mc.headingIMU));
-                    }
-                    //determine the Corrected heading based on gyro and GPS
-                    gyroCorrected = gyroRaw + gyroCorrection;
-                    if (gyroCorrected > glm.twoPI) gyroCorrected -= glm.twoPI;
-                    if (gyroCorrected < 0) gyroCorrected += glm.twoPI;
+            //        //if the gyro and GPS delta are > 10 degrees speed up filter
+            //        if (Math.Abs(gyroDelta) > 0.18)
+            //        {
+            //            //a bit of delta and add to correction to current gyro
+            //            gyroCorrection += (gyroDelta * (2.0 / fixUpdateHz));
+            //            if (gyroCorrection > glm.twoPI) gyroCorrection -= glm.twoPI;
+            //            if (gyroCorrection < -glm.twoPI) gyroCorrection += glm.twoPI;
+            //            gyroRaw = (glm.toRadians((double)mc.headingIMU));
+            //        }
+            //        //determine the Corrected heading based on gyro and GPS
+            //        gyroCorrected = gyroRaw + gyroCorrection;
+            //        if (gyroCorrected > glm.twoPI) gyroCorrected -= glm.twoPI;
+            //        if (gyroCorrected < 0) gyroCorrected += glm.twoPI;
 
-                    fixHeading = gyroCorrected;
-                }
-            }
+            //        fixHeading = gyroCorrected;
+            //    }
+            //}
             //check to make sure the grid is big enough
             worldGrid.checkZoomWorldGrid(pn.northing, pn.easting);
         }
@@ -777,6 +783,8 @@ namespace OpenGrade
                 //in radians
                 fixHeading = Math.Atan2(pn.easting - stepFixPts[totalFixSteps - 1].easting, pn.northing - stepFixPts[totalFixSteps - 1].northing); 
                 if (fixHeading < 0) fixHeading += glm.twoPI;
+
+                gyroCorrection = fixHeading;
 
                 //send out initial zero settings
                 if (isGPSPositionInitialized) 

@@ -478,7 +478,7 @@ namespace OpenGrade
                         
                         //if (ct.distanceFromCurrentLine >= vehicle.disFromSurvey * 100) ct.distanceFromCurrentLine = 0;
 
-                        DrawLightBar(openGLControl.Width, openGLControl.Height, ct.distanceFromCurrentLine * 0.1);
+                        //DrawLightBar(openGLControl.Width, openGLControl.Height, ct.distanceFromCurrentLine * 0.1);
 
                         if ((ct.distanceFromCurrentLine) < 0.0)
                         {
@@ -509,7 +509,7 @@ namespace OpenGrade
 
                             //txtDistanceOffABLine.Visible = true;
                             //lblDelta.Visible = true;
-                            DrawLightBar(openGLControl.Width, openGLControl.Height, ABLine.distanceFromCurrentLine * 0.1);
+                            //DrawLightBar(openGLControl.Width, openGLControl.Height, ABLine.distanceFromCurrentLine * 0.1);
                             if ((ABLine.distanceFromCurrentLine) < 0.0)
                             {
                                 // --->
@@ -872,10 +872,16 @@ namespace OpenGrade
                     }
                     else
                     {
-                        tStripHorizontalOffset.Text = (ct.distanceFromCurrentLine).ToString("F2");
+                        tStripHorizontalOffset.Text = (ct.distanceFromCurrentLine/25.4).ToString("F2");
                     }
 
-                    if (Math.Abs(ct.distanceFromCurrentLine) < vehicle.disFromSurvey * 10000.0) {      //(vehicle.disFromSurvey*10000 )                                
+
+                   // tStripVerticalOffset.Text = (vehicle.disFromSurvey * 100000.0).ToString("F2");
+
+
+
+
+                    if (Math.Abs(ct.distanceFromCurrentLine) < vehicle.disFromSurvey * 100000.0) {      //(vehicle.disFromSurvey*10000 )                                
                     //if (minDist < 200){// record current pass 
 
                         //draw the actual elevation lines and blade

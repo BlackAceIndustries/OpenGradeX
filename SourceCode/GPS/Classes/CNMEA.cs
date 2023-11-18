@@ -92,6 +92,8 @@ namespace OpenGrade
 
 
         public vec3 fix = new vec3(0, 0, 0);
+        public vec4 PitchCorrectedFix = new vec4(0, 0, 0,0);
+        public vec4 RollCorrectedFix = new vec4(0, 0, 0,0);
 
 
         public vec4 bladeLeft = new vec4(0, 0, 0, 0);

@@ -368,6 +368,8 @@ namespace OpenGrade
                         float.TryParse(words[3], out mc.headingIMU);
                         float.TryParse(words[4], out mc.pitchIMU);
                         float.TryParse(words[5], out mc.rollIMU);
+
+                        
                         mc.pitchIMU *= -1;
 
                     }

@@ -54,7 +54,8 @@ namespace OpenGrade
         public bool isPitchCorrection = false;
 
         public float headingIMU = 9999, prevHeadingIMU = 9999, rollIMU = 9999, pitchIMU = 9999;
-        
+        public float avgrollIMU = 9999, avgpitchIMU = 9999;
+
         public string gcFirmware;
         public string atFirmware;
 
@@ -113,8 +114,18 @@ namespace OpenGrade
 
         }
 
+        public void AvgRoll()
+        {
+            avgrollIMU = (avgrollIMU * .8f) + (rollIMU * 0.2f);
 
-        
+
+        }
+        public void AvgPitch()
+        {
+            avgpitchIMU = (avgpitchIMU * .8f) + (pitchIMU * .2f);
+
+        }
+
 
 
     }

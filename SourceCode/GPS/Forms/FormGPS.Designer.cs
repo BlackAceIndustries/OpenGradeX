@@ -30,18 +30,18 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormGPS));
-            ProgBar.cBlendItems cBlendItems25 = new ProgBar.cBlendItems();
-            ProgBar.cFocalPoints cFocalPoints25 = new ProgBar.cFocalPoints();
-            ProgBar.cBlendItems cBlendItems26 = new ProgBar.cBlendItems();
-            ProgBar.cFocalPoints cFocalPoints26 = new ProgBar.cFocalPoints();
-            ProgBar.cBlendItems cBlendItems27 = new ProgBar.cBlendItems();
-            ProgBar.cFocalPoints cFocalPoints27 = new ProgBar.cFocalPoints();
-            ProgBar.cBlendItems cBlendItems28 = new ProgBar.cBlendItems();
-            ProgBar.cFocalPoints cFocalPoints28 = new ProgBar.cFocalPoints();
-            ProgBar.cBlendItems cBlendItems29 = new ProgBar.cBlendItems();
-            ProgBar.cFocalPoints cFocalPoints29 = new ProgBar.cFocalPoints();
-            ProgBar.cBlendItems cBlendItems30 = new ProgBar.cBlendItems();
-            ProgBar.cFocalPoints cFocalPoints30 = new ProgBar.cFocalPoints();
+            ProgBar.cBlendItems cBlendItems1 = new ProgBar.cBlendItems();
+            ProgBar.cFocalPoints cFocalPoints1 = new ProgBar.cFocalPoints();
+            ProgBar.cBlendItems cBlendItems2 = new ProgBar.cBlendItems();
+            ProgBar.cFocalPoints cFocalPoints2 = new ProgBar.cFocalPoints();
+            ProgBar.cBlendItems cBlendItems3 = new ProgBar.cBlendItems();
+            ProgBar.cFocalPoints cFocalPoints3 = new ProgBar.cFocalPoints();
+            ProgBar.cBlendItems cBlendItems4 = new ProgBar.cBlendItems();
+            ProgBar.cFocalPoints cFocalPoints4 = new ProgBar.cFocalPoints();
+            ProgBar.cBlendItems cBlendItems5 = new ProgBar.cBlendItems();
+            ProgBar.cFocalPoints cFocalPoints5 = new ProgBar.cFocalPoints();
+            ProgBar.cBlendItems cBlendItems6 = new ProgBar.cBlendItems();
+            ProgBar.cFocalPoints cFocalPoints6 = new ProgBar.cFocalPoints();
             this.openGLControl = new SharpGL.OpenGLControl();
             this.contextMenuStripOpenGL = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.deleteFlagToolOpenGLContextMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -151,31 +151,28 @@
             this.toolStripStatusLabel10 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tStripBladeLeftDelta = new System.Windows.Forms.ToolStripStatusLabel();
             this.tStripLeftDeltaVis = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tStripBladeCenterDelta = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tStripCenterDeltaVis = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel12 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel11 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tStripBladeCenterDelta = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel16 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tStripRightDeltaVis = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel31 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel7 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tStripBladeRightDelta = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel7 = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tStripLeftDelta = new System.Windows.Forms.ToolStripStatusLabel();
             this.tStripLeftIndicator = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel9 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tStripToDesign = new System.Windows.Forms.ToolStripStatusLabel();
             this.tStripCenterDelta = new System.Windows.Forms.ToolStripStatusLabel();
             this.tStripCenterIndicator = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel9 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel13 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tStriptoSurvey = new System.Windows.Forms.ToolStripStatusLabel();
             this.tStripRightDelta = new System.Windows.Forms.ToolStripStatusLabel();
             this.tStripRightIndicator = new System.Windows.Forms.ToolStripStatusLabel();
-            this.stripOnlineGPS = new System.Windows.Forms.ToolStripProgressBar();
-            this.tStripToDesign = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tStriptoSurvey = new System.Windows.Forms.ToolStripStatusLabel();
             this.tStrip3 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.stripOnlineGPS = new System.Windows.Forms.ToolStripProgressBar();
             this.statusStrip4 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel15 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel19 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -215,7 +212,6 @@
             this.tStripHorizontalOffset = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel6 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel23 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel24 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tStripVerticalOffset = new System.Windows.Forms.ToolStripStatusLabel();
             this.tStripVertOffsetIndicator = new System.Windows.Forms.ToolStripStatusLabel();
@@ -773,17 +769,17 @@
             this.voltageBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.voltageBar.BarBackColor = System.Drawing.Color.Black;
-            cBlendItems25.iColor = new System.Drawing.Color[] {
+            cBlendItems1.iColor = new System.Drawing.Color[] {
         System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))),
         System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))),
         System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(0))))),
         System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))))};
-            cBlendItems25.iPoint = new float[] {
+            cBlendItems1.iPoint = new float[] {
         0F,
         0.4378882F,
         0.5031056F,
         1F};
-            this.voltageBar.BarColorBlend = cBlendItems25;
+            this.voltageBar.BarColorBlend = cBlendItems1;
             this.voltageBar.BarColorSolid = System.Drawing.Color.White;
             this.voltageBar.BarColorSolidB = System.Drawing.Color.RoyalBlue;
             this.voltageBar.BarLength = ProgBar.ProgBarPlus.eBarLength.Fixed;
@@ -801,9 +797,9 @@
             this.voltageBar.Corners.UpperRight = ((short)(0));
             this.voltageBar.CylonInterval = ((short)(1));
             this.voltageBar.CylonMove = 1F;
-            cFocalPoints25.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints25.CenterPoint")));
-            cFocalPoints25.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints25.FocusScales")));
-            this.voltageBar.FocalPoints = cFocalPoints25;
+            cFocalPoints1.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints1.CenterPoint")));
+            cFocalPoints1.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints1.FocusScales")));
+            this.voltageBar.FocalPoints = cFocalPoints1;
             this.voltageBar.Location = new System.Drawing.Point(12, 12);
             this.voltageBar.Max = 500;
             this.voltageBar.Name = "voltageBar";
@@ -834,17 +830,17 @@
             this.voltageBar2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.voltageBar2.BarBackColor = System.Drawing.Color.Black;
-            cBlendItems26.iColor = new System.Drawing.Color[] {
+            cBlendItems2.iColor = new System.Drawing.Color[] {
         System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))),
         System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))),
         System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(0))))),
         System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))))};
-            cBlendItems26.iPoint = new float[] {
+            cBlendItems2.iPoint = new float[] {
         0F,
         0.4378882F,
         0.5031056F,
         1F};
-            this.voltageBar2.BarColorBlend = cBlendItems26;
+            this.voltageBar2.BarColorBlend = cBlendItems2;
             this.voltageBar2.BarColorSolid = System.Drawing.Color.White;
             this.voltageBar2.BarColorSolidB = System.Drawing.Color.White;
             this.voltageBar2.BarLength = ProgBar.ProgBarPlus.eBarLength.Fixed;
@@ -862,9 +858,9 @@
             this.voltageBar2.Corners.UpperRight = ((short)(0));
             this.voltageBar2.CylonInterval = ((short)(1));
             this.voltageBar2.CylonMove = 1F;
-            cFocalPoints26.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints26.CenterPoint")));
-            cFocalPoints26.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints26.FocusScales")));
-            this.voltageBar2.FocalPoints = cFocalPoints26;
+            cFocalPoints2.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints2.CenterPoint")));
+            cFocalPoints2.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints2.FocusScales")));
+            this.voltageBar2.FocalPoints = cFocalPoints2;
             this.voltageBar2.Location = new System.Drawing.Point(1482, 12);
             this.voltageBar2.Max = 500;
             this.voltageBar2.Name = "voltageBar2";
@@ -1529,13 +1525,13 @@
             // pbarCutBelowL
             // 
             this.pbarCutBelowL.BarBackColor = System.Drawing.Color.Black;
-            cBlendItems27.iColor = new System.Drawing.Color[] {
+            cBlendItems3.iColor = new System.Drawing.Color[] {
         System.Drawing.Color.Navy,
         System.Drawing.Color.Blue};
-            cBlendItems27.iPoint = new float[] {
+            cBlendItems3.iPoint = new float[] {
         0F,
         1F};
-            this.pbarCutBelowL.BarColorBlend = cBlendItems27;
+            this.pbarCutBelowL.BarColorBlend = cBlendItems3;
             this.pbarCutBelowL.BarColorSolid = System.Drawing.Color.Black;
             this.pbarCutBelowL.BarColorSolidB = System.Drawing.Color.RoyalBlue;
             this.pbarCutBelowL.BarLengthValue = ((short)(40));
@@ -1553,9 +1549,9 @@
             this.pbarCutBelowL.CylonInterval = ((short)(1));
             this.pbarCutBelowL.CylonMove = 5F;
             this.pbarCutBelowL.FillDirection = ProgBar.ProgBarPlus.eFillDirection.Down_Left;
-            cFocalPoints27.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints27.CenterPoint")));
-            cFocalPoints27.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints27.FocusScales")));
-            this.pbarCutBelowL.FocalPoints = cFocalPoints27;
+            cFocalPoints3.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints3.CenterPoint")));
+            cFocalPoints3.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints3.FocusScales")));
+            this.pbarCutBelowL.FocalPoints = cFocalPoints3;
             this.pbarCutBelowL.Location = new System.Drawing.Point(30, 307);
             this.pbarCutBelowL.Name = "pbarCutBelowL";
             this.pbarCutBelowL.Orientation = ProgBar.ProgBarPlus.eOrientation.Vertical;
@@ -1569,13 +1565,13 @@
             // pbarCutAboveL
             // 
             this.pbarCutAboveL.BarBackColor = System.Drawing.Color.Black;
-            cBlendItems28.iColor = new System.Drawing.Color[] {
+            cBlendItems4.iColor = new System.Drawing.Color[] {
         System.Drawing.Color.Navy,
         System.Drawing.Color.Blue};
-            cBlendItems28.iPoint = new float[] {
+            cBlendItems4.iPoint = new float[] {
         0F,
         1F};
-            this.pbarCutAboveL.BarColorBlend = cBlendItems28;
+            this.pbarCutAboveL.BarColorBlend = cBlendItems4;
             this.pbarCutAboveL.BarColorSolid = System.Drawing.Color.Black;
             this.pbarCutAboveL.BarColorSolidB = System.Drawing.Color.Red;
             this.pbarCutAboveL.BarLengthValue = ((short)(40));
@@ -1592,9 +1588,9 @@
             this.pbarCutAboveL.Corners.UpperRight = ((short)(0));
             this.pbarCutAboveL.CylonInterval = ((short)(1));
             this.pbarCutAboveL.CylonMove = 5F;
-            cFocalPoints28.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints28.CenterPoint")));
-            cFocalPoints28.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints28.FocusScales")));
-            this.pbarCutAboveL.FocalPoints = cFocalPoints28;
+            cFocalPoints4.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints4.CenterPoint")));
+            cFocalPoints4.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints4.FocusScales")));
+            this.pbarCutAboveL.FocalPoints = cFocalPoints4;
             this.pbarCutAboveL.Location = new System.Drawing.Point(30, 12);
             this.pbarCutAboveL.Name = "pbarCutAboveL";
             this.pbarCutAboveL.Orientation = ProgBar.ProgBarPlus.eOrientation.Vertical;
@@ -1709,13 +1705,13 @@
             // 
             this.pbarCutAboveR.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pbarCutAboveR.BarBackColor = System.Drawing.Color.Black;
-            cBlendItems29.iColor = new System.Drawing.Color[] {
+            cBlendItems5.iColor = new System.Drawing.Color[] {
         System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))),
         System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))))};
-            cBlendItems29.iPoint = new float[] {
+            cBlendItems5.iPoint = new float[] {
         0F,
         1F};
-            this.pbarCutAboveR.BarColorBlend = cBlendItems29;
+            this.pbarCutAboveR.BarColorBlend = cBlendItems5;
             this.pbarCutAboveR.BarColorSolid = System.Drawing.Color.Black;
             this.pbarCutAboveR.BarColorSolidB = System.Drawing.Color.Red;
             this.pbarCutAboveR.BarLengthValue = ((short)(40));
@@ -1732,9 +1728,9 @@
             this.pbarCutAboveR.Corners.UpperRight = ((short)(0));
             this.pbarCutAboveR.CylonInterval = ((short)(1));
             this.pbarCutAboveR.CylonMove = 5F;
-            cFocalPoints29.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints29.CenterPoint")));
-            cFocalPoints29.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints29.FocusScales")));
-            this.pbarCutAboveR.FocalPoints = cFocalPoints29;
+            cFocalPoints5.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints5.CenterPoint")));
+            cFocalPoints5.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints5.FocusScales")));
+            this.pbarCutAboveR.FocalPoints = cFocalPoints5;
             this.pbarCutAboveR.Location = new System.Drawing.Point(1433, 12);
             this.pbarCutAboveR.Name = "pbarCutAboveR";
             this.pbarCutAboveR.Orientation = ProgBar.ProgBarPlus.eOrientation.Vertical;
@@ -1748,13 +1744,13 @@
             this.pbarCutBelowR.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pbarCutBelowR.AutoSize = true;
             this.pbarCutBelowR.BarBackColor = System.Drawing.Color.Black;
-            cBlendItems30.iColor = new System.Drawing.Color[] {
+            cBlendItems6.iColor = new System.Drawing.Color[] {
         System.Drawing.Color.Navy,
         System.Drawing.Color.Blue};
-            cBlendItems30.iPoint = new float[] {
+            cBlendItems6.iPoint = new float[] {
         0F,
         1F};
-            this.pbarCutBelowR.BarColorBlend = cBlendItems30;
+            this.pbarCutBelowR.BarColorBlend = cBlendItems6;
             this.pbarCutBelowR.BarColorSolid = System.Drawing.Color.Black;
             this.pbarCutBelowR.BarColorSolidB = System.Drawing.Color.RoyalBlue;
             this.pbarCutBelowR.BarLengthValue = ((short)(40));
@@ -1772,9 +1768,9 @@
             this.pbarCutBelowR.CylonInterval = ((short)(1));
             this.pbarCutBelowR.CylonMove = 5F;
             this.pbarCutBelowR.FillDirection = ProgBar.ProgBarPlus.eFillDirection.Down_Left;
-            cFocalPoints30.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints30.CenterPoint")));
-            cFocalPoints30.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints30.FocusScales")));
-            this.pbarCutBelowR.FocalPoints = cFocalPoints30;
+            cFocalPoints6.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints6.CenterPoint")));
+            cFocalPoints6.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints6.FocusScales")));
+            this.pbarCutBelowR.FocalPoints = cFocalPoints6;
             this.pbarCutBelowR.Location = new System.Drawing.Point(1433, 288);
             this.pbarCutBelowR.Name = "pbarCutBelowR";
             this.pbarCutBelowR.Orientation = ProgBar.ProgBarPlus.eOrientation.Vertical;
@@ -1792,16 +1788,14 @@
             this.toolStripStatusLabel10,
             this.tStripBladeLeftDelta,
             this.tStripLeftDeltaVis,
-            this.toolStripStatusLabel1,
-            this.tStripBladeCenterDelta,
-            this.tStripCenterDeltaVis,
             this.toolStripStatusLabel12,
             this.toolStripStatusLabel11,
+            this.tStripBladeCenterDelta,
             this.toolStripStatusLabel16,
             this.tStripRightDeltaVis,
             this.toolStripStatusLabel31,
-            this.toolStripStatusLabel7,
-            this.tStripBladeRightDelta});
+            this.tStripBladeRightDelta,
+            this.toolStripStatusLabel7});
             this.statusStrip2.Location = new System.Drawing.Point(5, 779);
             this.statusStrip2.Name = "statusStrip2";
             this.statusStrip2.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
@@ -1840,36 +1834,6 @@
             this.tStripLeftDeltaVis.Name = "tStripLeftDeltaVis";
             this.tStripLeftDeltaVis.Size = new System.Drawing.Size(100, 20);
             // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.AutoSize = false;
-            this.toolStripStatusLabel1.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripStatusLabel1.ForeColor = System.Drawing.Color.White;
-            this.toolStripStatusLabel1.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(200, 20);
-            // 
-            // tStripBladeCenterDelta
-            // 
-            this.tStripBladeCenterDelta.AutoSize = false;
-            this.tStripBladeCenterDelta.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tStripBladeCenterDelta.ForeColor = System.Drawing.Color.White;
-            this.tStripBladeCenterDelta.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
-            this.tStripBladeCenterDelta.Name = "tStripBladeCenterDelta";
-            this.tStripBladeCenterDelta.Size = new System.Drawing.Size(100, 20);
-            this.tStripBladeCenterDelta.Text = "CENTER";
-            this.tStripBladeCenterDelta.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // tStripCenterDeltaVis
-            // 
-            this.tStripCenterDeltaVis.AutoSize = false;
-            this.tStripCenterDeltaVis.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tStripCenterDeltaVis.ForeColor = System.Drawing.Color.White;
-            this.tStripCenterDeltaVis.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.tStripCenterDeltaVis.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
-            this.tStripCenterDeltaVis.Name = "tStripCenterDeltaVis";
-            this.tStripCenterDeltaVis.Size = new System.Drawing.Size(100, 20);
-            // 
             // toolStripStatusLabel12
             // 
             this.toolStripStatusLabel12.AutoSize = false;
@@ -1888,6 +1852,17 @@
             this.toolStripStatusLabel11.Name = "toolStripStatusLabel11";
             this.toolStripStatusLabel11.Size = new System.Drawing.Size(200, 20);
             // 
+            // tStripBladeCenterDelta
+            // 
+            this.tStripBladeCenterDelta.AutoSize = false;
+            this.tStripBladeCenterDelta.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tStripBladeCenterDelta.ForeColor = System.Drawing.Color.White;
+            this.tStripBladeCenterDelta.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
+            this.tStripBladeCenterDelta.Name = "tStripBladeCenterDelta";
+            this.tStripBladeCenterDelta.Size = new System.Drawing.Size(100, 20);
+            this.tStripBladeCenterDelta.Text = "CENTER";
+            this.tStripBladeCenterDelta.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // toolStripStatusLabel16
             // 
             this.toolStripStatusLabel16.AutoSize = false;
@@ -1896,7 +1871,6 @@
             this.toolStripStatusLabel16.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
             this.toolStripStatusLabel16.Name = "toolStripStatusLabel16";
             this.toolStripStatusLabel16.Size = new System.Drawing.Size(100, 20);
-            this.toolStripStatusLabel16.Text = "RIGHT";
             this.toolStripStatusLabel16.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // tStripRightDeltaVis
@@ -1907,7 +1881,7 @@
             this.tStripRightDeltaVis.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tStripRightDeltaVis.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
             this.tStripRightDeltaVis.Name = "tStripRightDeltaVis";
-            this.tStripRightDeltaVis.Size = new System.Drawing.Size(120, 20);
+            this.tStripRightDeltaVis.Size = new System.Drawing.Size(20, 20);
             // 
             // toolStripStatusLabel31
             // 
@@ -1920,17 +1894,6 @@
             this.toolStripStatusLabel31.Text = "TO DESIGN";
             this.toolStripStatusLabel31.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // toolStripStatusLabel7
-            // 
-            this.toolStripStatusLabel7.AutoSize = false;
-            this.toolStripStatusLabel7.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripStatusLabel7.ForeColor = System.Drawing.Color.White;
-            this.toolStripStatusLabel7.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
-            this.toolStripStatusLabel7.Name = "toolStripStatusLabel7";
-            this.toolStripStatusLabel7.Size = new System.Drawing.Size(150, 20);
-            this.toolStripStatusLabel7.Text = "CUT";
-            this.toolStripStatusLabel7.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
             // tStripBladeRightDelta
             // 
             this.tStripBladeRightDelta.AutoSize = false;
@@ -1942,6 +1905,17 @@
             this.tStripBladeRightDelta.Text = "RIGHT";
             this.tStripBladeRightDelta.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // toolStripStatusLabel7
+            // 
+            this.toolStripStatusLabel7.AutoSize = false;
+            this.toolStripStatusLabel7.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripStatusLabel7.ForeColor = System.Drawing.Color.White;
+            this.toolStripStatusLabel7.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
+            this.toolStripStatusLabel7.Name = "toolStripStatusLabel7";
+            this.toolStripStatusLabel7.Size = new System.Drawing.Size(150, 20);
+            this.toolStripStatusLabel7.Text = "CUT";
+            this.toolStripStatusLabel7.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // statusStrip1
             // 
             this.statusStrip1.AutoSize = false;
@@ -1952,20 +1926,19 @@
             this.tStripLeftDelta,
             this.tStripLeftIndicator,
             this.toolStripStatusLabel5,
+            this.toolStripStatusLabel9,
+            this.tStripToDesign,
             this.tStripCenterDelta,
             this.tStripCenterIndicator,
-            this.toolStripStatusLabel9,
-            this.toolStripStatusLabel13,
+            this.tStriptoSurvey,
             this.tStripRightDelta,
             this.tStripRightIndicator,
-            this.stripOnlineGPS,
-            this.tStripToDesign,
-            this.tStriptoSurvey,
-            this.tStrip3});
-            this.statusStrip1.Location = new System.Drawing.Point(5, 704);
+            this.tStrip3,
+            this.stripOnlineGPS});
+            this.statusStrip1.Location = new System.Drawing.Point(5, 719);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.statusStrip1.Size = new System.Drawing.Size(1603, 75);
+            this.statusStrip1.Size = new System.Drawing.Size(1603, 60);
             this.statusStrip1.TabIndex = 487;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -1976,7 +1949,7 @@
             this.toolStripStatusLabel2.ForeColor = System.Drawing.Color.White;
             this.toolStripStatusLabel2.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(100, 75);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(100, 60);
             // 
             // tStripLeftDelta
             // 
@@ -1985,7 +1958,7 @@
             this.tStripLeftDelta.ForeColor = System.Drawing.Color.White;
             this.tStripLeftDelta.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
             this.tStripLeftDelta.Name = "tStripLeftDelta";
-            this.tStripLeftDelta.Size = new System.Drawing.Size(100, 75);
+            this.tStripLeftDelta.Size = new System.Drawing.Size(100, 60);
             this.tStripLeftDelta.Text = "0.00";
             // 
             // tStripLeftIndicator
@@ -1997,7 +1970,7 @@
             this.tStripLeftIndicator.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tStripLeftIndicator.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
             this.tStripLeftIndicator.Name = "tStripLeftIndicator";
-            this.tStripLeftIndicator.Size = new System.Drawing.Size(100, 75);
+            this.tStripLeftIndicator.Size = new System.Drawing.Size(100, 60);
             // 
             // toolStripStatusLabel5
             // 
@@ -2006,7 +1979,27 @@
             this.toolStripStatusLabel5.ForeColor = System.Drawing.Color.White;
             this.toolStripStatusLabel5.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
             this.toolStripStatusLabel5.Name = "toolStripStatusLabel5";
-            this.toolStripStatusLabel5.Size = new System.Drawing.Size(200, 75);
+            this.toolStripStatusLabel5.Size = new System.Drawing.Size(50, 60);
+            // 
+            // toolStripStatusLabel9
+            // 
+            this.toolStripStatusLabel9.AutoSize = false;
+            this.toolStripStatusLabel9.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripStatusLabel9.ForeColor = System.Drawing.Color.White;
+            this.toolStripStatusLabel9.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
+            this.toolStripStatusLabel9.Name = "toolStripStatusLabel9";
+            this.toolStripStatusLabel9.Size = new System.Drawing.Size(10, 60);
+            // 
+            // tStripToDesign
+            // 
+            this.tStripToDesign.AutoSize = false;
+            this.tStripToDesign.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tStripToDesign.ForeColor = System.Drawing.Color.White;
+            this.tStripToDesign.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
+            this.tStripToDesign.Name = "tStripToDesign";
+            this.tStripToDesign.Size = new System.Drawing.Size(150, 60);
+            this.tStripToDesign.Text = "0.00";
+            this.tStripToDesign.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // tStripCenterDelta
             // 
@@ -2015,7 +2008,7 @@
             this.tStripCenterDelta.ForeColor = System.Drawing.Color.White;
             this.tStripCenterDelta.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
             this.tStripCenterDelta.Name = "tStripCenterDelta";
-            this.tStripCenterDelta.Size = new System.Drawing.Size(100, 75);
+            this.tStripCenterDelta.Size = new System.Drawing.Size(100, 60);
             this.tStripCenterDelta.Text = "0.00";
             // 
             // tStripCenterIndicator
@@ -2027,25 +2020,18 @@
             this.tStripCenterIndicator.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tStripCenterIndicator.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
             this.tStripCenterIndicator.Name = "tStripCenterIndicator";
-            this.tStripCenterIndicator.Size = new System.Drawing.Size(100, 75);
+            this.tStripCenterIndicator.Size = new System.Drawing.Size(100, 60);
             // 
-            // toolStripStatusLabel9
+            // tStriptoSurvey
             // 
-            this.toolStripStatusLabel9.AutoSize = false;
-            this.toolStripStatusLabel9.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripStatusLabel9.ForeColor = System.Drawing.Color.White;
-            this.toolStripStatusLabel9.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
-            this.toolStripStatusLabel9.Name = "toolStripStatusLabel9";
-            this.toolStripStatusLabel9.Size = new System.Drawing.Size(10, 75);
-            // 
-            // toolStripStatusLabel13
-            // 
-            this.toolStripStatusLabel13.AutoSize = false;
-            this.toolStripStatusLabel13.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripStatusLabel13.ForeColor = System.Drawing.Color.White;
-            this.toolStripStatusLabel13.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
-            this.toolStripStatusLabel13.Name = "toolStripStatusLabel13";
-            this.toolStripStatusLabel13.Size = new System.Drawing.Size(200, 75);
+            this.tStriptoSurvey.AutoSize = false;
+            this.tStriptoSurvey.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tStriptoSurvey.ForeColor = System.Drawing.Color.White;
+            this.tStriptoSurvey.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
+            this.tStriptoSurvey.Name = "tStriptoSurvey";
+            this.tStriptoSurvey.Size = new System.Drawing.Size(150, 60);
+            this.tStriptoSurvey.Text = "0.00";
+            this.tStriptoSurvey.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // tStripRightDelta
             // 
@@ -2054,7 +2040,7 @@
             this.tStripRightDelta.ForeColor = System.Drawing.Color.White;
             this.tStripRightDelta.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
             this.tStripRightDelta.Name = "tStripRightDelta";
-            this.tStripRightDelta.Size = new System.Drawing.Size(100, 75);
+            this.tStripRightDelta.Size = new System.Drawing.Size(100, 60);
             this.tStripRightDelta.Text = "0.00";
             // 
             // tStripRightIndicator
@@ -2066,42 +2052,23 @@
             this.tStripRightIndicator.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tStripRightIndicator.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
             this.tStripRightIndicator.Name = "tStripRightIndicator";
-            this.tStripRightIndicator.Size = new System.Drawing.Size(100, 75);
-            // 
-            // stripOnlineGPS
-            // 
-            this.stripOnlineGPS.Name = "stripOnlineGPS";
-            this.stripOnlineGPS.Size = new System.Drawing.Size(20, 69);
-            // 
-            // tStripToDesign
-            // 
-            this.tStripToDesign.AutoSize = false;
-            this.tStripToDesign.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tStripToDesign.ForeColor = System.Drawing.Color.White;
-            this.tStripToDesign.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
-            this.tStripToDesign.Name = "tStripToDesign";
-            this.tStripToDesign.Size = new System.Drawing.Size(150, 75);
-            this.tStripToDesign.Text = "0.00";
-            // 
-            // tStriptoSurvey
-            // 
-            this.tStriptoSurvey.AutoSize = false;
-            this.tStriptoSurvey.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tStriptoSurvey.ForeColor = System.Drawing.Color.White;
-            this.tStriptoSurvey.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
-            this.tStriptoSurvey.Name = "tStriptoSurvey";
-            this.tStriptoSurvey.Size = new System.Drawing.Size(150, 75);
-            this.tStriptoSurvey.Text = "0.00";
+            this.tStripRightIndicator.Size = new System.Drawing.Size(100, 60);
             // 
             // tStrip3
             // 
             this.tStrip3.AutoSize = false;
-            this.tStrip3.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tStrip3.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tStrip3.ForeColor = System.Drawing.Color.White;
             this.tStrip3.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
             this.tStrip3.Name = "tStrip3";
-            this.tStrip3.Size = new System.Drawing.Size(150, 75);
+            this.tStrip3.Size = new System.Drawing.Size(150, 60);
             this.tStrip3.Text = "0.00";
+            this.tStrip3.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // stripOnlineGPS
+            // 
+            this.stripOnlineGPS.Name = "stripOnlineGPS";
+            this.stripOnlineGPS.Size = new System.Drawing.Size(20, 54);
             // 
             // statusStrip4
             // 
@@ -2444,7 +2411,7 @@
             this.toolStripStatusLabel22.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripStatusLabel22.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
             this.toolStripStatusLabel22.Name = "toolStripStatusLabel22";
-            this.toolStripStatusLabel22.Size = new System.Drawing.Size(100, 40);
+            this.toolStripStatusLabel22.Size = new System.Drawing.Size(80, 40);
             this.toolStripStatusLabel22.Click += new System.EventHandler(this.toolStripStatusLabel22_Click);
             // 
             // tStripRoll
@@ -2467,7 +2434,7 @@
             this.toolStripStatusLabel14.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripStatusLabel14.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
             this.toolStripStatusLabel14.Name = "toolStripStatusLabel14";
-            this.toolStripStatusLabel14.Size = new System.Drawing.Size(100, 40);
+            this.toolStripStatusLabel14.Size = new System.Drawing.Size(80, 40);
             this.toolStripStatusLabel14.Click += new System.EventHandler(this.toolStripStatusLabel14_Click);
             // 
             // tStripSpeed
@@ -2500,7 +2467,7 @@
             this.toolStripStatusLabel6.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripStatusLabel6.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
             this.toolStripStatusLabel6.Name = "toolStripStatusLabel6";
-            this.toolStripStatusLabel6.Size = new System.Drawing.Size(100, 40);
+            this.toolStripStatusLabel6.Size = new System.Drawing.Size(50, 40);
             // 
             // toolStripStatusLabel23
             // 
@@ -2511,20 +2478,11 @@
             this.toolStripStatusLabel23.Name = "toolStripStatusLabel23";
             this.toolStripStatusLabel23.Size = new System.Drawing.Size(10, 40);
             // 
-            // toolStripStatusLabel24
-            // 
-            this.toolStripStatusLabel24.AutoSize = false;
-            this.toolStripStatusLabel24.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripStatusLabel24.ForeColor = System.Drawing.Color.White;
-            this.toolStripStatusLabel24.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
-            this.toolStripStatusLabel24.Name = "toolStripStatusLabel24";
-            this.toolStripStatusLabel24.Size = new System.Drawing.Size(50, 40);
-            // 
             // toolStripStatusLabel4
             // 
             this.toolStripStatusLabel4.AutoSize = false;
             this.toolStripStatusLabel4.BackColor = System.Drawing.Color.Black;
-            this.toolStripStatusLabel4.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripStatusLabel4.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toolStripStatusLabel4.ForeColor = System.Drawing.Color.Yellow;
             this.toolStripStatusLabel4.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
             this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
@@ -2559,7 +2517,7 @@
             // 
             this.toolStripStatusLabel3.AutoSize = false;
             this.toolStripStatusLabel3.BackColor = System.Drawing.Color.Black;
-            this.toolStripStatusLabel3.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripStatusLabel3.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toolStripStatusLabel3.ForeColor = System.Drawing.Color.Yellow;
             this.toolStripStatusLabel3.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
             this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
@@ -2587,7 +2545,6 @@
             this.tStripHorizontalOffset,
             this.toolStripStatusLabel6,
             this.toolStripStatusLabel23,
-            this.toolStripStatusLabel24,
             this.toolStripStatusLabel4,
             this.tStripVerticalOffset,
             this.tStripVertOffsetIndicator,
@@ -2798,16 +2755,13 @@
         private System.Windows.Forms.ToolStripPanel LeftToolStripPanel;
         private System.Windows.Forms.ToolStripContentPanel ContentPanel;
         private System.Windows.Forms.StatusStrip statusStrip2;
-        private System.Windows.Forms.ToolStripStatusLabel tStripBladeRightDelta;
         private System.Windows.Forms.ToolStripStatusLabel tStripBladeLeftDelta;
         private System.Windows.Forms.ToolStripStatusLabel tStripLeftDeltaVis;
         private System.Windows.Forms.ToolStripStatusLabel tStripBladeCenterDelta;
-        private System.Windows.Forms.ToolStripStatusLabel tStripCenterDeltaVis;
         private System.Windows.Forms.ToolStripStatusLabel tStripRightDeltaVis;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel10;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel11;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel12;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         public System.Windows.Forms.Button btnVertAuto;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
@@ -2817,7 +2771,6 @@
         private System.Windows.Forms.ToolStripStatusLabel tStripCenterDelta;
         private System.Windows.Forms.ToolStripStatusLabel tStripCenterIndicator;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel9;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel13;
         private System.Windows.Forms.ToolStripStatusLabel tStripRightDelta;
         private System.Windows.Forms.ToolStripStatusLabel tStripRightIndicator;
         private System.Windows.Forms.ToolStripProgressBar stripOnlineGPS;
@@ -2872,7 +2825,6 @@
         private System.Windows.Forms.ToolStripStatusLabel tStripHorizontalOffset;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel6;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel23;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel24;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
         public System.Windows.Forms.ToolStripStatusLabel tStripVerticalOffset;
         private System.Windows.Forms.ToolStripStatusLabel tStripVertOffsetIndicator;
@@ -2892,6 +2844,7 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel16;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel31;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel7;
+        private System.Windows.Forms.ToolStripStatusLabel tStripBladeRightDelta;
     }
 }
 

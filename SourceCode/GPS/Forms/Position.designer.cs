@@ -20,7 +20,6 @@ namespace OpenGrade
         // autosteer variables for sending serial
         public Int16 guidanceLineDistanceOff, guidanceLineSteerAngle;
 
-        private double sectionTriggerDistance;
         private vec2 prevContourPos = new vec2();
 
 
@@ -49,6 +48,10 @@ namespace OpenGrade
         //step distances and positions for boundary, 4 meters before next point
         public double boundaryTriggerDistance = 4.0;
         public vec2 prevBoundaryPos = new vec2(0, 0);
+
+        //how far travelled since last section was added, section points
+        double sectionTriggerDistance = 0, sectionTriggerStepDistance = 0;
+        public vec2 prevSectionPos = new vec2(0, 0);
 
         //are we still getting valid data from GPS, resets to 0 in NMEA RMC block, watchdog 
         public int recvCounter = 20;
@@ -122,7 +125,10 @@ namespace OpenGrade
 
                 //update all data for new frame
                 UpdateFixPosition();
-                UpdateBladePosition();
+                //pn.UpdateBlade();
+                //UpdateBladeEnds();
+
+                //UpdateBladePosition();
             }
 
             //must make sure arduinos are kept off
@@ -308,8 +314,15 @@ namespace OpenGrade
                 //To prevent drawing high numbers of triangles, determine and test before drawing vertex
                 sectionTriggerDistance = pn.Distance(pn.northing, pn.easting, prevContourPos.northing, prevContourPos.easting);
 
+                //tStrip3.Text = sectionTriggerDistance.ToString("F2");
+
+                //tStrip3.Text = numTriangles.ToString("F2");
+                //numTriangles
+
+                UpdateBladeEnds();
+
                 //section on off and points, contour points
-                if (sectionTriggerDistance > 0.2)
+                if (sectionTriggerDistance > .2)
                 {
                     prevContourPos.easting = pn.easting;
                     prevContourPos.northing = pn.northing;
@@ -511,12 +524,14 @@ namespace OpenGrade
 
                 //To prevent drawing high numbers of triangles, determine and test before drawing vertex
                 sectionTriggerDistance = pn.Distance(pn.northing, pn.easting, prevContourPos.northing, prevContourPos.easting);
+                               
 
                 //section on off and points, contour points
-                if (sectionTriggerDistance > 0.2)
+                if (sectionTriggerDistance > 0.1)
                 {
                     prevContourPos.easting = pn.easting;
-                    prevContourPos.northing = pn.northing;
+                    prevContourPos.northing = pn.northing;                 
+                    
                     AddSectionContourPathPoints();
                 }
 
@@ -599,6 +614,8 @@ namespace OpenGrade
             pn.bladeLeft.northing = pn.northing;
             pn.bladeLeft.heading = pn.headingTrue;
             pn.bladeLeft.altitude = pn.altitude;
+
+
             pn.bladeRight.easting = pn2.easting;
             pn.bladeRight.northing = pn2.northing;
             pn.bladeRight.heading = pn2.headingTrue;
@@ -622,7 +639,103 @@ namespace OpenGrade
 
             pn.bladeCenter.heading = (pn.bladeRight.heading + pn.bladeLeft.heading) / 2;
 
+            //pn.UpdateBlade();
+
         }
+
+
+        public void UpdateBladeEnds()
+        {
+            double halfToolWidth = Properties.Vehicle.Default.setVehicle_toolWidth / 2;
+
+            if (!isDualAntenna) // Single Reciever no IMU 
+            {
+
+                //Find Center
+                pn.bladeCenter.easting = pn.easting;
+                pn.bladeCenter.northing = pn.northing;
+                pn.bladeCenter.heading = pn.headingTrue;
+                pn.bladeCenter.altitude = pn.altitude;
+                pn.bladeAngle = mc.rollIMU;
+
+                //Find RightSide
+                pn.bladeRight.easting = pn.easting + Math.Sin(fixHeading - glm.PIBy2) * -halfToolWidth;
+                pn.bladeRight.northing = pn.northing + Math.Cos(fixHeading - glm.PIBy2) * -halfToolWidth;
+
+
+                pn.bladeRight.heading = pn.headingTrue;
+                pn.bladeRight.altitude = pn.altitude;
+
+                //Find LeftSide
+                pn.bladeLeft.easting = pn.easting + Math.Sin(fixHeading - glm.PIBy2) * halfToolWidth;
+                pn.bladeLeft.northing = pn.northing + Math.Cos(fixHeading - glm.PIBy2) * halfToolWidth;
+                pn.bladeLeft.heading = pn.headingTrue;
+                pn.bladeLeft.altitude = pn.altitude;
+
+
+            }
+            //else if (isDualAntenna)// Dual Recievers
+            //{
+            //    pn.bladeLeft.easting = pn.easting;
+            //    pn.bladeLeft.northing = pn.northing;
+            //    pn.bladeLeft.heading = pn.headingTrue;
+            //    pn.bladeLeft.altitude = pn.altitude;
+
+
+            //    pn.bladeRight.easting = pn2.easting;
+            //    pn.bladeRight.northing =    pn2.northing;
+            //    pn.bladeRight.heading =     pn2.headingTrue;
+            //    pn.bladeRight.altitude =    pn2.altitude;
+
+            //    if (pn.bladeLeft.altitude >= pn.bladeRight.altitude)
+            //    {
+            //        pn.isLeftHigher = true;
+            //        pn.eDiff = pn.bladeLeft.altitude - pn.bladeRight.altitude;
+            //        pn.bladeCenter.altitude = (pn.eDiff / 2) +  pn.bladeRight.altitude;
+            //        pn.bladeAngle = Math.Cos(pn.eDiff / (vehicle.toolWidth / 2));
+
+            //    }
+            //    else
+            //    {
+            //        pn.isLeftHigher = false;
+            //        pn.eDiff = pn.bladeRight.altitude - pn.bladeLeft.altitude;
+            //        pn.bladeCenter.altitude = (pn.eDiff / 2) + pn.bladeLeft.altitude;
+            //        pn.bladeAngle = Math.Cos(pn.eDiff / (vehicle.toolWidth / 2));
+            //    }
+
+            //    pn.bladeCenter.heading = pn.averageDualHead(pn.bladeRight.heading, pn.bladeLeft.heading);
+
+
+            //}
+            //else if (mf.isImuAsDual) // Single Reciever With IMU 
+            //{
+            //    //Find Center
+            //    pn.bladeCenter.easting = pn.easting;
+            //    pn.bladeCenter.northing = pn.northing;
+            //    pn.bladeCenter.heading =   pn.headingTrue;
+            //    pn.bladeCenter.altitude = pn.altitude;
+
+            //    //Find RightSide
+            //    pn.bladeRight.easting = pn.easting + Math.Sin(fixHeading - glm.PIBy2) * -halfToolWidth;
+            //    pn.bladeRight.northing = pn.northing + Math.Cos(mf.fixHeading - glm.PIBy2) * -halfToolWidth;
+            //    pn.bladeRight.heading = pn.headingTrue;
+            //    pn.bladeRight.altitude = pn.altitude;
+
+            //    //Find LeftSide
+            //    pn.bladeLeft.easting = pn.easting + Math.Sin(mf.fixHeading - glm.PIBy2) * halfToolWidth;
+            //    pn.bladeLeft.northing = pn.northing + Math.Cos(mf.fixHeading - glm.PIBy2) * halfToolWidth;
+            //    pn.bladeLeft.heading = pn.headingTrue;
+            //    pn.bladeLeft.altitude = pn.altitude;
+
+            //}
+
+
+
+        }
+
+
+
+
 
 
         //all the hitch, pivot, section, trailing hitch, headings and fixes
@@ -641,7 +754,7 @@ namespace OpenGrade
             camHeading = glm.toDegrees(camHeading);
 
 
-            //make sure there is a gyro otherwise 9999 are sent from autosteer
+           // make sure there is a gyro otherwise 9999 are sent from autosteer
             //if (mc.isImuCorrection)
             //{
             //    if (mc.headingIMU != 9999)
@@ -707,7 +820,25 @@ namespace OpenGrade
         {
             if (isJobStarted)//add the pathpoint
             {
-                
+                //save the north & east as previous
+                prevSectionPos.northing = pn.northing;
+                prevSectionPos.easting = pn.easting;
+
+                // if non zero, at least one section is on.
+                //int sectionCounter = 0;
+
+                ////send the current and previous GPS fore/aft corrected fix to each section
+                //for (int j = 0; j < 2; j++)
+                //{
+                    
+                //}
+                if (section[1].isMappingOn)
+                {
+                    section[1].AddMappingPoint(1);
+                    //sectionCounter++;
+                    //tStrip3.Text= sectionCounter.ToString();
+                }
+
                 //Contour Base Track....
                 if (manualBtnState == btnStates.Rec)
                 {

@@ -340,7 +340,7 @@ namespace OpenGrade
         {
             double minDistA = 1000000, minDistB = 1000000;
             int ptCount = ptList.Count;
-            //distanceFromCurrentLine = 9999;
+            distanceFromCurrentLine = 9999;
             if (ptCount > 0)
             {
                 //find the closest 2 points to current fix
@@ -1803,7 +1803,7 @@ namespace OpenGrade
 
                 if (usedPtcnt > 0)
                 {
-                    gl.PointSize(20.0f);
+                    gl.PointSize(10.0f);
                     gl.Begin(OpenGL.GL_POINTS);
 
                     if (usedPtcnt > 1)
@@ -1811,8 +1811,8 @@ namespace OpenGrade
 
                         for (int h = 1; h < usedPtcnt; h++)
                         {
-                            if (usedPtList[h].used == 1) gl.Color(.5f, 0.5f, 0.5f);
-                            else gl.Color(0.75f, 0.75f, .75f);
+                            if (usedPtList[h].used == 1) gl.Color(1.0f, 0.0f, 0.0f);
+                            else gl.Color(0.0f, 0.0f, 1.0f);
                             gl.Vertex(usedPtList[h].easting, usedPtList[h].northing, 0);
 
                         }
@@ -1820,7 +1820,7 @@ namespace OpenGrade
                     }
                     //PAINT the closeset pt
                     
-                    gl.Color(0.88f, 0.88f, 0.88f);
+                    gl.Color(0.0f, 0.0f, 0.0f);
                     gl.Vertex(usedPtList[0].easting, usedPtList[0].northing, 0);
 
                     gl.End();
@@ -1895,16 +1895,26 @@ namespace OpenGrade
 
             mf.pn.lookaheadCenter.easting = mf.pn.easting + Math.Cos(mf.fixHeading + glm.PIBy2) * -lookAheadDistance;
             mf.pn.lookaheadCenter.northing = mf.pn.northing + Math.Sin(mf.fixHeading - glm.PIBy2) * -lookAheadDistance;
-            mf.pn.lookaheadRight.easting = mf.pn.easting + Math.Sin(mf.fixHeading - glm.PIBy2) * -halfToolWidth;
-            mf.pn.lookaheadRight.northing = mf.pn.northing + Math.Cos(mf.fixHeading - glm.PIBy2) * -halfToolWidth;
-            mf.pn.lookaheadRight.easting = mf.pn.lookaheadRight.easting + Math.Cos(mf.fixHeading + glm.PIBy2) * -lookAheadDistance;
-            mf.pn.lookaheadRight.northing = mf.pn.lookaheadRight.northing + Math.Sin(mf.fixHeading - glm.PIBy2) * -lookAheadDistance;
 
 
-            mf.pn.lookaheadLeft.easting = mf.pn.easting + Math.Sin(mf.fixHeading - glm.PIBy2) * halfToolWidth;
-            mf.pn.lookaheadLeft.northing = mf.pn.northing + Math.Cos(mf.fixHeading - glm.PIBy2) * halfToolWidth;
-            mf.pn.lookaheadLeft.easting = mf.pn.lookaheadLeft.easting + Math.Cos(mf.fixHeading + glm.PIBy2) * -lookAheadDistance;
-            mf.pn.lookaheadLeft.northing = mf.pn.lookaheadLeft.northing + Math.Sin(mf.fixHeading - glm.PIBy2) * -lookAheadDistance;
+
+            //mf.pn.lookaheadRight.easting = mf.pn.easting + Math.Sin(mf.fixHeading - glm.PIBy2) * -halfToolWidth;
+            //mf.pn.lookaheadRight.northing = mf.pn.northing + Math.Cos(mf.fixHeading - glm.PIBy2) * -halfToolWidth;                       
+
+            //mf.pn.lookaheadRight.easting = mf.pn.lookaheadRight.easting + Math.Cos(mf.fixHeading + glm.PIBy2) * -lookAheadDistance;
+            //mf.pn.lookaheadRight.northing = mf.pn.lookaheadRight.northing + Math.Sin(mf.fixHeading - glm.PIBy2) * -lookAheadDistance;
+
+            //mf.pn.lookaheadLeft.easting = mf.pn.easting + Math.Sin(mf.fixHeading - glm.PIBy2) * halfToolWidth;
+            //mf.pn.lookaheadLeft.northing = mf.pn.northing + Math.Cos(mf.fixHeading - glm.PIBy2) * halfToolWidth;
+
+            //mf.pn.lookaheadLeft.easting = mf.pn.lookaheadLeft.easting + Math.Cos(mf.fixHeading + glm.PIBy2) * -lookAheadDistance;
+            //mf.pn.lookaheadLeft.northing = mf.pn.lookaheadLeft.northing + Math.Sin(mf.fixHeading - glm.PIBy2) * -lookAheadDistance;
+
+            mf.pn.lookaheadRight.easting = mf.pn.bladeRight.easting + Math.Cos(mf.fixHeading + glm.PIBy2) * -lookAheadDistance;
+            mf.pn.lookaheadRight.northing = mf.pn.bladeRight.northing + Math.Sin(mf.fixHeading - glm.PIBy2) * -lookAheadDistance;
+
+            mf.pn.lookaheadLeft.easting = mf.pn.bladeLeft.easting + Math.Cos(mf.fixHeading + glm.PIBy2) * -lookAheadDistance;
+            mf.pn.lookaheadLeft.northing = mf.pn.bladeLeft.northing + Math.Sin(mf.fixHeading - glm.PIBy2) * -lookAheadDistance;
 
 
 
@@ -1925,6 +1935,14 @@ namespace OpenGrade
             gl.Vertex(mf.pn.lookaheadLeft.easting, mf.pn.lookaheadLeft.northing, 0.0);
             gl.End();
             gl.PointSize(1.0f);
+
+            gl.PointSize(5.0f);
+            gl.Begin(OpenGL.GL_POINTS);
+            gl.Color(1.0f, 1.0f, 1.0f);
+            gl.Vertex(mf.pn.lookaheadCenter.easting, mf.pn.lookaheadCenter.northing, 0);
+            gl.Vertex(mf.pn.lookaheadRight.easting, mf.pn.lookaheadRight.northing, 0.0);
+            gl.Vertex(mf.pn.lookaheadLeft.easting, mf.pn.lookaheadLeft.northing, 0.0);
+            gl.End();
 
 
 

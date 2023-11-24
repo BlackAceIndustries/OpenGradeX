@@ -17,8 +17,14 @@ namespace OpenGrade
         //list of patch data individual triangles
         public List<vec3> triangleList = new List<vec3>();
 
+        public List<vec4> triangleList2 = new List<vec4>();
+
         //list of the list of patch data individual triangles for that entire section activity
         public List<List<vec3>> patchList = new List<List<vec3>>();
+
+        //list of the list of patch data individual triangles for that entire section activity
+        public List<List<vec4>> patchList2 = new List<List<vec4>>();
+
 
         //is this section on or off
         public bool isSectionOn = false;
@@ -56,14 +62,14 @@ namespace OpenGrade
         //        -8      -4      -1  1         4      8
         // in (meters)
 
-        public double positionLeft = -4;
-        public double positionRight = 4;
-        public double sectionWidth = 0;
+        public double positionLeft = -80;
+        public double positionRight = 80;
+        public double sectionWidth = 8;
 
         public double foreDistance = 0;
 
         //used by readpixel to determine color in pixel array
-        public int rpSectionWidth = 0;
+        public int rpSectionWidth = 20;
         public int rpSectionPosition = 0;
 
         //points in world space that start and end of section are in
@@ -81,7 +87,7 @@ namespace OpenGrade
         public int numTriangles = 0;
 
         //used to determine state of Manual section button - Off Auto On
-       // public FormGPS.manBtn manBtnState = FormGPS.manBtn.Off;
+        public FormGPS.manBtn manBtnState = FormGPS.manBtn.On;
 
         //simple constructor, position is set in GPSWinForm_Load in FormGPS when creating new object
         public CSection(FormGPS _f)
@@ -105,19 +111,62 @@ namespace OpenGrade
                 triangleList = new List<vec3>(32);
 
                 patchList.Add(triangleList);
+                                
 
-                
                 vec3 colur = new vec3(Properties.Settings.Default.setF_FieldColorR, Properties.Settings.Default.setF_FieldColorG, Properties.Settings.Default.setF_FieldColorB);
                 triangleList.Add(colur);
-                
 
-                //left side of triangle
-                vec3 point = new vec3(leftPoint.easting, leftPoint.northing, 0);
+
+                //Left side of triangle
+                vec3 point = new vec3(mf.pn.bladeLeft.easting, mf.pn.bladeLeft.northing, mf.cutDelta);
                 triangleList.Add(point);
 
                 //Right side of triangle
-                point = new vec3(rightPoint.easting, rightPoint.northing, 0);
+                point = new vec3(mf.pn.bladeRight.easting, mf.pn.bladeRight.northing, mf.cutDelta);
                 triangleList.Add(point);
+
+                
+            }
+        }
+
+        public void TurnMappingOn(int vec)
+        {
+            numTriangles = 0;
+
+            //do not tally square meters on inital point, that would be silly
+            if (!isMappingOn)
+            {
+                //set the section bool to on
+                isMappingOn = true;
+
+                //starting a new patch chunk so create a new triangle list
+                triangleList2 = new List<vec4>(32);
+
+                patchList2.Add(triangleList2);
+
+
+                vec4 colur = new vec4(Properties.Settings.Default.setF_FieldColorR, Properties.Settings.Default.setF_FieldColorG, Properties.Settings.Default.setF_FieldColorB, .80f);
+                triangleList2.Add(colur);
+
+
+                //Left side of triangle
+                vec4 point = new vec4(mf.pn.bladeLeft.easting, mf.pn.bladeLeft.northing, mf.cutDeltaLeft,0);
+                triangleList2.Add(point);
+
+
+                //Right side of triangle
+                point = new vec4(mf.pn.bladeRight.easting, mf.pn.bladeRight.northing, mf.cutDeltaRight,0);
+                triangleList2.Add(point);
+
+
+
+                ////left side of triangle
+                //vec3 point = new vec3(leftPoint.easting, leftPoint.northing, 1);
+                //triangleList.Add(point);
+
+                ////Right side of triangle
+                //point = new vec3(rightPoint.easting, rightPoint.northing, 1);
+                //triangleList.Add(point);
             }
         }
 
@@ -147,14 +196,17 @@ namespace OpenGrade
         {
             //add two triangles for next step.
             //left side
-            vec3 point = new vec3(leftPoint.easting, leftPoint.northing, 0);
+            vec3 point = new vec3(mf.pn.bladeLeft.easting, mf.pn.bladeLeft.northing, mf.cutDelta);
+            //vec3 point = new vec3(leftPoint.easting, leftPoint.northing, 0);
 
             //add the point to List
             triangleList.Add(point);
 
             //Right side
-            vec3 point2 = new vec3(rightPoint.easting, rightPoint.northing, 0);
-
+            
+            vec3 point2 = new vec3(mf.pn.bladeRight.easting, mf.pn.bladeRight.northing, mf.cutDelta);
+            //vec3 point2 = new vec3(rightPoint.easting, rightPoint.northing, 0);
+            
             //add the point to the list
             triangleList.Add(point2);
 
@@ -163,7 +215,7 @@ namespace OpenGrade
 
             //quick count
             int c = triangleList.Count - 1;
-
+            
             //when closing a job the triangle patches all are emptied but the section delay keeps going.
             //Prevented by quick check. 4 points plus colour
             if (c >= 5)
@@ -187,20 +239,20 @@ namespace OpenGrade
                 }
             }
 
-            if (numTriangles > 61)
+            if (numTriangles > 5)
             {
                 numTriangles = 0;
 
                 //save the cutoff patch to be saved later
                 mf.patchSaveList.Add(triangleList);
 
-                triangleList = new List<vec3>(32);
+                triangleList = new List<vec3>();
 
                 patchList.Add(triangleList);
               
                 triangleList.Add(new vec3(Properties.Settings.Default.setF_FieldColorR, Properties.Settings.Default.setF_FieldColorG, Properties.Settings.Default.setF_FieldColorB));
-                
-                //add the points to List, yes its more points, but breaks up patches for culling
+
+                //add the points to List, yes it
                 triangleList.Add(point);
                 triangleList.Add(point2);
             }

@@ -99,8 +99,12 @@ namespace OpenGrade
         // 
         // Grade Modes
         public enum gradeMode { surface, ditch, tile, contour }
-        
-        
+
+
+        //section button states
+        public enum manBtn { Off, Auto, On }
+
+
         public enum surveyMode { survey2D, survey3D, }
 
         public surveyMode curSurveyMode = surveyMode.survey3D;
@@ -1861,10 +1865,17 @@ namespace OpenGrade
 
         private void btnSimGoTo_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setSim_lastLat = (double)nudLatitude.Value;
-            Properties.Settings.Default.setSim_lastLong = (double)nudLongitude.Value;
-            Properties.Settings.Default.Save();
-            sim.ResetSim();
+            patchSaveList.Clear();
+            section[1].patchList.Clear();
+            //section[1].triangleList.Clear();
+
+
+
+
+            //Properties.Settings.Default.setSim_lastLat = (double)nudLatitude.Value;
+            //Properties.Settings.Default.setSim_lastLong = (double)nudLongitude.Value;
+            //Properties.Settings.Default.Save();
+            //sim.ResetSim();
         }
 
         private void label21_Click(object sender, EventArgs e)
@@ -1949,7 +1960,10 @@ namespace OpenGrade
                 isAutoVertOn = false;
                 btnVertAuto.Image = Properties.Resources.Toggle_Vert_MANUAL;
                 mc.GradeControlData[mc.gcisAutoActive] = 0;
-                section[1].TurnMappingOff();
+                //section[1].TurnMappingOff();
+                section[1].mappingOnRequest = false;
+                section[1].mappingOffRequest = true;
+                
 
             }
             else
@@ -1957,8 +1971,9 @@ namespace OpenGrade
                 isAutoVertOn = true;
                 btnVertAuto.Image = Properties.Resources.Toggle_Vert_AUTO;
                 mc.GradeControlData[mc.gcisAutoActive] = 1;
-                section[1].TurnMappingOn();
-
+                //section[1].TurnMappingOn();                
+                section[1].mappingOnRequest = true;
+                section[1].mappingOffRequest = false;
 
             }
 
@@ -1975,7 +1990,7 @@ namespace OpenGrade
                 isAutoTiltOn = false;
                 btnTiltAuto.Image = Properties.Resources.Toggle_Tilt_MANUAL;
                 mc.GradeControlData[mc.gcisAutoActive] = 0;
-                section[1].TurnMappingOff();
+                //section[1].TurnMappingOff();
 
             }
             else
@@ -1983,7 +1998,7 @@ namespace OpenGrade
                 isAutoTiltOn = true;
                 btnTiltAuto.Image = Properties.Resources.Toggle_Tilt_AUTO;
                 mc.GradeControlData[mc.gcisAutoActive] = 1;
-                section[1].TurnMappingOn();
+                //section[1].TurnMappingOn();
 
             }
 
@@ -2204,6 +2219,12 @@ namespace OpenGrade
         private void toolStripStatusLabel14_Click(object sender, EventArgs e)
         {
             mc.ToggleIMUCorrection();
+        }
+
+        private void clearCoverageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            patchSaveList.Clear();
+            section[1].patchList.Clear();
         }
 
         private void PanelDisplays_Paint(object sender, PaintEventArgs e)
@@ -2893,32 +2914,35 @@ namespace OpenGrade
 
         private void ProcessSectionOnOffRequests()
         {
-            {
+            
 
-                //MAPPING - 
-                for (int j = 0; j < 2; j++)
-                {
-                    //easy just turn it on
-                    if (section[1].mappingOnRequest)
-                    {
-                        if (!section[1].isMappingOn && isMapping) section[1].TurnMappingOn(); //**************************************** un comment to enable mappping again
-                    }
+             //MAPPING - 
+             for (int j = 0; j < 1; j++)
+             {
+                 //easy just turn it on
+                 if (section[1].mappingOnRequest)
+                 {
+                     if (!section[1].isMappingOn && isMapping) section[1].TurnMappingOn(); //**************************************** un comment to enable mappping again
+                     //tStrip3.Text = "MAP ON";
+                   // section[1].mappingOnRequest = false;
+                 }
 
-                    //turn off
-                    double sped = 1 / ((pn.speed + 5) * 0.2);
-                    if (sped < 0.2) sped = 0.2;
+                 //turn off
+                 double sped = 1 / ((pn.speed + 5) * 0.2);
+                 if (sped < 0.2) sped = 0.2;
 
-                }
+             }
 
 
-                //if Off mapping timer is zero, turn off the section, reset everything
-                if (section[1].mappingOffRequest)
-                {
-                    if (section[1].isMappingOn) section[1].TurnMappingOff();
-                    section[1].mappingOffRequest = false;
-                }
+             //if Off mapping timer is zero, turn off the section, reset everything
+             if (section[1].mappingOffRequest)
+             {
+                 if (section[1].isMappingOn) section[1].TurnMappingOff();
+                 //tStrip3.Text = "MAP OFF";
+                 //section[1].mappingOffRequest = false;
+             }
 
-            }
+            
         }
     
 

@@ -135,6 +135,7 @@ namespace OpenGrade
                 camera.SetWorldCam(gl, pn.easting, pn.northing, camHeading);
 
                 //draw the field ground images
+                CalcFrustum();
                 worldGrid.DrawFieldSurface();
                 
                 ////Draw the world grid based on camera position
@@ -219,70 +220,172 @@ namespace OpenGrade
 
                 //--------------------------------------------MAPPING------------------------------------
 
+
+
+
+                //if (cutDelta < -3)//Blue
+                //{
+
+                //    //gl.Color(42,127,255,100);
+                //    gl.Color(0.25f, .5f, 0.99f, 0.50f);
+
+                //}
+
+                //else if (cutDelta > 3)// Red
+                //{
+
+                //    //gl.Color(255,0,0,100);
+                //    gl.Color(0.99f, .01f, 0.01f, 0.35f);
+
+
+                //}
+                //else if((cutDelta < 3) && (cutDelta > -3))
+                //{
+                //    gl.Color(0.15f, 0.15f, 0.25f, .35f);
+
+                //}
+
+                
                 //patch color
-                gl.Color(0.0f, 0.5f, 0.0f);
+                
+
+
+                //float red = 0.01f;
+                //float blue = 0.01f;
+                //float green = 0.01f;
+                //float alpha = 0.5f;
+
 
                 //to draw or not the triangle patch
                 bool isDraw;
+
+
+                // MAPPING 
                 
                 //draw patches j= # of sections
-                for (int j = 0; j < 1; j++)
+                for (int j = 1; j <= 1; j++)
                 {
                     //every time the section turns off and on is a new patch
                     int patchCount = section[j].patchList.Count;
+                   
+
+
+                    //gl.Color(red, blue, green, alpha);
+
+
 
                     if (patchCount > 0)
                     {
                         //for every new chunk of patch
                         foreach (var triList in section[j].patchList)
                         {
-                            isDraw = false;
+                            isDraw = true;
                             int count2 = triList.Count;
-                            for (int i = 1; i < count2; i += 3)
-                            {
-                                //determine if point is in frustum or not
-                                if (frustum[0] * triList[i].easting + frustum[1] * triList[i].northing + frustum[3] <= 0)
-                                    continue;//right
-                                if (frustum[4] * triList[i].easting + frustum[5] * triList[i].northing + frustum[7] <= 0)
-                                    continue;//left
-                                if (frustum[16] * triList[i].easting + frustum[17] * triList[i].northing + frustum[19] <= 0)
-                                    continue;//bottom
-                                if (frustum[20] * triList[i].easting + frustum[21] * triList[i].northing + frustum[23] <= 0)
-                                    continue;//top
 
-                                //point is in frustum so draw the entire patch
-                                isDraw = true;
-                                break;
-                            }
+                            //tStrip3.Text = count2.ToString();
+
+                            //for (int i = 1; i < count2; i += 3)
+                            //{                                
+                                
+                            //    //determine if point is in frustum or not
+                            //    if (frustum[0] * triList[i].easting + frustum[1] * triList[i].northing + frustum[3] <= 0)
+                            //        continue;//right
+                            //    if (frustum[4] * triList[i].easting + frustum[5] * triList[i].northing + frustum[7] <= 0)
+                            //        continue;//left
+                            //    if (frustum[16] * triList[i].easting + frustum[17] * triList[i].northing + frustum[19] <= 0)
+                            //        continue;//bottom
+                            //    if (frustum[20] * triList[i].easting + frustum[21] * triList[i].northing + frustum[23] <= 0)
+                            //        continue;//top
+
+                            //    //point is in frustum so draw the entire patch
+                            //    isDraw = true;
+                            //    break;
+                            
+                            
+                            //}
+
+                           
 
                             if (isDraw)
                             {
+
+                                
                                 //draw the triangles in each triangle strip
-                                gl.Begin(OpenGL.GL_TRIANGLES);
-                                for (int i = 1; i < count2; i++) gl.Vertex(triList[i].easting, triList[i].northing, 0);
+                                gl.Begin(OpenGL.GL_TRIANGLE_STRIP);                               
+
+                                
+                                for (int i = 1; i < count2; i++)
+                                {
+                                    //tStrip3.Text = count2.ToString();
+                                    //red += 0.01f;
+                                    //float value = -25; // Example value
+                                    var color = GradientColor.GetColor((float)triList[i].heading);
+
+                                    gl.Color(color.Item1, color.Item2, color.Item3, .60f);
+
+                                    if(triList[i].heading == 9999.0f)
+                                    {
+                                        gl.Color(0.0f,0.0f,0.0f, .30f);
+                                    }
+
+                                    //if (triList[i].heading > 3.0)
+                                    //{
+                                    //    //gl.Color(1.0f, 0.0f, 0.0f, .50f);
+
+
+                                    //    //blue = (float)(red * triList[i].heading);
+                                    //    red = 1.0f;
+                                    //    blue = 0.0f;
+                                    //    green = 0.0f;
+                                    //    alpha = .75f - Math.Abs((float)triList[i].heading) / 50.0f;
+                                    //    gl.Color(red, green, blue, alpha);
+
+                                    //}
+                                    //if (triList[i].heading < -3.0)
+                                    //{
+                                        
+                                    //    //red =  (float)(red * triList[i].heading);
+                                    //    red = 0.0f;
+                                    //    blue = 1.0f;
+                                    //    green = 0.0f;
+                                    //    alpha = .75f - Math.Abs((float)triList[i].heading) / 50.0f;
+                                    //    gl.Color(red, green, blue, alpha);       
+                                       
+                                    //}
+                                    //if (triList[i].heading > -3.0  && triList[i].heading < 3.0)
+                                    //{
+
+                                    //    //red =  (float)(red * triList[i].heading);
+                                    //    red = 0.0f;
+                                    //    blue = 0.0f;
+                                    //    green = 1.0f;
+
+                                    //    alpha = .75f;// - Math.Abs((float)triList[i].heading / 50.0f);
+                                    //    gl.Color(red, green, blue, alpha);
+
+                                    //}
+
+
+
+                                    //tStrip3.Text = alpha.ToString("F2");
+
+                                    //gl.Color(red, green, blue, alpha);                   
+                                    gl.Vertex(triList[i].easting, triList[i].northing, 0);
+
+
+                                }
+
+
+
                                 gl.End();
                             }
+
+
                         }
                     }
                 }
 
-                // If ALL sections are required on, No buttons are off, within boundary, turn super section on, normal sections off
-
-                for (int j = 0; j < 1; j++)
-                {
-                    if (section[j].isMappingOn)
-                    {
-                        section[j].mappingOffRequest = true;
-                        section[j].mappingOnRequest = false;
-                                            }                    
-                }
-
-                //turn on super section
-                section[1].mappingOnRequest = true;
-                section[1].mappingOffRequest = false;
-
-                
-
+              
                 //draw the vehicle/implement
                 vehicle.DrawVehicle();
 
@@ -394,28 +497,6 @@ namespace OpenGrade
                 gl.Vertex(vehicle.toolWidth / 2.0, 0.0f, vehicle.toolHeight + cut / 100);//blade top
                 gl.Vertex(vehicle.toolWidth / 2.0, vehicle.toolThickness, vehicle.toolHeight + cut / 100); //blade Btm
                 gl.End();
-
-
-
-
-                ////Scraper front 
-                //gl.Color(0.0f, 0.99f, 0.0f, 0.65f);
-                //gl.LineWidth(5);
-                //gl.Begin(OpenGL.GL_LINES);
-                //gl.Vertex(-toolWidth / 2.0, 0);
-                //gl.Vertex(toolWidth / 2.0, 0);
-                //gl.End();
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -740,6 +821,8 @@ namespace OpenGrade
                             minDist = dist; closestPoint = t;
                         }
 
+                        tStrip3.Text = minDist.ToString("f2");
+
                     }
 
 
@@ -866,132 +949,153 @@ namespace OpenGrade
 
                     /////  Black Ace Industries
                     ///
-                    if (isMetric)
+
+
+                    //if (ct.distanceFromCurrentLine > minDist)
+
+
+
+                    if (ct.distanceFromCurrentLine != 9999)
                     {
-                        tStripHorizontalOffset.Text = (ct.distanceFromCurrentLine ).ToString("F2");
+                        if (isMetric)
+                        {
+                            tStripHorizontalOffset.Text = (ct.distanceFromCurrentLine ).ToString("F2");
+                        }
+                        else
+                        {
+                            tStripHorizontalOffset.Text = (ct.distanceFromCurrentLine/25.4).ToString("F2");
+                        }
+
+
                     }
                     else
                     {
-                        tStripHorizontalOffset.Text = (ct.distanceFromCurrentLine/25.4).ToString("F2");
+                        tStripHorizontalOffset.Text = "--";
                     }
-
-
-                   // tStripVerticalOffset.Text = (vehicle.disFromSurvey * 100000.0).ToString("F2");
-
+                    
 
 
 
-                    if (Math.Abs(ct.distanceFromCurrentLine) < vehicle.disFromSurvey * 100000.0) {      //(vehicle.disFromSurvey*10000 )                                
-                    //if (minDist < 200){// record current pass 
-
-                        //draw the actual elevation lines and blade
-                        gl.LineWidth(8);
-                        gl.Begin(OpenGL.GL_LINES);
-                        gl.Color(0.95f, 0.90f, 0.0f);
-                        gl.Vertex(closestPoint, (((pn.altitude - centerY) * altitudeWindowGain) + centerY), 0);
-                        gl.Vertex(closestPoint, 10000, 0);
-                        gl.End();
-
-                        //the skinny actual elevation lines
-                        gl.LineWidth(1);
-                        gl.Begin(OpenGL.GL_LINES);
-                        gl.Color(0.57f, 0.80f, 0.00f);
-                        gl.Vertex(-5000, (((pn.altitude - centerY) * altitudeWindowGain) + centerY), 0);
-                        gl.Vertex(5000, (((pn.altitude - centerY) * altitudeWindowGain) + centerY), 0);
-                        gl.Vertex(closestPoint, -10000, 0);
-                        gl.Vertex(closestPoint, 10000, 0);
-                        gl.End();
-
-                        //little point at cutting edge of blade
-                        gl.Color(0.0f, 0.0f, 0.0f);
-                        gl.PointSize(8);
-                        gl.Begin(OpenGL.GL_POINTS);
-                        gl.Vertex(closestPoint, (((pn.altitude - centerY) * altitudeWindowGain) + centerY), 0);
-                        gl.End();
-
-                        //rge
+                    // tStripVerticalOffset.Text = (vehicle.disFromSurvey * 100000.0).ToString("F2");
 
 
 
-                        //calculate blade to guideline delta
-                        //double temp = (double)closestPoint / (double)count2;
-                        if (ct.ptList[closestPoint].cutAltitude > 0)
-                        {
-                            //in cm                            
-                            distFromLastPass = ((pn.altitude - ct.ptList[closestPoint].lastPassAltitude) * 100) - bladeOffset;
-                            distToTarget = ((pn.altitude - ct.ptList[closestPoint].cutAltitude) * 100) - bladeOffset;
 
-                            //AutoCut Active
-                            if (isAutoCutOn)
+                    if (Math.Abs(ct.distanceFromCurrentLine) < vehicle.disFromSurvey * 100000.0)
+                    {      //(vehicle.disFromSurvey*10000 )                                
+                        if (minDist < vehicle.disFromSurvey * 100000.0)
+                        {// record current pass 
+
+                            //draw the actual elevation lines and blade
+                            gl.LineWidth(8);
+                            gl.Begin(OpenGL.GL_LINES);
+                            gl.Color(0.95f, 0.90f, 0.0f);
+                            gl.Vertex(closestPoint, (((pn.altitude - centerY) * altitudeWindowGain) + centerY), 0);
+                            gl.Vertex(closestPoint, 10000, 0);
+                            gl.End();
+
+                            //the skinny actual elevation lines
+                            gl.LineWidth(1);
+                            gl.Begin(OpenGL.GL_LINES);
+                            gl.Color(0.57f, 0.80f, 0.00f);
+                            gl.Vertex(-5000, (((pn.altitude - centerY) * altitudeWindowGain) + centerY), 0);
+                            gl.Vertex(5000, (((pn.altitude - centerY) * altitudeWindowGain) + centerY), 0);
+                            gl.Vertex(closestPoint, -10000, 0);
+                            gl.Vertex(closestPoint, 10000, 0);
+                            gl.End();
+
+                            //little point at cutting edge of blade
+                            gl.Color(0.0f, 0.0f, 0.0f);
+                            gl.PointSize(8);
+                            gl.Begin(OpenGL.GL_POINTS);
+                            gl.Vertex(closestPoint, (((pn.altitude - centerY) * altitudeWindowGain) + centerY), 0);
+                            gl.End();
+
+                            //rge
+
+
+
+                            //calculate blade to guideline delta
+                            //double temp = (double)closestPoint / (double)count2;
+                            if (ct.ptList[closestPoint].cutAltitude > 0)
                             {
-                                if (distToTarget < 0)//  && cutDepth < -5
+                                //in cm                            
+                                distFromLastPass = ((pn.altitude - ct.ptList[closestPoint].lastPassAltitude) * 100) - bladeOffset;
+                                distToTarget = ((pn.altitude - ct.ptList[closestPoint].cutAltitude) * 100) - bladeOffset;
+
+                                //AutoCut Active
+                                if (isAutoCutOn)
                                 {
-                                    cutDelta = distToTarget;
+                                    if (distToTarget < 0)//  && cutDepth < -5
+                                    {
+                                        cutDelta = distToTarget;
+                                    }
+                                    else
+                                    {
+                                        cutDelta = distFromLastPass - autoCutDepth;
+                                    }
+
                                 }
                                 else
                                 {
-                                    cutDelta = distFromLastPass - autoCutDepth;
+                                    cutDelta = distToTarget;
                                 }
 
+
+                            }
+
+                            //AutoShore Active
+                            if (isAutoShoreOn)
+                            {
+                                double x = (Math.Tan(glm.toRadians(vehicle.minShoreSlope)) * ct.distanceFromCurrentLine);
+                                cutDelta += x;
+                            }
+
+
+                            if (ct.ptList[closestPoint].cutAltitude > 0)
+                            {
+                                ct.ptList[closestPoint].currentPassAltitude = pn.altitude;
+                                ct.isOnPass = true;
+                                ct.isDoneCopy = false;
                             }
                             else
                             {
-                                cutDelta = distToTarget;
+                                ct.isOnPass = false;
+                            }
+
+                            // light up isOnPass Indicator
+                            if (ct.isOnPass)
+                            {
+                                //stripOnlineAutoSteer.Value = 100;
+
+                                ct.isContourBtnOn = true;
+                            }
+                            else
+                            {
+                                //stripOnlineAutoSteer.Value = 0;
+
+                                ct.isContourBtnOn = false;
+
                             }
 
 
-                        }
+                            //draw current Antenna path as it is driven on ALL MODES
+                            //
 
-                        //AutoShore Active
-                        if (isAutoShoreOn)
-                        {
-                            double x = (Math.Tan(glm.toRadians(vehicle.minShoreSlope)) * ct.distanceFromCurrentLine);
-                            cutDelta += x;
-                        }
+                            gl.LineWidth(3);
+                            gl.Begin(OpenGL.GL_LINE_STRIP);
 
-
-                        if (ct.ptList[closestPoint].cutAltitude > 0)
-                        {
-                            ct.ptList[closestPoint].currentPassAltitude = pn.altitude;
-                            ct.isOnPass = true;
-                            ct.isDoneCopy = false;
-                        }
-                        else
-                        {
-                            ct.isOnPass = false;
-                        }
-
-                        // light up isOnPass Indicator
-                        if (ct.isOnPass)
-                        {
-                            //stripOnlineAutoSteer.Value = 100;
-                        
-                            ct.isContourBtnOn = true;
-                        }
-                        else
-                        {
-                            //stripOnlineAutoSteer.Value = 0;
-                        
-                            ct.isContourBtnOn = false;
+                            gl.Color(1.0f, 0.62f, 0.18f);  // orange
+                            for (int i = 0; i < ptCnt; i++)
+                            {
+                                if (ct.ptList[i].cutAltitude > 0 & ct.ptList[i].currentPassAltitude > 0)
+                                    gl.Vertex(i, (((ct.ptList[i].currentPassAltitude - centerY) * altitudeWindowGain) + centerY), 0);
+                            }
+                            gl.End();
 
                         }
-
-
-                        //draw current Antenna path as it is driven on ALL MODES
-                        //
-                    
-                        gl.LineWidth(3);
-                        gl.Begin(OpenGL.GL_LINE_STRIP);
-
-                        gl.Color(1.0f, 0.62f, 0.18f);  // orange
-                        for (int i = 0; i < ptCnt; i++)
-                        {
-                            if (ct.ptList[i].cutAltitude > 0 & ct.ptList[i].currentPassAltitude > 0)
-                                gl.Vertex(i, (((ct.ptList[i].currentPassAltitude - centerY) * altitudeWindowGain) + centerY), 0);
-                        }
-                        gl.End();
-
                     }
+
 
 
                     switch (curMode)
@@ -1374,8 +1478,8 @@ namespace OpenGrade
                 tList.Clear();
 
 
-                tStrip3.Text = cut.ToString("F2");
-
+                //tStrip3.Text = cut.ToString("F2");
+                
                 //lblCut.Text = cut.ToString("N2");
                 //lblFill.Text = fill.ToString("N2");
 
@@ -1397,6 +1501,82 @@ namespace OpenGrade
             }
 
         }
+
+
+        private void CalcFrustum()
+        {
+            float[] proj = new float[16];							// For Grabbing The PROJECTION Matrix
+            float[] modl = new float[16];							// For Grabbing The MODELVIEW Matrix
+            float[] clip = new float[16];							// Result Of Concatenating PROJECTION and MODELVIEW
+
+            //  Get the OpenGL object.
+            OpenGL gl = openGLControl.OpenGL;
+
+
+            gl.GetFloat(2982, proj);	// Grab The Current PROJECTION Matrix
+            gl.GetFloat(2982, modl);   // Grab The Current MODELVIEW Matrix  
+
+            // Concatenate (Multiply) The Two Matricies
+            clip[0] = modl[0] * proj[0] + modl[1] * proj[4] + modl[2] * proj[8] + modl[3] * proj[12];
+            clip[1] = modl[0] * proj[1] + modl[1] * proj[5] + modl[2] * proj[9] + modl[3] * proj[13];
+            clip[2] = modl[0] * proj[2] + modl[1] * proj[6] + modl[2] * proj[10] + modl[3] * proj[14];
+            clip[3] = modl[0] * proj[3] + modl[1] * proj[7] + modl[2] * proj[11] + modl[3] * proj[15];
+
+            clip[4] = modl[4] * proj[0] + modl[5] * proj[4] + modl[6] * proj[8] + modl[7] * proj[12];
+            clip[5] = modl[4] * proj[1] + modl[5] * proj[5] + modl[6] * proj[9] + modl[7] * proj[13];
+            clip[6] = modl[4] * proj[2] + modl[5] * proj[6] + modl[6] * proj[10] + modl[7] * proj[14];
+            clip[7] = modl[4] * proj[3] + modl[5] * proj[7] + modl[6] * proj[11] + modl[7] * proj[15];
+
+            clip[8] = modl[8] * proj[0] + modl[9] * proj[4] + modl[10] * proj[8] + modl[11] * proj[12];
+            clip[9] = modl[8] * proj[1] + modl[9] * proj[5] + modl[10] * proj[9] + modl[11] * proj[13];
+            clip[10] = modl[8] * proj[2] + modl[9] * proj[6] + modl[10] * proj[10] + modl[11] * proj[14];
+            clip[11] = modl[8] * proj[3] + modl[9] * proj[7] + modl[10] * proj[11] + modl[11] * proj[15];
+
+            clip[12] = modl[12] * proj[0] + modl[13] * proj[4] + modl[14] * proj[8] + modl[15] * proj[12];
+            clip[13] = modl[12] * proj[1] + modl[13] * proj[5] + modl[14] * proj[9] + modl[15] * proj[13];
+            clip[14] = modl[12] * proj[2] + modl[13] * proj[6] + modl[14] * proj[10] + modl[15] * proj[14];
+            clip[15] = modl[12] * proj[3] + modl[13] * proj[7] + modl[14] * proj[11] + modl[15] * proj[15];
+
+
+            // Extract the RIGHT clipping plane
+            frustum[0] = clip[3] - clip[0];
+            frustum[1] = clip[7] - clip[4];
+            frustum[2] = clip[11] - clip[8];
+            frustum[3] = clip[15] - clip[12];
+
+            // Extract the LEFT clipping plane
+            frustum[4] = clip[3] + clip[0];
+            frustum[5] = clip[7] + clip[4];
+            frustum[6] = clip[11] + clip[8];
+            frustum[7] = clip[15] + clip[12];
+
+            // Extract the FAR clipping plane
+            frustum[8] = clip[3] - clip[2];
+            frustum[9] = clip[7] - clip[6];
+            frustum[10] = clip[11] - clip[10];
+            frustum[11] = clip[15] - clip[14];
+
+
+            // Extract the NEAR clipping plane.  This is last on purpose (see pointinfrustum() for reason)
+            frustum[12] = clip[3] + clip[2];
+            frustum[13] = clip[7] + clip[6];
+            frustum[14] = clip[11] + clip[10];
+            frustum[15] = clip[15] + clip[14];
+
+            // Extract the BOTTOM clipping plane
+            frustum[16] = clip[3] + clip[1];
+            frustum[17] = clip[7] + clip[5];
+            frustum[18] = clip[11] + clip[9];
+            frustum[19] = clip[15] + clip[13];
+
+            // Extract the TOP clipping plane
+            frustum[20] = clip[3] - clip[1];
+            frustum[21] = clip[7] - clip[5];
+            frustum[22] = clip[11] - clip[9];
+            frustum[23] = clip[15] - clip[13];
+        }
+
+
 
 
         //Draw section OpenGL window, not visible
@@ -2120,11 +2300,52 @@ namespace OpenGrade
         }
 
 
+        class GradientColor
+        {
+            // Define your colors as tuples or a custom struct/class
+            private static Tuple<float, float, float> red = Tuple.Create(1.0f, 0.0f, 0.0f);
+            private static Tuple<float, float, float> green = Tuple.Create(0.07f, .51f, 0.07f);
+            private static Tuple<float, float, float> blue = Tuple.Create(0.16f, 0.50f, 1.0f);
+
+            public static Tuple<float, float, float> GetColor(float value)
+            {
+                // Normalize value between 0 and 1
+                float normalized = (value + 20) / 40;
+
+                if (normalized <= .5f)
+                {
+                    return Interpolate(blue, green, normalized * 2);
+                }
+                else
+                {
+                    return Interpolate(green, red, normalized  * 2);//- 0.5f)
+                }
+                //else
+                //{
+                //    return Interpolate(blue, red, (normalized - 2 / 3f) * 3);
+                //}
+            }
+
+            private static Tuple<float, float, float> Interpolate(Tuple<float, float, float> color1, Tuple<float, float, float> color2, float factor)
+            {
+                float r = Interpolate(color1.Item1, color2.Item1, factor);
+                float g = Interpolate(color1.Item2, color2.Item2, factor);
+                float b = Interpolate(color1.Item3, color2.Item3, factor);
+                return Tuple.Create(r, g, b);
+            }
+
+            private static float Interpolate(float a, float b, float factor)
+            {
+                return a + (b - a) * factor;
+            }
+        }
 
 
-            /// <summary>
-            /// ################################################## 3D ###########################################
-            /// </summary>
+
+
+        /// <summary>
+        /// ################################################## 3D ###########################################
+        /// </summary>
 
         //public void Draw3D()
         //{                       

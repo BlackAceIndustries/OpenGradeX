@@ -16,6 +16,9 @@ namespace OpenGrade
 {
     public partial class FormGPS
     {
+
+
+
         private void LoadGUI()
         {
             //set the flag mark button to red dot
@@ -150,7 +153,7 @@ namespace OpenGrade
                 isGradeControlBtnOn = false;
                 //btnGradeControl.Image = Properties.Resources.GradeControlOff1;
                 mc.GradeControlData[mc.gcisAutoActive] = 0;
-                section[1].TurnMappingOff();
+                //section[1].TurnMappingOff();
                 
             }
             else
@@ -158,7 +161,7 @@ namespace OpenGrade
                 isGradeControlBtnOn = true;
                 //btnGradeControl.Image = Properties.Resources.GradeControlOn1;
                 mc.GradeControlData[mc.gcisAutoActive] = 1;
-                section[1].TurnMappingOn();
+                //section[1].TurnMappingOn();
 
             }
 

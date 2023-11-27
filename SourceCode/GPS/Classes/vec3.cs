@@ -98,7 +98,7 @@ namespace OpenGrade
     public struct vec2
     {
         public double easting; //easting
-        public double northing; //northing
+        public double northing ; //northing
 
         public vec2(double easting, double northing)
         {

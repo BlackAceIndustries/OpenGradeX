@@ -30,18 +30,18 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormGPS));
-            ProgBar.cBlendItems cBlendItems7 = new ProgBar.cBlendItems();
-            ProgBar.cFocalPoints cFocalPoints7 = new ProgBar.cFocalPoints();
-            ProgBar.cBlendItems cBlendItems8 = new ProgBar.cBlendItems();
-            ProgBar.cFocalPoints cFocalPoints8 = new ProgBar.cFocalPoints();
-            ProgBar.cBlendItems cBlendItems9 = new ProgBar.cBlendItems();
-            ProgBar.cFocalPoints cFocalPoints9 = new ProgBar.cFocalPoints();
-            ProgBar.cBlendItems cBlendItems10 = new ProgBar.cBlendItems();
-            ProgBar.cFocalPoints cFocalPoints10 = new ProgBar.cFocalPoints();
-            ProgBar.cBlendItems cBlendItems11 = new ProgBar.cBlendItems();
-            ProgBar.cFocalPoints cFocalPoints11 = new ProgBar.cFocalPoints();
-            ProgBar.cBlendItems cBlendItems12 = new ProgBar.cBlendItems();
-            ProgBar.cFocalPoints cFocalPoints12 = new ProgBar.cFocalPoints();
+            ProgBar.cBlendItems cBlendItems1 = new ProgBar.cBlendItems();
+            ProgBar.cFocalPoints cFocalPoints1 = new ProgBar.cFocalPoints();
+            ProgBar.cBlendItems cBlendItems2 = new ProgBar.cBlendItems();
+            ProgBar.cFocalPoints cFocalPoints2 = new ProgBar.cFocalPoints();
+            ProgBar.cBlendItems cBlendItems3 = new ProgBar.cBlendItems();
+            ProgBar.cFocalPoints cFocalPoints3 = new ProgBar.cFocalPoints();
+            ProgBar.cBlendItems cBlendItems4 = new ProgBar.cBlendItems();
+            ProgBar.cFocalPoints cFocalPoints4 = new ProgBar.cFocalPoints();
+            ProgBar.cBlendItems cBlendItems5 = new ProgBar.cBlendItems();
+            ProgBar.cFocalPoints cFocalPoints5 = new ProgBar.cFocalPoints();
+            ProgBar.cBlendItems cBlendItems6 = new ProgBar.cBlendItems();
+            ProgBar.cFocalPoints cFocalPoints6 = new ProgBar.cFocalPoints();
             this.openGLControl = new SharpGL.OpenGLControl();
             this.contextMenuStripOpenGL = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.deleteFlagToolOpenGLContextMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -102,8 +102,8 @@
             this.contourToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.toolStrip3DSurveyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip2DSurveyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStrip3DSurveyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripFieldInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zeroTripToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSaveCutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -121,6 +121,9 @@
             this.flagsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fORCECLOSEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fORCERESETALLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearCoverageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tStripChooseSide = new System.Windows.Forms.ToolStripDropDownButton();
+            this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
             this.BottomToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.TopToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.RightToolStripPanel = new System.Windows.Forms.ToolStripPanel();
@@ -147,6 +150,7 @@
             this.btnVertAuto = new System.Windows.Forms.Button();
             this.pbarCutAboveR = new ProgBar.ProgBarPlus();
             this.pbarCutBelowR = new ProgBar.ProgBarPlus();
+            this.openGLControlCS = new SharpGL.OpenGLControl();
             this.statusStrip2 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel10 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tStripBladeLeftDelta = new System.Windows.Forms.ToolStripStatusLabel();
@@ -222,7 +226,6 @@
             this.tStripVDOP = new System.Windows.Forms.ToolStripStatusLabel();
             this.tStripPitchCorrection = new System.Windows.Forms.ToolStripStatusLabel();
             this.tStripRollCorrection = new System.Windows.Forms.ToolStripStatusLabel();
-            this.clearCoverageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.openGLControl)).BeginInit();
             this.contextMenuStripOpenGL.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.openGLControlBack)).BeginInit();
@@ -237,6 +240,7 @@
             this.panelNavigation.SuspendLayout();
             this.panelLegend.SuspendLayout();
             this.PanelDisplays.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.openGLControlCS)).BeginInit();
             this.statusStrip2.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.statusStrip4.SuspendLayout();
@@ -255,13 +259,13 @@
             this.openGLControl.Font = new System.Drawing.Font("Tahoma", 12F);
             this.openGLControl.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.openGLControl.FrameRate = 5;
-            this.openGLControl.Location = new System.Drawing.Point(78, 12);
+            this.openGLControl.Location = new System.Drawing.Point(80, 12);
             this.openGLControl.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.openGLControl.Name = "openGLControl";
             this.openGLControl.OpenGLVersion = SharpGL.Version.OpenGLVersion.OpenGL2_1;
             this.openGLControl.RenderContextType = SharpGL.RenderContextType.NativeWindow;
             this.openGLControl.RenderTrigger = SharpGL.RenderTrigger.Manual;
-            this.openGLControl.Size = new System.Drawing.Size(1356, 386);
+            this.openGLControl.Size = new System.Drawing.Size(620, 560);
             this.openGLControl.TabIndex = 6;
             this.openGLControl.OpenGLInitialized += new System.EventHandler(this.openGLControl_OpenGLInitialized);
             this.openGLControl.OpenGLDraw += new SharpGL.RenderEventHandler(this.openGLControl_OpenGLDraw);
@@ -309,23 +313,22 @@
             // 
             // openGLControlBack
             // 
-            this.openGLControlBack.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.openGLControlBack.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.openGLControlBack.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.openGLControlBack.BackColor = System.Drawing.Color.Yellow;
             this.openGLControlBack.Cursor = System.Windows.Forms.Cursors.Cross;
             this.openGLControlBack.DrawFPS = false;
             this.openGLControlBack.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.openGLControlBack.Location = new System.Drawing.Point(78, 398);
+            this.openGLControlBack.Location = new System.Drawing.Point(700, 288);
             this.openGLControlBack.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.openGLControlBack.Name = "openGLControlBack";
             this.openGLControlBack.OpenGLVersion = SharpGL.Version.OpenGLVersion.OpenGL2_1;
             this.openGLControlBack.RenderContextType = SharpGL.RenderContextType.NativeWindow;
             this.openGLControlBack.RenderTrigger = SharpGL.RenderTrigger.Manual;
-            this.openGLControlBack.Size = new System.Drawing.Size(1356, 202);
+            this.openGLControlBack.Size = new System.Drawing.Size(421, 284);
             this.openGLControlBack.TabIndex = 91;
             this.openGLControlBack.OpenGLInitialized += new System.EventHandler(this.openGLControlBack_OpenGLInitialized);
-            this.openGLControlBack.OpenGLDraw += new SharpGL.RenderEventHandler(this.openGLControlBack_OpenGLDraw);
+            this.openGLControlBack.OpenGLDraw += new SharpGL.RenderEventHandler(this.openGLControlBack_OpenGLDrawNew);
             this.openGLControlBack.Resized += new System.EventHandler(this.openGLControlBack_Resized);
             this.openGLControlBack.Load += new System.EventHandler(this.openGLControlBack_Load);
             this.openGLControlBack.MouseClick += new System.Windows.Forms.MouseEventHandler(this.openGLControlBack_MouseClick);
@@ -449,25 +452,27 @@
             this.panelSimControls.Controls.Add(this.tbarSteerAngle);
             this.panelSimControls.Controls.Add(this.tbarStepDistance);
             this.panelSimControls.Controls.Add(this.nudElevation);
-            this.panelSimControls.Location = new System.Drawing.Point(883, 294);
+            this.panelSimControls.Location = new System.Drawing.Point(5, 521);
             this.panelSimControls.Name = "panelSimControls";
-            this.panelSimControls.Size = new System.Drawing.Size(544, 104);
+            this.panelSimControls.Size = new System.Drawing.Size(77, 212);
             this.panelSimControls.TabIndex = 172;
+            this.panelSimControls.Paint += new System.Windows.Forms.PaintEventHandler(this.panelSimControls_Paint);
             // 
             // btnSimGoTo
             // 
-            this.btnSimGoTo.Location = new System.Drawing.Point(447, 13);
+            this.btnSimGoTo.Location = new System.Drawing.Point(415, 208);
             this.btnSimGoTo.Name = "btnSimGoTo";
             this.btnSimGoTo.Size = new System.Drawing.Size(79, 40);
             this.btnSimGoTo.TabIndex = 195;
             this.btnSimGoTo.Text = "Go To";
             this.btnSimGoTo.UseVisualStyleBackColor = true;
+            this.btnSimGoTo.Visible = false;
             this.btnSimGoTo.Click += new System.EventHandler(this.btnSimGoTo_Click);
             // 
             // nudLongitude
             // 
             this.nudLongitude.DecimalPlaces = 7;
-            this.nudLongitude.Location = new System.Drawing.Point(219, 72);
+            this.nudLongitude.Location = new System.Drawing.Point(220, 221);
             this.nudLongitude.Maximum = new decimal(new int[] {
             180,
             0,
@@ -481,29 +486,32 @@
             this.nudLongitude.Name = "nudLongitude";
             this.nudLongitude.Size = new System.Drawing.Size(120, 27);
             this.nudLongitude.TabIndex = 194;
+            this.nudLongitude.Visible = false;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(170, 74);
+            this.label9.Location = new System.Drawing.Point(171, 223);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(44, 19);
             this.label9.TabIndex = 193;
             this.label9.Text = "Long";
+            this.label9.Visible = false;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(8, 74);
+            this.label10.Location = new System.Drawing.Point(9, 223);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(30, 19);
             this.label10.TabIndex = 192;
             this.label10.Text = "Lat";
+            this.label10.Visible = false;
             // 
             // nudLatitude
             // 
             this.nudLatitude.DecimalPlaces = 7;
-            this.nudLatitude.Location = new System.Drawing.Point(44, 72);
+            this.nudLatitude.Location = new System.Drawing.Point(45, 221);
             this.nudLatitude.Maximum = new decimal(new int[] {
             90,
             0,
@@ -517,13 +525,15 @@
             this.nudLatitude.Name = "nudLatitude";
             this.nudLatitude.Size = new System.Drawing.Size(120, 27);
             this.nudLatitude.TabIndex = 191;
+            this.nudLatitude.Visible = false;
             // 
             // label3
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            this.label3.Location = new System.Drawing.Point(304, 14);
+            this.label3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label3.Location = new System.Drawing.Point(-75, 8);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(13, 16);
             this.label3.TabIndex = 172;
@@ -531,11 +541,10 @@
             // 
             // btnResetSteerAngle
             // 
-            this.btnResetSteerAngle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnResetSteerAngle.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btnResetSteerAngle.ContextMenuStrip = this.contextMenuStripFlag;
             this.btnResetSteerAngle.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            this.btnResetSteerAngle.Location = new System.Drawing.Point(182, 7);
+            this.btnResetSteerAngle.Location = new System.Drawing.Point(9, 50);
             this.btnResetSteerAngle.Name = "btnResetSteerAngle";
             this.btnResetSteerAngle.Size = new System.Drawing.Size(52, 29);
             this.btnResetSteerAngle.TabIndex = 162;
@@ -545,11 +554,10 @@
             // 
             // btnResetSim
             // 
-            this.btnResetSim.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnResetSim.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.btnResetSim.ContextMenuStrip = this.contextMenuStripFlag;
             this.btnResetSim.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            this.btnResetSim.Location = new System.Drawing.Point(246, 8);
+            this.btnResetSim.Location = new System.Drawing.Point(9, 137);
             this.btnResetSim.Name = "btnResetSim";
             this.btnResetSim.Size = new System.Drawing.Size(52, 26);
             this.btnResetSim.TabIndex = 164;
@@ -562,18 +570,20 @@
             this.lblSteerAngle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblSteerAngle.AutoSize = true;
             this.lblSteerAngle.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
-            this.lblSteerAngle.Location = new System.Drawing.Point(140, 24);
+            this.lblSteerAngle.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.lblSteerAngle.Location = new System.Drawing.Point(-82, 86);
             this.lblSteerAngle.Name = "lblSteerAngle";
             this.lblSteerAngle.Size = new System.Drawing.Size(19, 19);
             this.lblSteerAngle.TabIndex = 163;
             this.lblSteerAngle.Text = "0";
+            this.lblSteerAngle.Click += new System.EventHandler(this.lblSteerAngle_Click);
             // 
             // label11
             // 
-            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            this.label11.Location = new System.Drawing.Point(4, 20);
+            this.label11.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label11.Location = new System.Drawing.Point(16, 31);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(40, 16);
             this.label11.TabIndex = 170;
@@ -581,10 +591,10 @@
             // 
             // label12
             // 
-            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            this.label12.Location = new System.Drawing.Point(367, 23);
+            this.label12.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label12.Location = new System.Drawing.Point(17, 115);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(35, 16);
             this.label12.TabIndex = 171;
@@ -592,26 +602,24 @@
             // 
             // tbarSteerAngle
             // 
-            this.tbarSteerAngle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.tbarSteerAngle.LargeChange = 10;
-            this.tbarSteerAngle.Location = new System.Drawing.Point(3, 5);
+            this.tbarSteerAngle.Location = new System.Drawing.Point(1, 5);
             this.tbarSteerAngle.Maximum = 300;
             this.tbarSteerAngle.Minimum = -300;
             this.tbarSteerAngle.Name = "tbarSteerAngle";
             this.tbarSteerAngle.RightToLeftLayout = true;
-            this.tbarSteerAngle.Size = new System.Drawing.Size(181, 45);
+            this.tbarSteerAngle.Size = new System.Drawing.Size(71, 45);
             this.tbarSteerAngle.TabIndex = 161;
             this.tbarSteerAngle.TickFrequency = 30;
             this.tbarSteerAngle.Scroll += new System.EventHandler(this.tbarSteerAngle_Scroll);
             // 
             // tbarStepDistance
             // 
-            this.tbarStepDistance.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.tbarStepDistance.LargeChange = 10;
-            this.tbarStepDistance.Location = new System.Drawing.Point(307, 6);
+            this.tbarStepDistance.Location = new System.Drawing.Point(1, 86);
             this.tbarStepDistance.Maximum = 300;
             this.tbarStepDistance.Name = "tbarStepDistance";
-            this.tbarStepDistance.Size = new System.Drawing.Size(117, 45);
+            this.tbarStepDistance.Size = new System.Drawing.Size(70, 45);
             this.tbarStepDistance.TabIndex = 160;
             this.tbarStepDistance.TickFrequency = 10;
             this.tbarStepDistance.Value = 20;
@@ -619,15 +627,14 @@
             // 
             // nudElevation
             // 
-            this.nudElevation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudElevation.DecimalPlaces = 3;
-            this.nudElevation.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nudElevation.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudElevation.Increment = new decimal(new int[] {
             1,
             0,
             0,
             131072});
-            this.nudElevation.Location = new System.Drawing.Point(421, 64);
+            this.nudElevation.Location = new System.Drawing.Point(5, 179);
             this.nudElevation.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -639,7 +646,7 @@
             0,
             0});
             this.nudElevation.Name = "nudElevation";
-            this.nudElevation.Size = new System.Drawing.Size(123, 36);
+            this.nudElevation.Size = new System.Drawing.Size(66, 23);
             this.nudElevation.TabIndex = 185;
             this.nudElevation.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudElevation.Value = new decimal(new int[] {
@@ -771,17 +778,17 @@
             this.voltageBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.voltageBar.BarBackColor = System.Drawing.Color.Black;
-            cBlendItems7.iColor = new System.Drawing.Color[] {
+            cBlendItems1.iColor = new System.Drawing.Color[] {
         System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))),
         System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))),
         System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(0))))),
         System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))))};
-            cBlendItems7.iPoint = new float[] {
+            cBlendItems1.iPoint = new float[] {
         0F,
         0.4378882F,
         0.5031056F,
         1F};
-            this.voltageBar.BarColorBlend = cBlendItems7;
+            this.voltageBar.BarColorBlend = cBlendItems1;
             this.voltageBar.BarColorSolid = System.Drawing.Color.White;
             this.voltageBar.BarColorSolidB = System.Drawing.Color.RoyalBlue;
             this.voltageBar.BarLength = ProgBar.ProgBarPlus.eBarLength.Fixed;
@@ -799,15 +806,15 @@
             this.voltageBar.Corners.UpperRight = ((short)(0));
             this.voltageBar.CylonInterval = ((short)(1));
             this.voltageBar.CylonMove = 1F;
-            cFocalPoints7.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints7.CenterPoint")));
-            cFocalPoints7.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints7.FocusScales")));
-            this.voltageBar.FocalPoints = cFocalPoints7;
+            cFocalPoints1.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints1.CenterPoint")));
+            cFocalPoints1.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints1.FocusScales")));
+            this.voltageBar.FocalPoints = cFocalPoints1;
             this.voltageBar.Location = new System.Drawing.Point(12, 12);
             this.voltageBar.Max = 500;
             this.voltageBar.Name = "voltageBar";
             this.voltageBar.Orientation = ProgBar.ProgBarPlus.eOrientation.Vertical;
             this.voltageBar.ShapeTextFont = new System.Drawing.Font("Arial Black", 30F);
-            this.voltageBar.Size = new System.Drawing.Size(20, 588);
+            this.voltageBar.Size = new System.Drawing.Size(20, 560);
             this.voltageBar.TabIndex = 236;
             this.voltageBar.TextFormat = "Process {1}% Done";
             this.voltageBar.Value = 300;
@@ -819,7 +826,7 @@
             this.lblMode.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.lblMode.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMode.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.lblMode.Location = new System.Drawing.Point(1413, 761);
+            this.lblMode.Location = new System.Drawing.Point(1102, 718);
             this.lblMode.Name = "lblMode";
             this.lblMode.Size = new System.Drawing.Size(101, 38);
             this.lblMode.TabIndex = 241;
@@ -832,17 +839,17 @@
             this.voltageBar2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.voltageBar2.BarBackColor = System.Drawing.Color.Black;
-            cBlendItems8.iColor = new System.Drawing.Color[] {
+            cBlendItems2.iColor = new System.Drawing.Color[] {
         System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))),
         System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))),
         System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(0))))),
         System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))))};
-            cBlendItems8.iPoint = new float[] {
+            cBlendItems2.iPoint = new float[] {
         0F,
         0.4378882F,
         0.5031056F,
         1F};
-            this.voltageBar2.BarColorBlend = cBlendItems8;
+            this.voltageBar2.BarColorBlend = cBlendItems2;
             this.voltageBar2.BarColorSolid = System.Drawing.Color.White;
             this.voltageBar2.BarColorSolidB = System.Drawing.Color.White;
             this.voltageBar2.BarLength = ProgBar.ProgBarPlus.eBarLength.Fixed;
@@ -860,15 +867,15 @@
             this.voltageBar2.Corners.UpperRight = ((short)(0));
             this.voltageBar2.CylonInterval = ((short)(1));
             this.voltageBar2.CylonMove = 1F;
-            cFocalPoints8.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints8.CenterPoint")));
-            cFocalPoints8.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints8.FocusScales")));
-            this.voltageBar2.FocalPoints = cFocalPoints8;
-            this.voltageBar2.Location = new System.Drawing.Point(1482, 12);
+            cFocalPoints2.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints2.CenterPoint")));
+            cFocalPoints2.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints2.FocusScales")));
+            this.voltageBar2.FocalPoints = cFocalPoints2;
+            this.voltageBar2.Location = new System.Drawing.Point(1171, 12);
             this.voltageBar2.Max = 500;
             this.voltageBar2.Name = "voltageBar2";
             this.voltageBar2.Orientation = ProgBar.ProgBarPlus.eOrientation.Vertical;
             this.voltageBar2.ShapeTextFont = new System.Drawing.Font("Arial Black", 30F);
-            this.voltageBar2.Size = new System.Drawing.Size(20, 588);
+            this.voltageBar2.Size = new System.Drawing.Size(20, 560);
             this.voltageBar2.TabIndex = 247;
             this.voltageBar2.TextFormat = "Process {1}% Done";
             this.voltageBar2.Value = 300;
@@ -911,7 +918,9 @@
             this.toolStripDropDownButton5,
             this.toolStripDropDownButton3,
             this.toolStripDropDownButton1,
-            this.toolStripDropDownButton4});
+            this.toolStripDropDownButton4,
+            this.tStripChooseSide,
+            this.toolStripDropDownButton2});
             this.toolStripDisplay.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
             this.toolStripDisplay.Location = new System.Drawing.Point(5, 73);
             this.toolStripDisplay.Name = "toolStripDisplay";
@@ -1058,8 +1067,8 @@
             // 
             this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStrip3DSurveyToolStripMenuItem,
             this.toolStrip2DSurveyToolStripMenuItem,
+            this.toolStrip3DSurveyToolStripMenuItem,
             this.toolStripFieldInfoToolStripMenuItem,
             this.zeroTripToolStripMenuItem,
             this.toolStripSaveCutToolStripMenuItem,
@@ -1074,16 +1083,6 @@
             this.toolStripDropDownButton1.Text = "toolStripDropDownButton3";
             this.toolStripDropDownButton1.Click += new System.EventHandler(this.toolStripDropDownButton1_Click_1);
             // 
-            // toolStrip3DSurveyToolStripMenuItem
-            // 
-            this.toolStrip3DSurveyToolStripMenuItem.BackColor = System.Drawing.SystemColors.Desktop;
-            this.toolStrip3DSurveyToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStrip3DSurveyToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.toolStrip3DSurveyToolStripMenuItem.Name = "toolStrip3DSurveyToolStripMenuItem";
-            this.toolStrip3DSurveyToolStripMenuItem.Size = new System.Drawing.Size(257, 44);
-            this.toolStrip3DSurveyToolStripMenuItem.Text = "3D Survey";
-            this.toolStrip3DSurveyToolStripMenuItem.Click += new System.EventHandler(this.toolStrip3DSurveyToolStripMenuItem_Click);
-            // 
             // toolStrip2DSurveyToolStripMenuItem
             // 
             this.toolStrip2DSurveyToolStripMenuItem.BackColor = System.Drawing.SystemColors.Desktop;
@@ -1093,6 +1092,16 @@
             this.toolStrip2DSurveyToolStripMenuItem.Size = new System.Drawing.Size(257, 44);
             this.toolStrip2DSurveyToolStripMenuItem.Text = "2D Survey";
             this.toolStrip2DSurveyToolStripMenuItem.Click += new System.EventHandler(this.toolStrip2DSurveyToolStripMenuItem_Click);
+            // 
+            // toolStrip3DSurveyToolStripMenuItem
+            // 
+            this.toolStrip3DSurveyToolStripMenuItem.BackColor = System.Drawing.SystemColors.Desktop;
+            this.toolStrip3DSurveyToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStrip3DSurveyToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.toolStrip3DSurveyToolStripMenuItem.Name = "toolStrip3DSurveyToolStripMenuItem";
+            this.toolStrip3DSurveyToolStripMenuItem.Size = new System.Drawing.Size(257, 44);
+            this.toolStrip3DSurveyToolStripMenuItem.Text = "3D Survey";
+            this.toolStrip3DSurveyToolStripMenuItem.Click += new System.EventHandler(this.toolStrip3DSurveyToolStripMenuItem_Click);
             // 
             // toolStripFieldInfoToolStripMenuItem
             // 
@@ -1270,6 +1279,37 @@
             this.fORCERESETALLToolStripMenuItem.Text = "RESET ALL";
             this.fORCERESETALLToolStripMenuItem.Click += new System.EventHandler(this.fORCERESETALLToolStripMenuItem_Click);
             // 
+            // clearCoverageToolStripMenuItem
+            // 
+            this.clearCoverageToolStripMenuItem.BackColor = System.Drawing.Color.Yellow;
+            this.clearCoverageToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F);
+            this.clearCoverageToolStripMenuItem.Name = "clearCoverageToolStripMenuItem";
+            this.clearCoverageToolStripMenuItem.Size = new System.Drawing.Size(364, 44);
+            this.clearCoverageToolStripMenuItem.Text = "Clear Coverage";
+            this.clearCoverageToolStripMenuItem.Click += new System.EventHandler(this.clearCoverageToolStripMenuItem_Click);
+            // 
+            // tStripChooseSide
+            // 
+            this.tStripChooseSide.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tStripChooseSide.Image = global::OpenGrade.Properties.Resources.NavigationSettings;
+            this.tStripChooseSide.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tStripChooseSide.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tStripChooseSide.Name = "tStripChooseSide";
+            this.tStripChooseSide.Size = new System.Drawing.Size(77, 68);
+            this.tStripChooseSide.Text = "toolStripDropDownButton3";
+            this.tStripChooseSide.Click += new System.EventHandler(this.tStripChooseSide_Click);
+            // 
+            // toolStripDropDownButton2
+            // 
+            this.toolStripDropDownButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripDropDownButton2.Image = global::OpenGrade.Properties.Resources.NavigationSettings;
+            this.toolStripDropDownButton2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
+            this.toolStripDropDownButton2.Size = new System.Drawing.Size(77, 68);
+            this.toolStripDropDownButton2.Text = "toolStripDropDownButton3";
+            this.toolStripDropDownButton2.Click += new System.EventHandler(this.toolStripDropDownButton2_Click);
+            // 
             // BottomToolStripPanel
             // 
             this.BottomToolStripPanel.Location = new System.Drawing.Point(0, 0);
@@ -1370,6 +1410,7 @@
             this.btn2D.TabIndex = 469;
             this.btn2D.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btn2D.UseVisualStyleBackColor = false;
+            this.btn2D.Click += new System.EventHandler(this.btn2D_Click);
             // 
             // btnN3D
             // 
@@ -1475,6 +1516,7 @@
             this.btn3D.TabIndex = 471;
             this.btn3D.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btn3D.UseVisualStyleBackColor = false;
+            this.btn3D.Click += new System.EventHandler(this.btn3D_Click);
             // 
             // btnN2D
             // 
@@ -1519,7 +1561,7 @@
             this.panelLegend.Controls.Add(this.sqrCutLine1);
             this.panelLegend.Controls.Add(this.lblDitchCutLine);
             this.panelLegend.Controls.Add(this.sqrDitchCutLine);
-            this.panelLegend.Location = new System.Drawing.Point(916, 210);
+            this.panelLegend.Location = new System.Drawing.Point(1187, 533);
             this.panelLegend.Name = "panelLegend";
             this.panelLegend.Size = new System.Drawing.Size(339, 52);
             this.panelLegend.TabIndex = 472;
@@ -1528,13 +1570,13 @@
             // pbarCutBelowL
             // 
             this.pbarCutBelowL.BarBackColor = System.Drawing.Color.Black;
-            cBlendItems9.iColor = new System.Drawing.Color[] {
+            cBlendItems3.iColor = new System.Drawing.Color[] {
         System.Drawing.Color.Navy,
         System.Drawing.Color.Blue};
-            cBlendItems9.iPoint = new float[] {
+            cBlendItems3.iPoint = new float[] {
         0F,
         1F};
-            this.pbarCutBelowL.BarColorBlend = cBlendItems9;
+            this.pbarCutBelowL.BarColorBlend = cBlendItems3;
             this.pbarCutBelowL.BarColorSolid = System.Drawing.Color.Black;
             this.pbarCutBelowL.BarColorSolidB = System.Drawing.Color.RoyalBlue;
             this.pbarCutBelowL.BarLengthValue = ((short)(40));
@@ -1552,14 +1594,14 @@
             this.pbarCutBelowL.CylonInterval = ((short)(1));
             this.pbarCutBelowL.CylonMove = 5F;
             this.pbarCutBelowL.FillDirection = ProgBar.ProgBarPlus.eFillDirection.Down_Left;
-            cFocalPoints9.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints9.CenterPoint")));
-            cFocalPoints9.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints9.FocusScales")));
-            this.pbarCutBelowL.FocalPoints = cFocalPoints9;
+            cFocalPoints3.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints3.CenterPoint")));
+            cFocalPoints3.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints3.FocusScales")));
+            this.pbarCutBelowL.FocalPoints = cFocalPoints3;
             this.pbarCutBelowL.Location = new System.Drawing.Point(30, 307);
             this.pbarCutBelowL.Name = "pbarCutBelowL";
             this.pbarCutBelowL.Orientation = ProgBar.ProgBarPlus.eOrientation.Vertical;
             this.pbarCutBelowL.ShapeTextFont = new System.Drawing.Font("Arial Black", 30F);
-            this.pbarCutBelowL.Size = new System.Drawing.Size(50, 295);
+            this.pbarCutBelowL.Size = new System.Drawing.Size(50, 265);
             this.pbarCutBelowL.TabIndex = 223;
             this.pbarCutBelowL.TextFormat = "Process {1}% Done";
             this.pbarCutBelowL.Load += new System.EventHandler(this.pbarCutBelow_Load);
@@ -1568,13 +1610,13 @@
             // pbarCutAboveL
             // 
             this.pbarCutAboveL.BarBackColor = System.Drawing.Color.Black;
-            cBlendItems10.iColor = new System.Drawing.Color[] {
+            cBlendItems4.iColor = new System.Drawing.Color[] {
         System.Drawing.Color.Navy,
         System.Drawing.Color.Blue};
-            cBlendItems10.iPoint = new float[] {
+            cBlendItems4.iPoint = new float[] {
         0F,
         1F};
-            this.pbarCutAboveL.BarColorBlend = cBlendItems10;
+            this.pbarCutAboveL.BarColorBlend = cBlendItems4;
             this.pbarCutAboveL.BarColorSolid = System.Drawing.Color.Black;
             this.pbarCutAboveL.BarColorSolidB = System.Drawing.Color.Red;
             this.pbarCutAboveL.BarLengthValue = ((short)(40));
@@ -1591,9 +1633,9 @@
             this.pbarCutAboveL.Corners.UpperRight = ((short)(0));
             this.pbarCutAboveL.CylonInterval = ((short)(1));
             this.pbarCutAboveL.CylonMove = 5F;
-            cFocalPoints10.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints10.CenterPoint")));
-            cFocalPoints10.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints10.FocusScales")));
-            this.pbarCutAboveL.FocalPoints = cFocalPoints10;
+            cFocalPoints4.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints4.CenterPoint")));
+            cFocalPoints4.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints4.FocusScales")));
+            this.pbarCutAboveL.FocalPoints = cFocalPoints4;
             this.pbarCutAboveL.Location = new System.Drawing.Point(30, 12);
             this.pbarCutAboveL.Name = "pbarCutAboveL";
             this.pbarCutAboveL.Orientation = ProgBar.ProgBarPlus.eOrientation.Vertical;
@@ -1607,7 +1649,6 @@
             // PanelDisplays
             // 
             this.PanelDisplays.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.PanelDisplays.Controls.Add(this.panelSimControls);
             this.PanelDisplays.Controls.Add(this.panelNavigation);
             this.PanelDisplays.Controls.Add(this.btnLaserToggle);
             this.PanelDisplays.Controls.Add(this.btnLaserSettings);
@@ -1624,9 +1665,10 @@
             this.PanelDisplays.Controls.Add(this.lblRTKPopupTime);
             this.PanelDisplays.Controls.Add(this.lblRTKPopup);
             this.PanelDisplays.Controls.Add(this.openGLControlBack);
+            this.PanelDisplays.Controls.Add(this.openGLControlCS);
             this.PanelDisplays.Location = new System.Drawing.Point(88, 88);
             this.PanelDisplays.Name = "PanelDisplays";
-            this.PanelDisplays.Size = new System.Drawing.Size(1517, 613);
+            this.PanelDisplays.Size = new System.Drawing.Size(1206, 585);
             this.PanelDisplays.TabIndex = 484;
             this.PanelDisplays.Paint += new System.Windows.Forms.PaintEventHandler(this.PanelDisplays_Paint);
             // 
@@ -1640,7 +1682,7 @@
             this.btnLaserToggle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLaserToggle.Font = new System.Drawing.Font("Tahoma", 14.25F);
             this.btnLaserToggle.Image = global::OpenGrade.Properties.Resources.Toggle_Laser_MANUAL;
-            this.btnLaserToggle.Location = new System.Drawing.Point(1252, 13);
+            this.btnLaserToggle.Location = new System.Drawing.Point(941, 13);
             this.btnLaserToggle.Name = "btnLaserToggle";
             this.btnLaserToggle.Size = new System.Drawing.Size(180, 60);
             this.btnLaserToggle.TabIndex = 492;
@@ -1677,7 +1719,7 @@
             this.btnTiltAuto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTiltAuto.Font = new System.Drawing.Font("Tahoma", 14.25F);
             this.btnTiltAuto.Image = global::OpenGrade.Properties.Resources.Toggle_Tilt_MANUAL;
-            this.btnTiltAuto.Location = new System.Drawing.Point(1252, 539);
+            this.btnTiltAuto.Location = new System.Drawing.Point(941, 511);
             this.btnTiltAuto.Name = "btnTiltAuto";
             this.btnTiltAuto.Size = new System.Drawing.Size(180, 60);
             this.btnTiltAuto.TabIndex = 490;
@@ -1696,7 +1738,7 @@
             this.btnVertAuto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVertAuto.Font = new System.Drawing.Font("Tahoma", 14.25F);
             this.btnVertAuto.Image = global::OpenGrade.Properties.Resources.Toggle_Vert_MANUAL;
-            this.btnVertAuto.Location = new System.Drawing.Point(80, 538);
+            this.btnVertAuto.Location = new System.Drawing.Point(80, 510);
             this.btnVertAuto.Name = "btnVertAuto";
             this.btnVertAuto.Size = new System.Drawing.Size(180, 60);
             this.btnVertAuto.TabIndex = 489;
@@ -1708,13 +1750,13 @@
             // 
             this.pbarCutAboveR.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pbarCutAboveR.BarBackColor = System.Drawing.Color.Black;
-            cBlendItems11.iColor = new System.Drawing.Color[] {
+            cBlendItems5.iColor = new System.Drawing.Color[] {
         System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))),
         System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))))};
-            cBlendItems11.iPoint = new float[] {
+            cBlendItems5.iPoint = new float[] {
         0F,
         1F};
-            this.pbarCutAboveR.BarColorBlend = cBlendItems11;
+            this.pbarCutAboveR.BarColorBlend = cBlendItems5;
             this.pbarCutAboveR.BarColorSolid = System.Drawing.Color.Black;
             this.pbarCutAboveR.BarColorSolidB = System.Drawing.Color.Red;
             this.pbarCutAboveR.BarLengthValue = ((short)(40));
@@ -1731,10 +1773,10 @@
             this.pbarCutAboveR.Corners.UpperRight = ((short)(0));
             this.pbarCutAboveR.CylonInterval = ((short)(1));
             this.pbarCutAboveR.CylonMove = 5F;
-            cFocalPoints11.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints11.CenterPoint")));
-            cFocalPoints11.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints11.FocusScales")));
-            this.pbarCutAboveR.FocalPoints = cFocalPoints11;
-            this.pbarCutAboveR.Location = new System.Drawing.Point(1433, 12);
+            cFocalPoints5.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints5.CenterPoint")));
+            cFocalPoints5.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints5.FocusScales")));
+            this.pbarCutAboveR.FocalPoints = cFocalPoints5;
+            this.pbarCutAboveR.Location = new System.Drawing.Point(1122, 12);
             this.pbarCutAboveR.Name = "pbarCutAboveR";
             this.pbarCutAboveR.Orientation = ProgBar.ProgBarPlus.eOrientation.Vertical;
             this.pbarCutAboveR.ShapeTextFont = new System.Drawing.Font("Arial Black", 30F);
@@ -1747,13 +1789,13 @@
             this.pbarCutBelowR.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pbarCutBelowR.AutoSize = true;
             this.pbarCutBelowR.BarBackColor = System.Drawing.Color.Black;
-            cBlendItems12.iColor = new System.Drawing.Color[] {
+            cBlendItems6.iColor = new System.Drawing.Color[] {
         System.Drawing.Color.Navy,
         System.Drawing.Color.Blue};
-            cBlendItems12.iPoint = new float[] {
+            cBlendItems6.iPoint = new float[] {
         0F,
         1F};
-            this.pbarCutBelowR.BarColorBlend = cBlendItems12;
+            this.pbarCutBelowR.BarColorBlend = cBlendItems6;
             this.pbarCutBelowR.BarColorSolid = System.Drawing.Color.Black;
             this.pbarCutBelowR.BarColorSolidB = System.Drawing.Color.RoyalBlue;
             this.pbarCutBelowR.BarLengthValue = ((short)(40));
@@ -1771,16 +1813,38 @@
             this.pbarCutBelowR.CylonInterval = ((short)(1));
             this.pbarCutBelowR.CylonMove = 5F;
             this.pbarCutBelowR.FillDirection = ProgBar.ProgBarPlus.eFillDirection.Down_Left;
-            cFocalPoints12.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints12.CenterPoint")));
-            cFocalPoints12.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints12.FocusScales")));
-            this.pbarCutBelowR.FocalPoints = cFocalPoints12;
-            this.pbarCutBelowR.Location = new System.Drawing.Point(1433, 288);
+            cFocalPoints6.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints6.CenterPoint")));
+            cFocalPoints6.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints6.FocusScales")));
+            this.pbarCutBelowR.FocalPoints = cFocalPoints6;
+            this.pbarCutBelowR.Location = new System.Drawing.Point(1122, 288);
             this.pbarCutBelowR.Name = "pbarCutBelowR";
             this.pbarCutBelowR.Orientation = ProgBar.ProgBarPlus.eOrientation.Vertical;
             this.pbarCutBelowR.ShapeTextFont = new System.Drawing.Font("Arial Black", 30F);
-            this.pbarCutBelowR.Size = new System.Drawing.Size(50, 314);
+            this.pbarCutBelowR.Size = new System.Drawing.Size(50, 284);
             this.pbarCutBelowR.TabIndex = 483;
             this.pbarCutBelowR.TextFormat = "Process {1}% Done";
+            // 
+            // openGLControlCS
+            // 
+            this.openGLControlCS.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.openGLControlCS.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.openGLControlCS.Cursor = System.Windows.Forms.Cursors.Cross;
+            this.openGLControlCS.DrawFPS = false;
+            this.openGLControlCS.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.openGLControlCS.Location = new System.Drawing.Point(700, 12);
+            this.openGLControlCS.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.openGLControlCS.Name = "openGLControlCS";
+            this.openGLControlCS.OpenGLVersion = SharpGL.Version.OpenGLVersion.OpenGL2_1;
+            this.openGLControlCS.RenderContextType = SharpGL.RenderContextType.NativeWindow;
+            this.openGLControlCS.RenderTrigger = SharpGL.RenderTrigger.Manual;
+            this.openGLControlCS.Size = new System.Drawing.Size(421, 279);
+            this.openGLControlCS.TabIndex = 493;
+            this.openGLControlCS.OpenGLInitialized += new System.EventHandler(this.openGLControlCS_OpenGLInitialized);
+            this.openGLControlCS.OpenGLDraw += new SharpGL.RenderEventHandler(this.openGLControlCS_OpenGLDraw);
+            this.openGLControlCS.Resized += new System.EventHandler(this.openGLControlCS_Resized);
+            this.openGLControlCS.MouseClick += new System.Windows.Forms.MouseEventHandler(this.openGLControlCS_MouseClick);
+            this.openGLControlCS.MouseMove += new System.Windows.Forms.MouseEventHandler(this.openGLControlCS_MouseMove);
             // 
             // statusStrip2
             // 
@@ -1799,10 +1863,10 @@
             this.toolStripStatusLabel31,
             this.tStripBladeRightDelta,
             this.toolStripStatusLabel7});
-            this.statusStrip2.Location = new System.Drawing.Point(5, 779);
+            this.statusStrip2.Location = new System.Drawing.Point(5, 736);
             this.statusStrip2.Name = "statusStrip2";
             this.statusStrip2.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.statusStrip2.Size = new System.Drawing.Size(1603, 20);
+            this.statusStrip2.Size = new System.Drawing.Size(1292, 20);
             this.statusStrip2.TabIndex = 486;
             this.statusStrip2.Text = "statusStrip2";
             this.statusStrip2.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.statusStrip2_ItemClicked);
@@ -1938,10 +2002,10 @@
             this.tStripRightIndicator,
             this.tStrip3,
             this.stripOnlineGPS});
-            this.statusStrip1.Location = new System.Drawing.Point(5, 719);
+            this.statusStrip1.Location = new System.Drawing.Point(5, 676);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.statusStrip1.Size = new System.Drawing.Size(1603, 60);
+            this.statusStrip1.Size = new System.Drawing.Size(1292, 60);
             this.statusStrip1.TabIndex = 487;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -2060,11 +2124,11 @@
             // tStrip3
             // 
             this.tStrip3.AutoSize = false;
-            this.tStrip3.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tStrip3.Font = new System.Drawing.Font("Tahoma", 10F);
             this.tStrip3.ForeColor = System.Drawing.Color.White;
             this.tStrip3.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
             this.tStrip3.Name = "tStrip3";
-            this.tStrip3.Size = new System.Drawing.Size(150, 60);
+            this.tStrip3.Size = new System.Drawing.Size(200, 60);
             this.tStrip3.Text = "0.00";
             this.tStrip3.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
@@ -2096,7 +2160,7 @@
             this.statusStrip4.Location = new System.Drawing.Point(5, 45);
             this.statusStrip4.Name = "statusStrip4";
             this.statusStrip4.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.statusStrip4.Size = new System.Drawing.Size(1603, 20);
+            this.statusStrip4.Size = new System.Drawing.Size(1292, 20);
             this.statusStrip4.TabIndex = 489;
             this.statusStrip4.Text = "statusStrip4";
             // 
@@ -2262,7 +2326,7 @@
             this.statusStrip5.Location = new System.Drawing.Point(5, 65);
             this.statusStrip5.Name = "statusStrip5";
             this.statusStrip5.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.statusStrip5.Size = new System.Drawing.Size(1603, 20);
+            this.statusStrip5.Size = new System.Drawing.Size(1292, 20);
             this.statusStrip5.TabIndex = 490;
             this.statusStrip5.Text = "statusStrip5";
             // 
@@ -2555,7 +2619,7 @@
             this.statusStrip3.Location = new System.Drawing.Point(5, 5);
             this.statusStrip3.Name = "statusStrip3";
             this.statusStrip3.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.statusStrip3.Size = new System.Drawing.Size(1603, 40);
+            this.statusStrip3.Size = new System.Drawing.Size(1292, 40);
             this.statusStrip3.TabIndex = 488;
             this.statusStrip3.Text = "statusStrip3";
             // 
@@ -2609,21 +2673,13 @@
             this.tStripRollCorrection.Size = new System.Drawing.Size(80, 40);
             this.tStripRollCorrection.Text = "0.00";
             // 
-            // clearCoverageToolStripMenuItem
-            // 
-            this.clearCoverageToolStripMenuItem.BackColor = System.Drawing.Color.Yellow;
-            this.clearCoverageToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F);
-            this.clearCoverageToolStripMenuItem.Name = "clearCoverageToolStripMenuItem";
-            this.clearCoverageToolStripMenuItem.Size = new System.Drawing.Size(364, 44);
-            this.clearCoverageToolStripMenuItem.Text = "Clear Coverage";
-            this.clearCoverageToolStripMenuItem.Click += new System.EventHandler(this.clearCoverageToolStripMenuItem_Click);
-            // 
             // FormGPS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.ClientSize = new System.Drawing.Size(1613, 804);
+            this.ClientSize = new System.Drawing.Size(1302, 761);
+            this.Controls.Add(this.panelSimControls);
             this.Controls.Add(this.statusStrip5);
             this.Controls.Add(this.statusStrip4);
             this.Controls.Add(this.statusStrip3);
@@ -2661,6 +2717,7 @@
             this.panelLegend.PerformLayout();
             this.PanelDisplays.ResumeLayout(false);
             this.PanelDisplays.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.openGLControlCS)).EndInit();
             this.statusStrip2.ResumeLayout(false);
             this.statusStrip2.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -2703,7 +2760,6 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.NumericUpDown nudElevation;
         private System.Windows.Forms.Label lblMaxDepth;
         private System.Windows.Forms.Label lblMinCover;
         private System.Windows.Forms.Button sqrMinCover;
@@ -2751,11 +2807,9 @@
         private System.Windows.Forms.ToolStripMenuItem tileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ditchToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem contourToolStripMenuItem;
-        private System.Windows.Forms.NumericUpDown nudLongitude;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.NumericUpDown nudLatitude;
-        private System.Windows.Forms.Button btnSimGoTo;
         private ProgBar.ProgBarPlus pbarCutBelowL;
         private ProgBar.ProgBarPlus pbarCutAboveL;
         private System.Windows.Forms.Panel PanelDisplays;
@@ -2858,6 +2912,12 @@
         private System.Windows.Forms.ToolStripStatusLabel tStripBladeRightDelta;
         public System.Windows.Forms.ToolStripStatusLabel tStrip3;
         private System.Windows.Forms.ToolStripMenuItem clearCoverageToolStripMenuItem;
+        private System.Windows.Forms.Button btnSimGoTo;
+        private System.Windows.Forms.NumericUpDown nudLongitude;
+        private SharpGL.OpenGLControl openGLControlCS;
+        private System.Windows.Forms.ToolStripDropDownButton tStripChooseSide;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton2;
+        public System.Windows.Forms.NumericUpDown nudElevation;
     }
 }
 

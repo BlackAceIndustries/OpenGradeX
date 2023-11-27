@@ -441,6 +441,7 @@
             0,
             0,
             0});
+            this.nudKp.ValueChanged += new System.EventHandler(this.nudKp_ValueChanged_2);
             // 
             // label5
             // 
@@ -464,6 +465,7 @@
             0,
             0,
             0});
+            this.nudKi.ValueChanged += new System.EventHandler(this.nudKi_ValueChanged_2);
             // 
             // label6
             // 

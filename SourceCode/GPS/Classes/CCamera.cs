@@ -10,6 +10,7 @@ namespace OpenGrade
         private readonly double camPosZ;
 
         private double fixHeading;
+        private double fixOffset;
         public double camYaw;
 
         public double camPitch;
@@ -30,6 +31,7 @@ namespace OpenGrade
             camPosY = _fixPosY;
             fixHeading = _fixHeading;
             camYaw = _fixHeading;
+            
 
             //back the camera up
             gl.Translate(0, 0, camSetDistance * 0.45);

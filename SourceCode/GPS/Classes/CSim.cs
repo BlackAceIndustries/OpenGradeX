@@ -21,7 +21,7 @@ namespace OpenGrade
         //GPS related properties
         private readonly int fixQuality = 3, sats = 7;
         private readonly double HDOP = 0.9;
-        public double altitude = 100.0;
+        public double altitude = 100;
         private readonly char EW = 'W';
         private readonly char NS = 'N';
 
@@ -54,7 +54,7 @@ namespace OpenGrade
             altitude += Properties.Vehicle.Default.setVehicle_antennaHeight;
         }
 
-        public void DoSimTick(double _st)
+        public void DoSimTick(double _st, double cutDelta)
         {
             steerAngle = _st;
             double temp = (stepDistance * Math.Tan(steerAngle * 0.01745329252) / 3.3);
@@ -74,6 +74,15 @@ namespace OpenGrade
             speed = Math.Round(1.944 * stepDistance * 5.0, 1);
             //lblSpeed.Text = (Math.Round(1.852 * speed, 1)).ToString();
 
+
+            if (mf.isAutoVertOn && cutDelta != 9999)
+            {
+                altitude = altitude - (cutDelta/100 * .2); 
+                //mf.nudElevation.Value = (decimal)altitude;
+
+                mf.tStrip3.Text = altitude.ToString("F2")+ "  " + cutDelta.ToString("F2");// 
+                    //mf.sim.altitude
+            }
             BuildGGA();
             BuildVTG();
 

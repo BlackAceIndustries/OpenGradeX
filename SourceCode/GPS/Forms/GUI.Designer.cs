@@ -78,7 +78,7 @@ namespace OpenGrade
             isSkyOn = Settings.Default.setMenu_isSkyOn;
             //skyToolStripMenu.Checked = isSkyOn;
 
-            //simulatorOnToolStripMenuItem.Checked = Settings.Default.setMenu_isSimulatorOn;
+            isSimOn = Settings.Default.setMenu_isSimulatorOn;
             
             
             if (isSimOn)
@@ -1123,8 +1123,8 @@ namespace OpenGrade
             //if a GPS is connected disable sim
             if (antennaModuleTimeout > 10 )  // Need to change this
             {
-                if (isGradeControlBtnOn) sim.DoSimTick(guidanceLineSteerAngle / 10.0);
-                else sim.DoSimTick(sim.steerAngleScrollBar);
+                if (isGradeControlBtnOn) sim.DoSimTick(guidanceLineSteerAngle / 10.0, cutDelta);
+                else sim.DoSimTick(sim.steerAngleScrollBar, cutDelta);//
             }
             else
             {

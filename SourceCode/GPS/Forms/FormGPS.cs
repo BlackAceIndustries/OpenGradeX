@@ -100,6 +100,8 @@ namespace OpenGrade
         // Grade Modes
         public enum gradeMode { surface, ditch, tile, contour }
 
+        public enum BladePoint { left, center, right}
+
 
         //section button states
         public enum manBtn { Off, Auto, On }
@@ -109,7 +111,7 @@ namespace OpenGrade
 
         public surveyMode curSurveyMode = surveyMode.survey3D;
         public gradeMode curMode = gradeMode.surface;
-
+        public BladePoint curBlade = BladePoint.center;
 
         // Manual, 3 states possible
         public enum btnStates { Off, Rec, RecBnd, Work, Stdby}
@@ -122,7 +124,7 @@ namespace OpenGrade
         //Zoom variables
         public double gridZoom;
 
-        public double zoomValue = 3.5;
+        public double zoomValue = 5.0;
         public double triangleResolution = 1.0;
         private double previousZoom = 25;
         public uint[] texture = new uint[3];
@@ -150,7 +152,8 @@ namespace OpenGrade
         public string gcVerison, atVersion;
 
         //used in altitude window for gain
-        private double altitudeWindowGain = 10.0;
+        private double altitudeWindowGain = 5.0;
+        public double altitudeWindowGain2 = 10.0;
 
         private double barGraphMax = 50;
 
@@ -1242,7 +1245,7 @@ namespace OpenGrade
             //}
         }
 
-        private void openGLControlBack_Load(object sender, EventArgs e)
+        public void openGLControlBack_Load(object sender, EventArgs e)
         {
 
         }
@@ -2225,6 +2228,73 @@ namespace OpenGrade
         {
             patchSaveList.Clear();
             section[1].patchList.Clear();
+        }
+
+        private void lblSteerAngle_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panelSimControls_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void tStripChooseSide_Click(object sender, EventArgs e)
+        {
+            switch (curBlade)
+            {
+                case FormGPS.BladePoint.left:
+                {
+                        curBlade = FormGPS.BladePoint.center;
+                        break;
+                }
+                case FormGPS.BladePoint.center:
+                {
+                        curBlade = FormGPS.BladePoint.right;
+                        break;
+                }
+                case FormGPS.BladePoint.right:
+                {
+                        curBlade = FormGPS.BladePoint.left;
+                        break;
+                }
+
+            }
+            
+        }
+
+        private void toolStripDropDownButton2_Click(object sender, EventArgs e)
+        {
+            ct.clearPTList();
+        }
+
+        private void btn2D_Click(object sender, EventArgs e)
+        {
+            if (camOffset < 340)
+            {
+                camOffset += 20;
+
+            }
+            else
+            {
+                camOffset = 0;
+            }
+            
+        }
+
+        private void btn3D_Click(object sender, EventArgs e)
+        {
+            if (camOffset > 20)
+            {
+                camOffset -= 20;
+
+            }
+            else
+            {
+                camOffset = 360;
+            }
+
         }
 
         private void PanelDisplays_Paint(object sender, PaintEventArgs e)

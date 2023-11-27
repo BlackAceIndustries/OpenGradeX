@@ -19,7 +19,7 @@ namespace OpenGrade
         private double mappingDist;
 
 
-        public bool isContourOn, isContourBtnOn =true;
+        public bool isContourOn, isContourBtnOn = false;
         public bool surveyMode;
         public bool isSurveyOn;
         public bool markBM;
@@ -1436,8 +1436,6 @@ namespace OpenGrade
                         if (surveyList[h].code == 0) gl.Color(0.97f, 0.82f, 0.95f);
                         if (surveyList[h].code == 2) gl.Color(0.5f, 0.82f, 0.95f);
 
-
-
                         gl.Vertex(surveyList[h].easting, surveyList[h].northing, 0);
 
                     }
@@ -1874,47 +1872,36 @@ namespace OpenGrade
 
             }
 
+            //mf.curBlade = FormGPS.BladePoint.center;
+
+
+            if (mf.curBlade == FormGPS.BladePoint.left)
+            {
+                BuildGuideCross(mf.pn.bladeLeft.easting, mf.pn.bladeLeft.northing, 50.0);
+
+            }
+            if (mf.curBlade == FormGPS.BladePoint.center)
+            {
+                BuildGuideCross(mf.pn.bladeCenter.easting, mf.pn.bladeCenter.northing, 50.0);
+
+            }
+            if (mf.curBlade == FormGPS.BladePoint.right)
+            {
+                BuildGuideCross(mf.pn.bladeRight.easting, mf.pn.bladeRight.northing, 50.0);
+
+            }
+
+
+            //BuildGuideCross(mf.pn.bladeCenter.easting, mf.pn.bladeCenter.northing, 50.0);
+            
+            
+            
             // DRAWLOOK AHEAD POINT
             double lookAheadDistance = 10;
-            double crossDistance = 500;
             lookAheadDistance = mf.pn.speed * .01 * lookAheadDistance;
             double halfToolWidth = (Properties.Vehicle.Default.setVehicle_toolWidth) / 2;
+            CalcLookaheadPoints(lookAheadDistance);
 
-            
-
-            
-            // GUIDE CROSS
-            mf.pn.GuideLine1.easting = mf.pn.easting + Math.Cos(mf.fixHeading + glm.PIBy2) * -crossDistance;
-            mf.pn.GuideLine1.northing = mf.pn.northing + Math.Sin(mf.fixHeading - glm.PIBy2) * -crossDistance;
-            mf.pn.GuideLine2.easting = mf.pn.easting + Math.Cos(mf.fixHeading + glm.PIBy2) * crossDistance;
-            mf.pn.GuideLine2.northing = mf.pn.northing + Math.Sin(mf.fixHeading - glm.PIBy2) * crossDistance;
-            mf.pn.GuideLine3.easting = mf.pn.easting + Math.Sin(mf.fixHeading - glm.PIBy2) * -crossDistance;
-            mf.pn.GuideLine3.northing = mf.pn.northing + Math.Cos(mf.fixHeading - glm.PIBy2) * -crossDistance;
-            mf.pn.GuideLine4.easting = mf.pn.easting + Math.Sin(mf.fixHeading - glm.PIBy2) * crossDistance;
-            mf.pn.GuideLine4.northing = mf.pn.northing + Math.Cos(mf.fixHeading - glm.PIBy2) * crossDistance;
-
-            mf.pn.lookaheadCenter.easting = mf.pn.easting + Math.Cos(mf.fixHeading + glm.PIBy2) * -lookAheadDistance;
-            mf.pn.lookaheadCenter.northing = mf.pn.northing + Math.Sin(mf.fixHeading - glm.PIBy2) * -lookAheadDistance;
-
-
-
-            //mf.pn.lookaheadRight.easting = mf.pn.easting + Math.Sin(mf.fixHeading - glm.PIBy2) * -halfToolWidth;
-            //mf.pn.lookaheadRight.northing = mf.pn.northing + Math.Cos(mf.fixHeading - glm.PIBy2) * -halfToolWidth;                       
-
-            //mf.pn.lookaheadRight.easting = mf.pn.lookaheadRight.easting + Math.Cos(mf.fixHeading + glm.PIBy2) * -lookAheadDistance;
-            //mf.pn.lookaheadRight.northing = mf.pn.lookaheadRight.northing + Math.Sin(mf.fixHeading - glm.PIBy2) * -lookAheadDistance;
-
-            //mf.pn.lookaheadLeft.easting = mf.pn.easting + Math.Sin(mf.fixHeading - glm.PIBy2) * halfToolWidth;
-            //mf.pn.lookaheadLeft.northing = mf.pn.northing + Math.Cos(mf.fixHeading - glm.PIBy2) * halfToolWidth;
-
-            //mf.pn.lookaheadLeft.easting = mf.pn.lookaheadLeft.easting + Math.Cos(mf.fixHeading + glm.PIBy2) * -lookAheadDistance;
-            //mf.pn.lookaheadLeft.northing = mf.pn.lookaheadLeft.northing + Math.Sin(mf.fixHeading - glm.PIBy2) * -lookAheadDistance;
-
-            mf.pn.lookaheadRight.easting = mf.pn.bladeRight.easting + Math.Cos(mf.fixHeading + glm.PIBy2) * -lookAheadDistance;
-            mf.pn.lookaheadRight.northing = mf.pn.bladeRight.northing + Math.Sin(mf.fixHeading - glm.PIBy2) * -lookAheadDistance;
-
-            mf.pn.lookaheadLeft.easting = mf.pn.bladeLeft.easting + Math.Cos(mf.fixHeading + glm.PIBy2) * -lookAheadDistance;
-            mf.pn.lookaheadLeft.northing = mf.pn.bladeLeft.northing + Math.Sin(mf.fixHeading - glm.PIBy2) * -lookAheadDistance;
 
 
 
@@ -2065,7 +2052,31 @@ namespace OpenGrade
         }
 
 
+        private void BuildGuideCross(double easting, double northing, double CrossLength)
+        {
+            // GUIDE CROSS
+            mf.pn.GuideLine1.easting = easting + Math.Cos(mf.fixHeading + glm.PIBy2) * -CrossLength;
+            mf.pn.GuideLine1.northing = northing + Math.Sin(mf.fixHeading - glm.PIBy2) * -CrossLength;
+            mf.pn.GuideLine2.easting = easting + Math.Cos(mf.fixHeading + glm.PIBy2) * CrossLength;
+            mf.pn.GuideLine2.northing = northing + Math.Sin(mf.fixHeading - glm.PIBy2) * CrossLength;
+            mf.pn.GuideLine3.easting = easting + Math.Sin(mf.fixHeading - glm.PIBy2) * -CrossLength;
+            mf.pn.GuideLine3.northing = northing + Math.Cos(mf.fixHeading - glm.PIBy2) * -CrossLength;
+            mf.pn.GuideLine4.easting = easting + Math.Sin(mf.fixHeading - glm.PIBy2) * CrossLength;
+            mf.pn.GuideLine4.northing = northing + Math.Cos(mf.fixHeading - glm.PIBy2) * CrossLength;
 
+
+        }
+
+        public void CalcLookaheadPoints(double lookahead)
+        {
+            mf.pn.lookaheadCenter.easting = mf.pn.easting + Math.Cos(mf.fixHeading + glm.PIBy2) * -lookahead;
+            mf.pn.lookaheadCenter.northing = mf.pn.northing + Math.Sin(mf.fixHeading - glm.PIBy2) * -lookahead;
+            mf.pn.lookaheadRight.easting = mf.pn.bladeRight.easting + Math.Cos(mf.fixHeading + glm.PIBy2) * -lookahead;
+            mf.pn.lookaheadRight.northing = mf.pn.bladeRight.northing + Math.Sin(mf.fixHeading - glm.PIBy2) * -lookahead;
+            mf.pn.lookaheadLeft.easting = mf.pn.bladeLeft.easting + Math.Cos(mf.fixHeading + glm.PIBy2) * -lookahead;
+            mf.pn.lookaheadLeft.northing = mf.pn.bladeLeft.northing + Math.Sin(mf.fixHeading - glm.PIBy2) * -lookahead;
+
+        }
 
         public void calc3DContour()
         {

@@ -514,6 +514,16 @@ namespace OpenGrade
             mf.mc.ToggleIMUCorrection();
         }
 
+        private void nudKp_ValueChanged_2(object sender, EventArgs e)
+        {
+
+        }
+
+        private void nudKi_ValueChanged_2(object sender, EventArgs e)
+        {
+
+        }
+
         private void nudPlowHeight_ValueChanged_2(object sender, EventArgs e)
         {
             plowHeight = (double)nudDistFromSurvey.Value;

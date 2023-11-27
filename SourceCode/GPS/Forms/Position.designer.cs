@@ -38,7 +38,7 @@ namespace OpenGrade
         public vec2 prevFix = new vec2(0, 0);
 
         //headings
-        public double fixHeading = 0.0, camHeading = 0.0, gpsHeading = 0.0, prevGPSHeading = 0.0, prevPrevGPSHeading = 0.0;
+        public double fixHeading = 0.0, camHeading = 0.0, camOffset = 45.0, gpsHeading = 0.0, prevGPSHeading = 0.0, prevPrevGPSHeading = 0.0;
         public bool isTurningRight = false;
         public bool isTurning = false;
 
@@ -347,7 +347,7 @@ namespace OpenGrade
 
             #region AutoSteer
 
-            guidanceLineDistanceOff = 32000;    //preset the values
+            //guidanceLineDistanceOff = 32000;    //preset the values
 
             //do the distance from line calculations for contour and AB
             if (ct.isContourBtnOn) ct.DistanceFromContourLine();
@@ -358,10 +358,10 @@ namespace OpenGrade
             }
 
             // autosteer at full speed of updates
-            if (!isGradeControlBtnOn) //32020 means auto steer is off
-            {
-                guidanceLineDistanceOff = 32020;
-            }
+            //if (!isGradeControlBtnOn) //32020 means auto steer is off
+            //{
+            //    guidanceLineDistanceOff = 32020;
+            //}
 
             // If Drive button enabled be normal, or just fool the autosteer and fill values
             if (!isInFreeDriveMode)
@@ -556,7 +556,10 @@ namespace OpenGrade
             guidanceLineDistanceOff = 32000;    //preset the values
 
             //do the distance from line calculations for contour and AB
-            if (ct.isContourBtnOn) ct.DistanceFromContourLine();
+            //if (ct.isContourBtnOn) ct.DistanceFromContourLine();
+
+            ct.DistanceFromContourLine();
+
             if (ABLine.isABLineSet && !ct.isContourBtnOn)
             {
                 ABLine.GetCurrentABLine();

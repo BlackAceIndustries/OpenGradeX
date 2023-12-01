@@ -79,8 +79,7 @@ namespace OpenGrade
             //skyToolStripMenu.Checked = isSkyOn;
 
             isSimOn = Settings.Default.setMenu_isSimulatorOn;
-            
-            
+
             if (isSimOn)
             {
                 panelSimControls.Visible = true;
@@ -1400,20 +1399,6 @@ namespace OpenGrade
                 //counter used for saving field in background
                 saveCounter++;
 
-                //if (tabGradeControl.SelectedIndex == 0 && tabGradeControl.Visible)
-                //{
-
-                //both
-                //lblLatitude.Text = Latitude;
-                //lblLongitude.Text = Longitude;
-                //lblFixQuality.Text = FixQuality;
-                //lblFix.Text = FixQuality;
-
-                //if (pn.ageDiff == 0) lblRTKAgeDisplay.Text = "N/A";
-
-                //else lblRTKAgeDisplay.Text = AgeDiff;
-
-
                 if (pn.fixQuality != 4 && pn.lastFixQuality == 4 && isGradeControlBtnOn)
                 {
                     //btnGradeControl.PerformClick();
@@ -1435,14 +1420,14 @@ namespace OpenGrade
 
                 }
 
-
-                if (FixQuality == "RTK fix") {
+                if (FixQuality == "RTK fix")
+                {
 
                     RTK_LED.Value = 100;
-                    RTK_LED.BackColor = Color.LimeGreen;                          
+                    RTK_LED.BackColor = Color.LimeGreen;
                     PanelDisplays.BackColor = Color.Green;
 
-                }                               
+                }
                 else if (FixQuality == "Flt RTK")
                 {
 
@@ -1450,18 +1435,18 @@ namespace OpenGrade
                     //RTK_LED.BackColor = Color.Yellow;
                     PanelDisplays.BackColor = Color.DarkGray;
                 }
-
-
                 else if (FixQuality == "PPS fix")
                 {
                     //RTK_LED.Value = 100;
                     //RTK_LED.BackColor = Color.Purple;                    
                     PanelDisplays.BackColor = Color.DarkGray;
                 }
+                else
+                {
+                    RTK_LED.Value = 0;
+                    RTK_LED.BackColor = Color.Black;
+                }
 
-
-                else RTK_LED.Value = 0;
-                 RTK_LED.BackColor = Color.Black;
 
                 if (FixQuality == "RTK fix" || FixQuality == "Flt RTK")
                 {

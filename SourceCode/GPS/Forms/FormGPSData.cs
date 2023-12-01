@@ -71,10 +71,6 @@ namespace OpenGrade
 
 
 
-            //tboxNMEASerial.Text = mf.pn.rawBuffer;
-
-
-
 
 
 

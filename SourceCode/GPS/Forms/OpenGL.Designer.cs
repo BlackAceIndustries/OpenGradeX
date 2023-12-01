@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -65,6 +66,7 @@ namespace OpenGrade
         private double drawPtWidth = 1; // the size of the map pixel in meter
         //the point in the real world made from clicked screen coords
         vec2 screen2FieldPt = new vec2();
+        vec2 screen2FieldPt2 = new vec2();
 
         double fovy = 45;
         double camDistanceFactor = -2;
@@ -90,7 +92,26 @@ namespace OpenGrade
                 gl.LoadIdentity();
 
                 //camera does translations and rotations
-                camera.SetWorldCam(gl, pn.easting, pn.northing, camHeading - camOffset);
+
+                if (curBlade == FormGPS.BladePoint.left)
+                {
+                    camera.SetWorldCam(gl, pn.bladeLeft.easting, pn.bladeLeft.northing, camHeading - camOffset);
+                }
+                if (curBlade == FormGPS.BladePoint.center)
+                {
+                    camera.SetWorldCam(gl, pn.bladeCenter.easting, pn.bladeCenter.northing, camHeading - camOffset);
+                }
+                if (curBlade == FormGPS.BladePoint.right)
+                {
+                    camera.SetWorldCam(gl, pn.bladeRight.easting, pn.bladeRight.northing, camHeading - camOffset);
+                }
+
+
+
+
+
+
+                //camera.SetWorldCam(gl, pn.easting, pn.northing, camHeading - camOffset);
 
                 //draw the field ground images
                 CalcFrustum();
@@ -240,7 +261,6 @@ namespace OpenGrade
                             isDraw = true;
                             int count2 = triList.Count;
 
-                            //tStrip3.Text = count2.ToString();
 
                             //for (int i = 1; i < count2; i += 3)
                             //{                                
@@ -324,8 +344,6 @@ namespace OpenGrade
                                     //}
 
 
-
-                                    //tStrip3.Text = alpha.ToString("F2");
 
                                     //gl.Color(red, green, blue, alpha);                   
                                     gl.Vertex(triList[i].easting, triList[i].northing, 0);
@@ -685,6 +703,8 @@ namespace OpenGrade
                 }
 
                 openGLControlBack.DoRender();
+                openGLControlCS.DoRender();
+
             }
         }
 
@@ -791,31 +811,32 @@ namespace OpenGrade
 
             if (!isLevelOn)
             {
-                if (ptCnt > 0)
+
+
+                //closestPoint = FindClosestPoint();
+
+
+                //closestPoint = FindClosestPoint();
+
+                switch (curBlade)
                 {
-                    minDist = 8000;
-                    int ptCount = ct.ptList.Count - 1;//
+                    case BladePoint.left:
+                        closestPoint = FindClosestPoint(pn.bladeLeft);
+                        break;
+                    case BladePoint.center:
+                        closestPoint = FindClosestPoint(pn.bladeCenter);
+                        break;
 
-                    //find the closest point to current fix
-                    for (int t = 0; t < ptCount; t++)
-                    {
-                        double dist = ((pn.lookaheadCenter.easting - ct.ptList[t].easting) * (pn.lookaheadCenter.easting - ct.ptList[t].easting))
-                                        + ((pn.lookaheadCenter.northing - ct.ptList[t].northing) * (pn.lookaheadCenter.northing - ct.ptList[t].northing));
+                    case BladePoint.right:
+                        closestPoint = FindClosestPoint(pn.bladeRight);
+                        break;
+                        
+                    default:
+                        closestPoint = FindClosestPoint(pn.bladeCenter);
+                        break;
 
-                        //double dist = ((pn.easting - ct.ptList[t].easting) * (pn.easting - ct.ptList[t].easting))
-                        //                + ((pn.northing - ct.ptList[t].northing) * (pn.northing - ct.ptList[t].northing));
-
-
-                        if (dist < minDist)
+                }
                         {
-                            minDist = dist; closestPoint = t;
-                        }
-
-                        //tStrip3.Text = minDist.ToString("f2");
-
-                    }
-
-
 
                     //Black Ace Industries 
 
@@ -1024,7 +1045,7 @@ namespace OpenGrade
                             //AutoShore Active
                             if (isAutoShoreOn)
                             {
-                                double x = (Math.Tan(glm.toRadians(vehicle.minShoreSlope)) * ct.distanceFromCurrentLine);
+                                double x = (Math.Tan(glm.toRadians(vehicle.minCrossSlope)) * ct.distanceFromCurrentLine);
                                 cutDelta += x;
                             }
 
@@ -1232,6 +1253,7 @@ namespace OpenGrade
             gl.Translate(-centerX, -centerY, 0);
 
             gl.Color(1, 1, 1);
+            //tStrip3.Text = cameraDistanceZ.ToString("F2");
 
             //reset cut delta for frame
             cutDelta = 9999;
@@ -1257,7 +1279,11 @@ namespace OpenGrade
 
 
             gl.LineWidth(4);
+
+
             
+
+
 
             if (!isLevelOn)
             {
@@ -1282,12 +1308,11 @@ namespace OpenGrade
                             distToClosestPoint = minDist;
                         }
 
-                        //tStrip3.Text = minDist.ToString("f2");
 
                     }
 
                     CalculateMinMaxZoomMoving(closestPoint);
-
+                    BuildCrossSectionView(closestPoint);
 
 
                     //Black Ace Industries 
@@ -1321,15 +1346,15 @@ namespace OpenGrade
 
 
                                     }
-                                    
+                                  
 
                                 }
-                                
+                              
                             }
-                                                        
+                                                      
                             gl.End();
 
-                            gl.Color(.0f, .0f, 1.0f);
+                            //gl.Color(.0f, .0f, 1.0f);
                             gl.Begin(OpenGL.GL_TRIANGLE_STRIP);
 
                             if (ptCnt > 0)
@@ -1623,7 +1648,7 @@ namespace OpenGrade
                             //AutoShore Active
                             if (isAutoShoreOn)
                             {
-                                double x = (Math.Tan(glm.toRadians(vehicle.minShoreSlope)) * ct.distanceFromCurrentLine);
+                                double x = (Math.Tan(glm.toRadians(vehicle.minCrossSlope)) * ct.distanceFromCurrentLine);
                                 cutDelta += x;
                             }
 
@@ -1945,15 +1970,185 @@ namespace OpenGrade
             //  Set the modelview matrix.
             gls.MatrixMode(OpenGL.GL_MODELVIEW);
         }
-       
-        
-        #endregion 
 
 
+        #endregion
+
+        // Cross Section
         #region openGLControlCS
+
+        public double csmaxFieldX, csmaxFieldY, csminFieldX, csminFieldY, cscenterX, cscenterY, cscameraDistanceZ;
 
         private void openGLControlCS_OpenGLDraw(object sender, RenderEventArgs args)
         {
+            OpenGL gl = openGLControlCS.OpenGL;
+
+            //antialiasing - fastest
+            gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);  // Clear The Screen And The Depth Buffer
+
+            gl.Enable(OpenGL.GL_LINE_SMOOTH);
+            //gl.Enable(OpenGL.GL_BLEND);
+
+            
+
+            gl.Hint(OpenGL.GL_LINE_SMOOTH_HINT, OpenGL.GL_FASTEST);
+            gl.Hint(OpenGL.GL_POINT_SMOOTH_HINT, OpenGL.GL_FASTEST);
+            gl.Hint(OpenGL.GL_POLYGON_SMOOTH_HINT, OpenGL.GL_FASTEST);
+
+            gl.LoadIdentity();                  // Reset The View
+
+            //if adding new points recalc mins maxes
+            //if (manualBtnState == btnStates.Rec) CalculateMinMaxZoomCrossSection();
+            CalculateMinMaxZoomCrossSection();
+
+
+            //autogain the window
+            if ((csmaxFieldY - csminFieldY) != 0)
+                altitudeWindowGainCS = (Math.Abs(cscameraDistanceZ / (csmaxFieldY - csminFieldY))) * 0.80;
+            else altitudeWindowGainCS = 10;
+
+            //translate to that spot in the world 
+            gl.Translate(0, 0, -cscameraDistanceZ);
+
+            //gl.Translate(0, 0, 100);
+            gl.Translate(-cscenterX, -cscenterY, 0);
+
+            gl.Color(1, 1, 1);
+
+            int ptCnt = ct.csList.Count;
+
+
+
+            //tStrip3.Text = cscenterX.ToString("f2") + "  " + cscenterY.ToString("f2");
+
+
+
+            gl.Begin(OpenGL.GL_TRIANGLE_STRIP);
+            gl.Color(.55f, .55f, .55f);            
+
+            if (ptCnt > 0)
+            {               
+                 for (int i = 0; i < ptCnt; i++)
+                 {
+
+
+                    //gl.Vertex(i, ct.csList[i].altitude , 0);
+
+                    gl.Vertex(i, (((ct.csList[i].altitude - cscenterY) * altitudeWindowGainCS) + cscenterY), 0);
+                    gl.Vertex(i, -100, 0);
+                    //tStrip3.Text = cscameraDistanceZ.ToString("f2");
+
+                    
+                 }
+            }
+
+            gl.End();
+
+            // ELEVATION LINE
+            
+            //gl.Begin(OpenGL.GL_LINES); 
+            //gl.LineWidth(1);
+            //gl.Color(0.980f, 0.98f, 0.980f);
+
+            //if (ptCnt > 0)
+            //{
+            //    for (int i = 0; i < ptCnt; i++)
+            //    {
+            //        gl.Vertex(i, (((ct.csList[i].altitude - cscenterY) * altitudeWindowGainCS) + cscenterY), 0);
+                  
+            //    }
+            //}
+            //gl.End();
+            // Cut ELEVATION LINE
+            gl.Begin(OpenGL.GL_LINE_STRIP);
+            gl.LineWidth(20);
+            gl.Color(0.0f, 0.98f, 0.0f);
+
+            if (ptCnt > 0)
+            {
+                for (int i = 0; i < ptCnt; i++)
+                {
+                    gl.Vertex(i, (((ct.csList[i].cutAltitude - cscenterY) * altitudeWindowGainCS) + cscenterY), 0);
+                }
+            }
+
+            gl.End();
+
+
+
+
+            //gl.Color(0.0f, 0.0f, 0.0f);
+            //gl.PointSize(8);
+            //gl.Begin(OpenGL.GL_POINTS);
+            //gl.Vertex(closestPoint, (((pn.altitude - centerY) * altitudeWindowGain) + centerY), 0);
+            //gl.End();
+
+            // Blade LINE
+            UpdateBladeEnds();
+
+
+           
+            
+            
+
+            //gl.LineWidth(2);
+
+            // Draw Blade
+            gl.Color(0.8f, 0.8f, 0.8f, 0.7f);
+
+
+
+            if (cutDelta < -3)//Blue
+            {
+                gl.Color(0.25f, .5f, 0.99f, 0.80f);
+            }
+            if (cutDelta > 3)// Red
+            {
+                gl.Color(0.99f, .01f, 0.01f, 0.80f);
+            }
+            if (cutDelta > -3 && cutDelta < 3)  //GREEN
+            {
+                gl.Color(0.15, .45f, .15f, .8f);
+            }
+
+            gl.Begin(OpenGL.GL_POLYGON);
+
+            gl.Vertex(cscenterX + -vehicle.toolWidth, (((pn.bladeLeft.altitude - cscenterY) * altitudeWindowGainCS) + cscenterY), 0);
+            gl.Vertex(cscenterX + vehicle.toolWidth, (((pn.bladeRight.altitude - cscenterY) * altitudeWindowGainCS) + cscenterY), 0);
+            gl.Vertex(cscenterX + vehicle.toolWidth, (((pn.bladeRight.altitude - cscenterY) * altitudeWindowGainCS) + cscenterY) + vehicle.toolHeight * altitudeWindowGainCS, 0);            
+            gl.Vertex(cscenterX + -vehicle.toolWidth, (((pn.bladeLeft.altitude - cscenterY) * altitudeWindowGainCS) + cscenterY) + vehicle.toolHeight * altitudeWindowGainCS, 0);
+
+            gl.End();
+
+            gl.PointSize(7);
+            gl.Color(0.01f, 0.01f, 0.01f);
+            gl.Begin(OpenGL.GL_POINTS);
+
+
+
+            if (curBlade == FormGPS.BladePoint.left)
+            {
+                gl.Vertex(cscenterX, (((pn.bladeCenter.altitude - cscenterY) * altitudeWindowGainCS) + cscenterY), 0);
+                gl.Vertex(cscenterX + vehicle.toolWidth, (((pn.bladeRight.altitude - cscenterY) * altitudeWindowGainCS) + cscenterY), 0);
+                gl.Color(1.0f, 0.01f, 0.01f);
+                gl.Vertex(cscenterX + -vehicle.toolWidth, (((pn.bladeLeft.altitude - cscenterY) * altitudeWindowGainCS) + cscenterY), 0);
+
+            }
+            if (curBlade == FormGPS.BladePoint.center)
+            {
+                gl.Vertex(cscenterX + -vehicle.toolWidth, (((pn.bladeLeft.altitude - cscenterY) * altitudeWindowGainCS) + cscenterY), 0);
+                gl.Vertex(cscenterX + vehicle.toolWidth, (((pn.bladeRight.altitude - cscenterY) * altitudeWindowGainCS) + cscenterY), 0);
+                gl.Color(1.0f, 0.01f, 0.01f);
+                gl.Vertex(cscenterX, (((pn.bladeCenter.altitude - cscenterY) * altitudeWindowGainCS) + cscenterY), 0);
+            }
+            if (curBlade == FormGPS.BladePoint.right)
+            {
+                gl.Vertex(cscenterX, (((pn.bladeCenter.altitude - cscenterY) * altitudeWindowGainCS) + cscenterY), 0);
+                gl.Vertex(cscenterX + -vehicle.toolWidth, (((pn.bladeLeft.altitude - cscenterY) * altitudeWindowGainCS) + cscenterY), 0);
+                gl.Color(1.0f, 0.01f, 0.01f);
+                gl.Vertex(cscenterX + vehicle.toolWidth, (((pn.bladeRight.altitude - cscenterY) * altitudeWindowGainCS) + cscenterY), 0);
+            }
+            gl.End();
 
 
         }
@@ -1961,6 +2156,51 @@ namespace OpenGrade
         private void openGLControlCS_MouseMove(object sender, MouseEventArgs e)
         {
 
+            Point screenPt = new Point();
+            screenPt.X = e.Location.X;
+            screenPt.Y = ((openGLControlCS.Height - e.Location.Y) - openGLControlCS.Height / 2);
+
+            //convert screen coordinates to field coordinates
+            screen2FieldPt2.easting = ((double)screenPt.X) * (double)cscameraDistanceZ / openGLControlCS.Width + csminFieldX;
+            screen2FieldPt2.northing = ((double)screenPt.Y) * (double)cscameraDistanceZ / (openGLControlCS.Height * altitudeWindowGainCS);
+            screen2FieldPt2.northing += cscenterY;
+
+
+
+
+            //tStrip3.Text = screen2FieldPt2.easting.ToString("F2")+ "  "+ screen2FieldPt2.northing.ToString("F2") ;
+
+            //stripTopoLocation.Text = ((int)(screen2FieldPt.easting)).ToString() + ": " + screen2FieldPt.northing.ToString("N3");
+
+            //if (ct.csList.Count > 0 && !ct.isContourOn)
+            //{
+            //    int pnt = (int)screen2FieldPt2.easting;
+            //    double x = ct.csList[pnt].altitude - ct.ptList[pnt].cutAltitude;
+            //    double y = screen2FieldPt2.northing - ct.ptList[pnt].cutAltitude;
+
+            //    x *= 100;
+            //    y *= 100;
+
+            //    if (isMetric)
+            //    {
+            //        tStriptoSurvey.Text = x.ToString("F2");
+            //        tStripToDesign.Text = y.ToString("F2");
+
+            //        //stripDepth.Text = x.ToString("N0") + " CM";
+            //        //stripDepthtoTarget.Text = y.ToString("N0") + " CM";
+
+            //    }
+            //    else
+            //    {
+            //        x *= 0.393701;
+            //        y *= 0.393701;
+            //        tStriptoSurvey.Text = x.ToString("F2");
+            //        tStripToDesign.Text = y.ToString("F2");
+            //        //stripDepth.Text = x.ToString("N1") + " Inches";
+            //        //stripDepthtoTarget.Text = y.ToString("N1") + " Inches";
+            //    }
+
+            //}
 
         }
 
@@ -1973,16 +2213,43 @@ namespace OpenGrade
         public void openGLControlCS_OpenGLInitialized(object sender, EventArgs e)
         {
 
+                //LoadGLTexturesBack();
+                OpenGL gls = openGLControlCS.OpenGL;
+
+                //  Set the clear color.
+                gls.ClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+
+                // Set The Blending Function For Translucency
+                gls.BlendFunc(OpenGL.GL_SRC_ALPHA, OpenGL.GL_ONE_MINUS_SRC_ALPHA);
+
+                gls.Enable(OpenGL.GL_BLEND);
+                //gls.Disable(OpenGL.GL_DEPTH_TEST);
+
+                gls.Enable(OpenGL.GL_CULL_FACE);
+                gls.CullFace(OpenGL.GL_BACK);
+            
+
         }
 
         public void openGLControlCS_Resized(object sender, EventArgs e)
         {
+            //  Get the OpenGL object.
+            OpenGL gls = openGLControlCS.OpenGL;
+
+            gls.MatrixMode(OpenGL.GL_PROJECTION);
+
+            //  Load the identity.
+            gls.LoadIdentity();
+
+            // change these at your own peril!!!! Very critical
+            //  Create a perspective transformation.
+            gls.Perspective(53.1, 1, 1, 6000);
+
+            //  Set the modelview matrix.
+            gls.MatrixMode(OpenGL.GL_MODELVIEW);
 
         }
         #endregion
-
-
-
 
 
 
@@ -2062,6 +2329,81 @@ namespace OpenGrade
             }
         }
 
+        private void CalculateMinMaxZoomCrossSection()
+        {
+            csminFieldX = 9999999; csminFieldY = 9999999;
+            csmaxFieldX = -9999999; csmaxFieldY = -9999999;
+            //center
+
+
+            //every time the section turns off and on is a new patch
+            int cnt = ct.csList.Count;
+            
+            if (cnt > 0)
+            {
+                
+                for (int i = 0; i < cnt -1; i++)
+                {
+                    double x = i;
+                    double y = ct.csList[i].altitude;
+
+                    //also tally the max/min of Cut x and z
+                    if (csminFieldX > x) csminFieldX = x;
+                    if (csmaxFieldX < x) csmaxFieldX = x;
+                    if (csminFieldY > y) csminFieldY = y;
+                    if (csmaxFieldY < y) csmaxFieldY = y;
+                }
+            }
+            
+
+            //stripMinMax.Text = "MAX " + maxFieldY.ToString("N2") + "m : MIN " + minFieldY.ToString("N2") + "m : " + (maxFieldY - minFieldY).ToString("N2") + "m";
+
+            if (csmaxFieldX == -9999999 | csminFieldX == 9999999 | csmaxFieldY == -9999999 | csminFieldY == 9999999)
+            {
+                csmaxFieldX = 0; csminFieldX = 0; csmaxFieldY = 0; csminFieldY = 0;
+                cscameraDistanceZ = 10;
+            }
+            else
+            {
+                //Max horizontal
+                cscameraDistanceZ = Math.Abs(csminFieldX - csmaxFieldX);
+
+                if (cscameraDistanceZ < 10) cscameraDistanceZ = 10;
+                if (cscameraDistanceZ > 6000) cscameraDistanceZ = 6000;
+
+
+                // Black Ace Industries
+                switch (curMode)
+                {
+                    case gradeMode.surface:
+                        csmaxFieldY = (csmaxFieldY+ 1); // vehicle.viewDistAboveGnd
+                        csminFieldY = (csminFieldY- 1);    //  vehicle.viewDistUnderGnd
+                        break;
+
+                    case gradeMode.ditch:
+                        csmaxFieldY = (csmaxFieldY + 1);
+                        csminFieldY = (csminFieldY - vehicle.maxDitchCut);
+                        break;
+
+                    case gradeMode.tile:
+                        csmaxFieldY = (csmaxFieldY + 1);
+                        csminFieldY = (csminFieldY - vehicle.maxTileCut);
+                        break;
+
+                    default:
+
+                        break;
+                }
+
+                cscenterX = (csmaxFieldX + csminFieldX) / 2.0;
+                cscenterY = (csmaxFieldY + csminFieldY) / 2.0;
+
+
+
+            }
+            //tStrip3.Text = csmaxFieldY.ToString() + "  " + csminFieldY.ToString();
+        }
+
 
         private void CalculateMinMaxZoomMoving(int closestPnt)
         {
@@ -2136,11 +2478,7 @@ namespace OpenGrade
 
             }
 
-            
-
-
-            //tStrip3.Text = cnt.ToString() + "  "+ closestPnt.ToString();
-          
+                      
             if (maxFieldX == -9999999 | minFieldX == 9999999 | maxFieldY == -9999999 | minFieldY == 9999999)
             {
                 maxFieldX = 0; minFieldX = 0; maxFieldY = 0; minFieldY = 0;
@@ -2185,6 +2523,7 @@ namespace OpenGrade
 
             }
         }
+        
         public List<vec2> tList = new List<vec2>();
         public double slopeDraw = 0.0;
 
@@ -2250,8 +2589,6 @@ namespace OpenGrade
                 //clean out the list
                 tList.Clear();
 
-
-                //tStrip3.Text = cut.ToString("F2");
                 
                 //lblCut.Text = cut.ToString("N2");
                 //lblFill.Text = fill.ToString("N2");
@@ -2487,9 +2824,145 @@ namespace OpenGrade
             }
         }
 
+        public int FindClosestPoint(vec4 pnt)
+        {
+            int ptCnt = ct.ptList.Count -1;
+            int closestPoint = -1;
+
+            if (ptCnt > 0)
+            {
+                minDist = 8000;
+                int ptCount = ct.ptList.Count - 1;//
+
+                //find the closest point to current fix
+                for (int t = 0; t < ptCount; t++)
+                {
+                    double dist = ((pnt.easting - ct.ptList[t].easting) * (pnt.easting - ct.ptList[t].easting))
+                                    + ((pnt.northing - ct.ptList[t].northing) * (pnt.northing - ct.ptList[t].northing));
+
+                    //double dist = ((pn.easting - ct.ptList[t].easting) * (pn.easting - ct.ptList[t].easting))
+                    //                + ((pn.northing - ct.ptList[t].northing) * (pn.northing - ct.ptList[t].northing));
+
+
+                    if (dist < minDist)
+                    {
+                        minDist = dist; closestPoint = t;
+                    }
+
+
+                }
+            }
+             return closestPoint;
+
+        }
+        
+        public int FindClosestPoint()
+        {
+            int ptCnt = ct.ptList.Count - 1;
+            int closestPoint = -1;
+
+            if (ptCnt > 0)
+            {
+                minDist = 8000;
+                int ptCount = ct.ptList.Count - 1;//
+
+                //find the closest point to current fix
+                for (int t = 0; t < ptCount; t++)
+                {
+                    double dist = ((pn.lookaheadCenter.easting - ct.ptList[t].easting) * (pn.lookaheadCenter.easting - ct.ptList[t].easting))
+                                    + ((pn.lookaheadCenter.northing - ct.ptList[t].northing) * (pn.lookaheadCenter.northing - ct.ptList[t].northing));
+
+                    //double dist = ((pn.easting - ct.ptList[t].easting) * (pn.easting - ct.ptList[t].easting))
+                    //                + ((pn.northing - ct.ptList[t].northing) * (pn.northing - ct.ptList[t].northing));
+
+
+                    if (dist < minDist)
+                    {
+                        minDist = dist; closestPoint = t;
+                    }
+
+
+                }
+            }
+            return closestPoint;
+
+        }
+
+        public void BuildCrossSectionView(int closetPnt)
+        {
+
+            int crossSectionSize = 15; // points 
+            int crossSectionRes = 10; // cm
+
+
+            if (curMode != FormGPS.gradeMode.contour)            {
+
+                int centerPnt = crossSectionSize / 2;
+                ct.csList.Clear();
+                //tStrip3.Text= ct.ptList[closetPnt].altitude.ToString();
+
+                for (int i = 0; i < crossSectionSize; i++) 
+                {                   
+
+                    
+                    if (i >= centerPnt)
+                    {
+                        double dist = (centerPnt - i) * crossSectionRes;
+
+                        double easting = 0;
+                        double northing = 0;
+                        tStrip3.Text = dist.ToString("F2");
+                        easting = pn.easting + Math.Sin(fixHeading - glm.PIBy2) * -dist;
+                        northing =  pn.northing + Math.Cos(fixHeading - glm.PIBy2) * -dist;
+
+                        CContourPt point = new CContourPt(easting, fixHeading, northing, ct.ptList[closetPnt].altitude, pn.latitude, pn.longitude, ct.ptList[closetPnt].cutAltitude);
+
+                        //CContourPt point = new CContourPt(easting, fixHeading, northing, pn.altitude, pn.latitude, pn.longitude);
+
+                        //ct.ptList[i].altitude
+
+                        ct.csList.Add(point);
+                        
+                    }
+                    else
+                    {
+
+                        double dist = (i - centerPnt) * crossSectionRes;
+
+                        double easting = 0;
+                        double northing = 0;
+                        tStrip3.Text = dist.ToString("F2");
+
+                        easting = pn.easting + Math.Sin(fixHeading - glm.PIBy2) * dist;
+                        northing = pn.northing + Math.Cos(fixHeading - glm.PIBy2) * dist;
+
+                        CContourPt point = new CContourPt(easting, fixHeading, northing, ct.ptList[closetPnt].altitude, pn.latitude, pn.longitude, ct.ptList[closetPnt].cutAltitude);
+                        //CContourPt point = new CContourPt(easting, fixHeading, northing, pn.altitude, pn.latitude, pn.longitude);
+                        ct.csList.Add(point);
+                    }
+                }
+            }
+            else
+            {
 
 
 
+
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        }
 
 
 
@@ -3078,7 +3551,8 @@ namespace OpenGrade
         }
 
 
-
+    }//endo of class
+}
 
         /// <summary>
         /// ################################################## 3D ###########################################
@@ -3254,5 +3728,4 @@ namespace OpenGrade
 
 
 
-    }//endo of class
-}
+    

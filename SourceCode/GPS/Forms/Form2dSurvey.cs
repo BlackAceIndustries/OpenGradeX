@@ -31,7 +31,23 @@ namespace OpenGrade
             
         }
 
-        public void openGLControlBack_OpenGLInitialized(object sender, EventArgs e)
+
+        private void Form2dSurvey_Load(object sender, EventArgs e)
+        {
+            this.StartPosition = FormStartPosition.CenterParent; 
+            this.Width = mf.Width;       
+
+            this.tStripSlopeAuto.Text = mf.vehicle.minSlope.ToString("F2")  +  " % ";
+            this.tStripShoreAuto.Text = mf.vehicle.minCrossSlope.ToString("F2") + " % ";
+        }
+
+
+
+
+
+
+
+            public void openGLControlBack_OpenGLInitialized(object sender, EventArgs e)
         {
             //LoadGLTexturesBack();
             OpenGL gls = openGLControlBack.OpenGL;
@@ -469,7 +485,7 @@ namespace OpenGrade
                             //AutoShore Active
                             if (mf.isAutoShoreOn)
                             {
-                                double xy = (Math.Tan(glm.toRadians(mf.vehicle.minShoreSlope)) * mf.ct.distanceFromCurrentLine);
+                                double xy = (Math.Tan(glm.toRadians(mf.vehicle.minCrossSlope)) * mf.ct.distanceFromCurrentLine);
                                 mf.cutDelta += xy;
                             }
 
@@ -1066,6 +1082,21 @@ namespace OpenGrade
         private void timer1_Tick(object sender, EventArgs e)
         {
             openGLControlBack.DoRender();
+            tStrip2.Text = mf.slopeDraw.ToString("F2");
+            tStrip3.Text = mf.ct.GetMaxCut().ToString("F2");
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            mf.ct.SmoothLine(5);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            //mf.ct.Update();
+               //mf.ct.ptList.Clear();
+            //mf.ct.ptList.Add(mf.ct.autoList);
         }
 
         private void button1_Click(object sender, EventArgs e)

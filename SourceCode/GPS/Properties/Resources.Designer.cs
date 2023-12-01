@@ -393,6 +393,36 @@ namespace OpenGrade.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap BladeCenter {
+            get {
+                object obj = ResourceManager.GetObject("BladeCenter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BladeLeft {
+            get {
+                object obj = ResourceManager.GetObject("BladeLeft", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BladeRight {
+            get {
+                object obj = ResourceManager.GetObject("BladeRight", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Boundary {
             get {
                 object obj = ResourceManager.GetObject("Boundary", resourceCulture);
@@ -2316,6 +2346,26 @@ namespace OpenGrade.Properties {
         internal static System.Drawing.Bitmap ResetTool {
             get {
                 object obj = ResourceManager.GetObject("ResetTool", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RotateLeft {
+            get {
+                object obj = ResourceManager.GetObject("RotateLeft", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RotateRight {
+            get {
+                object obj = ResourceManager.GetObject("RotateRight", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

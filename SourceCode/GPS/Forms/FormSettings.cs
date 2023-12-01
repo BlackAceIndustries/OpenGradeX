@@ -13,8 +13,10 @@ namespace OpenGrade
        //class variables
         private readonly FormGPS mf = null;
 
-        private double antennaHeight, plowHeight, minSlope, minShoreSlope, toolWidth, maxTileCut, disFromSurvey,
+        private double antennaHeight, plowHeight, minSlope, minCrossSlope, toolWidth, maxTileCut, disFromSurvey,
             maxDitchCut, minTileCover, minDitchCut,viewDistAboveGnd, viewDistUnderGnd;
+
+
         private byte KpGain, KiGain, KdGain, retDeadband, extDeadband, valveType;
       
         private readonly double metImp2m, m2MetImp;
@@ -66,10 +68,11 @@ namespace OpenGrade
             valveSelectChoice.Text = Properties.Settings.Default.set_ValveName;
            
             toolWidth = Properties.Vehicle.Default.setVehicle_toolWidth;            
-            minSlope = Properties.Vehicle.Default.setVehicle_minSlope*100;
+            minSlope = Properties.Vehicle.Default.setVehicle_minSlope;
             mf.vehicle.minSlope = minSlope; 
 
-            minShoreSlope = Properties.Vehicle.Default.setVehicle_minShoreSlope;
+            minCrossSlope = Properties.Vehicle.Default.setVehicle_minShoreSlope;
+            mf.vehicle.minCrossSlope = minCrossSlope;
 
 
             nudAntennaHeight.ValueChanged -= nudAntennaHeight_ValueChanged;
@@ -129,7 +132,7 @@ namespace OpenGrade
             nudMinSlope.ValueChanged += nudMinSlope_ValueChanged;
 
             nudMinShoreSlope.ValueChanged -= nudMinShoreSlope_ValueChanged;
-            nudMinShoreSlope.Value = (decimal)(minShoreSlope);
+            nudMinShoreSlope.Value = (decimal)(minCrossSlope);
             nudMinShoreSlope.ValueChanged += nudMinShoreSlope_ValueChanged;
 
 
@@ -140,11 +143,11 @@ namespace OpenGrade
         private void btnOK_Click(object sender, EventArgs e)
         {
             //Vehicle settings -------------------------------------------------------------------------------
-            mf.vehicle.minSlope = Math.Abs(minSlope/100);
+            mf.vehicle.minSlope = Math.Abs(minSlope);
             Properties.Vehicle.Default.setVehicle_minSlope = mf.vehicle.minSlope;
 
-            mf.vehicle.minShoreSlope = minShoreSlope;
-            Properties.Vehicle.Default.setVehicle_minShoreSlope = mf.vehicle.minShoreSlope;
+            mf.vehicle.minCrossSlope = minCrossSlope;
+            Properties.Vehicle.Default.setVehicle_minShoreSlope = mf.vehicle.minCrossSlope;
 
             mf.vehicle.disFromSurvey = disFromSurvey;
             Properties.Vehicle.Default.setVehicle_plowHeight = mf.vehicle.disFromSurvey;
@@ -524,6 +527,36 @@ namespace OpenGrade
 
         }
 
+        private void nudMinSlope_ValueChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDown1_ValueChanged_2(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox6_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label11_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label19_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnImuReset_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void nudPlowHeight_ValueChanged_2(object sender, EventArgs e)
         {
             plowHeight = (double)nudDistFromSurvey.Value;
@@ -658,7 +691,7 @@ namespace OpenGrade
 
         private void nudMinShoreSlope_ValueChanged(object sender, EventArgs e)
         {
-            minShoreSlope = (double)nudMinShoreSlope.Value;
+            minCrossSlope = (double)nudMinShoreSlope.Value;
         }
 
 

@@ -38,7 +38,7 @@ namespace OpenGrade
         public vec2 prevFix = new vec2(0, 0);
 
         //headings
-        public double fixHeading = 0.0, camHeading = 0.0, camOffset = 45.0, gpsHeading = 0.0, prevGPSHeading = 0.0, prevPrevGPSHeading = 0.0;
+        public double fixHeading = 0.0, camHeading = 0.0, camOffset = 0, gpsHeading = 0.0, prevGPSHeading = 0.0, prevPrevGPSHeading = 0.0;
         public bool isTurningRight = false;
         public bool isTurning = false;
 
@@ -314,9 +314,7 @@ namespace OpenGrade
                 //To prevent drawing high numbers of triangles, determine and test before drawing vertex
                 sectionTriggerDistance = pn.Distance(pn.northing, pn.easting, prevContourPos.northing, prevContourPos.easting);
 
-                //tStrip3.Text = sectionTriggerDistance.ToString("F2");
-
-                //tStrip3.Text = numTriangles.ToString("F2");
+             
                 //numTriangles
 
                 UpdateBladeEnds();
@@ -610,41 +608,41 @@ namespace OpenGrade
         }
 
 
-        private void UpdateBladePosition()
-        {
+        //private void UpdateBladePosition()
+        //{
 
-            pn.bladeLeft.easting = pn.easting;
-            pn.bladeLeft.northing = pn.northing;
-            pn.bladeLeft.heading = pn.headingTrue;
-            pn.bladeLeft.altitude = pn.altitude;
+        //    pn.bladeLeft.easting = pn.easting;
+        //    pn.bladeLeft.northing = pn.northing;
+        //    pn.bladeLeft.heading = pn.headingTrue;
+        //    pn.bladeLeft.altitude = pn.altitude;
 
 
-            pn.bladeRight.easting = pn2.easting;
-            pn.bladeRight.northing = pn2.northing;
-            pn.bladeRight.heading = pn2.headingTrue;
-            pn.bladeRight.altitude = pn2.altitude;
+        //    pn.bladeRight.easting = pn2.easting;
+        //    pn.bladeRight.northing = pn2.northing;
+        //    pn.bladeRight.heading = pn2.headingTrue;
+        //    pn.bladeRight.altitude = pn2.altitude;
 
-            if (pn.bladeLeft.altitude >= pn.bladeRight.altitude)
-            {
-                pn.isLeftHigher = true;
-                pn.eDiff = pn.bladeLeft.altitude - pn.bladeRight.altitude;
-                pn.bladeCenter.altitude = (pn.eDiff / 2) + pn.bladeRight.altitude;
-                //pn.bladeAngle = Math.Cos(pn.eDiff / (mf.vehicle.toolWidth / 2));
+        //    if (pn.bladeLeft.altitude >= pn.bladeRight.altitude)
+        //    {
+        //        pn.isLeftHigher = true;
+        //        pn.eDiff = pn.bladeLeft.altitude - pn.bladeRight.altitude;
+        //        pn.bladeCenter.altitude = (pn.eDiff / 2) + pn.bladeRight.altitude;
+        //        //pn.bladeAngle = Math.Cos(pn.eDiff / (mf.vehicle.toolWidth / 2));
 
-            }
-            else
-            {
-                pn.isLeftHigher = false;
-                pn.eDiff = pn.bladeRight.altitude - pn.bladeLeft.altitude;
-                pn.bladeCenter.altitude = (pn.eDiff / 2) + pn.bladeLeft.altitude;
-                //pn.bladeAngle = Math.Cos(pn.eDiff / (mf.vehicle.toolWidth / 2));
-            }
+        //    }
+        //    else
+        //    {
+        //        pn.isLeftHigher = false;
+        //        pn.eDiff = pn.bladeRight.altitude - pn.bladeLeft.altitude;
+        //        pn.bladeCenter.altitude = (pn.eDiff / 2) + pn.bladeLeft.altitude;
+        //        //pn.bladeAngle = Math.Cos(pn.eDiff / (mf.vehicle.toolWidth / 2));
+        //    }
 
-            pn.bladeCenter.heading = (pn.bladeRight.heading + pn.bladeLeft.heading) / 2;
+        //    pn.bladeCenter.heading = (pn.bladeRight.heading + pn.bladeLeft.heading) / 2;
 
-            //pn.UpdateBlade();
+        //    //pn.UpdateBlade();
 
-        }
+        //}
 
 
         public void UpdateBladeEnds()
@@ -677,60 +675,64 @@ namespace OpenGrade
 
 
             }
-            //else if (isDualAntenna)// Dual Recievers
-            //{
-            //    pn.bladeLeft.easting = pn.easting;
-            //    pn.bladeLeft.northing = pn.northing;
-            //    pn.bladeLeft.heading = pn.headingTrue;
-            //    pn.bladeLeft.altitude = pn.altitude;
+            else if (isDualAntenna)// Dual Recievers
+            {
+                pn.bladeLeft.easting = pn.easting;
+                pn.bladeLeft.northing = pn.northing;
+                pn.bladeLeft.heading = pn.headingTrue;
+                pn.bladeLeft.altitude = pn.altitude;
 
 
-            //    pn.bladeRight.easting = pn2.easting;
-            //    pn.bladeRight.northing =    pn2.northing;
-            //    pn.bladeRight.heading =     pn2.headingTrue;
-            //    pn.bladeRight.altitude =    pn2.altitude;
+                pn.bladeRight.easting = pn2.easting;
+                pn.bladeRight.northing =    pn2.northing;
+                pn.bladeRight.heading =     pn2.headingTrue;
+                pn.bladeRight.altitude =    pn2.altitude;
 
-            //    if (pn.bladeLeft.altitude >= pn.bladeRight.altitude)
-            //    {
-            //        pn.isLeftHigher = true;
-            //        pn.eDiff = pn.bladeLeft.altitude - pn.bladeRight.altitude;
-            //        pn.bladeCenter.altitude = (pn.eDiff / 2) +  pn.bladeRight.altitude;
-            //        pn.bladeAngle = Math.Cos(pn.eDiff / (vehicle.toolWidth / 2));
+                if (pn.bladeLeft.altitude >= pn.bladeRight.altitude)
+                {
+                    pn.isLeftHigher = true;
+                    pn.eDiff = pn.bladeLeft.altitude - pn.bladeRight.altitude;
+                    pn.bladeCenter.altitude = (pn.eDiff / 2) +  pn.bladeRight.altitude;
+                    pn.bladeAngle = Math.Cos(pn.eDiff / (vehicle.toolWidth / 2));
 
-            //    }
-            //    else
-            //    {
-            //        pn.isLeftHigher = false;
-            //        pn.eDiff = pn.bladeRight.altitude - pn.bladeLeft.altitude;
-            //        pn.bladeCenter.altitude = (pn.eDiff / 2) + pn.bladeLeft.altitude;
-            //        pn.bladeAngle = Math.Cos(pn.eDiff / (vehicle.toolWidth / 2));
-            //    }
+                }
+                else
+                {
+                    pn.isLeftHigher = false;
+                    pn.eDiff = pn.bladeRight.altitude - pn.bladeLeft.altitude;
+                    pn.bladeCenter.altitude = (pn.eDiff / 2) + pn.bladeLeft.altitude;
+                    pn.bladeAngle = Math.Cos(pn.eDiff / (vehicle.toolWidth / 2));
+                }
 
-            //    pn.bladeCenter.heading = pn.averageDualHead(pn.bladeRight.heading, pn.bladeLeft.heading);
+                pn.bladeCenter.heading = pn.averageDualHead(pn.bladeRight.heading, pn.bladeLeft.heading);
 
 
-            //}
-            //else if (mf.isImuAsDual) // Single Reciever With IMU 
-            //{
-            //    //Find Center
-            //    pn.bladeCenter.easting = pn.easting;
-            //    pn.bladeCenter.northing = pn.northing;
-            //    pn.bladeCenter.heading =   pn.headingTrue;
-            //    pn.bladeCenter.altitude = pn.altitude;
+            }
+            else if (isImuAsDual) // Single Reciever With IMU 
+            {
+                
+                // CALCULATE BLADE POSTION FROM HEADING AND IMU ROLL ANGLE
+                
+                
+                //Find Center
+                pn.bladeCenter.easting = pn.easting;
+                pn.bladeCenter.northing = pn.northing;
+                pn.bladeCenter.heading =   pn.headingTrue;
+                pn.bladeCenter.altitude = pn.altitude;
 
-            //    //Find RightSide
-            //    pn.bladeRight.easting = pn.easting + Math.Sin(fixHeading - glm.PIBy2) * -halfToolWidth;
-            //    pn.bladeRight.northing = pn.northing + Math.Cos(mf.fixHeading - glm.PIBy2) * -halfToolWidth;
-            //    pn.bladeRight.heading = pn.headingTrue;
-            //    pn.bladeRight.altitude = pn.altitude;
+                //Find RightSide
+                pn.bladeRight.easting = pn.easting + Math.Sin(fixHeading - glm.PIBy2) * -halfToolWidth;
+                pn.bladeRight.northing = pn.northing + Math.Cos(mf.fixHeading - glm.PIBy2) * -halfToolWidth;
+                pn.bladeRight.heading = pn.headingTrue;
+                pn.bladeRight.altitude = pn.altitude;
 
-            //    //Find LeftSide
-            //    pn.bladeLeft.easting = pn.easting + Math.Sin(mf.fixHeading - glm.PIBy2) * halfToolWidth;
-            //    pn.bladeLeft.northing = pn.northing + Math.Cos(mf.fixHeading - glm.PIBy2) * halfToolWidth;
-            //    pn.bladeLeft.heading = pn.headingTrue;
-            //    pn.bladeLeft.altitude = pn.altitude;
+                //Find LeftSide
+                pn.bladeLeft.easting = pn.easting + Math.Sin(mf.fixHeading - glm.PIBy2) * halfToolWidth;
+                pn.bladeLeft.northing = pn.northing + Math.Cos(mf.fixHeading - glm.PIBy2) * halfToolWidth;
+                pn.bladeLeft.heading = pn.headingTrue;
+                pn.bladeLeft.altitude = pn.altitude;
 
-            //}
+            }
 
 
 
@@ -839,15 +841,26 @@ namespace OpenGrade
                 {
                     section[1].AddMappingPoint(1);
                     //sectionCounter++;
-                    //tStrip3.Text= sectionCounter.ToString();
                 }
 
                 //Contour Base Track....
                 if (manualBtnState == btnStates.Rec)
                 {
                     //keep the line going, everything is on for recording path
-                    if (ct.isContourOn) ct.AddPoint();
-                    else { ct.StartContourLine(); ct.AddPoint(); }
+
+                    if (pn.fixQuality == 4 | pn.fixQuality == 8 | pn.fixQuality == 3)
+                    {
+                        if (ct.isContourOn)
+                        {  
+                        //if ()
+                            ct.AddPoint();
+                        }
+                        else 
+                        {
+                            ct.StartContourLine(); 
+                            ct.AddPoint(); 
+                        }
+                    }                    
                 }
 
                 //All sections OFF so if on, turn off

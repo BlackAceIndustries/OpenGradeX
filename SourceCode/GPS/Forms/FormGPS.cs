@@ -61,16 +61,6 @@ namespace OpenGrade
         // Cut and high altitude default red
         public byte redCut, grnCut, bluCut;
 
-
-
-
-
-
-
-
-
-
-
         //polygon mode for section drawing
         public bool isDrawPolygons;
 
@@ -88,12 +78,14 @@ namespace OpenGrade
 
 
 
-        public bool isPureDisplayOn = true, isSkyOn = true, isBigAltitudeOn = false, isSimOn = false, isGuidelineOn = true;
+        public bool isPureDisplayOn = true, isSkyOn = true, isBigAltitudeOn = false, isSimOn = true, isGuidelineOn = true;
 
         //bool for whether or not a job is active
         public bool isJobStarted = false, isAreaOnRight = true, isGradeControlBtnOn = false,  isLevelOn = false, isFirstPtSet = false, isCutSaved = false;
 
         public bool isAutoTiltOn = false, isAutoVertOn = false;
+
+        
 
         // isSurfaceModeOn = true, isPipeModeOn = false, isDitchModeOn = false,
         // 
@@ -153,7 +145,7 @@ namespace OpenGrade
 
         //used in altitude window for gain
         private double altitudeWindowGain = 5.0;
-        public double altitudeWindowGain2 = 10.0;
+        public double altitudeWindowGainCS = 10.0;
 
         private double barGraphMax = 50;
 
@@ -585,6 +577,7 @@ namespace OpenGrade
             //  Get the OpenGL object.
             OpenGL gl = openGLControl.OpenGL;
             OpenGL glBack = openGLControlBack.OpenGL;
+            OpenGL glCS = openGLControlCS.OpenGL;
 
             //create the world grid
             worldGrid = new CWorldGrid(gl, this);
@@ -1764,10 +1757,6 @@ namespace OpenGrade
 
         private void loadCutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
-
-
-
             using (var form = new FormJob(this))
             {
                 var result = form.ShowDialog(this);
@@ -2009,8 +1998,9 @@ namespace OpenGrade
 
         private void gPSDATAToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form form = new FormGPSData(this);
+            Form form = new FormAltSet(this);
             form.Show();
+           
         }
 
         private void tStripVerticalOffset_Click(object sender, EventArgs e)
@@ -2247,16 +2237,19 @@ namespace OpenGrade
                 case FormGPS.BladePoint.left:
                 {
                         curBlade = FormGPS.BladePoint.center;
+                        tStripChooseSide.Image = Properties.Resources.BladeCenter;
                         break;
                 }
                 case FormGPS.BladePoint.center:
                 {
                         curBlade = FormGPS.BladePoint.right;
+                        tStripChooseSide.Image = Properties.Resources.BladeRight;
                         break;
                 }
                 case FormGPS.BladePoint.right:
                 {
                         curBlade = FormGPS.BladePoint.left;
+                        tStripChooseSide.Image = Properties.Resources.BladeLeft;
                         break;
                 }
 
@@ -2295,6 +2288,58 @@ namespace OpenGrade
                 camOffset = 360;
             }
 
+        }
+
+        private void cLEARBLADEToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ct.clearPTList();
+        }
+
+        private void cLEARCOVERAGEToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            patchSaveList.Clear();
+            section[1].patchList.Clear();
+        }
+
+        private void sMOOTHLINEToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Form form = new FormGPSData(this);
+            form.Show();
+
+        }
+
+        private void fieldViewerToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripFieldInfoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+            if (isJobStarted)
+            {
+                if (ct.ptList.Count < 1)
+                    FileOpenAgdDesign();
+                else
+                {
+                    var form = new FormTimedMessage(3000, "Contour.txt already exist", "Delete the Contour.txt or create a new Field");
+                    form.Show();
+                }
+            }
+            else
+            {
+                var form = new FormTimedMessage(3000, "No field open", "Open a field First");
+                form.Show();
+            }
         }
 
         private void PanelDisplays_Paint(object sender, PaintEventArgs e)
@@ -2494,7 +2539,8 @@ namespace OpenGrade
                 }
 
                 openGLControlBack.Visible = true;
-                openGLControl.Height = 390;
+                openGLControl.Width = this.Width - 710;
+                
 
             //    PanelDisplays.Height = this.Height - 225;
             //    PanelDisplays.Width = this.Width - 115;
@@ -2531,9 +2577,9 @@ namespace OpenGrade
                 //btnGradeControl.Enabled = true;
                 btnTiltAuto.Enabled = true;
                 btnVertAuto.Enabled = true;
-
+                openGLControl.Width = this.Width - 290;
                     openGLControlBack.Visible = false;
-                    openGLControl.Height = this.Height - 210 - 24;
+                    
                }
 
         }
@@ -2924,7 +2970,7 @@ namespace OpenGrade
             //lblFill.Text = "*";
             //lblCutFillRatio.Text = "*";
             //lblDrawSlope.Text = "*";
-            Text = "OpenGradeX - Press Start To Begin";
+            Text = "OpenGradeX" +  "";
 
 
             //change images to reflect on off

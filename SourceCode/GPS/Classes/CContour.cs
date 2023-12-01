@@ -30,7 +30,7 @@ namespace OpenGrade
         public bool isBoundarySideRight = true;
         public bool isOpenGLControlBackVisible = true;
         public bool FloatIsOK;
-        public bool isOKtoSurvey = true;
+        public bool isOKtoSurvey = false;
         public bool drawTheMap = true;
         //public bool isSimulatorOn;
 
@@ -94,6 +94,8 @@ namespace OpenGrade
 
         public double nearestSurveyEasting;
         public double nearestSurveyNorthing;
+
+        public List<CContourPt>csList = new List<CContourPt>();
 
         public List<CContourPt> ptList = new List<CContourPt>();
 
@@ -560,7 +562,7 @@ namespace OpenGrade
             }
         }
 
-
+        
 
 
         public void clearPTList()
@@ -746,7 +748,7 @@ namespace OpenGrade
                     if (ptList[h].cutAltitude != -1)
                     {
                         diff = (ptList[h].cutAltitude * 100) - (ptList[h].altitude * 100);
-                        shoreDist = (diff / Math.Tan(glm.toRadians(mf.vehicle.minShoreSlope)));
+                        shoreDist = (diff / Math.Tan(glm.toRadians(mf.vehicle.minCrossSlope)));
                         gl.Vertex(ptList[h].easting + (shoreDist / 100), ptList[h].northing, 0);
                     }
 
@@ -762,7 +764,7 @@ namespace OpenGrade
                     {
                         diff = (ptList[h].cutAltitude * 100) - (ptList[h].altitude * 100);
                         //if (diff > 50 || diff > -50) diff = 0;
-                        shoreDist = (diff / Math.Tan(glm.toRadians(mf.vehicle.minShoreSlope)));
+                        shoreDist = (diff / Math.Tan(glm.toRadians(mf.vehicle.minCrossSlope)));
                         gl.Vertex(ptList[h].easting - (shoreDist / 100), ptList[h].northing, 0);
 
                     }
@@ -773,6 +775,25 @@ namespace OpenGrade
 
         }
 
+
+
+
+        public int FindLowestPoint(List<CContourPt> pointList)
+        {
+            int ptCnt = pointList.Count;            
+            int lowest = 0;           
+           
+            for (int k = 1; k < ptCnt; k++)
+            {
+                if (pointList[k].altitude <= pointList[k - 1].altitude)
+                {
+                lowest = k;
+                }
+            }
+            return lowest;
+
+        }
+        
         public void AutoDrain()
         {
 
@@ -783,7 +804,12 @@ namespace OpenGrade
             int drawPts;
             int ptCnt = ptList.Count;
             double minDeltaHt = 0;
-            double angle = -mf.vehicle.minSlope * 180;
+            double angle = -(mf.vehicle.minSlope / 100) ;
+
+
+            //angle = -(Math.Asin(1 /5));
+            
+            //angle = -.001   ;
             int startPt = 0;
             int endPt = -1;
             int lowestPt = 0;
@@ -860,8 +886,8 @@ namespace OpenGrade
                             drawPts = drawList.Count;
                         }
 
-                        minDeltaHt = (Math.Tan((angle * (Math.PI / 180))) * distFromLastPlot);     // distFromLastPlot                      
-
+                        minDeltaHt = (Math.Tan((angle * (Math.PI / 180))) * distFromLastPlot);     // distFromLastPlot                    
+                       
                         temp.easting = i;
                         temp.northing = ((double)ptList[i].altitude);
 
@@ -1040,10 +1066,8 @@ namespace OpenGrade
 
                 Temp.easting = k;
                 Temp.northing = sma;
-                autoList.Add(Temp);
+                autoList.Add(Temp);                
 
-
-                //ptList[k].altitude = sma;
 
             }
 
@@ -1110,6 +1134,34 @@ namespace OpenGrade
             return isOverMax;
         }
 
+
+        public double GetMaxCut()
+        {
+            double maxCut = 0;
+            double delta = 0;
+            int ptCnt = ptList.Count;
+            if (ptCnt > 0)
+            {
+                
+                for (int i = 0; i < ptList.Count - 1; i++)
+                {
+                    if (ptList[i].cutAltitude < ptList[i].altitude  && ptList[i].cutAltitude != -1 )//
+                    {
+                        delta = ptList[i].altitude - ptList[i].cutAltitude;
+                        if(delta > maxCut)
+                        {
+                            maxCut = delta;
+                        }                     
+                    
+                    }
+                }
+
+            }
+            
+            return maxCut*100;
+
+
+        }
 
         private void radiusTile()
         {
@@ -1284,7 +1336,7 @@ namespace OpenGrade
                 // Check the fix Quality before saving the point
 
 
-                //if (mf.pn.fixQuality == 4 | mf.pn.fixQuality == 8) isOKtoSurvey = true;
+                if (mf.pn.fixQuality == 4 | mf.pn.fixQuality == 8) isOKtoSurvey = true;
                 //else if (mf.pn.fixQuality == 5 && FloatIsOK) isOKtoSurvey = true;
                
                 //else isOKtoSurvey = false;

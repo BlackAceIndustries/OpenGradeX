@@ -77,10 +77,10 @@ namespace OpenGrade
 
             if (mf.isAutoVertOn && cutDelta != 9999)
             {
-                altitude = altitude - (cutDelta/100 * .2); 
+                altitude = altitude - (cutDelta/100 * .3); 
                 //mf.nudElevation.Value = (decimal)altitude;
 
-                mf.tStrip3.Text = altitude.ToString("F2")+ "  " + cutDelta.ToString("F2");// 
+                //mf.tStrip3.Text = altitude.ToString("F2")+ "  " + cutDelta.ToString("F2");// 
                     //mf.sim.altitude
             }
             BuildGGA();
@@ -154,9 +154,13 @@ namespace OpenGrade
 
         public void ResetSim()
         {
-            latitude = Properties.Settings.Default.setSim_lastLat;//53.436026;
+            latitude = 53.436026;//;
             //longitude = -111.160047;
-            longitude = Properties.Settings.Default.setSim_lastLong;//-111.260047;
+            longitude = -111.260047;//-111.260047;
+
+            //latitude = Properties.Settings.Default.setSim_lastLat;//53.436026;
+            //longitude = -111.160047;
+            //longitude = Properties.Settings.Default.setSim_lastLong;//-111.260047;
         }
 
         private void BuildGGA()

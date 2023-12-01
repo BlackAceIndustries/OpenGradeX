@@ -870,6 +870,11 @@
     <None Include="btnImages\AntennaRoll.png" />
     <None Include="btnImages\Config\ConD_Speedometer.png" />
     <None Include="btnImages\Images\z_Speedo.png" />
+    <None Include="btnImages\RotateLeft.png" />
+    <None Include="btnImages\RotateRight.png" />
+    <None Include="btnImages\BladeCenter.png" />
+    <None Include="btnImages\BladeLeft.png" />
+    <None Include="btnImages\BladeRight.png" />
     <Content Include="OGX2Icon.ico" />
     <Content Include="OGXicon.ico" />
     <None Include="btnImages\GradeControlOn1.png" />

@@ -50,7 +50,7 @@ namespace OpenGrade
         public bool isWorkSwitchActiveLow, isWorkSwitchEnabled;
         public int workSwitchValue;
 
-        public bool isImuCorrection = false;
+        public bool isImuCorrection = true;
         public bool isPitchCorrection = false;
 
         public float headingIMU = 9999, prevHeadingIMU = 9999, rollIMU = 9999, pitchIMU = 9999;
@@ -117,8 +117,6 @@ namespace OpenGrade
         public void AvgRoll()
         {
             avgrollIMU = (avgrollIMU * .8f) + (rollIMU * 0.2f);
-
-
         }
         public void AvgPitch()
         {

@@ -35,7 +35,7 @@ namespace OpenGrade
         public string ssidName = "";
 
         public long gradeControlTimeout = 0;
-        public long antennaModuleTimeout = 0;
+        public long antennaModuleTimeout = 11;
         public long udpIMUTimeout = 0;
 
         ///Ports

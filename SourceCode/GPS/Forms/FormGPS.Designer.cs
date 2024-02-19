@@ -309,19 +309,18 @@
             // 
             // openGLControlBack
             // 
-            this.openGLControlBack.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.openGLControlBack.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.openGLControlBack.BackColor = System.Drawing.Color.Yellow;
             this.openGLControlBack.Cursor = System.Windows.Forms.Cursors.Cross;
             this.openGLControlBack.DrawFPS = false;
             this.openGLControlBack.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.openGLControlBack.Location = new System.Drawing.Point(701, 301);
+            this.openGLControlBack.Location = new System.Drawing.Point(700, 300);
             this.openGLControlBack.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.openGLControlBack.Name = "openGLControlBack";
             this.openGLControlBack.OpenGLVersion = SharpGL.Version.OpenGLVersion.OpenGL2_1;
             this.openGLControlBack.RenderContextType = SharpGL.RenderContextType.NativeWindow;
             this.openGLControlBack.RenderTrigger = SharpGL.RenderTrigger.Manual;
-            this.openGLControlBack.Size = new System.Drawing.Size(414, 271);
+            this.openGLControlBack.Size = new System.Drawing.Size(414, 272);
             this.openGLControlBack.TabIndex = 91;
             this.openGLControlBack.OpenGLInitialized += new System.EventHandler(this.openGLControlBack_OpenGLInitialized);
             this.openGLControlBack.OpenGLDraw += new SharpGL.RenderEventHandler(this.openGLControlBack_OpenGLDrawNew);
@@ -1333,6 +1332,7 @@
             this.panelNavigation.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.panelNavigation.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.panelNavigation.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.panelNavigation.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.panelNavigation.Size = new System.Drawing.Size(148, 367);
             this.panelNavigation.TabIndex = 469;
             // 
@@ -1787,19 +1787,18 @@
             // 
             // openGLControlCS
             // 
-            this.openGLControlCS.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.openGLControlCS.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.openGLControlCS.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.openGLControlCS.Cursor = System.Windows.Forms.Cursors.Hand;
             this.openGLControlCS.DrawFPS = false;
             this.openGLControlCS.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.openGLControlCS.Location = new System.Drawing.Point(701, 12);
+            this.openGLControlCS.Location = new System.Drawing.Point(700, 12);
             this.openGLControlCS.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.openGLControlCS.Name = "openGLControlCS";
             this.openGLControlCS.OpenGLVersion = SharpGL.Version.OpenGLVersion.OpenGL2_1;
             this.openGLControlCS.RenderContextType = SharpGL.RenderContextType.NativeWindow;
             this.openGLControlCS.RenderTrigger = SharpGL.RenderTrigger.Manual;
-            this.openGLControlCS.Size = new System.Drawing.Size(414, 284);
+            this.openGLControlCS.Size = new System.Drawing.Size(414, 279);
             this.openGLControlCS.TabIndex = 493;
             this.openGLControlCS.OpenGLInitialized += new System.EventHandler(this.openGLControlCS_OpenGLInitialized);
             this.openGLControlCS.OpenGLDraw += new SharpGL.RenderEventHandler(this.openGLControlCS_OpenGLDraw);

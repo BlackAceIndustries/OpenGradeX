@@ -28,7 +28,7 @@ namespace OpenGrade
             //lblLongitude.Text = mf.Longitude;
             //lblAltitude.Text = mf.Altitude;
 
-            
+
 
             ////other sat and GPS info
             //lblFixQuality.Text = mf.FixQuality;
@@ -37,7 +37,7 @@ namespace OpenGrade
             //lblHDOP.Text = mf.HDOP;
 
 
-
+            lblStatus.Text = mf.Heading.ToString();
 
             lblZone.Text = mf.Zone;
             lblNorthing.Text = mf.pn.northing.ToString();
@@ -60,7 +60,7 @@ namespace OpenGrade
             lblFixQuality.Text = mf.FixQuality;
             //lblFixQuality.Text = mf.pn.fixQuality.ToString();
             lblSatsTracked.Text = mf.pn.satellitesTracked.ToString();
-            lblStatus.Text = mf.pn.status.ToString();
+            //lblStatus.Text = mf.pn.status.ToString();
             lblHDOP.Text = mf.pn.hdop.ToString();
             tboxNMEASerial.Text = mf.pn.rawBuffer.ToString();
 

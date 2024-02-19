@@ -466,7 +466,7 @@
             this.MinimizeBox = false;
             this.Name = "Form2dSurvey";
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "2D Survey";
             this.Load += new System.EventHandler(this.Form2dSurvey_Load);
             ((System.ComponentModel.ISupportInitialize)(this.openGLControlBack)).EndInit();

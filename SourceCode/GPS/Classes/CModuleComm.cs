@@ -1,6 +1,7 @@
 ﻿
 using System.Drawing;
 using System.Windows.Forms;
+using System;
 
 namespace OpenGrade
 {
@@ -24,6 +25,37 @@ namespace OpenGrade
         public int autoState = 0, bladeOffset = 0; //public byte autoState = 0;        
         public double voltage = 0;
         public double voltage2 = 0;
+
+        //
+
+        class GradeControlModule
+        {
+            public int AutoState { get; set; }
+            public int BladeOffset { get; set; }
+            public double Voltage { get; set; }
+            public double Voltage2 { get; set; }
+
+        }
+
+        
+
+        public class GradeControlSettings
+        {
+            public static int NumGradeControlSettingsItems { get; } = 8;
+            public byte[] GradeControlSettingsArray { get; set; } = new byte[NumGradeControlSettingsItems];
+            public int GsHeaderHi { get; set; }
+            public int GsHeaderLo { get; set; } = 1;
+            public int GsKpGain { get; set; } = 2;
+            public int GsKiGain { get; set; } = 3;
+            public int GsKdGain { get; set; } = 4;
+            public int GsRetDeadband { get; set; } = 5;
+            public int GsExtDeadband { get; set; } = 6;
+            public int GsValveType { get; set; } = 7;
+        }
+
+
+
+        // JSON { 
 
         // PGN - 32760 - 127.248
         public static int numGradeControlSettingsItems = 8;

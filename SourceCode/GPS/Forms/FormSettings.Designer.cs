@@ -34,131 +34,131 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.bntOK = new System.Windows.Forms.Button();
             this.tabIMU = new System.Windows.Forms.TabPage();
-            this.btnImuOnOff = new System.Windows.Forms.Button();
-            this.btnZeroImu = new System.Windows.Forms.Button();
-            this.btnRemoveImuOffset = new System.Windows.Forms.Button();
-            this.btnImuInvert = new System.Windows.Forms.Button();
-            this.btnImuReset = new System.Windows.Forms.Button();
-            this.btnImuPitchInvert = new System.Windows.Forms.Button();
-            this.tabMeasurements = new System.Windows.Forms.TabPage();
-            this.btnUnits = new System.Windows.Forms.Button();
-            this.btnGrid = new System.Windows.Forms.Button();
-            this.btnLightbar = new System.Windows.Forms.Button();
-            this.btnPolygons = new System.Windows.Forms.Button();
-            this.btnLogNMEA = new System.Windows.Forms.Button();
-            this.btnPursuitLine = new System.Windows.Forms.Button();
-            this.bntSkyOn = new System.Windows.Forms.Button();
-            this.btnFullScreen = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.lblMaxTileCut = new System.Windows.Forms.Label();
-            this.nudMaxTileCut = new System.Windows.Forms.NumericUpDown();
-            this.nudMinTileCover = new System.Windows.Forms.NumericUpDown();
-            this.lblMinTileCover = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.lblMinDitchCut = new System.Windows.Forms.Label();
-            this.nudMinDitchCut = new System.Windows.Forms.NumericUpDown();
-            this.lblMaxDitchCut = new System.Windows.Forms.Label();
-            this.nudMaxDitchCut = new System.Windows.Forms.NumericUpDown();
-            this.btnSimulator = new System.Windows.Forms.Button();
-            this.btnFieldColor = new System.Windows.Forms.Button();
-            this.btnSectionColor = new System.Windows.Forms.Button();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.nudMinSlope = new System.Windows.Forms.NumericUpDown();
-            this.label1 = new System.Windows.Forms.Label();
-            this.nudMinShoreSlope = new System.Windows.Forms.NumericUpDown();
-            this.nudDistFromSurvey = new System.Windows.Forms.NumericUpDown();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.pictureBox6 = new System.Windows.Forms.PictureBox();
-            this.pictureBox7 = new System.Windows.Forms.PictureBox();
-            this.pictureBox8 = new System.Windows.Forms.PictureBox();
-            this.pictureBox9 = new System.Windows.Forms.PictureBox();
-            this.pictureBox10 = new System.Windows.Forms.PictureBox();
-            this.pictureBox11 = new System.Windows.Forms.PictureBox();
-            this.tabVehicle = new System.Windows.Forms.TabPage();
-            this.nudAntennaHeight = new System.Windows.Forms.NumericUpDown();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.nudToolWidth = new System.Windows.Forms.NumericUpDown();
-            this.label3 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.nudKi = new System.Windows.Forms.NumericUpDown();
-            this.label5 = new System.Windows.Forms.Label();
-            this.nudKp = new System.Windows.Forms.NumericUpDown();
-            this.nudKd = new System.Windows.Forms.NumericUpDown();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.valveSelectChoice = new System.Windows.Forms.ComboBox();
-            this.nudRetDeadband = new System.Windows.Forms.NumericUpDown();
-            this.nudExtDeadband = new System.Windows.Forms.NumericUpDown();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
-            this.label21 = new System.Windows.Forms.Label();
-            this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
-            this.btnSaveVehicle = new System.Windows.Forms.Button();
-            this.btnDeleteVehicle = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.btnLoadVehicle = new System.Windows.Forms.Button();
-            this.tabOpenGrade = new System.Windows.Forms.TabControl();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.btnImuPitchInvert = new System.Windows.Forms.Button();
+            this.btnImuReset = new System.Windows.Forms.Button();
+            this.btnImuInvert = new System.Windows.Forms.Button();
+            this.btnRemoveImuOffset = new System.Windows.Forms.Button();
+            this.btnZeroImu = new System.Windows.Forms.Button();
+            this.btnImuOnOff = new System.Windows.Forms.Button();
+            this.tabMeasurements = new System.Windows.Forms.TabPage();
+            this.btnSectionColor = new System.Windows.Forms.Button();
+            this.btnFieldColor = new System.Windows.Forms.Button();
+            this.btnSimulator = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.nudMaxDitchCut = new System.Windows.Forms.NumericUpDown();
+            this.lblMaxDitchCut = new System.Windows.Forms.Label();
+            this.nudMinDitchCut = new System.Windows.Forms.NumericUpDown();
+            this.lblMinDitchCut = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lblMinTileCover = new System.Windows.Forms.Label();
+            this.nudMinTileCover = new System.Windows.Forms.NumericUpDown();
+            this.nudMaxTileCut = new System.Windows.Forms.NumericUpDown();
+            this.lblMaxTileCut = new System.Windows.Forms.Label();
+            this.btnFullScreen = new System.Windows.Forms.Button();
+            this.bntSkyOn = new System.Windows.Forms.Button();
+            this.btnPursuitLine = new System.Windows.Forms.Button();
+            this.btnLogNMEA = new System.Windows.Forms.Button();
+            this.btnPolygons = new System.Windows.Forms.Button();
+            this.btnLightbar = new System.Windows.Forms.Button();
+            this.btnGrid = new System.Windows.Forms.Button();
+            this.btnUnits = new System.Windows.Forms.Button();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.pictureBox11 = new System.Windows.Forms.PictureBox();
+            this.pictureBox10 = new System.Windows.Forms.PictureBox();
+            this.pictureBox9 = new System.Windows.Forms.PictureBox();
+            this.pictureBox8 = new System.Windows.Forms.PictureBox();
+            this.pictureBox7 = new System.Windows.Forms.PictureBox();
+            this.pictureBox6 = new System.Windows.Forms.PictureBox();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.nudDistFromSurvey = new System.Windows.Forms.NumericUpDown();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.nudMinShoreSlope = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
+            this.nudMinSlope = new System.Windows.Forms.NumericUpDown();
+            this.label10 = new System.Windows.Forms.Label();
+            this.tabVehicle = new System.Windows.Forms.TabPage();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.nudAntennaHeight = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
+            this.nudToolWidth = new System.Windows.Forms.NumericUpDown();
+            this.btnLoadVehicle = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.btnDeleteVehicle = new System.Windows.Forms.Button();
+            this.btnSaveVehicle = new System.Windows.Forms.Button();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
+            this.label21 = new System.Windows.Forms.Label();
+            this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.nudExtDeadband = new System.Windows.Forms.NumericUpDown();
+            this.nudRetDeadband = new System.Windows.Forms.NumericUpDown();
+            this.valveSelectChoice = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.nudKd = new System.Windows.Forms.NumericUpDown();
+            this.nudKp = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
+            this.nudKi = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.tabOpenGrade = new System.Windows.Forms.TabControl();
             this.tabIMU.SuspendLayout();
             this.tabMeasurements.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMaxTileCut)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMinTileCover)).BeginInit();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMinDitchCut)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMaxDitchCut)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMinDitchCut)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMinTileCover)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMaxTileCut)).BeginInit();
             this.tabPage1.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMinSlope)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMinShoreSlope)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudDistFromSurvey)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudDistFromSurvey)).BeginInit();
+            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMinShoreSlope)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMinSlope)).BeginInit();
             this.tabVehicle.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudAntennaHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudToolWidth)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudKi)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudKp)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudKd)).BeginInit();
             this.groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudRetDeadband)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudExtDeadband)).BeginInit();
             this.groupBox7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudExtDeadband)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudRetDeadband)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudKd)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudKp)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudKi)).BeginInit();
             this.tabOpenGrade.SuspendLayout();
-            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // label17
@@ -207,40 +207,33 @@
             resources.ApplyResources(this.tabIMU, "tabIMU");
             this.tabIMU.Name = "tabIMU";
             // 
-            // btnImuOnOff
+            // label19
             // 
-            this.btnImuOnOff.BackColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.btnImuOnOff, "btnImuOnOff");
-            this.btnImuOnOff.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnImuOnOff.Image = global::OpenGrade.Properties.Resources.ConD_RollHelper;
-            this.btnImuOnOff.Name = "btnImuOnOff";
-            this.btnImuOnOff.UseVisualStyleBackColor = false;
-            this.btnImuOnOff.Click += new System.EventHandler(this.btnImuOnOff_Click);
+            resources.ApplyResources(this.label19, "label19");
+            this.label19.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label19.Name = "label19";
+            this.label19.Click += new System.EventHandler(this.label19_Click);
             // 
-            // btnZeroImu
+            // label14
             // 
-            this.btnZeroImu.BackColor = System.Drawing.Color.Gray;
-            resources.ApplyResources(this.btnZeroImu, "btnZeroImu");
-            this.btnZeroImu.Image = global::OpenGrade.Properties.Resources.ConDa_RollSetZero;
-            this.btnZeroImu.Name = "btnZeroImu";
-            this.btnZeroImu.UseVisualStyleBackColor = false;
-            this.btnZeroImu.Click += new System.EventHandler(this.btnZeroImu_Click);
+            resources.ApplyResources(this.label14, "label14");
+            this.label14.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label14.Name = "label14";
             // 
-            // btnRemoveImuOffset
+            // label11
             // 
-            this.btnRemoveImuOffset.BackColor = System.Drawing.Color.Gray;
-            resources.ApplyResources(this.btnRemoveImuOffset, "btnRemoveImuOffset");
-            this.btnRemoveImuOffset.Image = global::OpenGrade.Properties.Resources.ConDa_RemoveOffset;
-            this.btnRemoveImuOffset.Name = "btnRemoveImuOffset";
-            this.btnRemoveImuOffset.UseVisualStyleBackColor = false;
+            resources.ApplyResources(this.label11, "label11");
+            this.label11.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label11.Name = "label11";
+            this.label11.Click += new System.EventHandler(this.label11_Click_1);
             // 
-            // btnImuInvert
+            // btnImuPitchInvert
             // 
-            this.btnImuInvert.BackColor = System.Drawing.Color.Gray;
-            resources.ApplyResources(this.btnImuInvert, "btnImuInvert");
-            this.btnImuInvert.Image = global::OpenGrade.Properties.Resources.ConDa_InvertRoll;
-            this.btnImuInvert.Name = "btnImuInvert";
-            this.btnImuInvert.UseVisualStyleBackColor = false;
+            this.btnImuPitchInvert.BackColor = System.Drawing.Color.Gray;
+            resources.ApplyResources(this.btnImuPitchInvert, "btnImuPitchInvert");
+            this.btnImuPitchInvert.Image = global::OpenGrade.Properties.Resources.ConDa_InvertRoll;
+            this.btnImuPitchInvert.Name = "btnImuPitchInvert";
+            this.btnImuPitchInvert.UseVisualStyleBackColor = false;
             // 
             // btnImuReset
             // 
@@ -251,13 +244,40 @@
             this.btnImuReset.UseVisualStyleBackColor = false;
             this.btnImuReset.Click += new System.EventHandler(this.btnImuReset_Click);
             // 
-            // btnImuPitchInvert
+            // btnImuInvert
             // 
-            this.btnImuPitchInvert.BackColor = System.Drawing.Color.Gray;
-            resources.ApplyResources(this.btnImuPitchInvert, "btnImuPitchInvert");
-            this.btnImuPitchInvert.Image = global::OpenGrade.Properties.Resources.ConDa_InvertRoll;
-            this.btnImuPitchInvert.Name = "btnImuPitchInvert";
-            this.btnImuPitchInvert.UseVisualStyleBackColor = false;
+            this.btnImuInvert.BackColor = System.Drawing.Color.Gray;
+            resources.ApplyResources(this.btnImuInvert, "btnImuInvert");
+            this.btnImuInvert.Image = global::OpenGrade.Properties.Resources.ConDa_InvertRoll;
+            this.btnImuInvert.Name = "btnImuInvert";
+            this.btnImuInvert.UseVisualStyleBackColor = false;
+            // 
+            // btnRemoveImuOffset
+            // 
+            this.btnRemoveImuOffset.BackColor = System.Drawing.Color.Gray;
+            resources.ApplyResources(this.btnRemoveImuOffset, "btnRemoveImuOffset");
+            this.btnRemoveImuOffset.Image = global::OpenGrade.Properties.Resources.ConDa_RemoveOffset;
+            this.btnRemoveImuOffset.Name = "btnRemoveImuOffset";
+            this.btnRemoveImuOffset.UseVisualStyleBackColor = false;
+            // 
+            // btnZeroImu
+            // 
+            this.btnZeroImu.BackColor = System.Drawing.Color.Gray;
+            resources.ApplyResources(this.btnZeroImu, "btnZeroImu");
+            this.btnZeroImu.Image = global::OpenGrade.Properties.Resources.ConDa_RollSetZero;
+            this.btnZeroImu.Name = "btnZeroImu";
+            this.btnZeroImu.UseVisualStyleBackColor = false;
+            this.btnZeroImu.Click += new System.EventHandler(this.btnZeroImu_Click);
+            // 
+            // btnImuOnOff
+            // 
+            this.btnImuOnOff.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.btnImuOnOff, "btnImuOnOff");
+            this.btnImuOnOff.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnImuOnOff.Image = global::OpenGrade.Properties.Resources.ConD_RollHelper;
+            this.btnImuOnOff.Name = "btnImuOnOff";
+            this.btnImuOnOff.UseVisualStyleBackColor = false;
+            this.btnImuOnOff.Click += new System.EventHandler(this.btnImuOnOff_Click);
             // 
             // tabMeasurements
             // 
@@ -278,135 +298,32 @@
             resources.ApplyResources(this.tabMeasurements, "tabMeasurements");
             this.tabMeasurements.Name = "tabMeasurements";
             // 
-            // btnUnits
+            // btnSectionColor
             // 
-            this.btnUnits.BackColor = System.Drawing.Color.White;
-            resources.ApplyResources(this.btnUnits, "btnUnits");
-            this.btnUnits.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnUnits.Image = global::OpenGrade.Properties.Resources.ConD_Metric;
-            this.btnUnits.Name = "btnUnits";
-            this.btnUnits.UseVisualStyleBackColor = false;
-            this.btnUnits.Click += new System.EventHandler(this.btnUnits_Click);
+            this.btnSectionColor.BackColor = System.Drawing.Color.DarkGray;
+            resources.ApplyResources(this.btnSectionColor, "btnSectionColor");
+            this.btnSectionColor.Image = global::OpenGrade.Properties.Resources.Color2;
+            this.btnSectionColor.Name = "btnSectionColor";
+            this.btnSectionColor.UseVisualStyleBackColor = false;
+            this.btnSectionColor.Click += new System.EventHandler(this.btnSectionColor_Click);
             // 
-            // btnGrid
+            // btnFieldColor
             // 
-            this.btnGrid.BackColor = System.Drawing.Color.Silver;
-            resources.ApplyResources(this.btnGrid, "btnGrid");
-            this.btnGrid.Image = global::OpenGrade.Properties.Resources.ConD_Grid;
-            this.btnGrid.Name = "btnGrid";
-            this.btnGrid.UseVisualStyleBackColor = false;
-            this.btnGrid.Click += new System.EventHandler(this.btnGrid_Click);
+            this.btnFieldColor.BackColor = System.Drawing.Color.LightGray;
+            resources.ApplyResources(this.btnFieldColor, "btnFieldColor");
+            this.btnFieldColor.Image = global::OpenGrade.Properties.Resources.ColorField2;
+            this.btnFieldColor.Name = "btnFieldColor";
+            this.btnFieldColor.UseVisualStyleBackColor = false;
+            this.btnFieldColor.Click += new System.EventHandler(this.btnFieldColor_Click);
             // 
-            // btnLightbar
+            // btnSimulator
             // 
-            this.btnLightbar.BackColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.btnLightbar, "btnLightbar");
-            this.btnLightbar.Image = global::OpenGrade.Properties.Resources.ConD_LightBar;
-            this.btnLightbar.Name = "btnLightbar";
-            this.btnLightbar.UseVisualStyleBackColor = false;
-            this.btnLightbar.Click += new System.EventHandler(this.btnLightbar_Click);
-            // 
-            // btnPolygons
-            // 
-            this.btnPolygons.BackColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.btnPolygons, "btnPolygons");
-            this.btnPolygons.Image = global::OpenGrade.Properties.Resources.ConD_Poligons;
-            this.btnPolygons.Name = "btnPolygons";
-            this.btnPolygons.UseVisualStyleBackColor = false;
-            this.btnPolygons.Click += new System.EventHandler(this.btnPolygons_Click);
-            // 
-            // btnLogNMEA
-            // 
-            this.btnLogNMEA.BackColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.btnLogNMEA, "btnLogNMEA");
-            this.btnLogNMEA.Image = global::OpenGrade.Properties.Resources.ConD_LogNMEA;
-            this.btnLogNMEA.Name = "btnLogNMEA";
-            this.btnLogNMEA.UseVisualStyleBackColor = false;
-            this.btnLogNMEA.Click += new System.EventHandler(this.btnLogNMEA_Click);
-            // 
-            // btnPursuitLine
-            // 
-            this.btnPursuitLine.BackColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.btnPursuitLine, "btnPursuitLine");
-            this.btnPursuitLine.Image = global::OpenGrade.Properties.Resources.ConD_ExtraGuides;
-            this.btnPursuitLine.Name = "btnPursuitLine";
-            this.btnPursuitLine.UseVisualStyleBackColor = false;
-            this.btnPursuitLine.Click += new System.EventHandler(this.btnPursuitLine_Click);
-            // 
-            // bntSkyOn
-            // 
-            this.bntSkyOn.BackColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.bntSkyOn, "bntSkyOn");
-            this.bntSkyOn.Image = global::OpenGrade.Properties.Resources.ConD_Sky;
-            this.bntSkyOn.Name = "bntSkyOn";
-            this.bntSkyOn.UseVisualStyleBackColor = false;
-            this.bntSkyOn.Click += new System.EventHandler(this.bntSkyOn_Click);
-            // 
-            // btnFullScreen
-            // 
-            this.btnFullScreen.BackColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.btnFullScreen, "btnFullScreen");
-            this.btnFullScreen.Image = global::OpenGrade.Properties.Resources.ConD_FullScreenBegin;
-            this.btnFullScreen.Name = "btnFullScreen";
-            this.btnFullScreen.UseVisualStyleBackColor = false;
-            this.btnFullScreen.Click += new System.EventHandler(this.btnFullScreen_Click);
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.lblMinTileCover);
-            this.groupBox2.Controls.Add(this.nudMinTileCover);
-            this.groupBox2.Controls.Add(this.nudMaxTileCut);
-            this.groupBox2.Controls.Add(this.lblMaxTileCut);
-            resources.ApplyResources(this.groupBox2, "groupBox2");
-            this.groupBox2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.TabStop = false;
-            // 
-            // lblMaxTileCut
-            // 
-            resources.ApplyResources(this.lblMaxTileCut, "lblMaxTileCut");
-            this.lblMaxTileCut.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblMaxTileCut.Name = "lblMaxTileCut";
-            // 
-            // nudMaxTileCut
-            // 
-            this.nudMaxTileCut.BackColor = System.Drawing.SystemColors.MenuText;
-            resources.ApplyResources(this.nudMaxTileCut, "nudMaxTileCut");
-            this.nudMaxTileCut.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.nudMaxTileCut.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-            this.nudMaxTileCut.Name = "nudMaxTileCut";
-            this.nudMaxTileCut.Value = new decimal(new int[] {
-            7,
-            0,
-            0,
-            0});
-            // 
-            // nudMinTileCover
-            // 
-            this.nudMinTileCover.BackColor = System.Drawing.SystemColors.MenuText;
-            resources.ApplyResources(this.nudMinTileCover, "nudMinTileCover");
-            this.nudMinTileCover.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.nudMinTileCover.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-            this.nudMinTileCover.Name = "nudMinTileCover";
-            this.nudMinTileCover.Value = new decimal(new int[] {
-            7,
-            0,
-            0,
-            0});
-            // 
-            // lblMinTileCover
-            // 
-            resources.ApplyResources(this.lblMinTileCover, "lblMinTileCover");
-            this.lblMinTileCover.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblMinTileCover.Name = "lblMinTileCover";
+            this.btnSimulator.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.btnSimulator, "btnSimulator");
+            this.btnSimulator.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnSimulator.Name = "btnSimulator";
+            this.btnSimulator.UseVisualStyleBackColor = false;
+            this.btnSimulator.Click += new System.EventHandler(this.btnSimulator_Click);
             // 
             // groupBox3
             // 
@@ -418,35 +335,6 @@
             this.groupBox3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.TabStop = false;
-            // 
-            // lblMinDitchCut
-            // 
-            resources.ApplyResources(this.lblMinDitchCut, "lblMinDitchCut");
-            this.lblMinDitchCut.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblMinDitchCut.Name = "lblMinDitchCut";
-            // 
-            // nudMinDitchCut
-            // 
-            this.nudMinDitchCut.BackColor = System.Drawing.SystemColors.MenuText;
-            resources.ApplyResources(this.nudMinDitchCut, "nudMinDitchCut");
-            this.nudMinDitchCut.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.nudMinDitchCut.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-            this.nudMinDitchCut.Name = "nudMinDitchCut";
-            this.nudMinDitchCut.Value = new decimal(new int[] {
-            7,
-            0,
-            0,
-            0});
-            // 
-            // lblMaxDitchCut
-            // 
-            resources.ApplyResources(this.lblMaxDitchCut, "lblMaxDitchCut");
-            this.lblMaxDitchCut.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblMaxDitchCut.Name = "lblMaxDitchCut";
             // 
             // nudMaxDitchCut
             // 
@@ -465,32 +353,164 @@
             0,
             0});
             // 
-            // btnSimulator
+            // lblMaxDitchCut
             // 
-            this.btnSimulator.BackColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.btnSimulator, "btnSimulator");
-            this.btnSimulator.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnSimulator.Name = "btnSimulator";
-            this.btnSimulator.UseVisualStyleBackColor = false;
-            this.btnSimulator.Click += new System.EventHandler(this.btnSimulator_Click);
+            resources.ApplyResources(this.lblMaxDitchCut, "lblMaxDitchCut");
+            this.lblMaxDitchCut.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.lblMaxDitchCut.Name = "lblMaxDitchCut";
             // 
-            // btnFieldColor
+            // nudMinDitchCut
             // 
-            this.btnFieldColor.BackColor = System.Drawing.Color.LightGray;
-            resources.ApplyResources(this.btnFieldColor, "btnFieldColor");
-            this.btnFieldColor.Image = global::OpenGrade.Properties.Resources.ColorField2;
-            this.btnFieldColor.Name = "btnFieldColor";
-            this.btnFieldColor.UseVisualStyleBackColor = false;
-            this.btnFieldColor.Click += new System.EventHandler(this.btnFieldColor_Click);
+            this.nudMinDitchCut.BackColor = System.Drawing.SystemColors.MenuText;
+            resources.ApplyResources(this.nudMinDitchCut, "nudMinDitchCut");
+            this.nudMinDitchCut.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.nudMinDitchCut.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.nudMinDitchCut.Name = "nudMinDitchCut";
+            this.nudMinDitchCut.Value = new decimal(new int[] {
+            7,
+            0,
+            0,
+            0});
             // 
-            // btnSectionColor
+            // lblMinDitchCut
             // 
-            this.btnSectionColor.BackColor = System.Drawing.Color.DarkGray;
-            resources.ApplyResources(this.btnSectionColor, "btnSectionColor");
-            this.btnSectionColor.Image = global::OpenGrade.Properties.Resources.Color2;
-            this.btnSectionColor.Name = "btnSectionColor";
-            this.btnSectionColor.UseVisualStyleBackColor = false;
-            this.btnSectionColor.Click += new System.EventHandler(this.btnSectionColor_Click);
+            resources.ApplyResources(this.lblMinDitchCut, "lblMinDitchCut");
+            this.lblMinDitchCut.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.lblMinDitchCut.Name = "lblMinDitchCut";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.lblMinTileCover);
+            this.groupBox2.Controls.Add(this.nudMinTileCover);
+            this.groupBox2.Controls.Add(this.nudMaxTileCut);
+            this.groupBox2.Controls.Add(this.lblMaxTileCut);
+            resources.ApplyResources(this.groupBox2, "groupBox2");
+            this.groupBox2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.TabStop = false;
+            // 
+            // lblMinTileCover
+            // 
+            resources.ApplyResources(this.lblMinTileCover, "lblMinTileCover");
+            this.lblMinTileCover.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.lblMinTileCover.Name = "lblMinTileCover";
+            // 
+            // nudMinTileCover
+            // 
+            this.nudMinTileCover.BackColor = System.Drawing.SystemColors.MenuText;
+            resources.ApplyResources(this.nudMinTileCover, "nudMinTileCover");
+            this.nudMinTileCover.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.nudMinTileCover.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.nudMinTileCover.Name = "nudMinTileCover";
+            this.nudMinTileCover.Value = new decimal(new int[] {
+            7,
+            0,
+            0,
+            0});
+            // 
+            // nudMaxTileCut
+            // 
+            this.nudMaxTileCut.BackColor = System.Drawing.SystemColors.MenuText;
+            resources.ApplyResources(this.nudMaxTileCut, "nudMaxTileCut");
+            this.nudMaxTileCut.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.nudMaxTileCut.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.nudMaxTileCut.Name = "nudMaxTileCut";
+            this.nudMaxTileCut.Value = new decimal(new int[] {
+            7,
+            0,
+            0,
+            0});
+            // 
+            // lblMaxTileCut
+            // 
+            resources.ApplyResources(this.lblMaxTileCut, "lblMaxTileCut");
+            this.lblMaxTileCut.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.lblMaxTileCut.Name = "lblMaxTileCut";
+            // 
+            // btnFullScreen
+            // 
+            this.btnFullScreen.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.btnFullScreen, "btnFullScreen");
+            this.btnFullScreen.Image = global::OpenGrade.Properties.Resources.ConD_FullScreenBegin;
+            this.btnFullScreen.Name = "btnFullScreen";
+            this.btnFullScreen.UseVisualStyleBackColor = false;
+            this.btnFullScreen.Click += new System.EventHandler(this.btnFullScreen_Click);
+            // 
+            // bntSkyOn
+            // 
+            this.bntSkyOn.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.bntSkyOn, "bntSkyOn");
+            this.bntSkyOn.Image = global::OpenGrade.Properties.Resources.ConD_Sky;
+            this.bntSkyOn.Name = "bntSkyOn";
+            this.bntSkyOn.UseVisualStyleBackColor = false;
+            this.bntSkyOn.Click += new System.EventHandler(this.bntSkyOn_Click);
+            // 
+            // btnPursuitLine
+            // 
+            this.btnPursuitLine.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.btnPursuitLine, "btnPursuitLine");
+            this.btnPursuitLine.Image = global::OpenGrade.Properties.Resources.ConD_ExtraGuides;
+            this.btnPursuitLine.Name = "btnPursuitLine";
+            this.btnPursuitLine.UseVisualStyleBackColor = false;
+            this.btnPursuitLine.Click += new System.EventHandler(this.btnPursuitLine_Click);
+            // 
+            // btnLogNMEA
+            // 
+            this.btnLogNMEA.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.btnLogNMEA, "btnLogNMEA");
+            this.btnLogNMEA.Image = global::OpenGrade.Properties.Resources.ConD_LogNMEA;
+            this.btnLogNMEA.Name = "btnLogNMEA";
+            this.btnLogNMEA.UseVisualStyleBackColor = false;
+            this.btnLogNMEA.Click += new System.EventHandler(this.btnLogNMEA_Click);
+            // 
+            // btnPolygons
+            // 
+            this.btnPolygons.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.btnPolygons, "btnPolygons");
+            this.btnPolygons.Image = global::OpenGrade.Properties.Resources.ConD_Poligons;
+            this.btnPolygons.Name = "btnPolygons";
+            this.btnPolygons.UseVisualStyleBackColor = false;
+            this.btnPolygons.Click += new System.EventHandler(this.btnPolygons_Click);
+            // 
+            // btnLightbar
+            // 
+            this.btnLightbar.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.btnLightbar, "btnLightbar");
+            this.btnLightbar.Image = global::OpenGrade.Properties.Resources.ConD_LightBar;
+            this.btnLightbar.Name = "btnLightbar";
+            this.btnLightbar.UseVisualStyleBackColor = false;
+            this.btnLightbar.Click += new System.EventHandler(this.btnLightbar_Click);
+            // 
+            // btnGrid
+            // 
+            this.btnGrid.BackColor = System.Drawing.Color.Silver;
+            resources.ApplyResources(this.btnGrid, "btnGrid");
+            this.btnGrid.Image = global::OpenGrade.Properties.Resources.ConD_Grid;
+            this.btnGrid.Name = "btnGrid";
+            this.btnGrid.UseVisualStyleBackColor = false;
+            this.btnGrid.Click += new System.EventHandler(this.btnGrid_Click);
+            // 
+            // btnUnits
+            // 
+            this.btnUnits.BackColor = System.Drawing.Color.White;
+            resources.ApplyResources(this.btnUnits, "btnUnits");
+            this.btnUnits.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnUnits.Image = global::OpenGrade.Properties.Resources.ConD_Metric;
+            this.btnUnits.Name = "btnUnits";
+            this.btnUnits.UseVisualStyleBackColor = false;
+            this.btnUnits.Click += new System.EventHandler(this.btnUnits_Click);
             // 
             // tabPage1
             // 
@@ -511,6 +531,99 @@
             resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Name = "tabPage1";
             // 
+            // pictureBox11
+            // 
+            this.pictureBox11.Image = global::OpenGrade.Properties.Resources.Con_SourcesGPSDual1;
+            resources.ApplyResources(this.pictureBox11, "pictureBox11");
+            this.pictureBox11.Name = "pictureBox11";
+            this.pictureBox11.TabStop = false;
+            // 
+            // pictureBox10
+            // 
+            this.pictureBox10.Image = global::OpenGrade.Properties.Resources.ConS_VehicleDim;
+            resources.ApplyResources(this.pictureBox10, "pictureBox10");
+            this.pictureBox10.Name = "pictureBox10";
+            this.pictureBox10.TabStop = false;
+            // 
+            // pictureBox9
+            // 
+            this.pictureBox9.Image = global::OpenGrade.Properties.Resources.Con_SourcesRTKAlarm1;
+            resources.ApplyResources(this.pictureBox9, "pictureBox9");
+            this.pictureBox9.Name = "pictureBox9";
+            this.pictureBox9.TabStop = false;
+            // 
+            // pictureBox8
+            // 
+            this.pictureBox8.Image = global::OpenGrade.Properties.Resources.Con_SourcesGPSDual1;
+            resources.ApplyResources(this.pictureBox8, "pictureBox8");
+            this.pictureBox8.Name = "pictureBox8";
+            this.pictureBox8.TabStop = false;
+            // 
+            // pictureBox7
+            // 
+            this.pictureBox7.Image = global::OpenGrade.Properties.Resources.Con_SourcesGPSSingle1;
+            resources.ApplyResources(this.pictureBox7, "pictureBox7");
+            this.pictureBox7.Name = "pictureBox7";
+            this.pictureBox7.TabStop = false;
+            // 
+            // pictureBox6
+            // 
+            this.pictureBox6.Image = global::OpenGrade.Properties.Resources.ConV_ABLineLength;
+            resources.ApplyResources(this.pictureBox6, "pictureBox6");
+            this.pictureBox6.Name = "pictureBox6";
+            this.pictureBox6.TabStop = false;
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Image = global::OpenGrade.Properties.Resources.ConV_LineWith;
+            resources.ApplyResources(this.pictureBox5, "pictureBox5");
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.TabStop = false;
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Image = global::OpenGrade.Properties.Resources.Con_SourcesHead;
+            resources.ApplyResources(this.pictureBox4, "pictureBox4");
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::OpenGrade.Properties.Resources.ConV_GuidanceLookAhead;
+            resources.ApplyResources(this.pictureBox3, "pictureBox3");
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.TabStop = false;
+            // 
+            // label16
+            // 
+            resources.ApplyResources(this.label16, "label16");
+            this.label16.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label16.Name = "label16";
+            // 
+            // label4
+            // 
+            resources.ApplyResources(this.label4, "label4");
+            this.label4.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label4.Name = "label4";
+            // 
+            // nudDistFromSurvey
+            // 
+            this.nudDistFromSurvey.BackColor = System.Drawing.SystemColors.MenuText;
+            resources.ApplyResources(this.nudDistFromSurvey, "nudDistFromSurvey");
+            this.nudDistFromSurvey.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.nudDistFromSurvey.Maximum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            0});
+            this.nudDistFromSurvey.Name = "nudDistFromSurvey";
+            this.nudDistFromSurvey.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.nudDistFromSurvey.ValueChanged += new System.EventHandler(this.nudPlowHeight_ValueChanged_2);
+            // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.nudMinShoreSlope);
@@ -523,11 +636,34 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Enter += new System.EventHandler(this.groupBox4_Enter);
             // 
-            // label10
+            // nudMinShoreSlope
             // 
-            resources.ApplyResources(this.label10, "label10");
-            this.label10.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label10.Name = "label10";
+            this.nudMinShoreSlope.BackColor = System.Drawing.SystemColors.MenuText;
+            this.nudMinShoreSlope.DecimalPlaces = 2;
+            resources.ApplyResources(this.nudMinShoreSlope, "nudMinShoreSlope");
+            this.nudMinShoreSlope.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.nudMinShoreSlope.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.nudMinShoreSlope.Maximum = new decimal(new int[] {
+            80,
+            0,
+            0,
+            0});
+            this.nudMinShoreSlope.Name = "nudMinShoreSlope";
+            this.nudMinShoreSlope.Value = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label1.Name = "label1";
             // 
             // nudMinSlope
             // 
@@ -553,127 +689,11 @@
             131072});
             this.nudMinSlope.ValueChanged += new System.EventHandler(this.nudMinSlope_ValueChanged_1);
             // 
-            // label1
+            // label10
             // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label1.Name = "label1";
-            // 
-            // nudMinShoreSlope
-            // 
-            this.nudMinShoreSlope.BackColor = System.Drawing.SystemColors.MenuText;
-            this.nudMinShoreSlope.DecimalPlaces = 2;
-            resources.ApplyResources(this.nudMinShoreSlope, "nudMinShoreSlope");
-            this.nudMinShoreSlope.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.nudMinShoreSlope.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.nudMinShoreSlope.Maximum = new decimal(new int[] {
-            80,
-            0,
-            0,
-            0});
-            this.nudMinShoreSlope.Name = "nudMinShoreSlope";
-            this.nudMinShoreSlope.Value = new decimal(new int[] {
-            15,
-            0,
-            0,
-            0});
-            // 
-            // nudDistFromSurvey
-            // 
-            this.nudDistFromSurvey.BackColor = System.Drawing.SystemColors.MenuText;
-            resources.ApplyResources(this.nudDistFromSurvey, "nudDistFromSurvey");
-            this.nudDistFromSurvey.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.nudDistFromSurvey.Maximum = new decimal(new int[] {
-            99999,
-            0,
-            0,
-            0});
-            this.nudDistFromSurvey.Name = "nudDistFromSurvey";
-            this.nudDistFromSurvey.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.nudDistFromSurvey.ValueChanged += new System.EventHandler(this.nudPlowHeight_ValueChanged_2);
-            // 
-            // label4
-            // 
-            resources.ApplyResources(this.label4, "label4");
-            this.label4.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label4.Name = "label4";
-            // 
-            // label16
-            // 
-            resources.ApplyResources(this.label16, "label16");
-            this.label16.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label16.Name = "label16";
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = global::OpenGrade.Properties.Resources.ConV_GuidanceLookAhead;
-            resources.ApplyResources(this.pictureBox3, "pictureBox3");
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.TabStop = false;
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Image = global::OpenGrade.Properties.Resources.Con_SourcesHead;
-            resources.ApplyResources(this.pictureBox4, "pictureBox4");
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.TabStop = false;
-            // 
-            // pictureBox5
-            // 
-            this.pictureBox5.Image = global::OpenGrade.Properties.Resources.ConV_LineWith;
-            resources.ApplyResources(this.pictureBox5, "pictureBox5");
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.TabStop = false;
-            // 
-            // pictureBox6
-            // 
-            this.pictureBox6.Image = global::OpenGrade.Properties.Resources.ConV_ABLineLength;
-            resources.ApplyResources(this.pictureBox6, "pictureBox6");
-            this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.TabStop = false;
-            // 
-            // pictureBox7
-            // 
-            this.pictureBox7.Image = global::OpenGrade.Properties.Resources.Con_SourcesGPSSingle1;
-            resources.ApplyResources(this.pictureBox7, "pictureBox7");
-            this.pictureBox7.Name = "pictureBox7";
-            this.pictureBox7.TabStop = false;
-            // 
-            // pictureBox8
-            // 
-            this.pictureBox8.Image = global::OpenGrade.Properties.Resources.Con_SourcesGPSDual1;
-            resources.ApplyResources(this.pictureBox8, "pictureBox8");
-            this.pictureBox8.Name = "pictureBox8";
-            this.pictureBox8.TabStop = false;
-            // 
-            // pictureBox9
-            // 
-            this.pictureBox9.Image = global::OpenGrade.Properties.Resources.Con_SourcesRTKAlarm1;
-            resources.ApplyResources(this.pictureBox9, "pictureBox9");
-            this.pictureBox9.Name = "pictureBox9";
-            this.pictureBox9.TabStop = false;
-            // 
-            // pictureBox10
-            // 
-            this.pictureBox10.Image = global::OpenGrade.Properties.Resources.ConS_VehicleDim;
-            resources.ApplyResources(this.pictureBox10, "pictureBox10");
-            this.pictureBox10.Name = "pictureBox10";
-            this.pictureBox10.TabStop = false;
-            // 
-            // pictureBox11
-            // 
-            this.pictureBox11.Image = global::OpenGrade.Properties.Resources.Con_SourcesGPSDual1;
-            resources.ApplyResources(this.pictureBox11, "pictureBox11");
-            this.pictureBox11.Name = "pictureBox11";
-            this.pictureBox11.TabStop = false;
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label10.Name = "label10";
             // 
             // tabVehicle
             // 
@@ -695,6 +715,24 @@
             this.tabVehicle.Controls.Add(this.label18);
             this.tabVehicle.Name = "tabVehicle";
             this.tabVehicle.UseVisualStyleBackColor = true;
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.label2);
+            this.groupBox6.Controls.Add(this.nudAntennaHeight);
+            this.groupBox6.Controls.Add(this.label3);
+            this.groupBox6.Controls.Add(this.nudToolWidth);
+            resources.ApplyResources(this.groupBox6, "groupBox6");
+            this.groupBox6.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Enter += new System.EventHandler(this.groupBox6_Enter);
+            // 
+            // label2
+            // 
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label2.Name = "label2";
             // 
             // nudAntennaHeight
             // 
@@ -719,46 +757,11 @@
             0});
             this.nudAntennaHeight.ValueChanged += new System.EventHandler(this.nudAntennaHeight_ValueChanged);
             // 
-            // label18
+            // label3
             // 
-            resources.ApplyResources(this.label18, "label18");
-            this.label18.Name = "label18";
-            // 
-            // label25
-            // 
-            resources.ApplyResources(this.label25, "label25");
-            this.label25.Name = "label25";
-            // 
-            // label13
-            // 
-            resources.ApplyResources(this.label13, "label13");
-            this.label13.Name = "label13";
-            // 
-            // label12
-            // 
-            resources.ApplyResources(this.label12, "label12");
-            this.label12.Name = "label12";
-            // 
-            // label26
-            // 
-            resources.ApplyResources(this.label26, "label26");
-            this.label26.Name = "label26";
-            // 
-            // label28
-            // 
-            resources.ApplyResources(this.label28, "label28");
-            this.label28.Name = "label28";
-            // 
-            // label15
-            // 
-            resources.ApplyResources(this.label15, "label15");
-            this.label15.Name = "label15";
-            // 
-            // label2
-            // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label2.Name = "label2";
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label3.Name = "label3";
             // 
             // nudToolWidth
             // 
@@ -783,11 +786,193 @@
             0});
             this.nudToolWidth.ValueChanged += new System.EventHandler(this.nudToolWidth_ValueChanged);
             // 
-            // label3
+            // btnLoadVehicle
             // 
-            resources.ApplyResources(this.label3, "label3");
-            this.label3.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label3.Name = "label3";
+            this.btnLoadVehicle.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.btnLoadVehicle, "btnLoadVehicle");
+            this.btnLoadVehicle.Image = global::OpenGrade.Properties.Resources.VehFileLoad2;
+            this.btnLoadVehicle.Name = "btnLoadVehicle";
+            this.btnLoadVehicle.UseVisualStyleBackColor = false;
+            this.btnLoadVehicle.Click += new System.EventHandler(this.btnLoadVehicle_Click);
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.button2, "button2");
+            this.button2.Image = global::OpenGrade.Properties.Resources.FileDontSave;
+            this.button2.Name = "button2";
+            this.button2.UseVisualStyleBackColor = false;
+            // 
+            // btnDeleteVehicle
+            // 
+            this.btnDeleteVehicle.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.btnDeleteVehicle, "btnDeleteVehicle");
+            this.btnDeleteVehicle.Image = global::OpenGrade.Properties.Resources.VehFileDelete1;
+            this.btnDeleteVehicle.Name = "btnDeleteVehicle";
+            this.btnDeleteVehicle.UseVisualStyleBackColor = false;
+            this.btnDeleteVehicle.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // btnSaveVehicle
+            // 
+            this.btnSaveVehicle.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.btnSaveVehicle, "btnSaveVehicle");
+            this.btnSaveVehicle.Image = global::OpenGrade.Properties.Resources.VehFileSaveAs1;
+            this.btnSaveVehicle.Name = "btnSaveVehicle";
+            this.btnSaveVehicle.UseVisualStyleBackColor = false;
+            this.btnSaveVehicle.Click += new System.EventHandler(this.btnSaveVehicle_Click);
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.groupBox7);
+            this.groupBox5.Controls.Add(this.nudExtDeadband);
+            this.groupBox5.Controls.Add(this.nudRetDeadband);
+            this.groupBox5.Controls.Add(this.valveSelectChoice);
+            this.groupBox5.Controls.Add(this.label8);
+            this.groupBox5.Controls.Add(this.label9);
+            resources.ApplyResources(this.groupBox5, "groupBox5");
+            this.groupBox5.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.TabStop = false;
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.numericUpDown4);
+            this.groupBox7.Controls.Add(this.numericUpDown5);
+            this.groupBox7.Controls.Add(this.label21);
+            this.groupBox7.Controls.Add(this.numericUpDown6);
+            this.groupBox7.Controls.Add(this.label22);
+            this.groupBox7.Controls.Add(this.label23);
+            resources.ApplyResources(this.groupBox7, "groupBox7");
+            this.groupBox7.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.TabStop = false;
+            // 
+            // numericUpDown4
+            // 
+            this.numericUpDown4.BackColor = System.Drawing.SystemColors.MenuText;
+            resources.ApplyResources(this.numericUpDown4, "numericUpDown4");
+            this.numericUpDown4.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.numericUpDown4.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numericUpDown4.Name = "numericUpDown4";
+            this.numericUpDown4.Value = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            // 
+            // numericUpDown5
+            // 
+            this.numericUpDown5.BackColor = System.Drawing.SystemColors.MenuText;
+            resources.ApplyResources(this.numericUpDown5, "numericUpDown5");
+            this.numericUpDown5.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.numericUpDown5.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numericUpDown5.Name = "numericUpDown5";
+            this.numericUpDown5.Value = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            // 
+            // label21
+            // 
+            resources.ApplyResources(this.label21, "label21");
+            this.label21.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label21.Name = "label21";
+            // 
+            // numericUpDown6
+            // 
+            this.numericUpDown6.BackColor = System.Drawing.SystemColors.MenuText;
+            resources.ApplyResources(this.numericUpDown6, "numericUpDown6");
+            this.numericUpDown6.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.numericUpDown6.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numericUpDown6.Name = "numericUpDown6";
+            this.numericUpDown6.Value = new decimal(new int[] {
+            21,
+            0,
+            0,
+            0});
+            // 
+            // label22
+            // 
+            resources.ApplyResources(this.label22, "label22");
+            this.label22.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label22.Name = "label22";
+            // 
+            // label23
+            // 
+            resources.ApplyResources(this.label23, "label23");
+            this.label23.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label23.Name = "label23";
+            // 
+            // nudExtDeadband
+            // 
+            this.nudExtDeadband.BackColor = System.Drawing.SystemColors.MenuText;
+            resources.ApplyResources(this.nudExtDeadband, "nudExtDeadband");
+            this.nudExtDeadband.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.nudExtDeadband.Maximum = new decimal(new int[] {
+            25,
+            0,
+            0,
+            0});
+            this.nudExtDeadband.Name = "nudExtDeadband";
+            this.nudExtDeadband.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            // 
+            // nudRetDeadband
+            // 
+            this.nudRetDeadband.BackColor = System.Drawing.SystemColors.MenuText;
+            resources.ApplyResources(this.nudRetDeadband, "nudRetDeadband");
+            this.nudRetDeadband.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.nudRetDeadband.Maximum = new decimal(new int[] {
+            25,
+            0,
+            0,
+            0});
+            this.nudRetDeadband.Name = "nudRetDeadband";
+            this.nudRetDeadband.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            // 
+            // valveSelectChoice
+            // 
+            this.valveSelectChoice.BackColor = System.Drawing.SystemColors.InfoText;
+            resources.ApplyResources(this.valveSelectChoice, "valveSelectChoice");
+            this.valveSelectChoice.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.valveSelectChoice.FormattingEnabled = true;
+            this.valveSelectChoice.Items.AddRange(new object[] {
+            resources.GetString("valveSelectChoice.Items"),
+            resources.GetString("valveSelectChoice.Items1"),
+            resources.GetString("valveSelectChoice.Items2")});
+            this.valveSelectChoice.Name = "valveSelectChoice";
+            // 
+            // label8
+            // 
+            resources.ApplyResources(this.label8, "label8");
+            this.label8.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label8.Name = "label8";
+            // 
+            // label9
+            // 
+            resources.ApplyResources(this.label9, "label9");
+            this.label9.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label9.Name = "label9";
             // 
             // groupBox1
             // 
@@ -802,41 +987,22 @@
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
-            // label7
+            // nudKd
             // 
-            resources.ApplyResources(this.label7, "label7");
-            this.label7.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label7.Name = "label7";
-            // 
-            // label6
-            // 
-            resources.ApplyResources(this.label6, "label6");
-            this.label6.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label6.Name = "label6";
-            // 
-            // nudKi
-            // 
-            this.nudKi.BackColor = System.Drawing.SystemColors.MenuText;
-            resources.ApplyResources(this.nudKi, "nudKi");
-            this.nudKi.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.nudKi.Maximum = new decimal(new int[] {
+            this.nudKd.BackColor = System.Drawing.SystemColors.MenuText;
+            resources.ApplyResources(this.nudKd, "nudKd");
+            this.nudKd.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.nudKd.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
-            this.nudKi.Name = "nudKi";
-            this.nudKi.Value = new decimal(new int[] {
-            21,
+            this.nudKd.Name = "nudKd";
+            this.nudKd.Value = new decimal(new int[] {
+            255,
             0,
             0,
             0});
-            this.nudKi.ValueChanged += new System.EventHandler(this.nudKi_ValueChanged_2);
-            // 
-            // label5
-            // 
-            resources.ApplyResources(this.label5, "label5");
-            this.label5.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label5.Name = "label5";
             // 
             // nudKp
             // 
@@ -856,210 +1022,76 @@
             0});
             this.nudKp.ValueChanged += new System.EventHandler(this.nudKp_ValueChanged_2);
             // 
-            // nudKd
+            // label5
             // 
-            this.nudKd.BackColor = System.Drawing.SystemColors.MenuText;
-            resources.ApplyResources(this.nudKd, "nudKd");
-            this.nudKd.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.nudKd.Maximum = new decimal(new int[] {
+            resources.ApplyResources(this.label5, "label5");
+            this.label5.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label5.Name = "label5";
+            // 
+            // nudKi
+            // 
+            this.nudKi.BackColor = System.Drawing.SystemColors.MenuText;
+            resources.ApplyResources(this.nudKi, "nudKi");
+            this.nudKi.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.nudKi.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
-            this.nudKd.Name = "nudKd";
-            this.nudKd.Value = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.groupBox7);
-            this.groupBox5.Controls.Add(this.nudExtDeadband);
-            this.groupBox5.Controls.Add(this.nudRetDeadband);
-            this.groupBox5.Controls.Add(this.valveSelectChoice);
-            this.groupBox5.Controls.Add(this.label8);
-            this.groupBox5.Controls.Add(this.label9);
-            resources.ApplyResources(this.groupBox5, "groupBox5");
-            this.groupBox5.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.TabStop = false;
-            // 
-            // label9
-            // 
-            resources.ApplyResources(this.label9, "label9");
-            this.label9.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label9.Name = "label9";
-            // 
-            // label8
-            // 
-            resources.ApplyResources(this.label8, "label8");
-            this.label8.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label8.Name = "label8";
-            // 
-            // valveSelectChoice
-            // 
-            this.valveSelectChoice.BackColor = System.Drawing.SystemColors.InfoText;
-            resources.ApplyResources(this.valveSelectChoice, "valveSelectChoice");
-            this.valveSelectChoice.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.valveSelectChoice.FormattingEnabled = true;
-            this.valveSelectChoice.Items.AddRange(new object[] {
-            resources.GetString("valveSelectChoice.Items"),
-            resources.GetString("valveSelectChoice.Items1"),
-            resources.GetString("valveSelectChoice.Items2")});
-            this.valveSelectChoice.Name = "valveSelectChoice";
-            // 
-            // nudRetDeadband
-            // 
-            this.nudRetDeadband.BackColor = System.Drawing.SystemColors.MenuText;
-            resources.ApplyResources(this.nudRetDeadband, "nudRetDeadband");
-            this.nudRetDeadband.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.nudRetDeadband.Maximum = new decimal(new int[] {
-            25,
-            0,
-            0,
-            0});
-            this.nudRetDeadband.Name = "nudRetDeadband";
-            this.nudRetDeadband.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            // 
-            // nudExtDeadband
-            // 
-            this.nudExtDeadband.BackColor = System.Drawing.SystemColors.MenuText;
-            resources.ApplyResources(this.nudExtDeadband, "nudExtDeadband");
-            this.nudExtDeadband.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.nudExtDeadband.Maximum = new decimal(new int[] {
-            25,
-            0,
-            0,
-            0});
-            this.nudExtDeadband.Name = "nudExtDeadband";
-            this.nudExtDeadband.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.numericUpDown4);
-            this.groupBox7.Controls.Add(this.numericUpDown5);
-            this.groupBox7.Controls.Add(this.label21);
-            this.groupBox7.Controls.Add(this.numericUpDown6);
-            this.groupBox7.Controls.Add(this.label22);
-            this.groupBox7.Controls.Add(this.label23);
-            resources.ApplyResources(this.groupBox7, "groupBox7");
-            this.groupBox7.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.TabStop = false;
-            // 
-            // label23
-            // 
-            resources.ApplyResources(this.label23, "label23");
-            this.label23.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label23.Name = "label23";
-            // 
-            // label22
-            // 
-            resources.ApplyResources(this.label22, "label22");
-            this.label22.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label22.Name = "label22";
-            // 
-            // numericUpDown6
-            // 
-            this.numericUpDown6.BackColor = System.Drawing.SystemColors.MenuText;
-            resources.ApplyResources(this.numericUpDown6, "numericUpDown6");
-            this.numericUpDown6.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.numericUpDown6.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numericUpDown6.Name = "numericUpDown6";
-            this.numericUpDown6.Value = new decimal(new int[] {
+            this.nudKi.Name = "nudKi";
+            this.nudKi.Value = new decimal(new int[] {
             21,
             0,
             0,
             0});
+            this.nudKi.ValueChanged += new System.EventHandler(this.nudKi_ValueChanged_2);
             // 
-            // label21
+            // label6
             // 
-            resources.ApplyResources(this.label21, "label21");
-            this.label21.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label21.Name = "label21";
+            resources.ApplyResources(this.label6, "label6");
+            this.label6.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label6.Name = "label6";
             // 
-            // numericUpDown5
+            // label7
             // 
-            this.numericUpDown5.BackColor = System.Drawing.SystemColors.MenuText;
-            resources.ApplyResources(this.numericUpDown5, "numericUpDown5");
-            this.numericUpDown5.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.numericUpDown5.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numericUpDown5.Name = "numericUpDown5";
-            this.numericUpDown5.Value = new decimal(new int[] {
-            8,
-            0,
-            0,
-            0});
+            resources.ApplyResources(this.label7, "label7");
+            this.label7.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label7.Name = "label7";
             // 
-            // numericUpDown4
+            // label15
             // 
-            this.numericUpDown4.BackColor = System.Drawing.SystemColors.MenuText;
-            resources.ApplyResources(this.numericUpDown4, "numericUpDown4");
-            this.numericUpDown4.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.numericUpDown4.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numericUpDown4.Name = "numericUpDown4";
-            this.numericUpDown4.Value = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
+            resources.ApplyResources(this.label15, "label15");
+            this.label15.Name = "label15";
             // 
-            // btnSaveVehicle
+            // label28
             // 
-            this.btnSaveVehicle.BackColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.btnSaveVehicle, "btnSaveVehicle");
-            this.btnSaveVehicle.Image = global::OpenGrade.Properties.Resources.VehFileSaveAs1;
-            this.btnSaveVehicle.Name = "btnSaveVehicle";
-            this.btnSaveVehicle.UseVisualStyleBackColor = false;
-            this.btnSaveVehicle.Click += new System.EventHandler(this.btnSaveVehicle_Click);
+            resources.ApplyResources(this.label28, "label28");
+            this.label28.Name = "label28";
             // 
-            // btnDeleteVehicle
+            // label26
             // 
-            this.btnDeleteVehicle.BackColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.btnDeleteVehicle, "btnDeleteVehicle");
-            this.btnDeleteVehicle.Image = global::OpenGrade.Properties.Resources.VehFileDelete1;
-            this.btnDeleteVehicle.Name = "btnDeleteVehicle";
-            this.btnDeleteVehicle.UseVisualStyleBackColor = false;
-            this.btnDeleteVehicle.Click += new System.EventHandler(this.button1_Click);
+            resources.ApplyResources(this.label26, "label26");
+            this.label26.Name = "label26";
             // 
-            // button2
+            // label12
             // 
-            this.button2.BackColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.button2, "button2");
-            this.button2.Image = global::OpenGrade.Properties.Resources.FileDontSave;
-            this.button2.Name = "button2";
-            this.button2.UseVisualStyleBackColor = false;
+            resources.ApplyResources(this.label12, "label12");
+            this.label12.Name = "label12";
             // 
-            // btnLoadVehicle
+            // label13
             // 
-            this.btnLoadVehicle.BackColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.btnLoadVehicle, "btnLoadVehicle");
-            this.btnLoadVehicle.Image = global::OpenGrade.Properties.Resources.VehFileLoad2;
-            this.btnLoadVehicle.Name = "btnLoadVehicle";
-            this.btnLoadVehicle.UseVisualStyleBackColor = false;
-            this.btnLoadVehicle.Click += new System.EventHandler(this.btnLoadVehicle_Click);
+            resources.ApplyResources(this.label13, "label13");
+            this.label13.Name = "label13";
+            // 
+            // label25
+            // 
+            resources.ApplyResources(this.label25, "label25");
+            this.label25.Name = "label25";
+            // 
+            // label18
+            // 
+            resources.ApplyResources(this.label18, "label18");
+            this.label18.Name = "label18";
             // 
             // tabOpenGrade
             // 
@@ -1071,38 +1103,6 @@
             this.tabOpenGrade.Name = "tabOpenGrade";
             this.tabOpenGrade.SelectedIndex = 0;
             this.tabOpenGrade.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.label2);
-            this.groupBox6.Controls.Add(this.nudAntennaHeight);
-            this.groupBox6.Controls.Add(this.label3);
-            this.groupBox6.Controls.Add(this.nudToolWidth);
-            resources.ApplyResources(this.groupBox6, "groupBox6");
-            this.groupBox6.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Enter += new System.EventHandler(this.groupBox6_Enter);
-            // 
-            // label11
-            // 
-            resources.ApplyResources(this.label11, "label11");
-            this.label11.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label11.Name = "label11";
-            this.label11.Click += new System.EventHandler(this.label11_Click_1);
-            // 
-            // label14
-            // 
-            resources.ApplyResources(this.label14, "label14");
-            this.label14.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label14.Name = "label14";
-            // 
-            // label19
-            // 
-            resources.ApplyResources(this.label19, "label19");
-            this.label19.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label19.Name = "label19";
-            this.label19.Click += new System.EventHandler(this.label19_Click);
             // 
             // FormSettings
             // 
@@ -1123,51 +1123,51 @@
             this.tabIMU.ResumeLayout(false);
             this.tabIMU.PerformLayout();
             this.tabMeasurements.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMaxTileCut)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMinTileCover)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMinDitchCut)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMaxDitchCut)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMinDitchCut)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMinTileCover)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMaxTileCut)).EndInit();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudDistFromSurvey)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMinSlope)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinShoreSlope)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudDistFromSurvey)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMinSlope)).EndInit();
             this.tabVehicle.ResumeLayout(false);
             this.tabVehicle.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudAntennaHeight)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudToolWidth)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudKi)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudKp)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudKd)).EndInit();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudRetDeadband)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudExtDeadband)).EndInit();
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
-            this.tabOpenGrade.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudAntennaHeight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudToolWidth)).EndInit();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudExtDeadband)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudRetDeadband)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudKd)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudKp)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudKi)).EndInit();
+            this.tabOpenGrade.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

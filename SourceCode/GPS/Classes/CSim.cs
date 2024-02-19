@@ -78,10 +78,6 @@ namespace OpenGrade
             if (mf.isAutoVertOn && cutDelta != 9999)
             {
                 altitude = altitude - (cutDelta/100 * .3); 
-                //mf.nudElevation.Value = (decimal)altitude;
-
-                //mf.tStrip3.Text = altitude.ToString("F2")+ "  " + cutDelta.ToString("F2");// 
-                    //mf.sim.altitude
             }
             BuildGGA();
             BuildVTG();

@@ -125,10 +125,6 @@ namespace OpenGrade
 
                 //update all data for new frame
                 UpdateFixPosition();
-                //pn.UpdateBlade();
-                //UpdateBladeEnds();
-
-                //UpdateBladePosition();
             }
 
             //must make sure arduinos are kept off

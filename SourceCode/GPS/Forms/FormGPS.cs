@@ -2342,6 +2342,11 @@ namespace OpenGrade
             }
         }
 
+        private void button1_Click_3(object sender, EventArgs e)
+        {
+
+        }
+
         private void PanelDisplays_Paint(object sender, PaintEventArgs e)
         {
 
@@ -2578,7 +2583,7 @@ namespace OpenGrade
                 btnTiltAuto.Enabled = true;
                 btnVertAuto.Enabled = true;
                 openGLControl.Width = this.Width - 290;
-                    openGLControlBack.Visible = false;
+                openGLControlBack.Visible = false;
                     
                }
 
@@ -2674,32 +2679,28 @@ namespace OpenGrade
                 pbarCutBelowL.Location = (pbarL);
 
 
-                pbarR.X = voltageBar2.Location.X - 29 - voltageBar2.Width;
+                pbarR.X = voltageBar2.Location.X - 29 - voltageBar2.Width ;
                 pbarR.Y = (PanelDisplays.Height) / 2;
                 pbarCutBelowR.Location = (pbarR);
 
+                
+                
+                pbarL.X = openGLControl.Location.X + openGLControl.Width + 8;
+                pbarL.Y = 12;
+                openGLControlCS.Location = pbarL;
+                openGLControlCS.Height = (PanelDisplays.Height) / 2 - 4 ;
 
+                pbarR.X = openGLControl.Location.X + openGLControl.Width + 8;
+                pbarR.Y = 20 + openGLControlCS.Height;
+                openGLControlBack.Location = pbarR;
+                openGLControlBack.Height = ((PanelDisplays.Height) / 2) - 28;
 
-                //pbarCutBelowL.Height = (PanelDisplays.Height / 2);
-
-                // Adjust pBar
 
 
 
             }
 
 
-            //if (openGLControlBack.Visible)
-            //{
-            //    openGLControl.Height = 390;
-            //    //pbarCutAbove.Height = openGLControlBack.Height / 2;
-            //    //pbarCutBelow.Height = pbarCutAbove.Height;
-            //    //pbarCutBelow.Top = pbarCutAbove.Top + pbarCutAbove.Height;
-            //}
-            //else
-            //{
-            //    openGLControl.Height = this.Height - 210;
-            //}
         }
 
         // Select between Grade Mode and Survey Mode

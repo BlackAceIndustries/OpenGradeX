@@ -1917,10 +1917,7 @@ namespace OpenGrade
                 else stripOnlineGPS.Value = 100;
                                
                 SendUDPMessage(DATA_HEADER, epGradeControl);
-            }
-            
-
-
+            }     
             //wait till timer fires again.     
         }
     }

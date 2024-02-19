@@ -124,9 +124,9 @@
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.label1.Location = new System.Drawing.Point(59, 87);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(62, 23);
+            this.label1.Size = new System.Drawing.Size(80, 23);
             this.label1.TabIndex = 7;
-            this.label1.Text = "Status";
+            this.label1.Text = "Heading";
             // 
             // label2
             // 

@@ -75,7 +75,8 @@ namespace OpenGrade
             //lblSpeed.Text = (Math.Round(1.852 * speed, 1)).ToString();
 
 
-            if (mf.isAutoVertOn && cutDelta != 9999)
+            //if (mf.isAutoVertOn && cutDelta != 9999)
+            if (mf.mc.gcData.autoVert && cutDelta != 9999)
             {
                 altitude = altitude - (cutDelta/100 * .3); 
             }

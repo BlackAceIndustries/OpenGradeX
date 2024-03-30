@@ -4,7 +4,9 @@ using OpenGrade.Properties;
 using System;
 using System.Drawing;
 using System.IO;
+using System.Runtime;
 using System.Windows.Forms;
+using static OpenGrade.CModuleComm;
 
 namespace OpenGrade
 {
@@ -179,12 +181,14 @@ namespace OpenGrade
             mf.vehicle.valveType = valveType;
             Properties.Settings.Default.set_ValveType = mf.vehicle.valveType;
 
-            mf.mc.gradeControlSettings[mf.mc.gsKpGain] = Properties.Settings.Default.set_KpGain;
-            mf.mc.gradeControlSettings[mf.mc.gsKiGain] = Properties.Settings.Default.set_KiGain;
-            mf.mc.gradeControlSettings[mf.mc.gsKdGain] = Properties.Settings.Default.set_KdGain;
-            mf.mc.gradeControlSettings[mf.mc.gsRetDeadband] = Properties.Settings.Default.set_RetDeadband;
-            mf.mc.gradeControlSettings[mf.mc.gsExtDeadband] = Properties.Settings.Default.set_ExtDeadband;
-            mf.mc.gradeControlSettings[mf.mc.gsValveType] = Properties.Settings.Default.set_ValveType;
+
+            mf.mc.gcSetting.KP = Properties.Settings.Default.set_KpGain;
+            mf.mc.gcSetting.KI = Properties.Settings.Default.set_KiGain;
+            mf.mc.gcSetting.KD = Properties.Settings.Default.set_KdGain;
+            mf.mc.gcSetting.retDead = Properties.Settings.Default.set_RetDeadband;
+            mf.mc.gcSetting.extDead = Properties.Settings.Default.set_ExtDeadband;
+            mf.mc.gcSetting.valveType = Properties.Settings.Default.set_ValveType;
+
             
             ////
             ////
@@ -201,7 +205,9 @@ namespace OpenGrade
             Properties.Settings.Default.Save();
             Properties.Vehicle.Default.Save();
 
-            mf.SendUDPMessage(FormGPS.SETTINGS_HEADER, mf.epGradeControl);
+            mf.SendUDPMessageJSON((int)ModuleType.GradeControl_Slave, (int)DataType.Settings, 1, mf.epGradeControl);
+
+            //mf.SendUDPMessage(FormGPS.SETTINGS_HEADER, mf.epGradeControl);
 
             //back to FormGPS
             DialogResult = DialogResult.OK;
@@ -228,9 +234,11 @@ namespace OpenGrade
         {
             if (valveSelectChoice.Text == "CNH")
             {
-                mf.mc.gradeControlSettings[mf.mc.gsValveType] = 0;
-                Properties.Settings.Default.set_ValveType = mf.mc.gradeControlSettings[mf.mc.gsValveType];
-                valveType = mf.mc.gradeControlSettings[mf.mc.gsValveType];
+
+                mf.mc.gcSetting.valveType = 0;
+                    
+                Properties.Settings.Default.set_ValveType = mf.mc.gcSetting.valveType;
+                valveType = mf.mc.gcSetting.valveType;
                 Properties.Settings.Default.set_ValveName = valveSelectChoice.Text;
                 Properties.Settings.Default.Save();
                 
@@ -238,39 +246,52 @@ namespace OpenGrade
             }
             if (valveSelectChoice.Text == "DEERE")
             {
-                mf.mc.gradeControlSettings[mf.mc.gsValveType] = 1;
-                Properties.Settings.Default.set_ValveType = mf.mc.gradeControlSettings[mf.mc.gsValveType];
-                valveType = mf.mc.gradeControlSettings[mf.mc.gsValveType];
+                mf.mc.gcSetting.valveType = 1;
+
+                Properties.Settings.Default.set_ValveType = mf.mc.gcSetting.valveType;
+                valveType = mf.mc.gcSetting.valveType;
+
+                Properties.Settings.Default.set_ValveType = mf.mc.gcSetting.valveType;
+                valveType = mf.mc.gcSetting.valveType;
                 Properties.Settings.Default.set_ValveName = valveSelectChoice.Text;
                 Properties.Settings.Default.Save();
-               
+
 
             }
             if (valveSelectChoice.Text == "DANFOSS")
             {
-                mf.mc.gradeControlSettings[mf.mc.gsValveType] = 2;
-                Properties.Settings.Default.set_ValveType = mf.mc.gradeControlSettings[mf.mc.gsValveType];
-                valveType = mf.mc.gradeControlSettings[mf.mc.gsValveType];
+                mf.mc.gcSetting.valveType = 2;
+
+                Properties.Settings.Default.set_ValveType = mf.mc.gcSetting.valveType;
+                valveType = mf.mc.gcSetting.valveType;
+
+                Properties.Settings.Default.set_ValveType = mf.mc.gcSetting.valveType;
+                valveType = mf.mc.gcSetting.valveType;
                 Properties.Settings.Default.set_ValveName = valveSelectChoice.Text;
                 Properties.Settings.Default.Save();
-                
+
             }
             else 
             {
-                mf.mc.gradeControlSettings[mf.mc.gsValveType] = 0;
-                Properties.Settings.Default.set_ValveType = mf.mc.gradeControlSettings[mf.mc.gsValveType];
-                valveType = mf.mc.gradeControlSettings[mf.mc.gsValveType];
+                mf.mc.gcSetting.valveType = 3;
+
+                Properties.Settings.Default.set_ValveType = mf.mc.gcSetting.valveType;
+                valveType = mf.mc.gcSetting.valveType;
+
+                Properties.Settings.Default.set_ValveType = mf.mc.gcSetting.valveType;
+                valveType = mf.mc.gcSetting.valveType;
                 Properties.Settings.Default.set_ValveName = valveSelectChoice.Text;
                 Properties.Settings.Default.Save();
-                
+
             }
         }
 
 
         private void nudKp_ValueChanged_1(object sender, EventArgs e)
         {
-            KpGain = (byte)nudKp.Value;            
-            mf.mc.gradeControlSettings[mf.mc.gsKpGain] = KpGain;
+            KpGain = (byte)nudKp.Value;
+
+            mf.mc.gcSetting.KP = KpGain;
             Properties.Settings.Default.set_KdGain = KdGain;
             KpGain = Properties.Settings.Default.set_KpGain;
             Properties.Settings.Default.Save();
@@ -279,8 +300,8 @@ namespace OpenGrade
 
         private void nudKi_ValueChanged_1(object sender, EventArgs e)
         {
-            KiGain = (byte)nudKi.Value;            
-            mf.mc.gradeControlSettings[mf.mc.gsKiGain] = KiGain;
+            KiGain = (byte)nudKi.Value;
+            mf.mc.gcSetting.KP = KiGain;
             Properties.Settings.Default.set_KiGain = KiGain;
             KiGain = Properties.Settings.Default.set_KiGain; /// 10
             Properties.Settings.Default.Save();
@@ -341,7 +362,7 @@ namespace OpenGrade
 
         private void btnZeroImu_Click(object sender, EventArgs e)
         {
-            mf.SendUDPMessage(FormGPS.IMU_HEADER, mf.epAntennaModule);
+            //mf.SendUDPMessage(FormGPS.IMU_HEADER, mf.epAntennaModule);
         }
 
         private void btnUnits_Click(object sender, EventArgs e)
@@ -557,6 +578,11 @@ namespace OpenGrade
 
         }
 
+        private void nudRetDeadband_ValueChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
         private void nudPlowHeight_ValueChanged_2(object sender, EventArgs e)
         {
             plowHeight = (double)nudDistFromSurvey.Value;
@@ -565,7 +591,8 @@ namespace OpenGrade
         private void nudKd_ValueChanged_1(object sender, EventArgs e)
         {
             KdGain = (byte)nudKd.Value;            
-            mf.mc.gradeControlSettings[mf.mc.gsKdGain] = KdGain;
+
+            //mf.mc.gradeControlSettings[mf.mc.gsKdGain] = KdGain;
             Properties.Settings.Default.set_KdGain = KdGain;
             KdGain = Properties.Settings.Default.set_KdGain;
             Properties.Settings.Default.Save();
@@ -577,7 +604,7 @@ namespace OpenGrade
         private void numericUpDown2_ValueChanged(object sender, EventArgs e)
         {
             extDeadband = (byte)nudExtDeadband.Value;
-            mf.mc.gradeControlSettings[mf.mc.gsExtDeadband] = extDeadband;
+            //mf.mc.gradeControlSettings[mf.mc.gsExtDeadband] = extDeadband;
             Properties.Settings.Default.set_ExtDeadband = extDeadband;            
             extDeadband = Properties.Settings.Default.set_ExtDeadband;
             Properties.Settings.Default.Save();
@@ -588,7 +615,7 @@ namespace OpenGrade
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
             retDeadband = (byte)nudRetDeadband.Value;
-            mf.mc.gradeControlSettings[mf.mc.gsRetDeadband] = retDeadband;
+            //mf.mc.gradeControlSettings[mf.mc.gsRetDeadband] = retDeadband;
             Properties.Settings.Default.set_RetDeadband = retDeadband;
             Properties.Settings.Default.Save();
 

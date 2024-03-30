@@ -949,6 +949,7 @@
             0,
             0,
             0});
+            this.nudRetDeadband.ValueChanged += new System.EventHandler(this.nudRetDeadband_ValueChanged_1);
             // 
             // valveSelectChoice
             // 

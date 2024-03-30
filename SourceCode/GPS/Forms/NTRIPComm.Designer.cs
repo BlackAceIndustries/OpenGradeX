@@ -296,8 +296,8 @@ namespace OpenGrade
                     //rtcm = sbRTCM.ToString();
 
                     //SendUDPMessageNTRIP(, rtcm);
-                    SendUDPMessage(NTRIP_HEADER, epAntennaModule);
-                    SendUDPMessageNTRIP(NTRIP_HEADER, data);
+                    //SendUDPMessage(NTRIP_HEADER, epAntennaModule);
+                    //SendUDPMessageNTRIP(NTRIP_HEADER, data);
 
                 }
 

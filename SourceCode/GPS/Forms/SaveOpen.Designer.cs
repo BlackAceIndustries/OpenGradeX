@@ -286,12 +286,19 @@ namespace OpenGrade
                         vehicle.valveType = Properties.Settings.Default.set_ValveType;
 
 
-                        mc.gradeControlSettings[mc.gsKpGain] = Properties.Settings.Default.set_KpGain;
-                        mc.gradeControlSettings[mc.gsKiGain] = Properties.Settings.Default.set_KiGain;
-                        mc.gradeControlSettings[mc.gsKdGain] = Properties.Settings.Default.set_KdGain;
-                        mc.gradeControlSettings[mc.gsRetDeadband] = Properties.Settings.Default.set_RetDeadband;
-                        mc.gradeControlSettings[mc.gsExtDeadband] = Properties.Settings.Default.set_ExtDeadband;
-                        mc.gradeControlSettings[mc.gsValveType] = Properties.Settings.Default.set_ValveType;
+                        //mc.gradeControlSettings[mc.gsKpGain] = Properties.Settings.Default.set_KpGain;
+                        //mc.gradeControlSettings[mc.gsKiGain] = Properties.Settings.Default.set_KiGain;
+                        //mc.gradeControlSettings[mc.gsKdGain] = Properties.Settings.Default.set_KdGain;
+                        //mc.gradeControlSettings[mc.gsRetDeadband] = Properties.Settings.Default.set_RetDeadband;
+                        //mc.gradeControlSettings[mc.gsExtDeadband] = Properties.Settings.Default.set_ExtDeadband;
+                        //mc.gradeControlSettings[mc.gsValveType] = Properties.Settings.Default.set_ValveType;
+
+                        mc.gcSetting.KP = Properties.Settings.Default.set_KpGain;
+                        mc.gcSetting.KI = Properties.Settings.Default.set_KiGain;
+                        mc.gcSetting.KD = Properties.Settings.Default.set_KdGain;
+                        mc.gcSetting.retDead = Properties.Settings.Default.set_RetDeadband;
+                        mc.gcSetting.extDead = Properties.Settings.Default.set_ExtDeadband;
+                        mc.gcSetting.valveType = Properties.Settings.Default.set_ValveType;
 
 
 
@@ -302,14 +309,7 @@ namespace OpenGrade
                         vehicle.maxAngularVelocity = Properties.Vehicle.Default.setVehicle_maxAngularVelocity;
                         vehicle.maxSteerAngle = Properties.Vehicle.Default.setVehicle_maxSteerAngle;
 
-                        mc.autoSteerSettings[mc.ssKp] = Properties.Settings.Default.setAS_Kp;
-                        mc.autoSteerSettings[mc.ssKi] = Properties.Settings.Default.setAS_Ki;
-                        mc.autoSteerSettings[mc.ssKd] = Properties.Settings.Default.setAS_Kd;
-                        mc.autoSteerSettings[mc.ssKo] = Properties.Settings.Default.setAS_Ko;
-                        mc.autoSteerSettings[mc.ssSteerOffset] = Properties.Settings.Default.setAS_steerAngleOffset;
-                        mc.autoSteerSettings[mc.ssMinPWM] = Properties.Settings.Default.setAS_minSteerPWM;
-                        mc.autoSteerSettings[mc.ssMaxIntegral] = Properties.Settings.Default.setAS_maxIntegral;
-                        mc.autoSteerSettings[mc.ssCountsPerDegree] = Properties.Settings.Default.setAS_countsPerDegree;
+                  
 
                         mc.isWorkSwitchEnabled = Properties.Settings.Default.setF_IsWorkSwitchEnabled;
                         mc.isWorkSwitchActiveLow = Properties.Settings.Default.setF_IsWorkSwitchActiveLow;

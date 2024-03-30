@@ -48,9 +48,14 @@ namespace OpenGrade
             lblSpeed.Text = mf.pn.speed.ToString();
 
 
-            lblPitch.Text = mf.mc.pitchIMU.ToString();
-            lblRoll.Text = mf.mc.rollIMU.ToString();
-            lblGyro.Text = mf.mc.headingIMU.ToString();
+            lblPitch.Text = mf.mc.a1Data.pitch.ToString();
+            lblRoll.Text = mf.mc.a1Data.roll.ToString();
+            lblGyro.Text = mf.mc.a1Data.yaw.ToString();
+
+            //lblPitch.Text = mf.mc.pitchIMU.ToString();
+            //lblRoll.Text = mf.mc.rollIMU.ToString();
+            //lblGyro.Text = mf.mc.headingIMU.ToString();
+
 
 
 
@@ -61,11 +66,18 @@ namespace OpenGrade
             //lblFixQuality.Text = mf.pn.fixQuality.ToString();
             lblSatsTracked.Text = mf.pn.satellitesTracked.ToString();
             //lblStatus.Text = mf.pn.status.ToString();
+            lblPDOP.Text = mf.pn.pdop.ToString();
             lblHDOP.Text = mf.pn.hdop.ToString();
-            tboxNMEASerial.Text = mf.pn.rawBuffer.ToString();
+            lblVDOP.Text = mf.pn.vdop.ToString();
+
+
+            if (mf.pn.rawBuffer != null)
+            {
+                tboxNMEASerial.Text = mf.recvSentenceSettings;
+            }
+            
 
             //tboxSerialToAutoSteer.Text = mf.mc.Antenna
-            txtBoxSendGradeControl.Text =  mf.mc.GradeControlData.ToString();
 
 
 
@@ -112,6 +124,21 @@ namespace OpenGrade
         }
 
         private void label24_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FormGPSData_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label24_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label25_Click(object sender, EventArgs e)
         {
 
         }

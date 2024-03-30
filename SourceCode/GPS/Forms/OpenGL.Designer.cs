@@ -15,7 +15,7 @@ namespace OpenGrade
         public double[] frustum = new double[24];
 
         //difference between blade tip and guide line
-        public double cutDelta = 0, cutDeltaLeft=0, cutDeltaRight = 0, distFromLastPass = 0, distToTarget = 0;
+        public double cutDeltaCenter = 0, cutDeltaLeft=0, cutDeltaRight = 0, distFromLastPass = 0, distToTarget = 0;
         public double autoCutDepth = 0;
         public double minDist;
         public double bladeOffset;
@@ -313,18 +313,18 @@ namespace OpenGrade
 
 
                 double cut = 0.0;
-                if (cutDelta != 9999)
+                if (cutDeltaCenter != 9999)
                 {
-                    cut = cutDelta;
+                    cut = cutDeltaCenter;
 
                 }
-                if (cutDelta == 0)
+                if (cutDeltaCenter == 0)
                 {
-                    cut = cutDelta + 0.01;
+                    cut = cutDeltaCenter + 0.01;
 
                 }
                 gl.Color(0.0f, 0.0f, 0.0f, 0.35f);
-                if (cutDelta < -3)//Blue
+                if (cutDeltaCenter < -3)//Blue
                 {
                     
                     //gl.Color(42,127,255,100);
@@ -332,7 +332,7 @@ namespace OpenGrade
 
                 }
 
-                if (cutDelta > 3)// Red
+                if (cutDeltaCenter > 3)// Red
                 {
 
                     //gl.Color(255,0,0,100);
@@ -341,7 +341,7 @@ namespace OpenGrade
 
                 }
 
-                if (cutDelta > -3 && cutDelta < 3)  //GREEN
+                if (cutDeltaCenter > -3 && cutDeltaCenter < 3)  //GREEN
                 {
 
                     //gl.Color(18,130,18,100);
@@ -727,7 +727,12 @@ namespace OpenGrade
             gl.Color(1,1,1);
 
             //reset cut delta for frame
-            cutDelta = 9999;
+            cutDeltaCenter = 9999;
+            cutDeltaRight = 9999;
+            cutDeltaLeft = 9999;
+
+
+
             distToTarget = 9999;
             distFromLastPass = 9999;
             //bladeOffset = Int16.Parse(tStripVerticalOffset.Text);
@@ -967,17 +972,17 @@ namespace OpenGrade
                                 {
                                     if (distToTarget < 0)//  && cutDepth < -5
                                     {
-                                        cutDelta = distToTarget;
+                                        cutDeltaCenter = distToTarget;
                                     }
                                     else
                                     {
-                                        cutDelta = distFromLastPass - autoCutDepth;
+                                        cutDeltaCenter = distFromLastPass - autoCutDepth;
                                     }
 
                                 }
                                 else
                                 {
-                                    cutDelta = distToTarget;
+                                    cutDeltaCenter = distToTarget;
                                 }
 
 
@@ -987,7 +992,7 @@ namespace OpenGrade
                             if (isAutoShoreOn)
                             {
                                 double x = (Math.Tan(glm.toRadians(vehicle.minCrossSlope)) * ct.distanceFromCurrentLine);
-                                cutDelta += x;
+                                cutDeltaCenter += x;
                             }
 
 
@@ -1157,8 +1162,8 @@ namespace OpenGrade
 
             }
             else // LEVEL MODE
-            {           
-                cutDelta = ((pn.altitude - ct.LaserSetAltitude)*100)-bladeOffset;
+            {
+                cutDeltaCenter = ((pn.altitude - ct.LaserSetAltitude)*100)-bladeOffset;
                 distToTarget = ((pn.altitude - ct.LaserSetAltitude) * 100) - bladeOffset;                
 
             }
@@ -1196,7 +1201,10 @@ namespace OpenGrade
             gl.Color(1, 1, 1);
 
             //reset cut delta for frame
-            cutDelta = 9999;
+            cutDeltaCenter = 9999;
+            cutDeltaRight = 9999;
+            cutDeltaLeft = 9999;
+
             distToTarget = 9999;
             distFromLastPass = 9999;
             //bladeOffset = Int16.Parse(tStripVerticalOffset.Text);
@@ -1584,17 +1592,17 @@ namespace OpenGrade
                                 {
                                     if (distToTarget < 0)//  && cutDepth < -5
                                     {
-                                        cutDelta = distToTarget;
+                                        cutDeltaCenter = distToTarget;
                                     }
                                     else
                                     {
-                                        cutDelta = distFromLastPass - autoCutDepth;
+                                        cutDeltaCenter = distFromLastPass - autoCutDepth;
                                     }
 
                                 }
                                 else
                                 {
-                                    cutDelta = distToTarget;
+                                    cutDeltaCenter = distToTarget;
                                 }
 
 
@@ -1604,7 +1612,7 @@ namespace OpenGrade
                             if (isAutoShoreOn)
                             {
                                 double x = (Math.Tan(glm.toRadians(vehicle.minCrossSlope)) * ct.distanceFromCurrentLine);
-                                cutDelta += x;
+                                cutDeltaCenter += x;
                             }
 
 
@@ -1777,7 +1785,7 @@ namespace OpenGrade
             }
             else // LEVEL MODE
             {
-                cutDelta = ((pn.altitude - ct.LaserSetAltitude) * 100) - bladeOffset;
+                cutDeltaCenter = ((pn.altitude - ct.LaserSetAltitude) * 100) - bladeOffset;
                 distToTarget = ((pn.altitude - ct.LaserSetAltitude) * 100) - bladeOffset;
 
             }
@@ -2031,15 +2039,15 @@ namespace OpenGrade
 
 
 
-            if (cutDelta < -3)//Blue
+            if (cutDeltaCenter < -3)//Blue
             {
                 gl.Color(0.25f, .5f, 0.99f, 0.80f);
             }
-            if (cutDelta > 3)// Red
+            if (cutDeltaCenter > 3)// Red
             {
                 gl.Color(0.99f, .01f, 0.01f, 0.80f);
             }
-            if (cutDelta > -3 && cutDelta < 3)  //GREEN
+            if (cutDeltaCenter > -3 && cutDeltaCenter < 3)  //GREEN
             {
                 gl.Color(0.15, .45f, .15f, .8f);
             }

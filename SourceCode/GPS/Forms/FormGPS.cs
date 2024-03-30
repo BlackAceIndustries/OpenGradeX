@@ -14,6 +14,7 @@ using System.Resources;
 using System.Runtime.InteropServices;
 using System.Security.Permissions;
 using System.Windows.Forms;
+using static OpenGrade.CModuleComm;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace OpenGrade
@@ -83,7 +84,7 @@ namespace OpenGrade
         //bool for whether or not a job is active
         public bool isJobStarted = false, isAreaOnRight = true, isGradeControlBtnOn = false,  isLevelOn = false, isFirstPtSet = false, isCutSaved = false;
 
-        public bool isAutoTiltOn = false, isAutoVertOn = false;
+       
 
         
 
@@ -1040,7 +1041,10 @@ namespace OpenGrade
 
         private void btnZeroIMU_Click(object sender, EventArgs e)
         {
-            SendUDPMessage(FormGPS.IMU_HEADER, epAntennaModule);
+            //SendUDPMessage(FormGPS.IMU_HEADER, epAntennaModule);
+
+
+
 
         }
 
@@ -1057,14 +1061,14 @@ namespace OpenGrade
 
         private void resetAntennaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SendUDPMessage(FormGPS.RESET_HEADER, epAntennaModule);
+            //SendUDPMessage(FormGPS.RESET_HEADER, epAntennaModule);
 
         }
 
         private void resetGradeControlToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            SendUDPMessage(FormGPS.RESET_HEADER, epGradeControl);
+            //SendUDPMessage(FormGPS.RESET_HEADER, epGradeControl);
 
         }
 
@@ -1133,7 +1137,7 @@ namespace OpenGrade
         }
         private void zeroIMUToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SendUDPMessage(FormGPS.IMU_HEADER, epAntennaModule);
+            //SendUDPMessage(FormGPS.IMU_HEADER, epAntennaModule);
 
         }
 
@@ -1195,8 +1199,8 @@ namespace OpenGrade
 
         private void resetAllToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            SendUDPMessage(FormGPS.RESET_HEADER, epGradeControl);
-            SendUDPMessage(FormGPS.RESET_HEADER, epAntennaModule);
+            //SendUDPMessage(FormGPS.RESET_HEADER, epGradeControl);
+            //SendUDPMessage(FormGPS.RESET_HEADER, epAntennaModule);
 
         }
 
@@ -1947,51 +1951,37 @@ namespace OpenGrade
 
         private void btnVertAuto_Click(object sender, EventArgs e)
         {
-            if (isAutoVertOn)
-            {
-                isAutoVertOn = false;
-                btnVertAuto.Image = Properties.Resources.Toggle_Vert_MANUAL;
-                mc.GradeControlData[mc.gcisAutoActive] = 0;
-                //section[1].TurnMappingOff();
+            if (mc.gcData.autoVert)
+            {  
+                mc.gcData.autoVert = false;               
+                btnVertAuto.Image = Properties.Resources.Toggle_Vert_MANUAL;         
                 section[1].mappingOnRequest = false;
                 section[1].mappingOffRequest = true;
                 
-
             }
             else
             {
-                isAutoVertOn = true;
+                mc.gcData.autoVert = true;   
                 btnVertAuto.Image = Properties.Resources.Toggle_Vert_AUTO;
-                mc.GradeControlData[mc.gcisAutoActive] = 1;
-                //section[1].TurnMappingOn();                
                 section[1].mappingOnRequest = true;
                 section[1].mappingOffRequest = false;
 
             }
-
-
-
-
+            //SendUDPMessageJSON((int)CModuleComm.ModuleType.GradeControl_Slave, (int)CModuleComm.DataType.Data, 1, epGradeControl);
 
         }
 
         private void btnTiltAuto_Click(object sender, EventArgs e)
         {
-            if (isAutoTiltOn)
+            if (mc.gcData.autoTilt)
             {
-                isAutoTiltOn = false;
                 btnTiltAuto.Image = Properties.Resources.Toggle_Tilt_MANUAL;
-                mc.GradeControlData[mc.gcisAutoActive] = 0;
-                //section[1].TurnMappingOff();
-
+                mc.gcData.autoTilt = false;
             }
             else
             {
-                isAutoTiltOn = true;
                 btnTiltAuto.Image = Properties.Resources.Toggle_Tilt_AUTO;
-                mc.GradeControlData[mc.gcisAutoActive] = 1;
-                //section[1].TurnMappingOn();
-
+                mc.gcData.autoTilt = true;
             }
 
         }
@@ -2347,6 +2337,27 @@ namespace OpenGrade
 
         }
 
+        private void toolStripStatusLabel18_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripStatusLabel26_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tStripCenterIndicator_Click(object sender, EventArgs e)
+        {
+            SendUDPMessageJSON((int)ModuleType.GradeControl_Slave, (int)DataType.Settings, 1, epGradeControl);
+        }
+
+        private void tStripRightIndicator_Click(object sender, EventArgs e)
+        {
+            
+            SendUDPMessageJSON((int)ModuleType.GradeControl_Slave, (int)DataType.Diagnostic, 1, epGradeControl);
+        }
+
         private void PanelDisplays_Paint(object sender, PaintEventArgs e)
         {
 
@@ -2542,7 +2553,7 @@ namespace OpenGrade
                     btnVertAuto.Enabled = false;
 
                 }
-
+                openGLControlCS.Visible = true;
                 openGLControlBack.Visible = true;
                 openGLControl.Width = this.Width - 710;
                 
@@ -2584,8 +2595,9 @@ namespace OpenGrade
                 btnVertAuto.Enabled = true;
                 openGLControl.Width = this.Width - 290;
                 openGLControlBack.Visible = false;
-                    
-               }
+                openGLControlCS.Visible = false;
+
+            }
 
         }
 
@@ -2800,7 +2812,11 @@ namespace OpenGrade
 
                 //IP address and port of Antenna server
                 IPAddress epIP = IPAddress.Parse(Properties.Settings.Default.setIP_AntennaIP);
-                epAntennaModule = new IPEndPoint(epIP, Properties.Settings.Default.setIP_AntennaPort);
+                epA1 = new IPEndPoint(epIP, Properties.Settings.Default.setIP_AntennaPort);
+
+                //IP address and port of Antenna server
+                IPAddress a2IP = IPAddress.Parse(Properties.Settings.Default.setIP_AntennaIP);
+                epA2 = new IPEndPoint(a2IP, Properties.Settings.Default.setIP_AntennaPort);
 
 
                 //IP address and port of GradeControl server
@@ -2942,10 +2958,9 @@ namespace OpenGrade
 
 
             btnTiltAuto.Enabled = false;
-            isAutoTiltOn = false;       
+            //isAutoTiltOn = false;       
 
             btnVertAuto.Enabled = false;
-            isAutoVertOn = false;
 
 
 

@@ -118,11 +118,11 @@ namespace OpenGrade
 
 
                 //Left side of triangle
-                vec3 point = new vec3(mf.pn.bladeLeft.easting, mf.pn.bladeLeft.northing, mf.cutDelta);
+                vec3 point = new vec3(mf.pn.bladeLeft.easting, mf.pn.bladeLeft.northing, mf.cutDeltaCenter);
                 triangleList.Add(point);
 
                 //Right side of triangle
-                point = new vec3(mf.pn.bladeRight.easting, mf.pn.bladeRight.northing, mf.cutDelta);
+                point = new vec3(mf.pn.bladeRight.easting, mf.pn.bladeRight.northing, mf.cutDeltaCenter);
                 triangleList.Add(point);
 
                 
@@ -196,7 +196,7 @@ namespace OpenGrade
         {
             //add two triangles for next step.
             //left side
-            vec3 point = new vec3(mf.pn.bladeLeft.easting, mf.pn.bladeLeft.northing, mf.cutDelta);
+            vec3 point = new vec3(mf.pn.bladeLeft.easting, mf.pn.bladeLeft.northing, mf.cutDeltaCenter);
             //vec3 point = new vec3(leftPoint.easting, leftPoint.northing, 0);
 
             //add the point to List
@@ -204,7 +204,7 @@ namespace OpenGrade
 
             //Right side
             
-            vec3 point2 = new vec3(mf.pn.bladeRight.easting, mf.pn.bladeRight.northing, mf.cutDelta);
+            vec3 point2 = new vec3(mf.pn.bladeRight.easting, mf.pn.bladeRight.northing, mf.cutDeltaCenter);
             //vec3 point2 = new vec3(rightPoint.easting, rightPoint.northing, 0);
             
             //add the point to the list

@@ -179,13 +179,12 @@
             this.toolStripStatusLabel25 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel26 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel28 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel29 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel20 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel39 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel29 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel8 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel30 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel18 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel27 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel17 = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip5 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel21 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -216,7 +215,7 @@
             this.toolStripStatusLabel22 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel14 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tStripAltitude = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tStripHeading = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tStripHDOP = new System.Windows.Forms.ToolStripStatusLabel();
             this.tStripVDOP = new System.Windows.Forms.ToolStripStatusLabel();
             this.tStripPitchCorrection = new System.Windows.Forms.ToolStripStatusLabel();
             this.tStripRollCorrection = new System.Windows.Forms.ToolStripStatusLabel();
@@ -332,7 +331,7 @@
             // tmrWatchdog
             // 
             this.tmrWatchdog.Enabled = true;
-            this.tmrWatchdog.Interval = 25;
+            this.tmrWatchdog.Interval = 20;
             this.tmrWatchdog.Tick += new System.EventHandler(this.tmrWatchdog_tick);
             // 
             // contextMenuStripFlag
@@ -805,14 +804,14 @@
             cFocalPoints1.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints1.FocusScales")));
             this.voltageBar.FocalPoints = cFocalPoints1;
             this.voltageBar.Location = new System.Drawing.Point(12, 12);
-            this.voltageBar.Max = 500;
+            this.voltageBar.Max = 4096;
             this.voltageBar.Name = "voltageBar";
             this.voltageBar.Orientation = ProgBar.ProgBarPlus.eOrientation.Vertical;
             this.voltageBar.ShapeTextFont = new System.Drawing.Font("Arial Black", 30F);
             this.voltageBar.Size = new System.Drawing.Size(20, 560);
             this.voltageBar.TabIndex = 236;
             this.voltageBar.TextFormat = "Process {1}% Done";
-            this.voltageBar.Value = 300;
+            this.voltageBar.Value = 2125;
             this.voltageBar.Load += new System.EventHandler(this.voltageBar_Load);
             // 
             // lblMode
@@ -866,14 +865,14 @@
             cFocalPoints2.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints2.FocusScales")));
             this.voltageBar2.FocalPoints = cFocalPoints2;
             this.voltageBar2.Location = new System.Drawing.Point(1171, 12);
-            this.voltageBar2.Max = 500;
+            this.voltageBar2.Max = 4096;
             this.voltageBar2.Name = "voltageBar2";
             this.voltageBar2.Orientation = ProgBar.ProgBarPlus.eOrientation.Vertical;
             this.voltageBar2.ShapeTextFont = new System.Drawing.Font("Arial Black", 30F);
             this.voltageBar2.Size = new System.Drawing.Size(20, 560);
             this.voltageBar2.TabIndex = 247;
             this.voltageBar2.TextFormat = "Process {1}% Done";
-            this.voltageBar2.Value = 300;
+            this.voltageBar2.Value = 2125;
             // 
             // lblRTKPopupTime
             // 
@@ -2047,6 +2046,7 @@
             this.tStripCenterIndicator.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
             this.tStripCenterIndicator.Name = "tStripCenterIndicator";
             this.tStripCenterIndicator.Size = new System.Drawing.Size(100, 60);
+            this.tStripCenterIndicator.Click += new System.EventHandler(this.tStripCenterIndicator_Click);
             // 
             // tStriptoSurvey
             // 
@@ -2079,6 +2079,7 @@
             this.tStripRightIndicator.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
             this.tStripRightIndicator.Name = "tStripRightIndicator";
             this.tStripRightIndicator.Size = new System.Drawing.Size(100, 60);
+            this.tStripRightIndicator.Click += new System.EventHandler(this.tStripRightIndicator_Click);
             // 
             // tStrip3
             // 
@@ -2108,13 +2109,12 @@
             this.toolStripStatusLabel25,
             this.toolStripStatusLabel26,
             this.toolStripStatusLabel28,
+            this.toolStripStatusLabel29,
             this.toolStripStatusLabel20,
             this.toolStripStatusLabel39,
-            this.toolStripStatusLabel29,
             this.toolStripStatusLabel8,
             this.toolStripStatusLabel30,
             this.toolStripStatusLabel18,
-            this.toolStripStatusLabel27,
             this.toolStripStatusLabel17});
             this.statusStrip4.Location = new System.Drawing.Point(5, 45);
             this.statusStrip4.Name = "statusStrip4";
@@ -2156,8 +2156,9 @@
             this.toolStripStatusLabel26.ForeColor = System.Drawing.Color.White;
             this.toolStripStatusLabel26.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
             this.toolStripStatusLabel26.Name = "toolStripStatusLabel26";
-            this.toolStripStatusLabel26.Size = new System.Drawing.Size(155, 20);
-            this.toolStripStatusLabel26.Text = "ROLL";
+            this.toolStripStatusLabel26.Size = new System.Drawing.Size(120, 20);
+            this.toolStripStatusLabel26.Text = "      ROLL";
+            this.toolStripStatusLabel26.Click += new System.EventHandler(this.toolStripStatusLabel26_Click);
             // 
             // toolStripStatusLabel28
             // 
@@ -2166,8 +2167,18 @@
             this.toolStripStatusLabel28.ForeColor = System.Drawing.Color.White;
             this.toolStripStatusLabel28.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
             this.toolStripStatusLabel28.Name = "toolStripStatusLabel28";
-            this.toolStripStatusLabel28.Size = new System.Drawing.Size(80, 20);
+            this.toolStripStatusLabel28.Size = new System.Drawing.Size(120, 20);
             this.toolStripStatusLabel28.Text = "ALTITUDE";
+            // 
+            // toolStripStatusLabel29
+            // 
+            this.toolStripStatusLabel29.AutoSize = false;
+            this.toolStripStatusLabel29.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripStatusLabel29.ForeColor = System.Drawing.Color.White;
+            this.toolStripStatusLabel29.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
+            this.toolStripStatusLabel29.Name = "toolStripStatusLabel29";
+            this.toolStripStatusLabel29.Size = new System.Drawing.Size(80, 20);
+            this.toolStripStatusLabel29.Text = "SPEED";
             // 
             // toolStripStatusLabel20
             // 
@@ -2188,16 +2199,6 @@
             this.toolStripStatusLabel39.Name = "toolStripStatusLabel39";
             this.toolStripStatusLabel39.Size = new System.Drawing.Size(80, 20);
             this.toolStripStatusLabel39.Text = "VDOP";
-            // 
-            // toolStripStatusLabel29
-            // 
-            this.toolStripStatusLabel29.AutoSize = false;
-            this.toolStripStatusLabel29.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripStatusLabel29.ForeColor = System.Drawing.Color.White;
-            this.toolStripStatusLabel29.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
-            this.toolStripStatusLabel29.Name = "toolStripStatusLabel29";
-            this.toolStripStatusLabel29.Size = new System.Drawing.Size(80, 20);
-            this.toolStripStatusLabel29.Text = "SPEED";
             // 
             // toolStripStatusLabel8
             // 
@@ -2228,17 +2229,7 @@
             this.toolStripStatusLabel18.Name = "toolStripStatusLabel18";
             this.toolStripStatusLabel18.Size = new System.Drawing.Size(150, 20);
             this.toolStripStatusLabel18.Text = "Horizontal Offset";
-            this.toolStripStatusLabel18.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // toolStripStatusLabel27
-            // 
-            this.toolStripStatusLabel27.AutoSize = false;
-            this.toolStripStatusLabel27.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripStatusLabel27.ForeColor = System.Drawing.Color.White;
-            this.toolStripStatusLabel27.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
-            this.toolStripStatusLabel27.Name = "toolStripStatusLabel27";
-            this.toolStripStatusLabel27.Size = new System.Drawing.Size(150, 20);
-            this.toolStripStatusLabel27.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolStripStatusLabel18.Click += new System.EventHandler(this.toolStripStatusLabel18_Click);
             // 
             // toolStripStatusLabel17
             // 
@@ -2304,8 +2295,8 @@
             this.toolStripStatusLabel32.ForeColor = System.Drawing.Color.White;
             this.toolStripStatusLabel32.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
             this.toolStripStatusLabel32.Name = "toolStripStatusLabel32";
-            this.toolStripStatusLabel32.Size = new System.Drawing.Size(80, 20);
-            this.toolStripStatusLabel32.Text = "ANTENNA 1";
+            this.toolStripStatusLabel32.Size = new System.Drawing.Size(40, 20);
+            this.toolStripStatusLabel32.Text = "A1";
             this.toolStripStatusLabel32.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // ANTENNA1_LED
@@ -2322,8 +2313,8 @@
             this.toolStripStatusLabel36.ForeColor = System.Drawing.Color.White;
             this.toolStripStatusLabel36.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
             this.toolStripStatusLabel36.Name = "toolStripStatusLabel36";
-            this.toolStripStatusLabel36.Size = new System.Drawing.Size(80, 20);
-            this.toolStripStatusLabel36.Text = "ANTENNA 2";
+            this.toolStripStatusLabel36.Size = new System.Drawing.Size(40, 20);
+            this.toolStripStatusLabel36.Text = "A2";
             this.toolStripStatusLabel36.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // ANTENNA2_LED
@@ -2368,6 +2359,7 @@
             this.NTRIP_LED.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.NTRIP_LED.Name = "NTRIP_LED";
             this.NTRIP_LED.Size = new System.Drawing.Size(25, 14);
+            this.NTRIP_LED.Value = 100;
             // 
             // toolStripStatusLabel33
             // 
@@ -2428,10 +2420,10 @@
             // 
             this.tStripPitch.AutoSize = false;
             this.tStripPitch.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold);
-            this.tStripPitch.ForeColor = System.Drawing.Color.LimeGreen;
+            this.tStripPitch.ForeColor = System.Drawing.Color.Lime;
             this.tStripPitch.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
             this.tStripPitch.Name = "tStripPitch";
-            this.tStripPitch.Size = new System.Drawing.Size(100, 40);
+            this.tStripPitch.Size = new System.Drawing.Size(80, 40);
             this.tStripPitch.Text = "0.00";
             this.tStripPitch.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -2442,14 +2434,14 @@
             this.tStripRoll.ForeColor = System.Drawing.Color.Lime;
             this.tStripRoll.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
             this.tStripRoll.Name = "tStripRoll";
-            this.tStripRoll.Size = new System.Drawing.Size(100, 40);
+            this.tStripRoll.Size = new System.Drawing.Size(80, 40);
             this.tStripRoll.Text = "0.00";
             this.tStripRoll.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // tStripSpeed
             // 
             this.tStripSpeed.AutoSize = false;
-            this.tStripSpeed.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold);
+            this.tStripSpeed.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold);
             this.tStripSpeed.ForeColor = System.Drawing.Color.ForestGreen;
             this.tStripSpeed.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tStripSpeed.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
@@ -2523,9 +2515,9 @@
             this.tStripRoll,
             this.toolStripStatusLabel14,
             this.tStripAltitude,
-            this.tStripHeading,
-            this.tStripVDOP,
             this.tStripSpeed,
+            this.tStripHDOP,
+            this.tStripVDOP,
             this.tStripPitchCorrection,
             this.tStripRollCorrection,
             this.tStripHorizontalOffset,
@@ -2569,27 +2561,27 @@
             // tStripAltitude
             // 
             this.tStripAltitude.AutoSize = false;
-            this.tStripAltitude.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tStripAltitude.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold);
             this.tStripAltitude.ForeColor = System.Drawing.Color.ForestGreen;
             this.tStripAltitude.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
             this.tStripAltitude.Name = "tStripAltitude";
-            this.tStripAltitude.Size = new System.Drawing.Size(80, 40);
+            this.tStripAltitude.Size = new System.Drawing.Size(120, 40);
             this.tStripAltitude.Text = "0.00";
             // 
-            // tStripHeading
+            // tStripHDOP
             // 
-            this.tStripHeading.AutoSize = false;
-            this.tStripHeading.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tStripHeading.ForeColor = System.Drawing.Color.ForestGreen;
-            this.tStripHeading.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
-            this.tStripHeading.Name = "tStripHeading";
-            this.tStripHeading.Size = new System.Drawing.Size(80, 40);
-            this.tStripHeading.Text = "0.00";
+            this.tStripHDOP.AutoSize = false;
+            this.tStripHDOP.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold);
+            this.tStripHDOP.ForeColor = System.Drawing.Color.ForestGreen;
+            this.tStripHDOP.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
+            this.tStripHDOP.Name = "tStripHDOP";
+            this.tStripHDOP.Size = new System.Drawing.Size(80, 40);
+            this.tStripHDOP.Text = "0.00";
             // 
             // tStripVDOP
             // 
             this.tStripVDOP.AutoSize = false;
-            this.tStripVDOP.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tStripVDOP.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold);
             this.tStripVDOP.ForeColor = System.Drawing.Color.ForestGreen;
             this.tStripVDOP.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
             this.tStripVDOP.Name = "tStripVDOP";
@@ -2599,7 +2591,7 @@
             // tStripPitchCorrection
             // 
             this.tStripPitchCorrection.AutoSize = false;
-            this.tStripPitchCorrection.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tStripPitchCorrection.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold);
             this.tStripPitchCorrection.ForeColor = System.Drawing.Color.ForestGreen;
             this.tStripPitchCorrection.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
             this.tStripPitchCorrection.Name = "tStripPitchCorrection";
@@ -2609,7 +2601,7 @@
             // tStripRollCorrection
             // 
             this.tStripRollCorrection.AutoSize = false;
-            this.tStripRollCorrection.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tStripRollCorrection.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold);
             this.tStripRollCorrection.ForeColor = System.Drawing.Color.ForestGreen;
             this.tStripRollCorrection.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
             this.tStripRollCorrection.Name = "tStripRollCorrection";
@@ -2822,7 +2814,6 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel26;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel28;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel30;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel27;
         private System.Windows.Forms.StatusStrip statusStrip5;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel21;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel32;
@@ -2858,7 +2849,7 @@
         public System.Windows.Forms.ToolStripStatusLabel tStripRollCorrection;
         private System.Windows.Forms.ToolStripStatusLabel tStripCurrentJob;
         public System.Windows.Forms.ToolStripStatusLabel tStripAltitude;
-        public System.Windows.Forms.ToolStripStatusLabel tStripHeading;
+        public System.Windows.Forms.ToolStripStatusLabel tStripHDOP;
         public System.Windows.Forms.ToolStripStatusLabel tStripVDOP;
         public System.Windows.Forms.ToolStripStatusLabel tStripPitchCorrection;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel29;

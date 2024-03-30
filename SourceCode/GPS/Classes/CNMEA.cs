@@ -58,7 +58,7 @@ namespace OpenGrade
         //WGS84 Lat Long
         public double latitude, longitude;
 
-        public bool updatedGGA, updatedVTG;
+        public bool updatedGGA, updatedVTG, updatedGSA;
 
         public string rawBuffer = "";
         private string[] words;
@@ -106,7 +106,7 @@ namespace OpenGrade
 
         //other GIS Info
         public double altitude, speed;
-        public double headingTrue, hdop, ageDiff;
+        public double headingTrue, hdop, pdop, vdop, ageDiff;
 
         public int fixQuality;
         public int lastFixQuality = -1;
@@ -178,14 +178,22 @@ namespace OpenGrade
                     ParseVTG();
                     //mf.TimedMessageBox(100, "VTG", "n5");
                 }
+                if (words[0] == "$GPGSA" | words[0] == "$GNGSA")
+                {
+
+                    ParseGSA();
+                    //mf.TimedMessageBox(100, "VTG", "n5");
+                }
+
             }// while still data
 
 
         }
         public string currentNMEASentenceGGA = "";
         public string currentNMEASentenceVTG = "";
+        public string currentNMEASentenceGSA = "";
 
-        
+
 
         // Returns a valid NMEA sentence from the pile from portData
         public string Parse()
@@ -322,6 +330,46 @@ namespace OpenGrade
                 //average the speeds for display, not calcs
                 mf.avgSpeed[mf.ringCounter] = speed;
                 if (mf.ringCounter++ > 8) mf.ringCounter = 0;
+            }
+        }
+
+        private void ParseGSA()
+        {
+
+            //$GPGSA,A,3,07,02,26,27,09,04,15,  ,  ,  ,  ,  ,1.8,1.0,1.5 * 33
+            //   0   1 2  3  4  5  6  7  8  9 10 11 12 13 14  15 16  17    18   
+
+            /*
+            $GPVTG,054.7,T,034.4,M,005.5,N,010.2,K * 48
+             *
+                0 - GSA  Dilution of precision DOP
+                1- A Mode1 
+                2- 3 Mode2
+                3- 07 Satellite Used
+                4- 02 Satellite Used
+                5-14 ----
+                15- 1.8 PDOP  Position Dilution of Precision
+                16- 1.0 HDOP  Horizontal Dilution of Precision
+                17- 1.0 VDOP  Vertical Dilution of Precision
+                18- 1.5 * 33  Checksum
+           *    
+            */
+
+            //is the sentence VTG
+            if (!String.IsNullOrEmpty(words[15]) || !String.IsNullOrEmpty(words[16]) || !String.IsNullOrEmpty(words[17]))//   
+            {
+                //Position Dilution of Precision
+                double.TryParse(words[15], NumberStyles.Float, CultureInfo.InvariantCulture, out pdop);
+
+                //Horizontal Dilution of Precision
+                double.TryParse(words[16], NumberStyles.Float, CultureInfo.InvariantCulture, out hdop);                
+
+                //Horizontal Dilution of Precision
+                double.TryParse(words[17], NumberStyles.Float, CultureInfo.InvariantCulture, out vdop);
+               
+                //a valid VTG so set the flag
+                updatedGSA = true;
+
             }
         }
 

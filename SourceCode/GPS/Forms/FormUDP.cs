@@ -141,7 +141,7 @@ namespace OpenGrade
             mf.ssidName = choiceWiFi.Text;
             mf.ssidPass = choicePassword.Text;
 
-            mf.SendUDPMessage(FormGPS.WIFI_HEADER, mf.epAntennaModule, 2);
+            //mf.SendUDPMessage(FormGPS.WIFI_HEADER, mf.epAntennaModule, 2);
 
             mf.ssidName = "";
             mf.ssidPass = "";
@@ -153,7 +153,7 @@ namespace OpenGrade
         private void button1_Click(object sender, EventArgs e)
         {
 
-            mf.SendUDPMessage(FormGPS.WIFI_HEADER, mf.epAntennaModule, 1);
+            //mf.SendUDPMessage(FormGPS.WIFI_HEADER, mf.epAntennaModule, 1);
 
         }                
 
@@ -176,16 +176,16 @@ namespace OpenGrade
         {
 
         }
-
+        
         private void btnResetGradeControl_Click(object sender, EventArgs e)
         {
-            mf.SendUDPMessage(FormGPS.RESET_HEADER, mf.epGradeControl);
+            //mf.SendUDPMessage(FormGPS.RESET_HEADER, mf.epGradeControl);
 
         }
 
         private void btnResetAntenna_Click(object sender, EventArgs e)
         {
-            mf.SendUDPMessage(FormGPS.RESET_HEADER, mf.epAntennaModule);
+            //mf.SendUDPMessage(FormGPS.RESET_HEADER, mf.epAntennaModule);
 
         }
     }

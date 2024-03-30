@@ -2,6 +2,10 @@
 using System.Drawing;
 using System.Windows.Forms;
 using System;
+using System.Net;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography;
+using System.Runtime;
 
 namespace OpenGrade
 {
@@ -14,69 +18,96 @@ namespace OpenGrade
         public string serialRecvGradeControlStr;   ///Black Ace Industries
 
         //For parsing incoming int on serial port
-        public int incomingInt;
-
-        // PGN - 32762 - 127.250
-        public static int numGradeControlDataItems = 5;
-        public byte[] GradeControlData = new byte[numGradeControlDataItems];
-        public int gcHeaderHi, gcHeaderLo = 1, gcDeltaDir = 2, gcCutDelta = 3, gcisAutoActive = 4;                                
-
-        //info coming from Grade Control Mod
-        public int autoState = 0, bladeOffset = 0; //public byte autoState = 0;        
-        public double voltage = 0;
-        public double voltage2 = 0;
-
-        //
-
-        class GradeControlModule
-        {
-            public int AutoState { get; set; }
-            public int BladeOffset { get; set; }
-            public double Voltage { get; set; }
-            public double Voltage2 { get; set; }
-
-        }
-
+        public int incomingInt;                   
         
 
-        public class GradeControlSettings
+        public enum DataType { Connect, Data, Settings, Diagnostic, Error }
+        public enum ModuleType { Antenna_Master, Antenna_Slave, GradeControl_Slave }
+
+        public struct MessageConnect
         {
-            public static int NumGradeControlSettingsItems { get; } = 8;
-            public byte[] GradeControlSettingsArray { get; set; } = new byte[NumGradeControlSettingsItems];
-            public int GsHeaderHi { get; set; }
-            public int GsHeaderLo { get; set; } = 1;
-            public int GsKpGain { get; set; } = 2;
-            public int GsKiGain { get; set; } = 3;
-            public int GsKdGain { get; set; } = 4;
-            public int GsRetDeadband { get; set; } = 5;
-            public int GsExtDeadband { get; set; } = 6;
-            public int GsValveType { get; set; } = 7;
+            public byte modType;
+            public byte msgType;
+            public byte modId;
+            public byte connected;
+            public ulong readingId;
         }
 
+        public struct MessageFirmware
+        {
+            public byte modType;
+            public byte msgType;
+            public byte modId;
+            public string firmware;
+            public string hardware;
+            public ulong readingId;
+        }
 
+        public struct MessageAntennaData
+        {
+            public byte modType;
+            public byte msgType;
+            public byte modId;
+            public string GGA;
+            public string VTG;
+            public string GSA;
+            public double roll;
+            public double pitch;
+            public double yaw;
+            public string battery;
+            public ulong readingId;
+        }
 
-        // JSON { 
+        public struct MessageAntennaSettings
+        {
+            public byte modType;
+            public byte msgType;
+            public byte modId;
+            public ulong readingId;
+        }
 
-        // PGN - 32760 - 127.248
-        public static int numGradeControlSettingsItems = 8;
-        public byte[] gradeControlSettings = new byte[numGradeControlSettingsItems];
-        public int gsHeaderHi, gsHeaderLo = 1, gsKpGain = 2, gsKiGain = 3, gsKdGain = 4, gsRetDeadband = 5, gsExtDeadband = 6, gsValveType = 7;
+        public struct MessageGradeControlData
+        {
+            public byte modType;
+            public byte msgType;
+            public byte modId;
+            public int deltaA;
+            public int deltaB;
+            public int setPointA;
+            public int setPointB;
+            public bool autoVert;
+            public bool autoTilt;
+            public ulong readingId;
+        }
 
-        //AutoSteer ------------------------------------------------------------------------------------------------
-        public string serialRecvAutoSteerStr;
+        public struct MessageGradeControlSettings
+        {
+            public byte modType;
+            public byte msgType;
+            public byte modId;
+            public byte KP;
+            public byte KI;
+            public byte KD;
+            public byte retDead;
+            public byte extDead;
+            public byte valveType;
+            public ulong readingId;
+        }
 
-        // PGN - 32766 - 127.254
-        public static int numSteerDataItems = 8;
-        public byte[] autoSteerData = new byte[numSteerDataItems];
-        public int sdHeaderHi, sdHeaderLo = 1, sdRelay = 2, sdSpeed = 3, sdDistanceHi = 4, sdDistanceLo = 5,
-                    sdSteerAngleHi = 6, sdSteerAngleLo = 7;
+        public MessageConnect gcconnectMsg = new MessageConnect();
+        public MessageGradeControlSettings gcSetting = new MessageGradeControlSettings();
+        public MessageGradeControlData gcData = new MessageGradeControlData();
+        public MessageFirmware gcFirmware = new MessageFirmware();
 
-        // PGN - 32764 - 127.252
-        public static int numSteerSettingItems = 10;
-        public byte[] autoSteerSettings = new byte[numSteerSettingItems];
-        public int ssHeaderHi, ssHeaderLo = 1, ssKp = 2, ssKi = 3, ssKd = 4, ssKo = 5,
-                    ssSteerOffset = 6, ssMinPWM = 7, ssMaxIntegral = 8, ssCountsPerDegree = 9;
+        public MessageConnect a1connectMsg = new MessageConnect();
+        public MessageAntennaData a1Data = new MessageAntennaData();
+        public MessageAntennaSettings a1Setting = new MessageAntennaSettings();
+        public MessageFirmware a1Firmware = new MessageFirmware();
 
+        public MessageConnect a2connectMsg = new MessageConnect();
+        public MessageAntennaData a2Data = new MessageAntennaData();
+        public MessageAntennaSettings a2Setting = new MessageAntennaSettings();
+        public MessageFirmware a2Firmware = new MessageFirmware();
 
         //for the workswitch
         public bool isWorkSwitchActiveLow, isWorkSwitchEnabled;
@@ -88,43 +119,45 @@ namespace OpenGrade
         public float headingIMU = 9999, prevHeadingIMU = 9999, rollIMU = 9999, pitchIMU = 9999;
         public float avgrollIMU = 9999, avgpitchIMU = 9999;
 
-        public string gcFirmware;
-        public string atFirmware;
 
-        
+        public bool isAutoVertIn = false, isAutoTiltIn = false;
 
         //constructor
         public CModuleComm(FormGPS _f)
         {
             mf = _f;            
-            gcFirmware = "----";
-            atFirmware = "----";
-
             //WorkSwitch logic
             isWorkSwitchEnabled = false;
 
             //does a low, grounded out, mean on
             isWorkSwitchActiveLow = true;
+
         }
 
         //Reset all the byte arrays from modules
         public void ResetAllModuleCommValues()
-        {         
-            GradeControlData[gcDeltaDir] = 0;
-            GradeControlData[gcCutDelta] = 0;
-            GradeControlData[gcisAutoActive] = 0;
+        {
+            gcData.setPointA = 0;
+            gcData.setPointB = 0;
+            gcData.autoVert = false;
+            gcData.autoTilt = false;           
 
-            mf.SendUDPMessage(FormGPS.DATA_HEADER, mf.epGradeControl);
+            //gcSetting.modType = 
+            //gcSetting.msgType = 
+            //gcSetting.modId = 
+                
+            gcSetting.KP = Properties.Settings.Default.set_KpGain;
+            gcSetting.KI = Properties.Settings.Default.set_KiGain;
+            gcSetting.KD = Properties.Settings.Default.set_KdGain;
+            gcSetting.retDead = Properties.Settings.Default.set_RetDeadband;
+            gcSetting.extDead  = Properties.Settings.Default.set_ExtDeadband;
+            gcSetting.valveType  = Properties.Settings.Default.set_ValveType;
 
-            gradeControlSettings[gsKpGain] = Properties.Settings.Default.set_KpGain;
-            gradeControlSettings[gsKiGain] = Properties.Settings.Default.set_KiGain;
-            gradeControlSettings[gsKdGain] = Properties.Settings.Default.set_KdGain;
-            gradeControlSettings[gsRetDeadband] = Properties.Settings.Default.set_RetDeadband;
-            gradeControlSettings[gsExtDeadband] = Properties.Settings.Default.set_ExtDeadband;
-            gradeControlSettings[gsValveType] = Properties.Settings.Default.set_ValveType;
+            //mf.SendUDPMessageJSON((int)ModuleType.Antenna_Master, (int)DataType.Connect, 1, mf.epAntennaModule);
 
-            mf.SendUDPMessage(FormGPS.SETTINGS_HEADER, mf.epGradeControl);
-            mf.SendUDPMessage(FormGPS.IMU_HEADER, mf.epAntennaModule);
+            //mf.SendUDPMessage(FormGPS.DATA_HEADER, mf.epGradeControl);
+            //mf.SendUDPMessage(FormGPS.SETTINGS_HEADER, mf.epGradeControl);
+            //mf.SendUDPMessage(FormGPS.IMU_HEADER, mf.epAntennaModule);
 
         }
 

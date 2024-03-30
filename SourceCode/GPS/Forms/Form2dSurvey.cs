@@ -115,7 +115,7 @@ namespace OpenGrade
             gl.Color(1, 1, 1);
 
             //reset cut delta for frame
-            mf.cutDelta = 9999;
+            mf.cutDeltaCenter = 9999;
             mf.distToTarget = 9999;
             mf.distFromLastPass = 9999;
 
@@ -466,17 +466,17 @@ namespace OpenGrade
                                 {
                                     if (mf.distToTarget < 0)//  && cutDepth < -5
                                     {
-                                        mf.cutDelta = mf.distToTarget;
+                                        mf.cutDeltaCenter = mf.distToTarget;
                                     }
                                     else
                                     {
-                                        mf.cutDelta = mf.distFromLastPass - mf.autoCutDepth;
+                                        mf.cutDeltaCenter = mf.distFromLastPass - mf.autoCutDepth;
                                     }
 
                                 }
                                 else
                                 {
-                                    mf.cutDelta = mf.distToTarget;
+                                    mf.cutDeltaCenter = mf.distToTarget;
                                 }
 
 
@@ -486,7 +486,7 @@ namespace OpenGrade
                             if (mf.isAutoShoreOn)
                             {
                                 double xy = (Math.Tan(glm.toRadians(mf.vehicle.minCrossSlope)) * mf.ct.distanceFromCurrentLine);
-                                mf.cutDelta += xy;
+                                mf.cutDeltaCenter += xy;
                             }
 
 
@@ -657,7 +657,7 @@ namespace OpenGrade
             }
             else // LEVEL MODE
             {
-                mf.cutDelta = ((mf.pn.altitude - mf.ct.LaserSetAltitude) * 100) - mf.bladeOffset;
+                mf.cutDeltaCenter = ((mf.pn.altitude - mf.ct.LaserSetAltitude) * 100) - mf.bladeOffset;
                 mf.distToTarget = ((mf.pn.altitude - mf.ct.LaserSetAltitude) * 100) - mf.bladeOffset;
 
             }

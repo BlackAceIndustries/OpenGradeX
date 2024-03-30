@@ -13,6 +13,7 @@ namespace OpenGrade
         public  double toLatitude;
         public  double toLongitude;
         public string recvSentenceSettings = "InitalSetting";
+        public string recvSentenceSettings2 = "InitalSetting";
 
         //very first fix to setup grid etc
         public bool isFirstFixPositionSet = false, isGPSPositionInitialized = false;
@@ -351,42 +352,7 @@ namespace OpenGrade
                 ABLine.GetCurrentABLine();
             }
 
-            // autosteer at full speed of updates
-            //if (!isGradeControlBtnOn) //32020 means auto steer is off
-            //{
-            //    guidanceLineDistanceOff = 32020;
-            //}
-
-            // If Drive button enabled be normal, or just fool the autosteer and fill values
-            if (!isInFreeDriveMode)
-            {
-
-                //fill up0 the auto steer array with new values
-                mc.autoSteerData[mc.sdSpeed] = (byte)(pn.speed * 4.0);
-
-                mc.autoSteerData[mc.sdDistanceHi] = (byte)(guidanceLineDistanceOff >> 8);
-                mc.autoSteerData[mc.sdDistanceLo] = (byte)guidanceLineDistanceOff;
-
-                mc.autoSteerData[mc.sdSteerAngleHi] = (byte)(guidanceLineSteerAngle >> 8);
-                mc.autoSteerData[mc.sdSteerAngleLo] = (byte)guidanceLineSteerAngle;
-
-                
-                
-                //SendUDPMessage(guidanceLineSteerAngle + "," + guidanceLineDistanceOff);
-            }
-
-            else
-            {
-                //fill up the auto steer array with free drive values
-                mc.autoSteerData[mc.sdSpeed] = (byte)(pn.speed * 4.0 + 8);
-
-                //make steer module think everything is normal
-                mc.autoSteerData[mc.sdDistanceHi] = (byte)(0);
-                mc.autoSteerData[mc.sdDistanceLo] = (byte)0;
-
-                
-                
-            }
+            
             #endregion
             
             //openGLControl_Draw routine triggered manuallyrollIMU
@@ -565,36 +531,7 @@ namespace OpenGrade
                 guidanceLineDistanceOff = 32020;
             }
 
-            // If Drive button enabled be normal, or just fool the autosteer and fill values
-            if (!isInFreeDriveMode)
-            {
-
-                //fill up0 the auto steer array with new values
-                mc.autoSteerData[mc.sdSpeed] = (byte)(pn.speed * 4.0);
-
-                mc.autoSteerData[mc.sdDistanceHi] = (byte)(guidanceLineDistanceOff >> 8);
-                mc.autoSteerData[mc.sdDistanceLo] = (byte)guidanceLineDistanceOff;
-
-                mc.autoSteerData[mc.sdSteerAngleHi] = (byte)(guidanceLineSteerAngle >> 8);
-                mc.autoSteerData[mc.sdSteerAngleLo] = (byte)guidanceLineSteerAngle;
-
-
-
-                //SendUDPMessage(guidanceLineSteerAngle + "," + guidanceLineDistanceOff);
-            }
-
-            else
-            {
-                //fill up the auto steer array with free drive values
-                mc.autoSteerData[mc.sdSpeed] = (byte)(pn.speed * 4.0 + 8);
-
-                //make steer module think everything is normal
-                mc.autoSteerData[mc.sdDistanceHi] = (byte)(0);
-                mc.autoSteerData[mc.sdDistanceLo] = (byte)0;
-
-
-
-            }
+            
             #endregion
 
             //openGLControl_Draw routine triggered manuallyrollIMU

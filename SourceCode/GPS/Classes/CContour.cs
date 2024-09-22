@@ -608,28 +608,28 @@ namespace OpenGrade
             //gl.Vertex(boxA.easting, boxA.northing, 0);
             //gl.End();
 
-            DrawShoreLines();
-            //GetBladeEndUTM();
 
+            //GetBladeEndUTM();
+            //DrawShoreLines();
 
             ////draw the guidance line
             int ptCount = ptList.Count;
-            gl.LineWidth(3);
-            gl.Color(0.30f, 0.31f, 0.77f);
+            gl.LineWidth(2);
+            gl.Color(0.00f, 0.0f, 0.0f);
             gl.Begin(OpenGL.GL_LINE_STRIP);
             for (int h = 0; h < ptCount; h++) gl.Vertex(ptList[h].easting, ptList[h].northing, 0);
             gl.End();
 
-            gl.PointSize(4.0f);
+            gl.PointSize(5.0f);
             gl.Begin(OpenGL.GL_POINTS);
 
-            gl.Color(0.30f, 0.31f, 0.77f);
-            for (int h = 0; h < ptCount; h++) gl.Vertex(ptList[h].easting, ptList[h].northing, 0);
+            ////gl.Color(0.30f, 0.31f, 0.77f);
+            //for (int h = 0; h < ptCount; h++) gl.Vertex(ptList[h].easting, ptList[h].northing, 0);
 
-            gl.End();
-            gl.PointSize(1.0f);
+            //gl.End();
+            //gl.PointSize(1.0f);
 
-            //draw the reference line
+            ////draw the reference line
             gl.PointSize(3.0f);
             //if (isContourBtnOn)
             {
@@ -645,43 +645,47 @@ namespace OpenGrade
                 }
             }
 
-            if (mf.isAutoShoreOn)
-            {
-                gl.LineWidth(2);
-                gl.Color(0.98f, 0.2f, 0.0f);
-                gl.Begin(OpenGL.GL_LINE_STRIP);
-                for (int h = 0; h < ptCount; h++) gl.Vertex(ptList[h].easting + 10, ptList[h].northing + 50, 0);
-                gl.End();
 
-                gl.PointSize(4.0f);
-                gl.Begin(OpenGL.GL_POINTS);
-
-                gl.Color(0.97f, 0.42f, 0.45f);
-                for (int h = 0; h < ptCount; h++) gl.Vertex(ptList[h].easting + 10, ptList[h].northing + 50, 0);
-
-                gl.End();
-                gl.PointSize(1.0f);
-
-                //draw the reference line
-                gl.PointSize(3.0f);
-                //if (isContourBtnOn)
-                {
-                    ptCount = ptList.Count;
-                    if (ptCount > 0)
-                    {
-                        gl.Begin(OpenGL.GL_POINTS);
-                        for (int i = 0; i < ptCount; i++)
-                        {
-                            gl.Vertex(ptList[i].easting, ptList[i].northing, 0);
-                        }
-                        gl.End();
-                    }
-                }
+            
 
 
+            //if (mf.isAutoShoreOn)
+            //{
+            ////    gl.LineWidth(2);
+            //    gl.Color(0.98f, 0.2f, 0.0f);
+            ////    gl.Begin(OpenGL.GL_LINE_STRIP);
+            ////    for (int h = 0; h < ptCount; h++) gl.Vertex(ptList[h].easting + 10, ptList[h].northing + 50, 0);
+            ////    gl.End();
+
+            ////    gl.PointSize(4.0f);
+            ////    gl.Begin(OpenGL.GL_POINTS);
+
+            ////    gl.Color(0.97f, 0.42f, 0.45f);
+            ////    for (int h = 0; h < ptCount; h++) gl.Vertex(ptList[h].easting + 10, ptList[h].northing + 50, 0);
+
+            ////    gl.End();
+            ////    gl.PointSize(1.0f);
+
+            //  //draw the reference line
+            //  gl.PointSize(3.0f);
+            //  //if (isContourBtnOn)
+            //  {
+            //      ptCount = ptList.Count;
+            //      if (ptCount > 0)
+            //      {
+            //          gl.Begin(OpenGL.GL_POINTS);
+            //          for (int i = 0; i < ptCount; i++)
+            //          {
+            //              gl.Vertex(ptList[i].easting, ptList[i].northing, 0);
+            //          }
+            //          gl.End();
+            //      }
+            //  }
 
 
-            }
+
+
+            //}
 
             if (true)//mf.isPureDisplayOn
             {
@@ -804,12 +808,13 @@ namespace OpenGrade
             int drawPts;
             int ptCnt = ptList.Count;
             double minDeltaHt = 0;
-            double angle = -(mf.vehicle.minSlope / 100) ;
+
+            double slopeAsDecimal = -(mf.vehicle.minSlope / 100);
+            double angleInRadians = Math.Atan(slopeAsDecimal);
+            double angle = angleInRadians * (180.0 / Math.PI);
 
 
-            //angle = -(Math.Asin(1 /5));
-            
-            //angle = -.001   ;
+
             int startPt = 0;
             int endPt = -1;
             int lowestPt = 0;
@@ -1329,17 +1334,16 @@ namespace OpenGrade
                 if (clearSurveyList)
                 {
                     surveyList.Clear();
-                    clearSurveyList = false;
-                    //mf.textBox1.Text = "SURVEY_CLEAR";
+                    clearSurveyList = false;                   
                 }
 
                 // Check the fix Quality before saving the point
 
 
                 if (mf.pn.fixQuality == 4 | mf.pn.fixQuality == 8) isOKtoSurvey = true;
-                //else if (mf.pn.fixQuality == 5 && FloatIsOK) isOKtoSurvey = true;
+                else if (mf.pn.fixQuality == 5 && FloatIsOK) isOKtoSurvey = true;
                
-                //else isOKtoSurvey = false;
+                else isOKtoSurvey = false;
 
                 if (isOKtoSurvey)
                 {
@@ -1474,7 +1478,7 @@ namespace OpenGrade
             if (surveyMode)
             {
                 int ptCount = surveyList.Count;
-                //mf.textBox1.Text = ptCount.ToString();
+               
                 if (ptCount > 0)
                 {
                     gl.PointSize(4.0f);

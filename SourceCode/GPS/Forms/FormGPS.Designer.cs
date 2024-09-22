@@ -89,7 +89,12 @@
             this.lblRTKPopupTime = new System.Windows.Forms.Label();
             this.lblRTKPopup = new System.Windows.Forms.Label();
             this.toolStripDisplay = new System.Windows.Forms.ToolStrip();
-            this.toolStripDropDownButton5 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.toolStrip2DSurveyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStrip3DSurveyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.zeroTripToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadCutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripBoundaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDropDownButton3 = new System.Windows.Forms.ToolStripDropDownButton();
             this.vehicleSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
@@ -100,22 +105,18 @@
             this.ditchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contourToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.toolStrip2DSurveyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStrip3DSurveyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.zeroTripToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.loadCutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripBoundaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDropDownButton4 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.rEMOTEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tStripDRO = new System.Windows.Forms.ToolStripMenuItem();
+            this.tStripManualValve = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.windowsExplorerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.rEMOTEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.webCamToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.flagsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.windowsExplorerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fORCECLOSEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.fORCERESETALLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripDropDownButton5 = new System.Windows.Forms.ToolStripDropDownButton();
             this.tStripChooseSide = new System.Windows.Forms.ToolStripDropDownButton();
             this.tStripClearCoverage = new System.Windows.Forms.ToolStripDropDownButton();
             this.cLEARCOVERAGEToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -140,6 +141,9 @@
             this.pbarCutBelowL = new ProgBar.ProgBarPlus();
             this.pbarCutAboveL = new ProgBar.ProgBarPlus();
             this.PanelDisplays = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lblZeroElevationSetpoint = new System.Windows.Forms.Label();
             this.btnLaserToggle = new System.Windows.Forms.Button();
             this.btnLaserSettings = new System.Windows.Forms.Button();
             this.btnTiltAuto = new System.Windows.Forms.Button();
@@ -909,10 +913,10 @@
             this.toolStripDisplay.Dock = System.Windows.Forms.DockStyle.None;
             this.toolStripDisplay.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStripDisplay.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripDropDownButton5,
-            this.toolStripDropDownButton3,
             this.toolStripDropDownButton1,
+            this.toolStripDropDownButton3,
             this.toolStripDropDownButton4,
+            this.toolStripDropDownButton5,
             this.tStripChooseSide,
             this.tStripClearCoverage});
             this.toolStripDisplay.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
@@ -924,16 +928,72 @@
             this.toolStripDisplay.Text = "toolStrip1";
             this.toolStripDisplay.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip1_ItemClicked);
             // 
-            // toolStripDropDownButton5
+            // toolStripDropDownButton1
             // 
-            this.toolStripDropDownButton5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripDropDownButton5.Image = global::OpenGrade.Properties.Resources.NavigationSettings;
-            this.toolStripDropDownButton5.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolStripDropDownButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButton5.Name = "toolStripDropDownButton5";
-            this.toolStripDropDownButton5.Size = new System.Drawing.Size(77, 68);
-            this.toolStripDropDownButton5.Text = "toolStripDropDownButton3";
-            this.toolStripDropDownButton5.Click += new System.EventHandler(this.toolStripDropDownButton5_Click_1);
+            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStrip2DSurveyToolStripMenuItem,
+            this.toolStrip3DSurveyToolStripMenuItem,
+            this.zeroTripToolStripMenuItem,
+            this.loadCutToolStripMenuItem,
+            this.toolStripBoundaryToolStripMenuItem});
+            this.toolStripDropDownButton1.Image = global::OpenGrade.Properties.Resources.JobActive;
+            this.toolStripDropDownButton1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(77, 68);
+            this.toolStripDropDownButton1.Text = "toolStripDropDownButton3";
+            this.toolStripDropDownButton1.Click += new System.EventHandler(this.toolStripDropDownButton1_Click_1);
+            // 
+            // toolStrip2DSurveyToolStripMenuItem
+            // 
+            this.toolStrip2DSurveyToolStripMenuItem.BackColor = System.Drawing.SystemColors.Desktop;
+            this.toolStrip2DSurveyToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStrip2DSurveyToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.toolStrip2DSurveyToolStripMenuItem.Name = "toolStrip2DSurveyToolStripMenuItem";
+            this.toolStrip2DSurveyToolStripMenuItem.Size = new System.Drawing.Size(257, 44);
+            this.toolStrip2DSurveyToolStripMenuItem.Text = "2D ";
+            this.toolStrip2DSurveyToolStripMenuItem.Click += new System.EventHandler(this.toolStrip2DSurveyToolStripMenuItem_Click);
+            // 
+            // toolStrip3DSurveyToolStripMenuItem
+            // 
+            this.toolStrip3DSurveyToolStripMenuItem.BackColor = System.Drawing.SystemColors.Desktop;
+            this.toolStrip3DSurveyToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStrip3DSurveyToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.toolStrip3DSurveyToolStripMenuItem.Name = "toolStrip3DSurveyToolStripMenuItem";
+            this.toolStrip3DSurveyToolStripMenuItem.Size = new System.Drawing.Size(257, 44);
+            this.toolStrip3DSurveyToolStripMenuItem.Text = "3D";
+            this.toolStrip3DSurveyToolStripMenuItem.Click += new System.EventHandler(this.toolStrip3DSurveyToolStripMenuItem_Click);
+            // 
+            // zeroTripToolStripMenuItem
+            // 
+            this.zeroTripToolStripMenuItem.BackColor = System.Drawing.SystemColors.Desktop;
+            this.zeroTripToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.zeroTripToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.zeroTripToolStripMenuItem.Name = "zeroTripToolStripMenuItem";
+            this.zeroTripToolStripMenuItem.Size = new System.Drawing.Size(257, 44);
+            this.zeroTripToolStripMenuItem.Text = "ZeroTrip";
+            this.zeroTripToolStripMenuItem.Click += new System.EventHandler(this.zeroTripToolStripMenuItem_Click);
+            // 
+            // loadCutToolStripMenuItem
+            // 
+            this.loadCutToolStripMenuItem.BackColor = System.Drawing.SystemColors.Desktop;
+            this.loadCutToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.loadCutToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.loadCutToolStripMenuItem.Name = "loadCutToolStripMenuItem";
+            this.loadCutToolStripMenuItem.Size = new System.Drawing.Size(257, 44);
+            this.loadCutToolStripMenuItem.Text = "Load Cut";
+            this.loadCutToolStripMenuItem.Click += new System.EventHandler(this.loadCutToolStripMenuItem_Click);
+            // 
+            // toolStripBoundaryToolStripMenuItem
+            // 
+            this.toolStripBoundaryToolStripMenuItem.BackColor = System.Drawing.SystemColors.Desktop;
+            this.toolStripBoundaryToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripBoundaryToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.toolStripBoundaryToolStripMenuItem.Name = "toolStripBoundaryToolStripMenuItem";
+            this.toolStripBoundaryToolStripMenuItem.Size = new System.Drawing.Size(257, 44);
+            this.toolStripBoundaryToolStripMenuItem.Text = "Close Field";
+            this.toolStripBoundaryToolStripMenuItem.Click += new System.EventHandler(this.toolStripBoundaryToolStripMenuItem_Click);
             // 
             // toolStripDropDownButton3
             // 
@@ -1046,85 +1106,19 @@
             this.dModeToolStripMenuItem.Text = "3D Mode";
             this.dModeToolStripMenuItem.Click += new System.EventHandler(this.dModeToolStripMenuItem_Click);
             // 
-            // toolStripDropDownButton1
-            // 
-            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStrip2DSurveyToolStripMenuItem,
-            this.toolStrip3DSurveyToolStripMenuItem,
-            this.zeroTripToolStripMenuItem,
-            this.loadCutToolStripMenuItem,
-            this.toolStripBoundaryToolStripMenuItem});
-            this.toolStripDropDownButton1.Image = global::OpenGrade.Properties.Resources.JobActive;
-            this.toolStripDropDownButton1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(77, 68);
-            this.toolStripDropDownButton1.Text = "toolStripDropDownButton3";
-            this.toolStripDropDownButton1.Click += new System.EventHandler(this.toolStripDropDownButton1_Click_1);
-            // 
-            // toolStrip2DSurveyToolStripMenuItem
-            // 
-            this.toolStrip2DSurveyToolStripMenuItem.BackColor = System.Drawing.SystemColors.Desktop;
-            this.toolStrip2DSurveyToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStrip2DSurveyToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.toolStrip2DSurveyToolStripMenuItem.Name = "toolStrip2DSurveyToolStripMenuItem";
-            this.toolStrip2DSurveyToolStripMenuItem.Size = new System.Drawing.Size(257, 44);
-            this.toolStrip2DSurveyToolStripMenuItem.Text = "2D ";
-            this.toolStrip2DSurveyToolStripMenuItem.Click += new System.EventHandler(this.toolStrip2DSurveyToolStripMenuItem_Click);
-            // 
-            // toolStrip3DSurveyToolStripMenuItem
-            // 
-            this.toolStrip3DSurveyToolStripMenuItem.BackColor = System.Drawing.SystemColors.Desktop;
-            this.toolStrip3DSurveyToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStrip3DSurveyToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.toolStrip3DSurveyToolStripMenuItem.Name = "toolStrip3DSurveyToolStripMenuItem";
-            this.toolStrip3DSurveyToolStripMenuItem.Size = new System.Drawing.Size(257, 44);
-            this.toolStrip3DSurveyToolStripMenuItem.Text = "3D";
-            this.toolStrip3DSurveyToolStripMenuItem.Click += new System.EventHandler(this.toolStrip3DSurveyToolStripMenuItem_Click);
-            // 
-            // zeroTripToolStripMenuItem
-            // 
-            this.zeroTripToolStripMenuItem.BackColor = System.Drawing.SystemColors.Desktop;
-            this.zeroTripToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.zeroTripToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.zeroTripToolStripMenuItem.Name = "zeroTripToolStripMenuItem";
-            this.zeroTripToolStripMenuItem.Size = new System.Drawing.Size(257, 44);
-            this.zeroTripToolStripMenuItem.Text = "ZeroTrip";
-            this.zeroTripToolStripMenuItem.Click += new System.EventHandler(this.zeroTripToolStripMenuItem_Click);
-            // 
-            // loadCutToolStripMenuItem
-            // 
-            this.loadCutToolStripMenuItem.BackColor = System.Drawing.SystemColors.Desktop;
-            this.loadCutToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.loadCutToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.loadCutToolStripMenuItem.Name = "loadCutToolStripMenuItem";
-            this.loadCutToolStripMenuItem.Size = new System.Drawing.Size(257, 44);
-            this.loadCutToolStripMenuItem.Text = "Load Cut";
-            this.loadCutToolStripMenuItem.Click += new System.EventHandler(this.loadCutToolStripMenuItem_Click);
-            // 
-            // toolStripBoundaryToolStripMenuItem
-            // 
-            this.toolStripBoundaryToolStripMenuItem.BackColor = System.Drawing.SystemColors.Desktop;
-            this.toolStripBoundaryToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripBoundaryToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.toolStripBoundaryToolStripMenuItem.Name = "toolStripBoundaryToolStripMenuItem";
-            this.toolStripBoundaryToolStripMenuItem.Size = new System.Drawing.Size(257, 44);
-            this.toolStripBoundaryToolStripMenuItem.Text = "Close Field";
-            this.toolStripBoundaryToolStripMenuItem.Click += new System.EventHandler(this.toolStripBoundaryToolStripMenuItem_Click);
-            // 
             // toolStripDropDownButton4
             // 
             this.toolStripDropDownButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripDropDownButton4.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.rEMOTEToolStripMenuItem,
             this.tStripDRO,
+            this.tStripManualValve,
             this.toolStripMenuItem1,
-            this.windowsExplorerToolStripMenuItem,
+            this.toolStripMenuItem4,
+            this.rEMOTEToolStripMenuItem,
             this.webCamToolStripMenuItem1,
             this.flagsToolStripMenuItem,
+            this.windowsExplorerToolStripMenuItem,
             this.fORCECLOSEToolStripMenuItem,
-            this.toolStripMenuItem4,
             this.fORCERESETALLToolStripMenuItem});
             this.toolStripDropDownButton4.Image = global::OpenGrade.Properties.Resources.SpecialFunctions;
             this.toolStripDropDownButton4.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
@@ -1132,16 +1126,6 @@
             this.toolStripDropDownButton4.Name = "toolStripDropDownButton4";
             this.toolStripDropDownButton4.Size = new System.Drawing.Size(77, 68);
             this.toolStripDropDownButton4.Text = "toolStripDropDownButton3";
-            // 
-            // rEMOTEToolStripMenuItem
-            // 
-            this.rEMOTEToolStripMenuItem.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.rEMOTEToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F);
-            this.rEMOTEToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.rEMOTEToolStripMenuItem.Name = "rEMOTEToolStripMenuItem";
-            this.rEMOTEToolStripMenuItem.Size = new System.Drawing.Size(401, 44);
-            this.rEMOTEToolStripMenuItem.Text = "REMOTE";
-            this.rEMOTEToolStripMenuItem.Click += new System.EventHandler(this.rEMOTEToolStripMenuItem_Click);
             // 
             // tStripDRO
             // 
@@ -1153,6 +1137,16 @@
             this.tStripDRO.Text = "DIGITAL READOUT";
             this.tStripDRO.Click += new System.EventHandler(this.gPSDATAToolStripMenuItem_Click);
             // 
+            // tStripManualValve
+            // 
+            this.tStripManualValve.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.tStripManualValve.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F);
+            this.tStripManualValve.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.tStripManualValve.Name = "tStripManualValve";
+            this.tStripManualValve.Size = new System.Drawing.Size(401, 44);
+            this.tStripManualValve.Text = "VALVE CONTROL";
+            this.tStripManualValve.Click += new System.EventHandler(this.tStripManualValve_Click);
+            // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
@@ -1163,15 +1157,25 @@
             this.toolStripMenuItem1.Text = "GPS DATA";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
-            // windowsExplorerToolStripMenuItem
+            // toolStripMenuItem4
             // 
-            this.windowsExplorerToolStripMenuItem.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.windowsExplorerToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F);
-            this.windowsExplorerToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.windowsExplorerToolStripMenuItem.Name = "windowsExplorerToolStripMenuItem";
-            this.windowsExplorerToolStripMenuItem.Size = new System.Drawing.Size(401, 44);
-            this.windowsExplorerToolStripMenuItem.Text = "EXPLORER";
-            this.windowsExplorerToolStripMenuItem.Click += new System.EventHandler(this.windowsExplorerToolStripMenuItem_Click);
+            this.toolStripMenuItem4.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.toolStripMenuItem4.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F);
+            this.toolStripMenuItem4.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(401, 44);
+            this.toolStripMenuItem4.Text = "IMPORT AGD 3D";
+            this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
+            // 
+            // rEMOTEToolStripMenuItem
+            // 
+            this.rEMOTEToolStripMenuItem.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.rEMOTEToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F);
+            this.rEMOTEToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.rEMOTEToolStripMenuItem.Name = "rEMOTEToolStripMenuItem";
+            this.rEMOTEToolStripMenuItem.Size = new System.Drawing.Size(401, 44);
+            this.rEMOTEToolStripMenuItem.Text = "REMOTE";
+            this.rEMOTEToolStripMenuItem.Click += new System.EventHandler(this.rEMOTEToolStripMenuItem_Click);
             // 
             // webCamToolStripMenuItem1
             // 
@@ -1193,6 +1197,16 @@
             this.flagsToolStripMenuItem.Text = "FLAGS";
             this.flagsToolStripMenuItem.Click += new System.EventHandler(this.flagsToolStripMenuItem_Click);
             // 
+            // windowsExplorerToolStripMenuItem
+            // 
+            this.windowsExplorerToolStripMenuItem.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.windowsExplorerToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F);
+            this.windowsExplorerToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.windowsExplorerToolStripMenuItem.Name = "windowsExplorerToolStripMenuItem";
+            this.windowsExplorerToolStripMenuItem.Size = new System.Drawing.Size(401, 44);
+            this.windowsExplorerToolStripMenuItem.Text = "EXPLORER";
+            this.windowsExplorerToolStripMenuItem.Click += new System.EventHandler(this.windowsExplorerToolStripMenuItem_Click);
+            // 
             // fORCECLOSEToolStripMenuItem
             // 
             this.fORCECLOSEToolStripMenuItem.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
@@ -1203,16 +1217,6 @@
             this.fORCECLOSEToolStripMenuItem.Text = "CLOSE";
             this.fORCECLOSEToolStripMenuItem.Click += new System.EventHandler(this.fORCECLOSEToolStripMenuItem_Click);
             // 
-            // toolStripMenuItem4
-            // 
-            this.toolStripMenuItem4.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.toolStripMenuItem4.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F);
-            this.toolStripMenuItem4.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(401, 44);
-            this.toolStripMenuItem4.Text = "IMPORT AGD 3D";
-            this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
-            // 
             // fORCERESETALLToolStripMenuItem
             // 
             this.fORCERESETALLToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
@@ -1222,6 +1226,17 @@
             this.fORCERESETALLToolStripMenuItem.Size = new System.Drawing.Size(401, 44);
             this.fORCERESETALLToolStripMenuItem.Text = "FORCE CLOSE ALL";
             this.fORCERESETALLToolStripMenuItem.Click += new System.EventHandler(this.fORCERESETALLToolStripMenuItem_Click);
+            // 
+            // toolStripDropDownButton5
+            // 
+            this.toolStripDropDownButton5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripDropDownButton5.Image = global::OpenGrade.Properties.Resources.NavigationSettings;
+            this.toolStripDropDownButton5.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripDropDownButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton5.Name = "toolStripDropDownButton5";
+            this.toolStripDropDownButton5.Size = new System.Drawing.Size(77, 68);
+            this.toolStripDropDownButton5.Text = "toolStripDropDownButton3";
+            this.toolStripDropDownButton5.Click += new System.EventHandler(this.toolStripDropDownButton5_Click_1);
             // 
             // tStripChooseSide
             // 
@@ -1323,7 +1338,7 @@
             this.panelNavigation.Controls.Add(this.btn3D, 0, 1);
             this.panelNavigation.Controls.Add(this.btnN2D, 0, 2);
             this.panelNavigation.Controls.Add(this.lblHz, 1, 4);
-            this.panelNavigation.Location = new System.Drawing.Point(86, 86);
+            this.panelNavigation.Location = new System.Drawing.Point(84, 12);
             this.panelNavigation.Name = "panelNavigation";
             this.panelNavigation.RowCount = 5;
             this.panelNavigation.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
@@ -1389,6 +1404,7 @@
             this.btnN3D.TabIndex = 472;
             this.btnN3D.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnN3D.UseVisualStyleBackColor = false;
+            this.btnN3D.Click += new System.EventHandler(this.btnN3D_Click);
             // 
             // btnFullScreen
             // 
@@ -1495,6 +1511,7 @@
             this.btnN2D.TabIndex = 470;
             this.btnN2D.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnN2D.UseVisualStyleBackColor = false;
+            this.btnN2D.Click += new System.EventHandler(this.btnN2D_Click);
             // 
             // lblHz
             // 
@@ -1609,6 +1626,9 @@
             // PanelDisplays
             // 
             this.PanelDisplays.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.PanelDisplays.Controls.Add(this.label1);
+            this.PanelDisplays.Controls.Add(this.label2);
+            this.PanelDisplays.Controls.Add(this.lblZeroElevationSetpoint);
             this.PanelDisplays.Controls.Add(this.panelNavigation);
             this.PanelDisplays.Controls.Add(this.btnLaserToggle);
             this.PanelDisplays.Controls.Add(this.btnLaserSettings);
@@ -1632,6 +1652,47 @@
             this.PanelDisplays.TabIndex = 484;
             this.PanelDisplays.Paint += new System.Windows.Forms.PaintEventHandler(this.PanelDisplays_Paint);
             // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.BackColor = System.Drawing.Color.Black;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label1.Location = new System.Drawing.Point(487, 21);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(193, 270);
+            this.label1.TabIndex = 496;
+            this.label1.Text = "PPS";
+            this.label1.Visible = false;
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Black;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.ForestGreen;
+            this.label2.Location = new System.Drawing.Point(936, 141);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(107, 20);
+            this.label2.TabIndex = 495;
+            this.label2.Text = "Set Elevation:";
+            this.label2.Visible = false;
+            // 
+            // lblZeroElevationSetpoint
+            // 
+            this.lblZeroElevationSetpoint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblZeroElevationSetpoint.AutoSize = true;
+            this.lblZeroElevationSetpoint.BackColor = System.Drawing.Color.Black;
+            this.lblZeroElevationSetpoint.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblZeroElevationSetpoint.ForeColor = System.Drawing.Color.ForestGreen;
+            this.lblZeroElevationSetpoint.Location = new System.Drawing.Point(1042, 141);
+            this.lblZeroElevationSetpoint.Name = "lblZeroElevationSetpoint";
+            this.lblZeroElevationSetpoint.Size = new System.Drawing.Size(40, 20);
+            this.lblZeroElevationSetpoint.TabIndex = 494;
+            this.lblZeroElevationSetpoint.Text = "PPS";
+            this.lblZeroElevationSetpoint.Visible = false;
+            // 
             // btnLaserToggle
             // 
             this.btnLaserToggle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -1652,6 +1713,7 @@
             // 
             // btnLaserSettings
             // 
+            this.btnLaserSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnLaserSettings.BackColor = System.Drawing.Color.Black;
             this.btnLaserSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btnLaserSettings.ContextMenuStrip = this.contextMenuStripFlag;
@@ -1659,7 +1721,7 @@
             this.btnLaserSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLaserSettings.Font = new System.Drawing.Font("Tahoma", 14.25F);
             this.btnLaserSettings.Image = global::OpenGrade.Properties.Resources.Toggle_Laser_SetZero_BLK;
-            this.btnLaserSettings.Location = new System.Drawing.Point(86, 13);
+            this.btnLaserSettings.Location = new System.Drawing.Point(934, 78);
             this.btnLaserSettings.Name = "btnLaserSettings";
             this.btnLaserSettings.Size = new System.Drawing.Size(180, 60);
             this.btnLaserSettings.TabIndex = 491;
@@ -1825,7 +1887,7 @@
             this.statusStrip2.Location = new System.Drawing.Point(5, 736);
             this.statusStrip2.Name = "statusStrip2";
             this.statusStrip2.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.statusStrip2.Size = new System.Drawing.Size(1292, 20);
+            this.statusStrip2.Size = new System.Drawing.Size(1288, 20);
             this.statusStrip2.TabIndex = 486;
             this.statusStrip2.Text = "statusStrip2";
             this.statusStrip2.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.statusStrip2_ItemClicked);
@@ -1963,7 +2025,7 @@
             this.statusStrip1.Location = new System.Drawing.Point(5, 676);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.statusStrip1.Size = new System.Drawing.Size(1292, 60);
+            this.statusStrip1.Size = new System.Drawing.Size(1288, 60);
             this.statusStrip1.TabIndex = 487;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -2119,7 +2181,7 @@
             this.statusStrip4.Location = new System.Drawing.Point(5, 45);
             this.statusStrip4.Name = "statusStrip4";
             this.statusStrip4.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.statusStrip4.Size = new System.Drawing.Size(1292, 20);
+            this.statusStrip4.Size = new System.Drawing.Size(1288, 20);
             this.statusStrip4.TabIndex = 489;
             this.statusStrip4.Text = "statusStrip4";
             // 
@@ -2269,7 +2331,7 @@
             this.statusStrip5.Location = new System.Drawing.Point(5, 65);
             this.statusStrip5.Name = "statusStrip5";
             this.statusStrip5.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.statusStrip5.Size = new System.Drawing.Size(1292, 20);
+            this.statusStrip5.Size = new System.Drawing.Size(1288, 20);
             this.statusStrip5.TabIndex = 490;
             this.statusStrip5.Text = "statusStrip5";
             // 
@@ -2359,7 +2421,6 @@
             this.NTRIP_LED.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.NTRIP_LED.Name = "NTRIP_LED";
             this.NTRIP_LED.Size = new System.Drawing.Size(25, 14);
-            this.NTRIP_LED.Value = 100;
             // 
             // toolStripStatusLabel33
             // 
@@ -2530,7 +2591,7 @@
             this.statusStrip3.Location = new System.Drawing.Point(5, 5);
             this.statusStrip3.Name = "statusStrip3";
             this.statusStrip3.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.statusStrip3.Size = new System.Drawing.Size(1292, 40);
+            this.statusStrip3.Size = new System.Drawing.Size(1288, 40);
             this.statusStrip3.TabIndex = 488;
             this.statusStrip3.Text = "statusStrip3";
             // 
@@ -2871,6 +2932,10 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel31;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblZeroElevationSetpoint;
+        private System.Windows.Forms.ToolStripMenuItem tStripManualValve;
+        private System.Windows.Forms.Label label1;
     }
 }
 

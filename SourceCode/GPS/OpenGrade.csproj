@@ -158,6 +158,12 @@
     <Compile Include="Forms\Form2dSurvey.Designer.cs">
       <DependentUpon>Form2dSurvey.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormManualCtrl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormManualCtrl.Designer.cs">
+      <DependentUpon>FormManualCtrl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormAltSet.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -326,6 +332,9 @@
     </Compile>
     <EmbeddedResource Include="Forms\Form2dSurvey.resx">
       <DependentUpon>Form2dSurvey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormManualCtrl.resx">
+      <DependentUpon>FormManualCtrl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormAltSet.resx">
       <DependentUpon>FormAltSet.cs</DependentUpon>

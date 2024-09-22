@@ -982,5 +982,65 @@ namespace OpenGrade.Properties {
                 this["set_levelDistFactor"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double set_ImuPitchOffset {
+            get {
+                return ((double)(this["set_ImuPitchOffset"]));
+            }
+            set {
+                this["set_ImuPitchOffset"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double set_ImuRollOffset {
+            get {
+                return ((double)(this["set_ImuRollOffset"]));
+            }
+            set {
+                this["set_ImuRollOffset"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double set_ImuYawOffset {
+            get {
+                return ((double)(this["set_ImuYawOffset"]));
+            }
+            set {
+                this["set_ImuYawOffset"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("192.168.1.230")]
+        public string setIP_AntennaIP2 {
+            get {
+                return ((string)(this["setIP_AntennaIP2"]));
+            }
+            set {
+                this["setIP_AntennaIP2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("8888")]
+        public int setIP_AntennaPort2 {
+            get {
+                return ((int)(this["setIP_AntennaPort2"]));
+            }
+            set {
+                this["setIP_AntennaPort2"] = value;
+            }
+        }
     }
 }

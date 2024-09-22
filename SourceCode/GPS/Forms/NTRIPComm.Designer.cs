@@ -9,6 +9,9 @@ using System.Runtime.InteropServices;
 using System.Security.Permissions;
 using System.Drawing;
 using System.Globalization;
+using System.Reflection;
+using System.Security.Cryptography;
+using static OpenGrade.CModuleComm;
 
 // Declare the delegate prototype to send data back to the form
 delegate void UpdateRTCM_Data(byte[] data);
@@ -22,14 +25,15 @@ namespace OpenGrade
         private byte[] casterRecBuffer = new byte[2048];    // Recieved data buffer
         private event UpdateRTCM_Data updateRTCM_DataEvent;              // Add Message Event handler for Form
         private readonly StringBuilder sbRTCM = new StringBuilder();
+        private readonly StringBuilder sbRTCMdata = new StringBuilder();
 
 
         //Send GGA back timer
         Timer tmr;
 
         public bool isNTRIPOn;
-        private string rtcm;
-        private string rtcmRaw;
+        public string rtcm ="";
+        private string rtcmRaw="";
         
         private string mount;
         private string username;
@@ -57,12 +61,11 @@ namespace OpenGrade
 
         private void NTRIPtick(object o, EventArgs e)
         {
-            //SendGGA();
+            SendGGA();
         }
 
         public void ReconnectRequest()
         {
-            //TimedMessageBox(2000, "NTRIP Not Connected", " Reconnect Request");
             ntripCounter = 10;
             isNTRIP_Connected = false;
             isNTRIP_Starting = false;
@@ -89,8 +92,7 @@ namespace OpenGrade
                 NTRIP_LED.Value = 100;
                 NTRIP_LED.BackColor = Color.Orange;
                 ReconnectRequest();
-            }
-            
+            }    
             
 
 
@@ -105,9 +107,9 @@ namespace OpenGrade
             broadCasterIP = Properties.Settings.Default.setNTRIP_casterIP; //Select correct Address
             reconnectCounter++;
             
-            if (reconnectCounter > 100)
+            if (reconnectCounter > 20)
             {
-                TimedMessageBox(2000, "100 failed connection attempts", "Check Connections and Reset in NTRIP Tab");               
+                TimedMessageBox(2000, "20 failed connection attempts", "Check Connections and Reset in NTRIP Tab");               
                 
                 return;
             }
@@ -133,16 +135,10 @@ namespace OpenGrade
             password = Properties.Settings.Default.setNTRIP_userPassword; //Insert your password!            
             sendGGAInterval = Properties.Settings.Default.setNTRIP_sendGGAInterval; //how often to send fixes
 
-            //tboxNTRIPBuffer.Text += "  Ip -> " + broadCasterIP + " Port -> " + 
-            //    broadCasterPort + " Mount -> " + mount + " GGA -> " + sendGGAInterval.ToString() + 
-            //    " Connection Attempt -> " + reconnectCounter + "\r\n\r\n";
-            
-
-
             //if we had a timer already, kill it
             if (tmr != null)
             {
-                //tboxNTRIPBuffer.Text += "Timer Killed \r\n";
+                //tboxNTRIPBuffer.Text += "GGA Timer Killed \r\n";
                 tmr.Dispose();
             }
 
@@ -160,7 +156,7 @@ namespace OpenGrade
                 // Close the socket if it is still open
                 if (clientSocket != null && clientSocket.Connected)
                 {
-                    //tboxNTRIPBuffer.Text += "Close Socket \r\n";
+                    //tboxNTRIPBuffer.Text += "Socket Open  && Client Connected -> Close Socket \r\n";
                     clientSocket.Shutdown(SocketShutdown.Both);
                     System.Threading.Thread.Sleep(100);
                     clientSocket.Close();
@@ -179,27 +175,31 @@ namespace OpenGrade
             }
             catch (Exception)
             {
-                //TimedMessageBox(1000, gStr.gsNTRIPNotConnectedRetrying, gStr.gsAtSocketConnect);
+
                 ReconnectRequest();
                 return;
             }
            
             isNTRIP_Connecting = true;
-            
+            //tboxNTRIPBuffer.Text += "NTRIP CONNECTING......\r\n";
             //make sure connection is made
-            //System.Threading.Thread.Sleep(2000);
+            System.Threading.Thread.Sleep(500);
         }
 
         public void SendAuthorization()
         {
 
             //send the authourization info for Broadcaster
+            ntripCounter = 0;
+            NTRIP_Watchdog = 0;
+
+
 
             // Check we are connected
             if (clientSocket == null || !clientSocket.Connected)
             {
                 //TimedMessageBox(2000, gStr.gsNTRIPNotConnected, " ReStarting TCP Connection ");
-                              
+                //tboxNTRIPBuffer.Text += "SendAuthorzation() failed\r\n";
                 ReconnectRequest();
                 return;
             }
@@ -229,14 +229,24 @@ namespace OpenGrade
                 if (Properties.Settings.Default.setNTRIP_isHTTP10) htt = "1.0";
                 else htt = "1.1";
 
-                //Build authorization string
-                string str = 
-                    "GET /" + mount + " HTTP/" + htt + "\r\n" +
+                ////Build authorization string
+                //string str = 
+                //    "GET /" + mount + " HTTP/" + htt + "\r\n" +
+                //    "User-Agent: NTRIP u-blox\r\n" +
+                //    "Accept: */* \r\n" +
+                //    "Authorization: Basic " + auth + "\r\n" +                    
+                //    "Connection: close \r\n" +                                          //str += GGASentence; //this line can be removed if no position feedback is needed                
+                //    "\r\n";
+
+
+
+                string str =
+                    "GET /" + mount + " HTTPS/" + htt + "\r\n" +
                     "User-Agent: NTRIP u-blox\r\n" +
                     "Accept: */* \r\n" +
-                    "Authorization: Basic " + auth + "\r\n" +                    
-                    "Connection: close \r\n" +                                          //str += GGASentence; //this line can be removed if no position feedback is needed                
-                    "\r\n";
+                    "Authorization: Basic " + auth + "\r\n" +
+                    "Connection: close \r\n"+ "\r\n";  // +                                          //str += GGASentence; //this line can be removed if no position feedback is needed                
+                    
 
                 //tboxNTRIPBuffer.Text += " Authorization String > \r\n" + str + "\r\n";
                 // Convert to byte array and send.
@@ -252,10 +262,8 @@ namespace OpenGrade
                 isNTRIP_Starting = false;
                 isNTRIP_Connecting = false;
                 isNTRIPOn = true;
-                //tboxNTRIPBuffer.Text += " Authorization Sent" + '\n';
+               // tboxNTRIPBuffer.Text += "Authorization Sent" + "\r\n";
                 
-
-                //btnStartStopNtrip.Text = gStr.gsStop;
 
             }
             catch (Exception)
@@ -269,39 +277,121 @@ namespace OpenGrade
         {
             //update gui with stats 
             uint nBytesRecvd = (uint)data.Length;            
-            tripBytes += (uint)nBytesRecvd;
-         
+            tripBytes += (uint)nBytesRecvd;         
             //reset watchdog since we have updated data
-            NTRIP_Watchdog = 0;
-
-            //send out UDP Port          
+            NTRIP_Watchdog = 0;      
 
             try
-            {             
+            {          
 
                 if (nBytesRecvd > 0)
                 {
 
+                    // Convert the received RTCM data bytes to a Base64 string
+                    string base64EncodedData = Convert.ToBase64String(data);
+                    const int maxSize = 250; // Define your maximum size for each chunk
+                    int effectiveMaxSize = maxSize - 50;
+
+                    byte[] localMsg = new byte[nBytesRecvd];
+                    Array.Copy(data, localMsg, nBytesRecvd);                    
+
+                    // Check if the final string exceeds the maximum size
+                    if (base64EncodedData.Length > maxSize)
+                    {
+                        List<string> choppedStrings = ChopString(base64EncodedData, maxSize);
+
+                        // Process each chopped string as needed
+                        foreach (var choppedString in choppedStrings)
+                        {
+                            // Process each chunk (e.g., logging, sending over network, etc.)
+                            rtcm = base64EncodedData;
+                            SendUDPMessageJSON((int)ModuleType.Antenna_Master, (int)DataType.NTRIP, 1, epA1);
+
+                        }
+                    }
+                    else
+                    {
+                        rtcm = base64EncodedData;
+                        // If the string does not exceed the maximum size, process it directly
+                        SendUDPMessageJSON((int)ModuleType.Antenna_Master, (int)DataType.NTRIP, 1, epA1);
+                    }                    
+                    
+                }
+
+            }
+            catch (Exception ex)
+            {
+                WriteErrorLog("NTRIP Data UDP Send" + ex.ToString());
+            }
+           
+            //sbRTCM.Clear();
+
+
+
+            //sbRTCM.Append("Total Bytes Recieved -> " + tripBytes.ToString() + "\r\n");
+            //sbRTCM.Append("Message Recieved -> ");
+            ////sbRTCM.Append("\r\n");
+            ////sbRTCM.Append("Message Recieved -> " + rtcmRaw +"\r\n");
+            ////sbRTCM.Append("\r\n");
+            //tboxNTRIPBuffer.Text = sbRTCM.ToString() +"{" + rtcm.ToString() + "}" + "\r\n\r\n";
+            //sbRTCMdata.Clear();
+            //sbRTCM.Clear();
+            //rtcmRaw = "";
+            //rtcm = "";
+
+
+        }
+
+        public void OnAddMessage2(byte[] data)
+        {
+            //update gui with stats 
+            uint nBytesRecvd = (uint)data.Length;
+            tripBytes += (uint)nBytesRecvd;
+            //reset watchdog since we have updated data
+            NTRIP_Watchdog = 0;
+
+            try
+            {
+
+                if (nBytesRecvd > 0)
+                {
                     byte[] localMsg = new byte[nBytesRecvd];
                     Array.Copy(data, localMsg, nBytesRecvd);
 
-                    
                     for (int i = 0; i < nBytesRecvd; i++)
                     {
-                        rtcmRaw += data[i];
-                        rtcmRaw += " ";
-
+                        //sbRTCMdata.Append(data[i]).Append(" ");
+                        sbRTCMdata.Append(data[i]);
                     }
-                    //sbRTCM.Append("\r\n");
-                    //rtcm = sbRTCM.ToString();
+                    //rtcmRaw = sbRTCMdata.ToString();
+                    //rtcmRaw = sbRTCMdata.ToString();
+                    //rtcmRaw = Convert.FromBase64String(sbRTCMdata.ToString())
 
-                    //SendUDPMessageNTRIP(, rtcm);
-                    //SendUDPMessage(NTRIP_HEADER, epAntennaModule);
-                    //SendUDPMessageNTRIP(NTRIP_HEADER, data);
+                    const int maxSize = 250; // Define your maximum size for each chunk
+
+                    // Check if the final string exceeds the maximum size
+                    if (rtcmRaw.Length > maxSize)
+                    {
+                        List<string> choppedStrings = ChopString(rtcmRaw, maxSize);
+
+                        // Process each chopped string as needed
+                        foreach (var choppedString in choppedStrings)
+                        {
+                            // Process each chunk (e.g., logging, sending over network, etc.)
+                            rtcm = choppedString;
+
+                            SendUDPMessageJSON((int)ModuleType.Antenna_Master, (int)DataType.NTRIP, 1, epA1);
+
+                        }
+                    }
+                    else
+                    {
+                        rtcm = rtcmRaw;
+                        // If the string does not exceed the maximum size, process it directly
+                        SendUDPMessageJSON((int)ModuleType.Antenna_Master, (int)DataType.NTRIP, 1, epA1);
+                    }
 
                 }
-
-
 
             }
             catch (Exception ex)
@@ -310,15 +400,37 @@ namespace OpenGrade
             }
 
             sbRTCM.Clear();
-            sbRTCM.Append("Bytes Recieved-> " + (nBytesRecvd) + "\r\n");
+
+
+
             sbRTCM.Append("Total Bytes Recieved -> " + tripBytes.ToString() + "\r\n");
-            sbRTCM.Append("Message Recieved -> " + rtcmRaw + "\r\n");
-            sbRTCM.Append("\r\n");
-            //tboxNTRIPBuffer.Text = sbRTCM.ToString();
+            sbRTCM.Append("Message Recieved -> ");
+            //sbRTCM.Append("\r\n");
+            //sbRTCM.Append("Message Recieved -> " + rtcmRaw +"\r\n");
+            //sbRTCM.Append("\r\n");
+            //tboxNTRIPBuffer.Text = sbRTCM.ToString() + "{" + sbRTCMdata.ToString() + "}" + "\r\n\r\n";
+            sbRTCMdata.Clear();
             sbRTCM.Clear();
             rtcmRaw = "";
-            
+            rtcm = "";
+
+
         }
+
+        // Method to chop a large string into smaller strings of a defined size
+        static List<string> ChopString(string str, int maxSize)
+        {
+            List<string> choppedStrings = new List<string>();
+            for (int i = 0; i < str.Length; i += maxSize)
+            {
+                if (i + maxSize <= str.Length)
+                    choppedStrings.Add(str.Substring(i, maxSize));
+                else
+                    choppedStrings.Add(str.Substring(i));
+            }
+            return choppedStrings;
+        }
+
 
         public void SendGGA()
         {
@@ -356,13 +468,13 @@ namespace OpenGrade
         {
             // Socket was the passed in object
             Socket sock = (Socket)ar.AsyncState;
-            
+
             // Check if we were sucessfull
             try
             {
-                //sock.EndConnect( ar );
-                if (sock.Connected)                {
-                    //tboxNTRIPBuffer.Text = "Setup RecievCallback";
+               
+                if (sock.Connected){
+                    //MessageBox.Show("Connected Socket", "Socket!");
                     SetupRecieveCallback(sock);
                 }
                 else
@@ -370,7 +482,7 @@ namespace OpenGrade
             }
             catch (Exception)
             {
-                //MessageBox.Show(ex.Message, "Unusual error during Connect!");
+
             }
         }
 
@@ -378,7 +490,6 @@ namespace OpenGrade
         {
             // Socket was the passed in object
             Socket sock = (Socket)ar.AsyncState;
-            //tboxNTRIPBuffer.Text += "Data Receieved -> SUCCESS" + '\n';
 
             // Check if we got any data
             try
@@ -410,7 +521,7 @@ namespace OpenGrade
             }
             catch (Exception)
             {
-                MessageBox.Show( this, "You Must be from Huxley!", "You Probably lost service!" );
+                //MessageBox.Show( this, "You Must be from Huxley!", "You Probably lost service!" );
             }
         }
 
@@ -418,14 +529,12 @@ namespace OpenGrade
         {
             try
             {
-                //tboxNTRIPBuffer.Text = "Setup Recieve Callback Try!";
                 AsyncCallback recieveData = new AsyncCallback(OnRecievedData);
                 sock.BeginReceive(casterRecBuffer, 0, casterRecBuffer.Length, SocketFlags.None, recieveData, sock);
             }
             catch (Exception)
             {
-                //tboxNTRIPBuffer.Text = "Setup Recieve Callback failed!";
-                //MessageBox.Show(this, ex.Message, );
+              
             }
         }
 
@@ -446,7 +555,7 @@ namespace OpenGrade
                 System.Threading.Thread.Sleep(500);
 
                 //TimedMessageBox(2000, gStr.gsNTRIPOff, gStr.gsClickStartToResume);
-                ReconnectRequest();
+                //ReconnectRequest();
 
                 //Also stop the requests now
                 isNTRIP_RequiredOn = false;

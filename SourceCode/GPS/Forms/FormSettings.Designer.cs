@@ -28,12 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSettings));
             this.label17 = new System.Windows.Forms.Label();
             this.lblInchesCm = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.bntOK = new System.Windows.Forms.Button();
             this.tabIMU = new System.Windows.Forms.TabPage();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -47,6 +50,15 @@
             this.btnSectionColor = new System.Windows.Forms.Button();
             this.btnFieldColor = new System.Windows.Forms.Button();
             this.btnSimulator = new System.Windows.Forms.Button();
+            this.btnFullScreen = new System.Windows.Forms.Button();
+            this.bntSkyOn = new System.Windows.Forms.Button();
+            this.btnPursuitLine = new System.Windows.Forms.Button();
+            this.btnLogNMEA = new System.Windows.Forms.Button();
+            this.btnPolygons = new System.Windows.Forms.Button();
+            this.btnLightbar = new System.Windows.Forms.Button();
+            this.btnGrid = new System.Windows.Forms.Button();
+            this.btnUnits = new System.Windows.Forms.Button();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.nudMaxDitchCut = new System.Windows.Forms.NumericUpDown();
             this.lblMaxDitchCut = new System.Windows.Forms.Label();
@@ -57,32 +69,13 @@
             this.nudMinTileCover = new System.Windows.Forms.NumericUpDown();
             this.nudMaxTileCut = new System.Windows.Forms.NumericUpDown();
             this.lblMaxTileCut = new System.Windows.Forms.Label();
-            this.btnFullScreen = new System.Windows.Forms.Button();
-            this.bntSkyOn = new System.Windows.Forms.Button();
-            this.btnPursuitLine = new System.Windows.Forms.Button();
-            this.btnLogNMEA = new System.Windows.Forms.Button();
-            this.btnPolygons = new System.Windows.Forms.Button();
-            this.btnLightbar = new System.Windows.Forms.Button();
-            this.btnGrid = new System.Windows.Forms.Button();
-            this.btnUnits = new System.Windows.Forms.Button();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.pictureBox11 = new System.Windows.Forms.PictureBox();
-            this.pictureBox10 = new System.Windows.Forms.PictureBox();
-            this.pictureBox9 = new System.Windows.Forms.PictureBox();
-            this.pictureBox8 = new System.Windows.Forms.PictureBox();
-            this.pictureBox7 = new System.Windows.Forms.PictureBox();
-            this.pictureBox6 = new System.Windows.Forms.PictureBox();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.nudDistFromSurvey = new System.Windows.Forms.NumericUpDown();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.nudMinShoreSlope = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.nudMinSlope = new System.Windows.Forms.NumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.nudDistFromSurvey = new System.Windows.Forms.NumericUpDown();
             this.tabVehicle = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -121,28 +114,20 @@
             this.label25 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.tabOpenGrade = new System.Windows.Forms.TabControl();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tabIMU.SuspendLayout();
             this.tabMeasurements.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMaxDitchCut)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinDitchCut)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinTileCover)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMaxTileCut)).BeginInit();
-            this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudDistFromSurvey)).BeginInit();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinShoreSlope)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinSlope)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudDistFromSurvey)).BeginInit();
             this.tabVehicle.SuspendLayout();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudAntennaHeight)).BeginInit();
@@ -195,6 +180,8 @@
             // tabIMU
             // 
             this.tabIMU.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            this.tabIMU.Controls.Add(this.label24);
+            this.tabIMU.Controls.Add(this.label20);
             this.tabIMU.Controls.Add(this.label19);
             this.tabIMU.Controls.Add(this.label14);
             this.tabIMU.Controls.Add(this.label11);
@@ -206,6 +193,18 @@
             this.tabIMU.Controls.Add(this.btnImuOnOff);
             resources.ApplyResources(this.tabIMU, "tabIMU");
             this.tabIMU.Name = "tabIMU";
+            // 
+            // label24
+            // 
+            resources.ApplyResources(this.label24, "label24");
+            this.label24.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label24.Name = "label24";
+            // 
+            // label20
+            // 
+            resources.ApplyResources(this.label20, "label20");
+            this.label20.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label20.Name = "label20";
             // 
             // label19
             // 
@@ -234,6 +233,7 @@
             this.btnImuPitchInvert.Image = global::OpenGrade.Properties.Resources.ConDa_InvertRoll;
             this.btnImuPitchInvert.Name = "btnImuPitchInvert";
             this.btnImuPitchInvert.UseVisualStyleBackColor = false;
+            this.btnImuPitchInvert.Click += new System.EventHandler(this.btnImuPitchInvert_Click);
             // 
             // btnImuReset
             // 
@@ -251,6 +251,7 @@
             this.btnImuInvert.Image = global::OpenGrade.Properties.Resources.ConDa_InvertRoll;
             this.btnImuInvert.Name = "btnImuInvert";
             this.btnImuInvert.UseVisualStyleBackColor = false;
+            this.btnImuInvert.Click += new System.EventHandler(this.btnImuInvert_Click);
             // 
             // btnRemoveImuOffset
             // 
@@ -259,6 +260,7 @@
             this.btnRemoveImuOffset.Image = global::OpenGrade.Properties.Resources.ConDa_RemoveOffset;
             this.btnRemoveImuOffset.Name = "btnRemoveImuOffset";
             this.btnRemoveImuOffset.UseVisualStyleBackColor = false;
+            this.btnRemoveImuOffset.Click += new System.EventHandler(this.btnRemoveImuOffset_Click);
             // 
             // btnZeroImu
             // 
@@ -285,8 +287,6 @@
             this.tabMeasurements.Controls.Add(this.btnSectionColor);
             this.tabMeasurements.Controls.Add(this.btnFieldColor);
             this.tabMeasurements.Controls.Add(this.btnSimulator);
-            this.tabMeasurements.Controls.Add(this.groupBox3);
-            this.tabMeasurements.Controls.Add(this.groupBox2);
             this.tabMeasurements.Controls.Add(this.btnFullScreen);
             this.tabMeasurements.Controls.Add(this.bntSkyOn);
             this.tabMeasurements.Controls.Add(this.btnPursuitLine);
@@ -324,6 +324,88 @@
             this.btnSimulator.Name = "btnSimulator";
             this.btnSimulator.UseVisualStyleBackColor = false;
             this.btnSimulator.Click += new System.EventHandler(this.btnSimulator_Click);
+            // 
+            // btnFullScreen
+            // 
+            this.btnFullScreen.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.btnFullScreen, "btnFullScreen");
+            this.btnFullScreen.Image = global::OpenGrade.Properties.Resources.ConD_FullScreenBegin;
+            this.btnFullScreen.Name = "btnFullScreen";
+            this.btnFullScreen.UseVisualStyleBackColor = false;
+            this.btnFullScreen.Click += new System.EventHandler(this.btnFullScreen_Click);
+            // 
+            // bntSkyOn
+            // 
+            this.bntSkyOn.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.bntSkyOn, "bntSkyOn");
+            this.bntSkyOn.Image = global::OpenGrade.Properties.Resources.ConD_Sky;
+            this.bntSkyOn.Name = "bntSkyOn";
+            this.bntSkyOn.UseVisualStyleBackColor = false;
+            this.bntSkyOn.Click += new System.EventHandler(this.bntSkyOn_Click);
+            // 
+            // btnPursuitLine
+            // 
+            this.btnPursuitLine.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.btnPursuitLine, "btnPursuitLine");
+            this.btnPursuitLine.Image = global::OpenGrade.Properties.Resources.ConD_ExtraGuides;
+            this.btnPursuitLine.Name = "btnPursuitLine";
+            this.btnPursuitLine.UseVisualStyleBackColor = false;
+            this.btnPursuitLine.Click += new System.EventHandler(this.btnPursuitLine_Click);
+            // 
+            // btnLogNMEA
+            // 
+            this.btnLogNMEA.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.btnLogNMEA, "btnLogNMEA");
+            this.btnLogNMEA.Image = global::OpenGrade.Properties.Resources.ConD_LogNMEA;
+            this.btnLogNMEA.Name = "btnLogNMEA";
+            this.btnLogNMEA.UseVisualStyleBackColor = false;
+            this.btnLogNMEA.Click += new System.EventHandler(this.btnLogNMEA_Click);
+            // 
+            // btnPolygons
+            // 
+            this.btnPolygons.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.btnPolygons, "btnPolygons");
+            this.btnPolygons.Image = global::OpenGrade.Properties.Resources.ConD_Poligons;
+            this.btnPolygons.Name = "btnPolygons";
+            this.btnPolygons.UseVisualStyleBackColor = false;
+            this.btnPolygons.Click += new System.EventHandler(this.btnPolygons_Click);
+            // 
+            // btnLightbar
+            // 
+            this.btnLightbar.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.btnLightbar, "btnLightbar");
+            this.btnLightbar.Image = global::OpenGrade.Properties.Resources.ConD_LightBar;
+            this.btnLightbar.Name = "btnLightbar";
+            this.btnLightbar.UseVisualStyleBackColor = false;
+            this.btnLightbar.Click += new System.EventHandler(this.btnLightbar_Click);
+            // 
+            // btnGrid
+            // 
+            this.btnGrid.BackColor = System.Drawing.Color.Silver;
+            resources.ApplyResources(this.btnGrid, "btnGrid");
+            this.btnGrid.Image = global::OpenGrade.Properties.Resources.ConD_Grid;
+            this.btnGrid.Name = "btnGrid";
+            this.btnGrid.UseVisualStyleBackColor = false;
+            this.btnGrid.Click += new System.EventHandler(this.btnGrid_Click);
+            // 
+            // btnUnits
+            // 
+            this.btnUnits.BackColor = System.Drawing.Color.White;
+            resources.ApplyResources(this.btnUnits, "btnUnits");
+            this.btnUnits.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnUnits.Image = global::OpenGrade.Properties.Resources.ConD_Metric;
+            this.btnUnits.Name = "btnUnits";
+            this.btnUnits.UseVisualStyleBackColor = false;
+            this.btnUnits.Click += new System.EventHandler(this.btnUnits_Click);
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            this.tabPage1.Controls.Add(this.groupBox3);
+            this.tabPage1.Controls.Add(this.groupBox2);
+            this.tabPage1.Controls.Add(this.groupBox4);
+            resources.ApplyResources(this.tabPage1, "tabPage1");
+            this.tabPage1.Name = "tabPage1";
             // 
             // groupBox3
             // 
@@ -439,197 +521,14 @@
             this.lblMaxTileCut.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.lblMaxTileCut.Name = "lblMaxTileCut";
             // 
-            // btnFullScreen
-            // 
-            this.btnFullScreen.BackColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.btnFullScreen, "btnFullScreen");
-            this.btnFullScreen.Image = global::OpenGrade.Properties.Resources.ConD_FullScreenBegin;
-            this.btnFullScreen.Name = "btnFullScreen";
-            this.btnFullScreen.UseVisualStyleBackColor = false;
-            this.btnFullScreen.Click += new System.EventHandler(this.btnFullScreen_Click);
-            // 
-            // bntSkyOn
-            // 
-            this.bntSkyOn.BackColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.bntSkyOn, "bntSkyOn");
-            this.bntSkyOn.Image = global::OpenGrade.Properties.Resources.ConD_Sky;
-            this.bntSkyOn.Name = "bntSkyOn";
-            this.bntSkyOn.UseVisualStyleBackColor = false;
-            this.bntSkyOn.Click += new System.EventHandler(this.bntSkyOn_Click);
-            // 
-            // btnPursuitLine
-            // 
-            this.btnPursuitLine.BackColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.btnPursuitLine, "btnPursuitLine");
-            this.btnPursuitLine.Image = global::OpenGrade.Properties.Resources.ConD_ExtraGuides;
-            this.btnPursuitLine.Name = "btnPursuitLine";
-            this.btnPursuitLine.UseVisualStyleBackColor = false;
-            this.btnPursuitLine.Click += new System.EventHandler(this.btnPursuitLine_Click);
-            // 
-            // btnLogNMEA
-            // 
-            this.btnLogNMEA.BackColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.btnLogNMEA, "btnLogNMEA");
-            this.btnLogNMEA.Image = global::OpenGrade.Properties.Resources.ConD_LogNMEA;
-            this.btnLogNMEA.Name = "btnLogNMEA";
-            this.btnLogNMEA.UseVisualStyleBackColor = false;
-            this.btnLogNMEA.Click += new System.EventHandler(this.btnLogNMEA_Click);
-            // 
-            // btnPolygons
-            // 
-            this.btnPolygons.BackColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.btnPolygons, "btnPolygons");
-            this.btnPolygons.Image = global::OpenGrade.Properties.Resources.ConD_Poligons;
-            this.btnPolygons.Name = "btnPolygons";
-            this.btnPolygons.UseVisualStyleBackColor = false;
-            this.btnPolygons.Click += new System.EventHandler(this.btnPolygons_Click);
-            // 
-            // btnLightbar
-            // 
-            this.btnLightbar.BackColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.btnLightbar, "btnLightbar");
-            this.btnLightbar.Image = global::OpenGrade.Properties.Resources.ConD_LightBar;
-            this.btnLightbar.Name = "btnLightbar";
-            this.btnLightbar.UseVisualStyleBackColor = false;
-            this.btnLightbar.Click += new System.EventHandler(this.btnLightbar_Click);
-            // 
-            // btnGrid
-            // 
-            this.btnGrid.BackColor = System.Drawing.Color.Silver;
-            resources.ApplyResources(this.btnGrid, "btnGrid");
-            this.btnGrid.Image = global::OpenGrade.Properties.Resources.ConD_Grid;
-            this.btnGrid.Name = "btnGrid";
-            this.btnGrid.UseVisualStyleBackColor = false;
-            this.btnGrid.Click += new System.EventHandler(this.btnGrid_Click);
-            // 
-            // btnUnits
-            // 
-            this.btnUnits.BackColor = System.Drawing.Color.White;
-            resources.ApplyResources(this.btnUnits, "btnUnits");
-            this.btnUnits.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnUnits.Image = global::OpenGrade.Properties.Resources.ConD_Metric;
-            this.btnUnits.Name = "btnUnits";
-            this.btnUnits.UseVisualStyleBackColor = false;
-            this.btnUnits.Click += new System.EventHandler(this.btnUnits_Click);
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
-            this.tabPage1.Controls.Add(this.pictureBox11);
-            this.tabPage1.Controls.Add(this.pictureBox10);
-            this.tabPage1.Controls.Add(this.pictureBox9);
-            this.tabPage1.Controls.Add(this.pictureBox8);
-            this.tabPage1.Controls.Add(this.pictureBox7);
-            this.tabPage1.Controls.Add(this.pictureBox6);
-            this.tabPage1.Controls.Add(this.pictureBox5);
-            this.tabPage1.Controls.Add(this.pictureBox4);
-            this.tabPage1.Controls.Add(this.pictureBox3);
-            this.tabPage1.Controls.Add(this.label16);
-            this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Controls.Add(this.nudDistFromSurvey);
-            this.tabPage1.Controls.Add(this.groupBox4);
-            resources.ApplyResources(this.tabPage1, "tabPage1");
-            this.tabPage1.Name = "tabPage1";
-            // 
-            // pictureBox11
-            // 
-            this.pictureBox11.Image = global::OpenGrade.Properties.Resources.Con_SourcesGPSDual1;
-            resources.ApplyResources(this.pictureBox11, "pictureBox11");
-            this.pictureBox11.Name = "pictureBox11";
-            this.pictureBox11.TabStop = false;
-            // 
-            // pictureBox10
-            // 
-            this.pictureBox10.Image = global::OpenGrade.Properties.Resources.ConS_VehicleDim;
-            resources.ApplyResources(this.pictureBox10, "pictureBox10");
-            this.pictureBox10.Name = "pictureBox10";
-            this.pictureBox10.TabStop = false;
-            // 
-            // pictureBox9
-            // 
-            this.pictureBox9.Image = global::OpenGrade.Properties.Resources.Con_SourcesRTKAlarm1;
-            resources.ApplyResources(this.pictureBox9, "pictureBox9");
-            this.pictureBox9.Name = "pictureBox9";
-            this.pictureBox9.TabStop = false;
-            // 
-            // pictureBox8
-            // 
-            this.pictureBox8.Image = global::OpenGrade.Properties.Resources.Con_SourcesGPSDual1;
-            resources.ApplyResources(this.pictureBox8, "pictureBox8");
-            this.pictureBox8.Name = "pictureBox8";
-            this.pictureBox8.TabStop = false;
-            // 
-            // pictureBox7
-            // 
-            this.pictureBox7.Image = global::OpenGrade.Properties.Resources.Con_SourcesGPSSingle1;
-            resources.ApplyResources(this.pictureBox7, "pictureBox7");
-            this.pictureBox7.Name = "pictureBox7";
-            this.pictureBox7.TabStop = false;
-            // 
-            // pictureBox6
-            // 
-            this.pictureBox6.Image = global::OpenGrade.Properties.Resources.ConV_ABLineLength;
-            resources.ApplyResources(this.pictureBox6, "pictureBox6");
-            this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.TabStop = false;
-            // 
-            // pictureBox5
-            // 
-            this.pictureBox5.Image = global::OpenGrade.Properties.Resources.ConV_LineWith;
-            resources.ApplyResources(this.pictureBox5, "pictureBox5");
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.TabStop = false;
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Image = global::OpenGrade.Properties.Resources.Con_SourcesHead;
-            resources.ApplyResources(this.pictureBox4, "pictureBox4");
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.TabStop = false;
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = global::OpenGrade.Properties.Resources.ConV_GuidanceLookAhead;
-            resources.ApplyResources(this.pictureBox3, "pictureBox3");
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.TabStop = false;
-            // 
-            // label16
-            // 
-            resources.ApplyResources(this.label16, "label16");
-            this.label16.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label16.Name = "label16";
-            // 
-            // label4
-            // 
-            resources.ApplyResources(this.label4, "label4");
-            this.label4.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label4.Name = "label4";
-            // 
-            // nudDistFromSurvey
-            // 
-            this.nudDistFromSurvey.BackColor = System.Drawing.SystemColors.MenuText;
-            resources.ApplyResources(this.nudDistFromSurvey, "nudDistFromSurvey");
-            this.nudDistFromSurvey.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.nudDistFromSurvey.Maximum = new decimal(new int[] {
-            99999,
-            0,
-            0,
-            0});
-            this.nudDistFromSurvey.Name = "nudDistFromSurvey";
-            this.nudDistFromSurvey.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.nudDistFromSurvey.ValueChanged += new System.EventHandler(this.nudPlowHeight_ValueChanged_2);
-            // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.nudMinShoreSlope);
             this.groupBox4.Controls.Add(this.label1);
             this.groupBox4.Controls.Add(this.nudMinSlope);
+            this.groupBox4.Controls.Add(this.label4);
             this.groupBox4.Controls.Add(this.label10);
+            this.groupBox4.Controls.Add(this.nudDistFromSurvey);
             resources.ApplyResources(this.groupBox4, "groupBox4");
             this.groupBox4.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.groupBox4.Name = "groupBox4";
@@ -652,6 +551,11 @@
             0,
             0,
             0});
+            this.nudMinShoreSlope.Minimum = new decimal(new int[] {
+            80,
+            0,
+            0,
+            -2147483648});
             this.nudMinShoreSlope.Name = "nudMinShoreSlope";
             this.nudMinShoreSlope.Value = new decimal(new int[] {
             15,
@@ -689,11 +593,35 @@
             131072});
             this.nudMinSlope.ValueChanged += new System.EventHandler(this.nudMinSlope_ValueChanged_1);
             // 
+            // label4
+            // 
+            resources.ApplyResources(this.label4, "label4");
+            this.label4.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label4.Name = "label4";
+            // 
             // label10
             // 
             resources.ApplyResources(this.label10, "label10");
             this.label10.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.label10.Name = "label10";
+            // 
+            // nudDistFromSurvey
+            // 
+            this.nudDistFromSurvey.BackColor = System.Drawing.SystemColors.MenuText;
+            resources.ApplyResources(this.nudDistFromSurvey, "nudDistFromSurvey");
+            this.nudDistFromSurvey.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.nudDistFromSurvey.Maximum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            0});
+            this.nudDistFromSurvey.Name = "nudDistFromSurvey";
+            this.nudDistFromSurvey.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.nudDistFromSurvey.ValueChanged += new System.EventHandler(this.nudPlowHeight_ValueChanged_2);
             // 
             // tabVehicle
             // 
@@ -962,6 +890,7 @@
             resources.GetString("valveSelectChoice.Items1"),
             resources.GetString("valveSelectChoice.Items2")});
             this.valveSelectChoice.Name = "valveSelectChoice";
+            this.valveSelectChoice.SelectedIndexChanged += new System.EventHandler(this.valveSelectChoice_SelectedIndexChanged);
             // 
             // label8
             // 
@@ -1105,6 +1034,12 @@
             this.tabOpenGrade.SelectedIndex = 0;
             this.tabOpenGrade.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 500;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // FormSettings
             // 
             resources.ApplyResources(this, "$this");
@@ -1124,6 +1059,7 @@
             this.tabIMU.ResumeLayout(false);
             this.tabIMU.PerformLayout();
             this.tabMeasurements.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMaxDitchCut)).EndInit();
@@ -1132,22 +1068,11 @@
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinTileCover)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMaxTileCut)).EndInit();
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudDistFromSurvey)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinShoreSlope)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinSlope)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudDistFromSurvey)).EndInit();
             this.tabVehicle.ResumeLayout(false);
             this.tabVehicle.PerformLayout();
             this.groupBox6.ResumeLayout(false);
@@ -1190,16 +1115,6 @@
         private System.Windows.Forms.Button btnSectionColor;
         private System.Windows.Forms.Button btnFieldColor;
         private System.Windows.Forms.Button btnSimulator;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.NumericUpDown nudMaxDitchCut;
-        private System.Windows.Forms.Label lblMaxDitchCut;
-        private System.Windows.Forms.NumericUpDown nudMinDitchCut;
-        private System.Windows.Forms.Label lblMinDitchCut;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label lblMinTileCover;
-        private System.Windows.Forms.NumericUpDown nudMinTileCover;
-        private System.Windows.Forms.NumericUpDown nudMaxTileCut;
-        private System.Windows.Forms.Label lblMaxTileCut;
         private System.Windows.Forms.Button btnFullScreen;
         private System.Windows.Forms.Button bntSkyOn;
         private System.Windows.Forms.Button btnPursuitLine;
@@ -1209,16 +1124,6 @@
         private System.Windows.Forms.Button btnGrid;
         private System.Windows.Forms.Button btnUnits;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.PictureBox pictureBox11;
-        private System.Windows.Forms.PictureBox pictureBox10;
-        private System.Windows.Forms.PictureBox pictureBox9;
-        private System.Windows.Forms.PictureBox pictureBox8;
-        private System.Windows.Forms.PictureBox pictureBox7;
-        private System.Windows.Forms.PictureBox pictureBox6;
-        private System.Windows.Forms.PictureBox pictureBox5;
-        private System.Windows.Forms.PictureBox pictureBox4;
-        private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.NumericUpDown nudDistFromSurvey;
         private System.Windows.Forms.GroupBox groupBox4;
@@ -1267,5 +1172,18 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.NumericUpDown nudMaxDitchCut;
+        private System.Windows.Forms.Label lblMaxDitchCut;
+        private System.Windows.Forms.NumericUpDown nudMinDitchCut;
+        private System.Windows.Forms.Label lblMinDitchCut;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label lblMinTileCover;
+        private System.Windows.Forms.NumericUpDown nudMinTileCover;
+        private System.Windows.Forms.NumericUpDown nudMaxTileCut;
+        private System.Windows.Forms.Label lblMaxTileCut;
+        private System.Windows.Forms.Timer timer1;
     }
 }

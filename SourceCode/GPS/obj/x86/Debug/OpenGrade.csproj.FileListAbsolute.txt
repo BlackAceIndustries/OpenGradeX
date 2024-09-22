@@ -159,3 +159,4 @@ C:\Users\Austin\Documents\7.Software Development\OpenGrade\OpenGradeX_3D\SourceC
 C:\Users\Austin\Documents\7.Software Development\OpenGrade\OpenGradeX_3D\SourceCode\GPS\obj\x86\Debug\OXG_3D.application
 C:\Users\Austin\Documents\7.Software Development\OpenGrade\OpenGradeX_3D\SourceCode\GPS\obj\x86\Debug\OXG_3D.exe
 C:\Users\Austin\Documents\7.Software Development\OpenGrade\OpenGradeX_3D\SourceCode\GPS\obj\x86\Debug\OXG_3D.pdb
+C:\Users\Austin\Documents\7.Software Development\OpenGrade\OpenGradeX_3D\SourceCode\GPS\obj\x86\Debug\OpenGrade.FormManualCtrl.resources

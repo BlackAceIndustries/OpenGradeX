@@ -1,0 +1,26 @@
+{
+	"folders": [
+		{
+			"name": "OpenGradeX Antenna Slave",
+			"path": "OpenGradeX Antenna Slave"
+		},
+		{
+			"name": "OpenGradeX Antenna OTA",
+			"path": "OpenGradeX Antenna OTA"
+		},
+		{
+			"name": "OpenGradeX GradeControl OTA",
+			"path": "OpenGradeX GradeControl OTA"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"cmath": "cpp",
+			"vector": "cpp",
+			"cstddef": "cpp",
+			"string": "cpp",
+			"array": "cpp",
+			"string_view": "cpp"
+		}
+	}
+}

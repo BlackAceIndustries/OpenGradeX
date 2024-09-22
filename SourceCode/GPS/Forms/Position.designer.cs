@@ -13,6 +13,8 @@ namespace OpenGrade
         public  double toLatitude;
         public  double toLongitude;
         public string recvSentenceSettings = "InitalSetting";
+        public byte[] recvNTRIP = new byte[1000];
+
         public string recvSentenceSettings2 = "InitalSetting";
 
         //very first fix to setup grid etc
@@ -23,9 +25,6 @@ namespace OpenGrade
 
         private vec2 prevContourPos = new vec2();
 
-
-
-       
 
         //how many fix updates per sec
         public int fixUpdateHz = 5;
@@ -44,7 +43,7 @@ namespace OpenGrade
         public bool isTurning = false;
 
         //a distance between previous and current fix
-        public double distance = 0.0, userDistance = 0;
+        public double distance = 0.0, userDistance = 0; 
           
         //step distances and positions for boundary, 4 meters before next point
         public double boundaryTriggerDistance = 4.0;
@@ -328,6 +327,15 @@ namespace OpenGrade
                 //calc distance travelled since last GPS fix
                 distance = pn.Distance(pn.northing, pn.easting, prevFix.northing, prevFix.easting);
                 if ((userDistance += distance) > 9000) userDistance = 0; ;//userDistance can be reset
+
+
+                //calc distance travelled since last GPS fix
+                //distance = pn.Distance(pn.northing, pn.easting, prevFix.northing, prevFix.easting);
+                //if ((userDistance += distance) > 9000) userDistance = 0; ;//userDistance can be reset
+
+
+
+
 
                 //most recent fixes are now the prev ones
                 prevFix.easting = pn.easting; prevFix.northing = pn.northing;

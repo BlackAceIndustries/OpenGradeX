@@ -242,5 +242,20 @@
     <Setting Name="set_levelDistFactor" Type="System.Double" Scope="User">
       <Value Profile="(Default)">100</Value>
     </Setting>
+    <Setting Name="set_ImuPitchOffset" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="set_ImuRollOffset" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="set_ImuYawOffset" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="setIP_AntennaIP2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">192.168.1.230</Value>
+    </Setting>
+    <Setting Name="setIP_AntennaPort2" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">8888</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

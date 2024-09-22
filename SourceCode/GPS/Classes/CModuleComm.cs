@@ -21,7 +21,7 @@ namespace OpenGrade
         public int incomingInt;                   
         
 
-        public enum DataType { Connect, Data, Settings, Diagnostic, Error }
+        public enum DataType { Connect, Data, Settings, Diagnostic, Error, NTRIP}
         public enum ModuleType { Antenna_Master, Antenna_Slave, GradeControl_Slave }
 
         public struct MessageConnect
@@ -116,11 +116,19 @@ namespace OpenGrade
         public bool isImuCorrection = true;
         public bool isPitchCorrection = false;
 
-        public float headingIMU = 9999, prevHeadingIMU = 9999, rollIMU = 9999, pitchIMU = 9999;
+        public string a1RawString;
+        public string a2RawString;
+        public string gcRawString;
+
+        public double imuRollOffset = 0, imuPitchOffset = 0, imuYawOffset = 0;
+
+        public double headingIMU = 9999, prevHeadingIMU = 9999, rollIMU = 9999, pitchIMU = 9999;
         public float avgrollIMU = 9999, avgpitchIMU = 9999;
 
+        public double rollSlope = 9999, pitchSlope = 9999;
 
-        public bool isAutoVertIn = false, isAutoTiltIn = false;
+
+        public bool isAutoVertLast = false, isAutoTiltLast = false;
 
         //constructor
         public CModuleComm(FormGPS _f)
@@ -181,11 +189,11 @@ namespace OpenGrade
 
         public void AvgRoll()
         {
-            avgrollIMU = (avgrollIMU * .8f) + (rollIMU * 0.2f);
+            avgrollIMU = (avgrollIMU * .8f) + ((float)rollIMU * 0.2f);
         }
         public void AvgPitch()
         {
-            avgpitchIMU = (avgpitchIMU * .8f) + (pitchIMU * .2f);
+            avgpitchIMU = (avgpitchIMU * .8f) + ((float)pitchIMU * .2f);
 
         }
 

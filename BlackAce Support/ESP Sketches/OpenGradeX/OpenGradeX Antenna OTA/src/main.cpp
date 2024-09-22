@@ -14,11 +14,15 @@
 #include <ArduinoOTA.h>
 #include <ESPmDNS.h>
 #include <Adafruit_Sensor.h>
-//#include <Adafruit_BNO055.h>
 #include <Adafruit_BNO08x.h>
 #include <utility/imumaths.h>
 #include <SPI.h>
 #include <Wire.h>
+#include <ArduinoJson.h>
+#include "messages.h"
+#include <iostream>
+#include <string>
+#include <Base64.h>
 /* IMU Board layout:
             Front
          +----------+
@@ -62,8 +66,12 @@ void quaternionToEulerGI(sh2_GyroIntegratedRV_t* rotational_vector, euler_t* ypr
 // UDP
 bool SetupUdp();
 void RelayGPSData();
+void RelayGPSData2();
 bool SendUdpData(int _header);
-bool RecvUdpData();
+bool SendUdpDataJSON(uint8_t moduleType, uint8_t msgType, uint8_t _msgID);
+
+bool RecvUdpDataJSON();
+//bool RecvUdpData();
 // WIFI
 bool SetupAP();
 void ConnectToHotSpot(); 
@@ -82,14 +90,26 @@ char *hotspotSSID_Pass;
 char buff[1460];
 char GNGGA[1000];
 char GNVTG[1000];
+char GNGSA[1000];
 
 String SSID[40];
 String RSSI[40];
 String SSID_PASS[40];
 char *ssid2;
 char *pass2;
+
+String incomingData;
+String RTCM;
+char RTCMBuffer[1460];
 char packetBuffer[1460];
 char *OG_data[1460];
+long MSG_ID = 0;
+
+struct_message_Antenna_data antennaDataMsg;
+struct_message_Antenna_settings antennaSettingsMsg;
+struct_message_Firmware antennaFirmwareMsg;
+struct_message_Connect connectMsg;
+
 
 ///Ports
 uint16_t openGradePort = 9999; //OpenGrade Server Port
@@ -107,7 +127,7 @@ IPAddress senderIP;
 
 ///////////////////////PINS///////////////////////
 #define DEBUG_BAUD 460800
-#define RTK_BAUD 460800
+#define RTK_BAUD 921600
 #define DAC1_ENABLE 4      // DAC 1 enable/
 #define DAC2_ENABLE 5     //  DAC 2 enable/
 #define SCL_PIN 22      // I2C SCL PIN
@@ -120,17 +140,8 @@ IPAddress senderIP;
 #define CONST_180_DIVIDED_BY_PI 57.2957795130823
 #define BNO055_SAMPLERATE_DELAY_MS (95)
 
-//UDP HEADERS
-#define DATA_HEADER 10001
-#define SETTINGS_HEADER 10002
-#define GPS_HEADER 10003
-#define IMU_HEADER 10004
-#define NTRIP_HEADER 10005
 
-#define RESET_HEADER 10100
-#define SYSTEM_HEADER 10101
-#define WIFI_HEADER 10102
-
+#define BOARD_ID 1
 
 /////////////IMU///////////////
 
@@ -172,8 +183,9 @@ unsigned long currentTime = 0;
 bool isDataFound = false, isSettingFound = false;
 int header = 0, tempHeader = 0, temp;
 bool isOGXConnected = false;
-unsigned long watchdogTimer = 0;   //make sure we are talking to OGX
-const int OGXTimeout = 50;    
+const int OGXTimeout = 25;
+unsigned long watchdogTimer = OGXTimeout;   //make sure we are talking to OGX
+    
 bool isRtcmNext = false;
 
 ///////////////////////Initalize Objects///////////////////////
@@ -200,7 +212,7 @@ void loop(){
   currentTime = millis();  //  
   ArduinoOTA.handle();
   RelayGPSData();  // Relay serial to UDP
-  RecvUdpData();  // Receive commands from OPENGRADEX
+  RecvUdpDataJSON();  // Receive commands from OPENGRADEX
   
   
   if (currentTime - lastTime >= LOOP_TIME)
@@ -217,19 +229,23 @@ void loop(){
       digitalWrite(BUILTIN_LED, HIGH); // make sure connected to OGX   Time
     }
       
-    if (watchdogTimer > OGXTimeout*50000) watchdogTimer = 50; // Prevent overflow
+    if (watchdogTimer > OGXTimeout*50000) OGXTimeout + 1; // Prevent overflow
 
   }
   
   if (currentTime - lastTime2 >= LOOP_TIME2){ // every 3 seconds
     lastTime2 = currentTime;
-    SendUdpData(SYSTEM_HEADER);
+    
+    
+    //SendUdpDataJSON(Antenna, Diagnostic, MSG_ID );
+    //SendUdpData(SYSTEM_HEADER);
   }
   
   if (currentTime - lastTime3 >= LOOP_TIME3){ // READ IMU data 10hz
     lastTime3 = currentTime;
     GetIMUData();
-    SendUdpData(IMU_HEADER);
+
+    //SendUdpData(IMU_HEADER);
 
   }
 }
@@ -250,7 +266,7 @@ bool SetupAntennaModule()
   esp.begin(SDA_PIN , SCL_PIN);
   //set the baud rate
   DEBUG.begin(DEBUG_BAUD);  
-  RTK.begin(460800, SERIAL_8N1, RXD2, TXD2); 
+  RTK.begin(RTK_BAUD, SERIAL_8N1, RXD2, TXD2); 
 
   digitalWrite(2, HIGH); delay(500); digitalWrite(2, LOW); delay(500); digitalWrite(2, HIGH); delay(500);
   digitalWrite(2, LOW); delay(500); digitalWrite(2, HIGH); delay(500); digitalWrite(2, LOW); delay(500);
@@ -321,22 +337,28 @@ void GetIMUData()
     }
     static long last = 0;
     long now = micros();
-    Serial.print(now - last);             Serial.print("\t");
+    //Serial.print(now - last);             Serial.print("\t");
     last = now;
-    Serial.print(sensorValue.status);     Serial.print("\t");  // This is accuracy in the range of 0 to 3
-    Serial.print(ypr.yaw);                Serial.print("\t");
-    Serial.print(ypr.pitch);              Serial.print("\t");
-    Serial.println(ypr.roll);
+    // Serial.print(sensorValue.status);     Serial.print("\t");  // This is accuracy in the range of 0 to 3
+    // Serial.print(ypr.yaw);                Serial.print("\t");
+    // Serial.print(ypr.pitch);              Serial.print("\t");
+    // Serial.println(ypr.roll);
   }
   
+  antennaDataMsg.yaw = ((float)ypr.yaw); // YAW  
+  antennaDataMsg.pitch =  ((float)ypr.pitch);// PITCH
+  antennaDataMsg.roll = ((float)ypr.roll); // ROLL
+  headingIMU = antennaDataMsg.yaw - headingIMUSetPos; // YAW  
+  pitchIMU = antennaDataMsg.pitch - pitchIMUSetPos; // PITCH
+  rollIMU = antennaDataMsg.roll -rollIMUSetPos; // ROLL 
   
-  rawHeadingIMU = ((float)ypr.yaw); // YAW  
-  rawPitchIMU =  ((float)ypr.pitch);// PITCH
-  rawRollIMU = ((float)ypr.roll); // ROLL
+  // rawHeadingIMU = ((float)ypr.yaw); // YAW  
+  // rawPitchIMU =  ((float)ypr.pitch);// PITCH
+  // rawRollIMU = ((float)ypr.roll); // ROLL
 
-  headingIMU = rawHeadingIMU - headingIMUSetPos; // YAW  
-  pitchIMU = rawPitchIMU - pitchIMUSetPos; // PITCH
-  rollIMU = rawRollIMU -rollIMUSetPos; // ROLL 
+  // headingIMU = rawHeadingIMU - headingIMUSetPos; // YAW  
+  // pitchIMU = rawPitchIMU - pitchIMUSetPos; // PITCH
+  // rollIMU = rawRollIMU -rollIMUSetPos; // ROLL 
 }
 
 void quaternionToEuler(float qr, float qi, float qj, float qk, euler_t* ypr, bool degrees = false) {
@@ -379,26 +401,97 @@ void setReports(sh2_SensorId_t reportType, long report_interval) {
 void RelayGPSData(){
     
   if(RTK.available()){   
+    antennaDataMsg.GGA = "";
+    antennaDataMsg.VTG = "";
+    antennaDataMsg.GSA = "";
+
+    int size1 = RTK.readBytesUntil('\n', buff, sizeof(buff));      
     
-    
-    int size = RTK.readBytesUntil('\n', buff, sizeof(buff));  
-    for(int h = 0; h < size; h++) 
+    for(int h = 0; h < size1 -1; h++) 
     {
+      
       GNVTG[h] = buff[h];    
-      //UdpAntenna.print(buff[i]);
     }
+    antennaDataMsg.VTG = GNVTG;
+    
+    
+    memset(buff, 0, sizeof(buff)); // clear buff 
+
+
+    int size2 = RTK.readBytesUntil('\n', buff, sizeof(buff));
+    
+    for(int h = 0; h < size2 -1; h++) 
+    {
+      GNGGA[h] = buff[h];    
+    }
+    antennaDataMsg.GGA = GNGGA;
+
+    
+
     memset(buff, 0, sizeof(buff)); // clear buff   
     
-    int size2 = RTK.readBytesUntil('\n', buff, sizeof(buff));
+    
+
+    int size3 = RTK.readBytesUntil('\n', buff, sizeof(buff));
+    for(int h = 0; h < size3-1; h++) 
+    {
+      GNGSA[h] = buff[h];    
+    }
+    antennaDataMsg.GSA = GNGSA;
+
+    memset(buff, 0, sizeof(buff)); // clear buff 
+    memset(GNGGA, 0, sizeof(GNGGA)); // clear buff   
+    memset(GNVTG, 0, sizeof(GNVTG)); // clear buff   
+    memset(GNGSA, 0, sizeof(GNGSA)); // clear buff   
+
+    if(isOGXConnected){
+      //antennaDataMsg.readingId++;
+      SendUdpDataJSON(int(Antenna_Master), Data, 1 );
+      
+    }
+    
+    
+  }
+}
+
+void RelayGPSData2(){
+    
+  if(RTK.available()){   
+        
+    int size = RTK.readBytesUntil('\r', buff, sizeof(buff));  
+    int x = RTK.read();  
+    //char var = RTK.read();
+    
+    for(int h = 0; h < size; h++) 
+    {      
+      GNVTG[h] = buff[h];    
+    }
+    antennaDataMsg.VTG = GNVTG;
+
+    memset(buff, 0, sizeof(buff)); // clear buff   
+    
+    int size2 = RTK.readBytesUntil('\r', buff, sizeof(buff));
+    char y = RTK.read();
     for(int h = 0; h < size2; h++) 
     {
       GNGGA[h] = buff[h];    
-      //UdpAntenna.print(buff[i]);
     }
+    antennaDataMsg.GGA = GNGGA;
     memset(buff, 0, sizeof(buff)); // clear buff 
 
-    //SENDING
-    SendUdpData(GPS_HEADER);
+    int size3 = RTK.readBytesUntil('\r', buff, sizeof(buff));
+    for(int h = 0; h < size2; h++) 
+    {
+      GNGSA[h] = buff[h];    
+    }
+    antennaDataMsg.GSA = GNGSA;
+
+    memset(buff, 0, sizeof(buff)); // clear buff 
+
+    if(isOGXConnected){
+      SendUdpDataJSON(int(Antenna_Master), Data, 1 );
+    }
+    
     
   }
 }
@@ -409,28 +502,63 @@ bool SetupUdp(){
   return true;
 }
 
-bool SendUdpData(int _header)
+bool SendUdpDataJSON(uint8_t _moduleType, uint8_t _msgType, uint8_t _modID)
 { 
-  //DEBUG.println("GPS RECIEVED");
-  switch (_header){
-    case DATA_HEADER:      
-      
+  StaticJsonDocument<2000> root;
+  String payload;
+  bool sent;
+  switch (_msgType){
+    case Connect: 
+      // root["modType"] = connectMsg.modType;
+      // root["msgType"] = connectMsg.msgType;
+      // root["modId"] = connectMsg.modId;
+
+      root["modType"] = _moduleType;
+      root["msgType"] = _msgType;
+      root["modId"] = _modID;
+      root["connected"] = connectMsg.connected;
+      root["readingId"] = connectMsg.readingId; 
+      serializeJson(root, payload);
+
+      UdpAntenna.beginPacket(openGradeIP,openGradePort);   //Initiate transmission of data  
+      UdpAntenna.print(payload);
+      UdpAntenna.endPacket();  // Close communication    
+
+      //UdpAntenna.write((const uint8_t*)&connectMsg, sizeof(connectMsg));       
+        
       break;
 
 
-    case SETTINGS_HEADER:
-    
-        break;
+    case Data:
 
-    case GPS_HEADER:
-        bool sent;
+        // root["modType"] = antennaDataMsg.modType;
+        // root["msgType"] = antennaDataMsg.msgType;
+        // root["modId"] = antennaDataMsg.modId;
+        root["modType"] = _moduleType;
+        root["msgType"] = _msgType;
+        root["modId"] = _modID;
+        root["GGA"] = antennaDataMsg.GGA;
+        root["VTG"] = antennaDataMsg.VTG;
+        root["GSA"] = antennaDataMsg.GSA;
+        // root["roll"] = int(antennaDataMsg.roll*10000);
+        // root["pitch"] = antennaDataMsg.pitch*10000;
+        // root["yaw"] = antennaDataMsg.yaw*10000;
+
+        root["roll"] = String(antennaDataMsg.roll, 4);
+        root["pitch"] = String(antennaDataMsg.pitch, 4);
+        root["yaw"] = String(antennaDataMsg.yaw, 4);
+
+
+        root["battery"] = antennaDataMsg.battery;
+        root["readingId"] = antennaDataMsg.readingId++;
+        serializeJson(root, payload);
+
         UdpAntenna.beginPacket(openGradeIP,openGradePort);   //Initiate transmission of data
-        UdpAntenna.print(_header);
-        UdpAntenna.print(",");
-        UdpAntenna.println(GNGGA);
-        UdpAntenna.println(GNVTG);
+        UdpAntenna.print(payload);
         sent = UdpAntenna.endPacket();  // Close communication
         
+
+        //UdpAntenna.write((const uint8_t*)&antennaDataMsg, sizeof(antennaDataMsg));  
         while (RTK.available()){
           RTK.read();
         }
@@ -439,196 +567,170 @@ bool SendUdpData(int _header)
           ESP.restart();    
         } 
         
-        memset(buff, 0, sizeof(buff));
-        memset(GNGGA, 0, sizeof(GNGGA));
-        memset(GNVTG, 0, sizeof(GNVTG)); // clear buff
-              
         break;
 
-    case IMU_HEADER:
-      //SENDING
+    case Settings:
+    
+      root["modType"] = antennaSettingsMsg.modType;
+      root["msgType"] = antennaSettingsMsg.msgType;
+      root["modId"] = antennaSettingsMsg.modId;
+      root["readingId"] = antennaSettingsMsg.readingId++;
+      serializeJson(root, payload);
+    
       UdpAntenna.beginPacket(openGradeIP,openGradePort);   //Initiate transmission of data
-      UdpAntenna.print(_header);  
-      UdpAntenna.print(",");
-      UdpAntenna.print(headingIMU);
-      UdpAntenna.print(",");
-      UdpAntenna.print(pitchIMU);
-      UdpAntenna.print(",");
-      UdpAntenna.print(rollIMU);      
-      UdpAntenna.endPacket();  // Close communication
-        
-        break;
-
-    case RESET_HEADER:
-        break;
-
-    case SYSTEM_HEADER:
-      UdpAntenna.beginPacket(openGradeIP,openGradePort);   //Initiate transmission of data
-      UdpAntenna.print(_header);
-      UdpAntenna.print(",");
-      UdpAntenna.print(155);
-      UdpAntenna.print(",");
-      UdpAntenna.print(version);     
-      UdpAntenna.endPacket();  // Close communication    
-         
-
-        break;
-
-    case WIFI_HEADER:    
+      UdpAntenna.print(payload);               
+      sent = UdpAntenna.endPacket();  // Close communication
+      //UdpAntenna.write((const uint8_t*)&antennaSettingsMsg, sizeof(antennaSettingsMsg));
       
-      //int n = sizeof(SSID);
-      UdpAntenna.beginPacket(openGradeIP,openGradePort);   //Initiate transmission of data
-      UdpAntenna.print(_header);
-      DEBUG.print(_header);
-      for (int i = 0; i < 5; ++i) {      
-        UdpAntenna.print(",");
-        UdpAntenna.print(SSID[i]);
-        DEBUG.print(",");
-        DEBUG.print(SSID[i]); 
-      }
-      DEBUG.print("END\r\n");  
-      UdpAntenna.endPacket();  // Close communication  
+        break;
+
+    case Diagnostic:
       
-    break;
+      root["modType"] = antennaFirmwareMsg.modType;
+      root["msgType"] = antennaFirmwareMsg.msgType;
+      root["modId"] = antennaFirmwareMsg.modId;
+      root["fw"] = antennaFirmwareMsg.firmware;
+      root["hw"] = antennaFirmwareMsg.hardware;
+      root["readingId"] = antennaFirmwareMsg.readingId++;
+      serializeJson(root, payload);
+      
+      UdpAntenna.beginPacket(antennaIP,antennaPort);   //Initiate transmission of data
+      UdpAntenna.print(payload);                 
+      UdpAntenna.endPacket();  // Close communication   
 
+      //UdpAntenna.write((const uint8_t*)&antennaFirmwareMsg, sizeof(antennaFirmwareMsg));
+        break;
 
-    //default:
-      //break; 
+    case Error:
+        break;
+
+    default:
+      break; 
   }
+  Serial.print(">>> ");
+  Serial.println(payload);
+
+
 
   return true;
 }
 
-bool RecvUdpData()
-{ 
-  
-  char *strings[1460];
-  char *ptr = NULL; 
-  
+// 
 
+bool RecvUdpDataJSON()
+{ 
   //RECEPTION
   int packetSize = UdpAntenna.parsePacket();   // Size of packet to receive  
+  StaticJsonDocument<1000> root;  
+  String payload;
+
   
   senderIP = UdpAntenna.remoteIP();  //Sent from IP
   senderPort = UdpAntenna.remotePort();  //Sent from IP
 
   if (packetSize) {       // If we received a package
+     
+    UdpAntenna.read(packetBuffer, sizeof(packetBuffer)); 
+    payload = packetBuffer;
+    //Serial.print("<<< ");
+    //Serial.println(payload);
+    deserializeJson(root, payload);
 
-    UdpAntenna.read(packetBuffer, sizeof(packetBuffer));      
+    uint8_t modType = root["modType"].as<uint8_t>();  
+    uint8_t msgType= root["msgType"].as<uint8_t>();
+    uint8_t modID = root["modId"].as<uint8_t>();
     
-    watchdogTimer = 0;   
-    //DEBUG.print("Num Bytes Recv-> ");
-    //DEBUG.println(packetSize);
-
-    int index = 0;
-    ptr = strtok(packetBuffer, ",");  // takes a list of delimiters        
-
-    while(ptr != NULL)
-    {
-      strings[index] = ptr;      
-      index++;
-      ptr = strtok(NULL, ",");  // takes a list of delimiters
-    }
     
-    for(int n = 0; n < index; n++)
-    { 
-      OG_data[n] = strings[n];        
-    }
-    
-    // convert to int to read couldn't read PTR for some rsn   
-    header = atoi(OG_data[0]);         
-    
-    switch (header)
-    {
-      case DATA_HEADER:
-        DEBUG.println("DATA");        
-        return true;
-      break;
-
-      case SETTINGS_HEADER:
-        DEBUG.println("SETTINGS FOUND!"); 
-        return true;
-      break;
-      
-
-      case GPS_HEADER:
-        DEBUG.println("GPS FOUND!"); 
-        return true;
-      break;
-  
-      case IMU_HEADER:
-          //DEBUG.println("IMU FOUND!");
-          headingIMUSetPos = rawHeadingIMU;
-          pitchIMUSetPos = rawPitchIMU;
-          rollIMUSetPos = rawRollIMU; 
-          return true;
-        break;
-
-      case NTRIP_HEADER:
-
-        isRtcmNext = true;  
-        return true;
-      break;
-
-
-
-      case RESET_HEADER:
-        ESP.restart(); 
-        return true;
-      break;
-
-      case SYSTEM_HEADER:     
+    if (modType == Antenna_Master  && modID == 1){      
+      if (msgType == 0)
+      {
+        connectMsg.modType = root["modType"].as<uint8_t>();  
+        connectMsg.msgType = root["msgType"].as<uint8_t>();
+        connectMsg.modId = root["modId"].as<uint8_t>();
+        connectMsg.connected = root["connected"].as<uint8_t>();  
+        connectMsg.readingId = root["readingId"].as<u64_t>();      
         
-        if (atoi(OG_data[1]) != 0){
-          SendUdpData(SYSTEM_HEADER);
+        if(connectMsg.connected == 0){             
+          connectMsg.connected = 1;  
+          SendUdpDataJSON(Antenna_Master, Connect, 1);                
         }
-        digitalWrite(BUILTIN_LED, HIGH);
-                  
-
-      break;
-
-      case WIFI_HEADER:
-                
-        switch (atoi(OG_data[1])){
-          
-          case 1:          
-            ScanForWifi();
-            SendUdpData(WIFI_HEADER);
-          break;
-          
-          case 2:         
-            hotspotSSID = OG_data[2]; 
-            hotspotSSID_Pass = OG_data[3];
-            DEBUG.println(hotspotSSID);
-            DEBUG.println(hotspotSSID_Pass);
-            ConnectToHotSpot();         
-
-          break;
-
-        }          
         
-      break;
+      }
+      if (msgType == int(Data))
+      {
+        antennaDataMsg.modType = root["modType"].as<uint8_t>();  
+        antennaDataMsg.msgType = root["msgType"].as<uint8_t>();
+        antennaDataMsg.modId = root["modId"].as<uint8_t>();
+        antennaDataMsg.GGA = root["GGA"].as<String>();
+        antennaDataMsg.VTG = root["VTG"].as<String>();
+        antennaDataMsg.GSA = root["GSA"].as<String>();
+        antennaDataMsg.roll = root["roll"].as<double>();
+        antennaDataMsg.pitch = root["pitch"].as<double>();
+        antennaDataMsg.yaw = root["yaw"].as<double>();
+        antennaDataMsg.battery = root["battery"].as<String>();
+        antennaDataMsg.readingId = root["readingId"].as<u64_t>();    
 
-      //default:
-      //break;
+
+      }
+      if (msgType == Settings)
+      {
+        antennaSettingsMsg.modType = root["modType"].as<uint8_t>();  
+        antennaSettingsMsg.msgType = root["msgType"].as<uint8_t>();
+        antennaSettingsMsg.modId = root["modId"].as<uint8_t>();
+        antennaSettingsMsg.readingId = root["readingId"].as<u64_t>(); 
+
+
+
+
+      }
+      if (msgType == Diagnostic)
+      {
+        antennaFirmwareMsg.modType = root["modType"].as<uint8_t>();  
+        antennaFirmwareMsg.msgType = root["msgType"].as<uint8_t>();
+        antennaFirmwareMsg.modId = root["modId"].as<uint8_t>();
+        antennaFirmwareMsg.firmware = root["fw"].as<String>();
+        antennaFirmwareMsg.hardware = root["hw"].as<String>();
+        antennaFirmwareMsg.readingId = root["readingId"].as<u64_t>(); 
+      }
+      if (msgType == Error)
+      {
+        //memcpy(&connectMsg, packetBuffer, sizeof(connectMsg));
+
+      }
+
+      if (msgType == NTRIP)
+      {
+        RTCM = root["RTCM"].as<String>();
+        char myCStr[RTCM.length() + 1];
+        RTCM.toCharArray(myCStr, sizeof(myCStr));
+        int inputStringLength = sizeof(myCStr);
+        int decodedLength = Base64.decodedLength(myCStr, inputStringLength);
+        char decodedString[decodedLength];
+        Base64.decode(decodedString, myCStr, inputStringLength);       
+        
+        for(int i = 0; i < decodedLength; i++)
+        { 
+        RTK.write(decodedString[i]);        
+        }
+      }
+      
     }
 
-    if (packetSize > 50 && packetSize < 1024 && isRtcmNext) {    ///  This is a Very bad thing to do if this program crashes it is because of these                 
-      RTK.write(packetBuffer, sizeof(packetBuffer));  /// lines of code....... that being said im going to do it anyways cause im lazy   
-      isRtcmNext = false;                
-    }
+    watchdogTimer = 0;   
+    int index = 0;    
     return true;
   }
 
   memset(packetBuffer, 0, sizeof(packetBuffer));
-  memset(OG_data, 0, sizeof(OG_data));
   UdpAntenna.flush();
   return false;
 }
 
+
 ////////
 //WIFI//
 ////////
+
 
 bool SetupAP(){  
   
@@ -669,9 +771,7 @@ int ScanForWifi(){
   
   if (n != 0) {    
     
-    for (int i = 0; i < n; ++i) {      
-      
-            
+    for (int i = 0; i < n; ++i) {               
       SSID[i] = WiFi.SSID(i);      
       RSSI[i] = WiFi.RSSI(i);     
     }
@@ -735,3 +835,127 @@ void CheckForUpdate(){
 
 
 
+// bool RecvUdpData()
+// { 
+  
+//   char *strings[1460];
+//   char *ptr = NULL; 
+  
+
+//   //RECEPTION
+//   int packetSize = UdpAntenna.parsePacket();   // Size of packet to receive  
+  
+//   senderIP = UdpAntenna.remoteIP();  //Sent from IP
+//   senderPort = UdpAntenna.remotePort();  //Sent from IP
+
+//   if (packetSize) {       // If we received a package
+
+//     UdpAntenna.read(packetBuffer, sizeof(packetBuffer));      
+    
+//     watchdogTimer = 0;   
+//     //DEBUG.print("Num Bytes Recv-> ");
+//     //DEBUG.println(packetSize);
+
+//     int index = 0;
+//     ptr = strtok(packetBuffer, ",");  // takes a list of delimiters        
+
+//     while(ptr != NULL)
+//     {
+//       strings[index] = ptr;      
+//       index++;
+//       ptr = strtok(NULL, ",");  // takes a list of delimiters
+//     }
+    
+//     for(int n = 0; n < index; n++)
+//     { 
+//       OG_data[n] = strings[n];        
+//     }
+    
+//     // convert to int to read couldn't read PTR for some rsn   
+//     header = atoi(OG_data[0]);         
+    
+//     switch (header)
+//     {
+//       case DATA_HEADER:
+//         DEBUG.println("DATA");        
+//         return true;
+//       break;
+
+//       case SETTINGS_HEADER:
+//         DEBUG.println("SETTINGS FOUND!"); 
+//         return true;
+//       break;
+      
+
+//       case GPS_HEADER:
+//         DEBUG.println("GPS FOUND!"); 
+//         return true;
+//       break;
+  
+//       case IMU_HEADER:
+//           //DEBUG.println("IMU FOUND!");
+//           headingIMUSetPos = rawHeadingIMU;
+//           pitchIMUSetPos = rawPitchIMU;
+//           rollIMUSetPos = rawRollIMU; 
+//           return true;
+//         break;
+
+//       case NTRIP_HEADER:
+
+//         isRtcmNext = true;  
+//         return true;
+//       break;
+
+//       case RESET_HEADER:
+//         ESP.restart(); 
+//         return true;
+//       break;
+
+//       case SYSTEM_HEADER:     
+        
+//         if (atoi(OG_data[1]) != 0){
+//           SendUdpData(SYSTEM_HEADER);
+//         }
+//         digitalWrite(BUILTIN_LED, HIGH);
+                  
+
+//       break;
+
+//       case WIFI_HEADER:
+                
+//         switch (atoi(OG_data[1])){
+          
+//           case 1:          
+//             ScanForWifi();
+//             SendUdpData(WIFI_HEADER);
+//           break;
+          
+//           case 2:         
+//             hotspotSSID = OG_data[2]; 
+//             hotspotSSID_Pass = OG_data[3];
+//             DEBUG.println(hotspotSSID);
+//             DEBUG.println(hotspotSSID_Pass);
+//             ConnectToHotSpot();         
+
+//           break;
+
+//         }          
+        
+//       break;
+
+//       //default:
+//       //break;
+//     }
+
+//     if (packetSize > 50 && packetSize < 1024 && isRtcmNext) {    ///  This is a Very bad thing to do if this program crashes it is because of these                 
+//       RTK.write(packetBuffer, sizeof(packetBuffer));  /// lines of code....... that being said im going to do it anyways cause im lazy   
+//       isRtcmNext = false;                
+//     }
+//     return true;
+//   }
+
+//   memset(packetBuffer, 0, sizeof(packetBuffer));
+//   memset(OG_data, 0, sizeof(OG_data));
+//   UdpAntenna.flush();
+//   return false;
+// }

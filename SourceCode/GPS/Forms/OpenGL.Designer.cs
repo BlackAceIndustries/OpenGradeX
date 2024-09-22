@@ -19,7 +19,7 @@ namespace OpenGrade
         public double autoCutDepth = 0;
         public double minDist;
         public double bladeOffset;
-        public bool isAutoCutOn = false, isAutoShoreOn = false, isMapping = true;
+        public bool isAutoCutOn = false, isAutoShoreOn = true, isMapping = true;
 
         //############################### 3D ####################################
 
@@ -157,10 +157,15 @@ namespace OpenGrade
 
                 // draw the current and reference AB Lines
                 if (ABLine.isABLineSet | ABLine.isABLineBeingSet) ABLine.DrawABLines();
-                //else ct.DrawContourLine();
-                else ct.DrawContourLine3D();
+                // else
+                else
+                {
+                    ct.DrawContourLine3D();
+                    ct.DrawContourLine();
+                }
 
-                
+
+
 
                 //draw the flags if there are some
                 int flagCnt = flagPts.Count;
@@ -910,7 +915,7 @@ namespace OpenGrade
                     {
                         if (isMetric)
                         {
-                            tStripHorizontalOffset.Text = (ct.distanceFromCurrentLine ).ToString("F2");
+                            tStripHorizontalOffset.Text = (ct.distanceFromCurrentLine/1000 ).ToString("F2");
                         }
                         else
                         {
@@ -1337,8 +1342,6 @@ namespace OpenGrade
                                         gl.Color(1.0f, .0f, .0f, 0.25f);
                                         gl.Vertex(i, (((ct.ptList[i].altitude - centerY) * altitudeWindowGain) + centerY), 0);
                                         gl.Vertex(i, (((ct.ptList[i].cutAltitude - centerY) * altitudeWindowGain) + centerY), 0);
-
-
                                     }
 
 
@@ -1467,14 +1470,14 @@ namespace OpenGrade
                     int cutPts = ct.ptList.Count;
                     if (cutPts > 0)
                     {
-                        gl.LineWidth(1);
-                        gl.Color(1.0f, 1.0f, 1.0f);
+                        gl.LineWidth(2);
+                        gl.Color(0.35f, 0.92f, 0.92f);
                         gl.Begin(OpenGL.GL_LINE_STRIP);
 
                         for (int i = 0; i < ptCnt; i++)
                         {
                             if (ct.ptList[i].altitude > 0)
-                                gl.Vertex(i, (((ct.ptList[i].altitude - centerY) * altitudeWindowGain) + centerY), 0);
+                                gl.Vertex(i, (((ct.ptList[i].cutAltitude - centerY) * altitudeWindowGain) + centerY), 0);
                         }
                         gl.End();
 
@@ -1507,11 +1510,29 @@ namespace OpenGrade
 
 
 
+                    //if (ct.distanceFromCurrentLine != 9999)
+                    //{
+                    //    if (isMetric)
+                    //    {
+                    //        tStripHorizontalOffset.Text = (ct.distanceFromCurrentLine).ToString("F2");
+                    //    }
+                    //    else
+                    //    {
+                    //        tStripHorizontalOffset.Text = (ct.distanceFromCurrentLine / 25.4).ToString("F2");
+                    //    }
+
+
+                    //}
+                    //else
+                    //{
+                    //    tStripHorizontalOffset.Text = "--";
+                    //}
+
                     if (ct.distanceFromCurrentLine != 9999)
                     {
                         if (isMetric)
                         {
-                            tStripHorizontalOffset.Text = (ct.distanceFromCurrentLine).ToString("F2");
+                            tStripHorizontalOffset.Text = (ct.distanceFromCurrentLine / 1000).ToString("F2");
                         }
                         else
                         {
@@ -2061,10 +2082,6 @@ namespace OpenGrade
             
             gl.End();
 
-            tStrip3.Text = (cscenterX + -vehicle.toolWidth).ToString();
-            tStrip3.Text = (cscenterX).ToString();
-
-            //tStrip3.Text = (cscameraDistanceX).ToString();
 
             gl.PointSize(7);
             gl.Color(0.01f, 0.01f, 0.01f);
@@ -2125,7 +2142,7 @@ namespace OpenGrade
             //screen2FieldPt2.heading += cscenterY;
 
             //tStrip3.Text = cscenterX.ToString("F2") + " E " + cscenterZ.ToString("F2") + " N";
-          tStrip3.Text = screen2FieldPt2.easting.ToString("F2") + " M " + screen2FieldPt2.northing.ToString("F2") + " M";
+          //tStrip3.Text = screen2FieldPt2.easting.ToString("F2") + " M " + screen2FieldPt2.northing.ToString("F2") + " M";
 
 
 
@@ -2310,7 +2327,7 @@ namespace OpenGrade
                 switch (curMode)
                 {
                     case gradeMode.surface:
-                        csmaxFieldY = (csmaxFieldY+ 2.5); // vehicle.viewDistAboveGnd
+                        csmaxFieldY = (csmaxFieldY+ 1.25); // vehicle.viewDistAboveGnd
                         csminFieldY = (csminFieldY- 1);    //  vehicle.viewDistUnderGnd
                         break;
 
@@ -2964,14 +2981,17 @@ namespace OpenGrade
                 double centerPnt = crossSectionSize / 2;
                 ct.csList.Clear();
                 double shore1 = 0;
-                shore1 = crossSectionSize * .01;
+                //shore1 = crossSectionSize * vehicle.minCrossSlope;
 
-                for (int i = 1; i <= crossSectionSize; i++)
+                for (int i = crossSectionSize; i >= 1; i--)
                 {
                     double dist = i * crossSectionResolution;
-                    shore1 -= .01;
+                    //shore1 -= .01;
                     double easting = 0;
                     double northing = 0;
+                    shore1 = dist  * vehicle.minCrossSlope;
+
+
 
                     easting = _easting + Math.Sin(fixHeading - glm.PIBy2) * -dist;// * 
                     northing = _northing + Math.Cos(fixHeading - glm.PIBy2) * -dist;
@@ -2983,10 +3003,10 @@ namespace OpenGrade
                  shore1 = 0;
                 for (int i = 1; i <= crossSectionSize; i++)
                 {
-                    double dist = i * crossSectionResolution;
-                    shore1 += .01;
+                    double dist = i * crossSectionResolution;                    
                     double easting = 0;
                     double northing = 0;
+                    shore1 = dist * vehicle.minCrossSlope;
 
                     easting = _easting + Math.Sin(fixHeading - glm.PIBy2) * dist;// * 
                     northing = _northing + Math.Cos(fixHeading - glm.PIBy2) * dist;

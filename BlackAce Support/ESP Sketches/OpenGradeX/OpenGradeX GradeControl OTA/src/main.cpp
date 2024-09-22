@@ -13,18 +13,25 @@
 #include <WiFiUdp.h>
 #include <ArduinoOTA.h>
 #include <ESPmDNS.h>
-#include <EEPROM.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_MCP4725.h>
 #include <Adafruit_BNO055.h>
 #include <utility/imumaths.h>
 #include <SPI.h>
 #include <Wire.h>
+#include <ArduinoJson.h>
+#include "messages.h"
+#include <iostream>
+#include <string>
+
+#include <FS.h>
+#include <LittleFS.h>
 
 ///
 /// BUILD VERSION
 ///
-const char *version = "1.4.2.0";
+const char *hwVersion = "1.4.2.0";
+const char *fwVersion = "1.4.2.0";
 
 // Function STUBS for Platform IO
 
@@ -32,12 +39,15 @@ const char *version = "1.4.2.0";
 bool SetupGradeControlModule();
 bool SetAutoState();
 void SetOutput();
+void SetOutput2();
 void SetValveLimits();
 
 // UDP
 bool SetupUdp();
 bool SendUdpData(int _header);
 bool RecvUdpData();
+bool SendUdpDataJSON(uint8_t moduleType, uint8_t msgType, uint8_t _msgID);
+bool RecvUdpDataJSON();
 
 // WIFI
 void ConnectToOGX();
@@ -45,13 +55,19 @@ void ReconnectToOGX();
 
 // OTA
 void CheckForUpdate();
-void checkEEPROM();
+void loadSettings();
+void saveSettings();
+
+
+struct_message_GradeControl_data gcDataMsg;
+struct_message_GradeControl_settings gcSettingsMsg;
+struct_message_Firmware gcFirmwareMsg;
+struct_message_Connect connectMsg;
 
 
 /// UDP Variables
 WiFiUDP UdpGradeControl;  // Creation of wifi UdpGradeControl instance
 const char *ssid = {"OGX"};
-#define EEPROM_SIZE 80
 
 char packetBuffer[1460];
 uint16_t openGradePort = 9999; //OpenGrade Server Port
@@ -73,6 +89,10 @@ IPAddress senderIP;
 #define SDA_PIN 21      // I2C SCL PIN
 #define RXD2 16  // Diagnostic RX
 #define TXD2 17 // Diagnostic TX
+#define AUTO_ENGAGE 23 // Diagnostic TX
+#define PWM_DRIVE 12 // Diagnostic TX
+#define PWM_DIR 14 // Diagnostic TX
+
 #define CONST_180_DIVIDED_BY_PI 57.2957795130823
 #define DEBUG Serial
 #define RTK Serial1
@@ -98,14 +118,17 @@ IPAddress senderIP;
 #define DANFOSS_MIN .26
 #define DANFOSS_MAX .74
 
-/////////// PID SETTINGS////////////
-float Kp=45; //Mine was 38
-float Ki=.02; //Mine was 0.02
-float Kd=3100; //Mine was 2800
+// setting PWM properties
+#define PWM_Channel1  0
+#define PWM_Channel2  1
+#define PWM_Resolution 8
+#define PWM_Frequency 5000
+
+
 float delta_setpoint = 0;  
 
 /////////////PID VALUES/////////////
-float PID_p, PID_i, PID_d, PID_total;
+float PID_p, PID_i, PID_d, PID_previous , PID_total;
 float delta_previous_error, delta_error;
 
 /////////////IMU///////////////
@@ -113,37 +136,19 @@ char *OG_data[1460];
 int16_t dataSize = sizeof(OG_data);
 
 
-///////////// Com Bytes///////////////
-struct Setup {
-  uint8_t b_Ki = 0;
-  uint8_t b_Kp = 0; 
-  uint8_t b_Kd = 0; 
-  uint8_t b_retDeadband = 0;
-  uint8_t b_extDeadband = 0;
-  uint8_t b_valveType = 0;
-};  Setup gradeConfig;          //6 bytes
 
 
-//EEPROM
-int16_t EEread = 0;
-#define EEP_Ident 0x5417 // Change this number to reset and reload default parameters To EEPROM
 
-
-//byte b_Ki, b_Kp, b_Kd;
-int b_autoState = 0, b_deltaDir = 0, b_cutDelta = 0;
 byte b_bladeOffsetOut = 0;
-//byte b_retDeadband = 25;
-//byte b_extDeadband = 75;
-//byte b_valveType = 255;   // 0= CNH    1= Deere     2= Danfoss
-byte b_deadband = 0;
 
 
 /////////////// CNH Valve /////////////////////////
 uint16_t analogOutput1 = VALVE_FLOAT; //send to MCP4725
 uint16_t analogOutput2 = VALVE_FLOAT; //send to MCP4725
+uint8_t PWMOutput = 0;
+uint8_t PWMDir = 0;
 int cut1 = -1;
-double voltage = 0; // diagnostic Voltage
-double voltage2 = 0;
+
 int retDeadband = 1845;
 int extDeadband = 2250;
 int retMin = (0.11 * 4096);   //450.56  CNH 
@@ -154,7 +159,7 @@ bool isCutting = false;
 //loop time variables in milliseconds
 const u16_t LOOP_TIME = 50; //20hz  
 const u16_t LOOP_TIME2 = 30000; //.033HZ    
-const u16_t LOOP_TIME3 = 500; //2HZ  
+const u16_t LOOP_TIME3 = 100; //2HZ  
 
 unsigned long lastTime = LOOP_TIME;
 unsigned long lastTime2 = LOOP_TIME2;
@@ -163,9 +168,9 @@ unsigned long currentTime = 0;
 
 //Communication with OpenGradeX
 bool isOGXConnected = false;
-int header = 0, tempHeader = 0;
-unsigned long watchdogTimer = 0;   //make sure we are talking to OGX
-const int OGXTimeout = 15;      
+const int OGXTimeout = 50;
+unsigned long watchdogTimer = OGXTimeout;   //make sure we are talking to OGX
+ 
 
 
 ///////////////////////Initalize Objects///////////////////////
@@ -177,7 +182,11 @@ Adafruit_MCP4725 Dac2 = Adafruit_MCP4725();
 
 void setup()
 { 
-  checkEEPROM();
+  if (!LittleFS.begin(true)) {
+    Serial.println("An Error has occurred while mounting LittleFS");
+    return;
+  }
+  loadSettings();
   ConnectToOGX();  
   SetupGradeControlModule();  
   CheckForUpdate(); 
@@ -189,10 +198,14 @@ void loop(){  //Loop triggers every 50 msec (20hz) and sends back offsets Pid ec
 
   currentTime = millis();  
   ArduinoOTA.handle();
-  SetOutput();  // Run PID Controller
-  SetAutoState();  // Set Flags
-  RecvUdpData();  // Read Udp Data if Available  
- 
+  SetOutput2();  // Run PID Controller  
+  RecvUdpDataJSON(); 
+  if(digitalRead(AUTO_ENGAGE) == LOW)
+  {
+    gcDataMsg.autoVert = false;
+    gcDataMsg.autoTilt = false;
+    //SendUdpDataJSON(int(Grade_Control_Slave), Data, 1 );
+  }
   
   if (currentTime - lastTime >= LOOP_TIME) // 10 HZ
   {  
@@ -207,19 +220,24 @@ void loop(){  //Loop triggers every 50 msec (20hz) and sends back offsets Pid ec
       isOGXConnected = true;
       digitalWrite(BUILTIN_LED, HIGH); // make sure connected to OGX   Time
     } 
+    
     (watchdogTimer > OGXTimeout*5000)? watchdogTimer = 50 : watchdogTimer; // Prevent overflow
-
-    SendUdpData(DATA_HEADER);  // Send Data To OpenGradeX    
+    
+    
   }
   
   if (currentTime - lastTime2 >= LOOP_TIME2){ // .33 HZ
     lastTime2 = currentTime;
     ReconnectToOGX();
-    SendUdpData(SYSTEM_HEADER);  // Send System info to OenGradeX
+    //SendUdpData(SYSTEM_HEADER);  // Send System info to OenGradeX
   }
   
   if (currentTime - lastTime3 >= LOOP_TIME3){ // 2 HZ
     lastTime3 = currentTime;
+    if(isOGXConnected){
+      SendUdpDataJSON(int(Grade_Control_Slave), Data, 1 );     
+
+    }
   }
 }
 
@@ -227,16 +245,30 @@ void loop(){  //Loop triggers every 50 msec (20hz) and sends back offsets Pid ec
 //GRADECONTROL// 
 ////////////////
 
-bool SetupGradeControlModule()
+bool 
+SetupGradeControlModule()
 {
-
+  // Configure LED PWM channel
+  ledcSetup(PWM_Channel1, PWM_Frequency, PWM_Resolution);
+  
   pinMode(BUILTIN_LED, OUTPUT);  // Initialize the BUILTIN_LED pin as an output
+  pinMode(AUTO_ENGAGE, INPUT_PULLUP);  // Initialize the BUILTIN_LED pin as an output
+
+  
+  
+  
+  
+  ledcAttachPin(PWM_DRIVE, PWM_Channel1 );  // MOTOR DRIVE A
+
+  pinMode(PWM_DIR, OUTPUT);  // Initialize the BUILTIN_LED pin as an output
+
+
   esp.begin(SDA_PIN , SCL_PIN);
   //set the baud rate
   DEBUG.begin(SERIAL_BAUD);    
 
-  digitalWrite(2, HIGH); delay(500); digitalWrite(2, LOW); delay(500); digitalWrite(2, HIGH); delay(500);
-  digitalWrite(2, LOW); delay(500); digitalWrite(2, HIGH); delay(500); digitalWrite(2, LOW); delay(500);
+  digitalWrite(2, HIGH); delay(20); digitalWrite(2, LOW); delay(20); digitalWrite(2, HIGH); delay(20);
+  digitalWrite(2, LOW); delay(20); digitalWrite(2, HIGH); delay(20); digitalWrite(2, LOW); delay(20);
 
   Dac1.begin(0x62, &esp);
   Dac2.begin(0x63, &esp);
@@ -252,78 +284,133 @@ bool SetupGradeControlModule()
 
 }
 
-bool SetAutoState(){
-  if (b_deltaDir == 3){
-    isCutting = false;
-  }
-  else{
-    isCutting = true;
-  }
-  
-  if (b_autoState == 1){
-    isAutoActive = true;
-    return true;
-  }
-  else {
-    isAutoActive = false;
-    return false;
+void SetOutput2(){
+ 
+    // Early exit if pre-conditions are not met
+    if (!gcDataMsg.autoVert || !isOGXConnected) {
+        analogOutput1 = VALVE_FLOAT;
+        analogOutput2 = VALVE_FLOAT;
+        gcDataMsg.setPointA = analogOutput1;
+        gcDataMsg.setPointB = analogOutput2;
+        Dac1.setVoltage(analogOutput1, false);
+        Dac2.setVoltage(analogOutput2, false);
+        ledcWrite(PWM_Channel1, 0);
+        return;
+    }
+
+    double delta_error = delta_setpoint - (double)gcDataMsg.deltaA;
+
+    double delta_abs = abs(delta_error);
     
-  }     
+    
+    PID_p = double(gcSettingsMsg.KP) * delta_abs;
+    
+    PID_d = double(gcSettingsMsg.KD) * 100 * (delta_abs - delta_previous_error) / LOOP_TIME;
+
+    //PID_i = PID_previous; // Store the integral component for the next iteration
+    
+    // // if (gcSettingsMsg.retDead < delta_abs && delta_abs < gcSettingsMsg.extDead) {
+    // //   PID_i = PID_previous + (double(gcSettingsMsg.KI)*.01 * delta_error);      
+    // // }
+
+
+
+    if ( 20 > delta_abs && delta_abs > 1){
+      PID_i = PID_previous + (double(gcSettingsMsg.KI) * .001  * delta_abs);      
+      //Serial.println(PID_i);
+    }
+    else
+    {
+      PID_previous = 0;
+      PID_i=0;
+    }       
+      PID_total = PID_p + PID_i + PID_d;
+    
+    if (PID_total >  4096) PID_total = 4096;      
+    
+    PWMOutput = map(PID_total, 0.0, 4096, 0, 255);
+
+    if (gcDataMsg.deltaA > 0) {
+      analogOutput1 = map(PID_total, 0.0, 4096, gcSettingsMsg.retDead, retMin);
+      PWMDir = 0;
+    }
+    else if (gcDataMsg.deltaA < 0) {
+      analogOutput1 = map(PID_total, 0.0, 4096, gcSettingsMsg.extDead, extMax);
+      PWMDir = 1;
+    }
+    else {
+      analogOutput1 = VALVE_FLOAT;
+
+    }
+
+
+    if (analogOutput1 >= extMax) analogOutput1 = extMax; // do not exceed 4096
+    if (analogOutput1 <= retMin) analogOutput1 = retMin; // do not write negative numbers 
+
+
+    gcDataMsg.setPointA = analogOutput1;
+    gcDataMsg.setPointB = analogOutput2; // Ensure analogOutput2 is set correctly elsewhere in the code
+
+   
+
+    delta_previous_error = delta_abs;
+     PID_previous = PID_i; // Store the integral component for the next iteration
+    digitalWrite(PWM_DIR , PWMDir);
+    ledcWrite(PWM_Channel1, PWMOutput);
+    Dac1.setVoltage(analogOutput1, false);
+    Dac2.setVoltage(analogOutput2, false);
 }
+
 
 void SetOutput()
 {
-  if (isAutoActive && isCutting && isOGXConnected){    
-    analogOutput1 = VALVE_FLOAT;  
-  
-    if (b_deltaDir == 0){
-      cut1 = -(int)b_cutDelta;
-    }  
-    else {
-      cut1 = (int)b_cutDelta;
-    }
-
-    delta_error = (delta_setpoint) - cut1;
-
-    PID_p = Kp * delta_error;// calculate the P errror  
+  if (gcDataMsg.autoVert  && isOGXConnected){    //&& isCutting
     
-    PID_d = Kd*((delta_error - delta_previous_error)/LOOP_TIME);// calculate the d error
+    analogOutput1 = VALVE_FLOAT;    
+    delta_error = (delta_setpoint) - gcDataMsg.deltaA;
     
-    if(-b_deadband < delta_error && delta_error < b_deadband){  // 3 cm deadband for i
-      PID_i = PID_i + (Ki * delta_error);//calculate the i error
+    PID_p = double(gcSettingsMsg.KP) * delta_error;// calculate the P errror  
+    
+    PID_d = double(gcSettingsMsg.KD)*((delta_error - delta_previous_error)/LOOP_TIME);// calculate the d error
+    
+    if(gcSettingsMsg.retDead < delta_error && delta_error < gcSettingsMsg.extDead){  // 3 cm deadband for i
+      PID_i = PID_i + (double(gcSettingsMsg.KI) * delta_error);//calculate the i error
     }
     else{
       PID_i = 0;
     }
 
     PID_total = PID_p + PID_i + PID_d;
-
+    Serial.println(PID_total);
     if (PID_total >  2300) PID_total = 2300;      
     if (PID_total <  -2300) PID_total = -2300;
 
-    if (b_deltaDir == 1){ // Delta is Positive need to lower IMP RETRACT
-      analogOutput1 = map(PID_total, 0.0, -2300, retDeadband , retMin);
+    if (gcDataMsg.deltaA >= 0){ // Delta is Positive need to lower IMP RETRACT
+      analogOutput1 = map(PID_total, 0.0, -2300, gcSettingsMsg.retDead , retMin);
     }
-    else if (b_deltaDir == 0){// Delta is Negative need to raise IMP
-      analogOutput1 = map(PID_total,  0.0, 2300, extDeadband, extMax);
+    else if (gcDataMsg.deltaA < 0){// Delta is Negative need to raise IMP
+      analogOutput1 = map(PID_total,  0.0, 2300, gcSettingsMsg.extDead, extMax);
     }
     
     if (analogOutput1 >= extMax) analogOutput1 = extMax; // do not exceed 4096
     if (analogOutput1 <= retMin) analogOutput1 = retMin; // do not write negative numbers 
     
+    //  if (gcDataMsg.deltaA < 1.5){
     
-    if (b_cutDelta < b_deadband){
-      analogOutput1 = VALVE_FLOAT;
-      voltage = ((double)VALVE_FLOAT/4096) * 5.0;
-      voltage2 =((double)VALVE_FLOAT/4096) * 5.0;
-    }
-    else
-    {
-      Dac1.setVoltage(analogOutput1, false);  
-      voltage = ((double)analogOutput1/4096) * 5.0;
-      voltage2 =((double)analogOutput2/4096) * 5.0;
-    }
+    //    analogOutput1 = VALVE_FLOAT;
+    //    gcDataMsg.setPointA = ((double)(VALVE_FLOAT/4096.0) * 100);
+    //    gcDataMsg.setPointB = ((double)(VALVE_FLOAT/4096.0) * 100);
+    //  }
+     //else
+     //{ 
+       //gcDataMsg.setPointA = ((double)(analogOutput1/4096.0) * 1000);
+       //gcDataMsg.setPointB = ((double)(analogOutput2/4096.0) * 1000); 
     
+      gcDataMsg.setPointA = analogOutput1;
+      gcDataMsg.setPointB = analogOutput2; 
+    //}
+    
+    //Serial.println(gcDataMsg.setPointA);
     
     
     delta_previous_error = delta_error;
@@ -331,44 +418,45 @@ void SetOutput()
   else{
     
     analogOutput1 = VALVE_FLOAT;
-    analogOutput2 = VALVE_FLOAT;
-    Dac1.setVoltage(analogOutput1, false);
-    Dac2.setVoltage(analogOutput2, false);
-    voltage = ((double)analogOutput1/4096) * 5.0;    
-    voltage2 =((double)analogOutput2/4096) * 5.0;
-                              
+    analogOutput2 = VALVE_FLOAT;       
+    gcDataMsg.setPointA = analogOutput1;
+    gcDataMsg.setPointB = analogOutput2; 
   }  
+  
+  Dac1.setVoltage(analogOutput1, false);
+  Dac2.setVoltage(analogOutput2, false);
+
     
 }
 
 void SetValveLimits(){
 
-  switch(gradeConfig.b_valveType) {
+  switch(gcSettingsMsg.ValveType) {
   
     case CNH:
-      retDeadband = VALVE_FLOAT - ((gradeConfig.b_retDeadband/200.0)*4096);
-      extDeadband = VALVE_FLOAT + ((gradeConfig.b_extDeadband/200.0)*4096);    
+      gcSettingsMsg.retDead = VALVE_FLOAT - ((gcSettingsMsg.retDead/200.0)*4096);
+      gcSettingsMsg.extDead = VALVE_FLOAT + ((gcSettingsMsg.extDead/200.0)*4096);    
       retMin = (CNH_MIN * 4096);
       extMax = (CNH_MAX * 4096);
       break;
       
     case DEERE:
-      retDeadband = VALVE_FLOAT - ((gradeConfig.b_retDeadband/200.0)*4096);
-      extDeadband = VALVE_FLOAT + ((gradeConfig.b_extDeadband/200.0)*4096);
+      gcSettingsMsg.retDead = VALVE_FLOAT - ((gcSettingsMsg.retDead/200.0)*4096);
+      gcSettingsMsg.extDead = VALVE_FLOAT + ((gcSettingsMsg.extDead/200.0)*4096);
       retMin = (DEERE_MIN * 4096);
       extMax = (DEERE_MIN * 4096);
       break;
       
     case DANFOSS:
-      retDeadband = VALVE_FLOAT - ((gradeConfig.b_retDeadband/200.0)*4096);
-      extDeadband = VALVE_FLOAT + ((gradeConfig.b_extDeadband/200.0)*4096);
+      gcSettingsMsg.retDead = VALVE_FLOAT - ((gcSettingsMsg.retDead/200.0)*4096);
+      gcSettingsMsg.extDead = VALVE_FLOAT + ((gcSettingsMsg.extDead/200.0)*4096);
       retMin = (DANFOSS_MIN * 4096);
       extMax = (DANFOSS_MAX * 4096);
       break;
 
     default:
-      retDeadband = VALVE_FLOAT - ((gradeConfig.b_retDeadband/200.0)*4096);
-      extDeadband = VALVE_FLOAT + ((gradeConfig.b_extDeadband/200.0)*4096);    
+      gcSettingsMsg.retDead - ((gcSettingsMsg.retDead/200.0)*4096);
+      gcSettingsMsg.extDead + ((gcSettingsMsg.extDead/200.0)*4096);    
       retMin = (CNH_MIN * 4096);
       extMax = (CNH_MAX * 4096);
       
@@ -385,166 +473,213 @@ bool SetupUdp(){
   return true;
 }
 
-bool SendUdpData(int _header)
+bool SendUdpDataJSON(uint8_t _moduleType, uint8_t _msgType, uint8_t _modID)
 { 
-  switch (_header){
-    case DATA_HEADER:
-      //SENDING
-      UdpGradeControl.beginPacket(openGradeIP,openGradePort);   //Initiate transmission of data
-      UdpGradeControl.print(_header);
-      UdpGradeControl.print(",");
-      UdpGradeControl.print(b_autoState);
-      UdpGradeControl.print(",");    
-      UdpGradeControl.print(voltage);
-      UdpGradeControl.print(",");    
-      UdpGradeControl.print(voltage2);     
-      UdpGradeControl.endPacket();  // Close communication        
+  StaticJsonDocument<1000> root;
+  String payload;
+  bool sent;
+  switch (_msgType){
+    case Connect: 
+      // root["modType"] = connectMsg.modType;
+      // root["msgType"] = connectMsg.msgType;
+      // root["modId"] = connectMsg.modId;
+      root["modType"] = _moduleType;
+      root["msgType"] = _msgType;
+      root["modId"] = _modID;
+      root["connected"] = connectMsg.connected;
+      root["readingId"] = connectMsg.readingId++; 
+      serializeJson(root, payload);
+
+      UdpGradeControl.beginPacket(openGradeIP,openGradePort);   //Initiate transmission of data  
+      UdpGradeControl.print(payload);
+      UdpGradeControl.endPacket();  // Close communication    
+
+        
       break;
 
-    case SETTINGS_HEADER:
+
+    case Data:
+
+        // root["modType"] = antennaDataMsg.modType;
+        // root["msgType"] = antennaDataMsg.msgType;
+        // root["modId"] = antennaDataMsg.modId;
+        root["modType"] = _moduleType;
+        root["msgType"] = _msgType;
+        root["modId"] = _modID;
+        root["deltaA"] = gcDataMsg.deltaA;
+        root["deltaB"] = gcDataMsg.deltaB;
+        root["setpointA"] = gcDataMsg.setPointA; 
+        root["setpointB"] = gcDataMsg.setPointB;
+        root["autoVert"] = gcDataMsg.autoVert;
+        root["autoTilt"] = gcDataMsg.autoTilt;
+        root["readingId"] = gcDataMsg.readingId++;
+        serializeJson(root, payload);
+
+        UdpGradeControl.beginPacket(openGradeIP,openGradePort);   //Initiate transmission of data
+        UdpGradeControl.print(payload);
+        sent = UdpGradeControl.endPacket();  // Close communication
+        
+
+        if (!sent && errno == 5){
+          ESP.restart();    
+        } 
+        
+        break;
+
+    case Settings:
     
-        break;
-
-    case GPS_HEADER:
-        
-        break;
-
-    case IMU_HEADER:
-        
-        break;
-
-    case RESET_HEADER:
-        break;
-
-    case SYSTEM_HEADER:
+      root["modType"] = gcSettingsMsg.modType;
+      root["msgType"] = gcSettingsMsg.msgType;
+      root["modId"] = gcSettingsMsg.modId;
+      root["readingId"] = gcSettingsMsg.readingId++;
+      serializeJson(root, payload);
+    
       UdpGradeControl.beginPacket(openGradeIP,openGradePort);   //Initiate transmission of data
-      UdpGradeControl.print(_header);
-      UdpGradeControl.print(",");
-      UdpGradeControl.print(255);
-      UdpGradeControl.print(",");
-      UdpGradeControl.print(version);     
-      UdpGradeControl.endPacket();  // Close communication
-
-      DEBUG.printf("Version sent V%s", version);       
-      DEBUG.println();
+      UdpGradeControl.print(payload);               
+      sent = UdpGradeControl.endPacket();  // Close communication
+      
         break;
 
+    case Diagnostic:
+      
+      root["modType"] = gcFirmwareMsg.modType;
+      root["msgType"] = gcFirmwareMsg.msgType;
+      root["modId"] = gcFirmwareMsg.modId;
+      root["fw"] = gcFirmwareMsg.firmware = fwVersion;
+      root["hw"] = gcFirmwareMsg.hardware = hwVersion;
+      root["readingId"] = gcFirmwareMsg.readingId++;
+      serializeJson(root, payload);
+      
+      UdpGradeControl.beginPacket(openGradeIP,openGradePort);   //Initiate transmission of data
+      UdpGradeControl.print(payload);                 
+      UdpGradeControl.endPacket();  // Close communication   
+
+      //UdpAntenna.write((const uint8_t*)&antennaFirmwareMsg, sizeof(antennaFirmwareMsg));
+        break;
+
+    case Error:
+        break;
 
     default:
-        break; 
+      break; 
   }
+  //(">>> ");
+  Serial.println(payload);
+
+
 
   return true;
 }
 
-bool RecvUdpData()
+bool RecvUdpDataJSON()
 { 
-  
-  char *strings[1460];
-  char *ptr = NULL;  
-
   //RECEPTION
-  int packetSize = UdpGradeControl.parsePacket();   // Size of packet to receive
+  int packetSize = UdpGradeControl.parsePacket();   // Size of packet to receive  
+  StaticJsonDocument<1000> root;  
+  String payload;
+
   
+  senderIP = UdpGradeControl.remoteIP();  //Sent from IP
+  senderPort = UdpGradeControl.remotePort();  //Sent from IP
+
   if (packetSize) {       // If we received a package
-    //reset watchdog
-    watchdogTimer = 0;
+     
+    UdpGradeControl.read(packetBuffer, sizeof(packetBuffer)); 
+    payload = packetBuffer;
+    //Serial.print("<<< ");
+    //Serial.println(payload);
+    deserializeJson(root, payload);
+
+    uint8_t modType = root["modType"].as<uint8_t>();  
+    uint8_t msgType= root["msgType"].as<uint8_t>();
+    uint8_t modID = root["modId"].as<uint8_t>();
     
-    senderIP = UdpGradeControl.remoteIP();  //Sent from IP
-    senderPort = UdpGradeControl.remotePort();  //Sent from IP
-    //DEBUG.printf("Message Received from IP-> %s Port-> %u ", senderIP.toString(), senderPort);
     
-    UdpGradeControl.read(packetBuffer, sizeof(packetBuffer));  
-
-    byte index = 0;
-    ptr = strtok(packetBuffer, ",");  // takes a list of delimiters    
-    
-    while(ptr != NULL)
-    {
-      strings[index] = ptr;      
-      index++;
-      ptr = strtok(NULL, ",");  // takes a list of delimiters
-    }
-    
-    for(int n = 0; n < index; n++)
-    { 
-      OG_data[n] = strings[n];        
-    }
-    
-    // convert to int to read couldnt read PTR fro some rsn   
-    header = atoi(OG_data[0]);         
-      
-    switch (header)
-    {
-      case DATA_HEADER:
-        DEBUG.println("DATA");
-        b_deltaDir =  atoi(OG_data[1]);   // Cut Delta Dir
-        b_autoState =  atoi(OG_data[2]);    // Cut Delta 
-        b_cutDelta =  atoi(OG_data[3]);   // Auto State
-        //b_deltaDir =  atoi(OG_data[1]);   // Cut Delta Dir
-        //b_autoState =  atoi(OG_data[2]);    // Cut Delta 
-        //b_cutDelta =  atoi(OG_data[3]);   // Auto State
-        return true;
-      break;
-
-
-      case SETTINGS_HEADER:
-        DEBUG.println("SETTINGS FOUND!");      
-        gradeConfig.b_Kp = atoi(OG_data[1]);
-        gradeConfig.b_Ki = atoi(OG_data[2]);
-        gradeConfig.b_Kd = atoi(OG_data[3]);
-
-        gradeConfig.b_retDeadband = atoi(OG_data[4]);
-        gradeConfig.b_extDeadband = atoi(OG_data[5]);
-        gradeConfig.b_valveType = atoi(OG_data[6]);
-
-
-
-
-
-
-        Kp = double(gradeConfig.b_Kp);
-        Ki = double(gradeConfig.b_Ki / 100);
-        Kd = double(gradeConfig.b_Kp * 100);  
-
-        //store in EEPROM
-       
-
-        //b_Kp = atoi(OG_data[1]);
-        //b_Ki = atoi(OG_data[2]);
-        //b_Kd = atoi(OG_data[3]);
-        //b_retDeadband = atoi(OG_data[4]);
-        //b_extDeadband = atoi(OG_data[5]);
-        //b_valveType = atoi(OG_data[6]);        
-        //Kp = double(b_Kp);
-        //Ki = double(b_Ki / 100);
-        //Kd = double(b_Kp * 100);  
-        SetValveLimits(); 
-        EEPROM.put(10, gradeConfig);
-        EEPROM.commit();
-        return true;
-      break;
-
-      case SYSTEM_HEADER:     
+    if (modType == Grade_Control_Slave  && modID == 1){   
+      watchdogTimer = 0;      
+      if (msgType == int(Connect))
+      {
+        connectMsg.modType = root["modType"].as<uint8_t>();  
+        connectMsg.msgType = root["msgType"].as<uint8_t>();
+        connectMsg.modId = root["modId"].as<uint8_t>();
+        connectMsg.connected = root["connected"].as<uint8_t>();  
+        root["readingId"].as<u64_t>();//connectMsg.readingId =           
         
-        if (atoi(OG_data[1]) != 0){
-          SendUdpData(SYSTEM_HEADER);
+        if(connectMsg.connected == 0){             
+          connectMsg.connected = 1;  
+          
+          SendUdpDataJSON(Grade_Control_Slave, Connect, 1 );                
         }
-      break;
+        
+      }
+      if (msgType == int(Data))
+      {
+        gcDataMsg.modType = root["modType"].as<uint8_t>();  
+        gcDataMsg.msgType = root["msgType"].as<uint8_t>();
+        gcDataMsg.modId = root["modId"].as<uint8_t>();
+        gcDataMsg.deltaA = root["deltaA"].as<int>();
+        gcDataMsg.deltaB = root["deltaB"].as<int>();
+        gcDataMsg.setPointA = root["setpointA"].as<int>();
+        gcDataMsg.setPointB = root["setpointB"].as<int>();
+        gcDataMsg.autoVert = root["autoVert"].as<bool>();
+        gcDataMsg.autoTilt = root["autoTilt"].as<bool>();
+        root["readingId"].as<u64_t>(); //gcDataMsg.readingId =    
 
-      case RESET_HEADER:
-        ESP.restart(); 
-        return true;
-      break;
+        //SendUdpDataJSON(int(Grade_Control_Slave), Data, 1 );
 
-      default:
-      break;
-    }  
 
+
+
+      }
+      if (msgType == int(Settings))
+      {
+        gcSettingsMsg.modType = root["modType"].as<uint8_t>();  
+        gcSettingsMsg.msgType = root["msgType"].as<uint8_t>();
+        gcSettingsMsg.modId = root["modId"].as<uint8_t>();
+        gcSettingsMsg.KP = root["KP"].as<uint8_t>();
+        gcSettingsMsg.KI = root["KI"].as<uint8_t>();
+        gcSettingsMsg.KD = root["KD"].as<uint8_t>();
+        gcSettingsMsg.retDead = -root["retDead"].as<uint8_t>()*16 + VALVE_FLOAT;
+        gcSettingsMsg.extDead = root["extDead"].as<uint8_t>()*16 + VALVE_FLOAT;
+        gcSettingsMsg.ValveType = root["valveType"].as<uint8_t>();
+        root["readingId"].as<u64_t>(); //gcSettingsMsg.readingId = 
+        saveSettings();
+
+
+
+      }
+      if (msgType == int(Diagnostic))
+      {
+        //memcpy(&antennaFirmwareMsg, packetBuffer, sizeof(antennaFirmwareMsg));
+
+        gcFirmwareMsg.modType = root["modType"].as<uint8_t>();  
+        gcFirmwareMsg.msgType = root["msgType"].as<uint8_t>();
+        gcFirmwareMsg.modId = root["modId"].as<uint8_t>();
+        gcFirmwareMsg.firmware = root["fw"].as<String>();
+        gcFirmwareMsg.hardware = root["hw"].as<String>();
+        root["readingId"].as<u64_t>(); //gcFirmwareMsg.readingId = 
+
+
+
+      }
+      if (msgType == Error)
+      {
+        //memcpy(&connectMsg, packetBuffer, sizeof(connectMsg));
+
+      }
+      
+    }
+
+    
+    int index = 0;    
     return true;
   }
+
+  memset(packetBuffer, 0, sizeof(packetBuffer));
+  UdpGradeControl.flush();
   return false;
 }
+
 
 ////////
 //WIFI//
@@ -562,6 +697,7 @@ void ConnectToOGX() {
 }
 
 void ReconnectToOGX(){
+  
   if (WiFi.status() != WL_CONNECTED) {
     DEBUG.print(millis());
     DEBUG.println("Reconnecting to WiFi...");
@@ -570,21 +706,7 @@ void ReconnectToOGX(){
   }
 }
 
-void checkEEPROM(){
 
-  EEPROM.begin(EEPROM_SIZE);  
-  EEPROM.get(0, EEread);            // read identifier
-  if (EEread != EEP_Ident)   // check on first start and write EEPROM
-  {
-    EEPROM.put(0, EEP_Ident);
-    EEPROM.put(10,  gradeConfig);    
-    EEPROM.commit();    
-  }
-  else
-  {
-    EEPROM.get(10, gradeConfig);     // read the Settings    
-  }
-}
 ///OTA
 
 void CheckForUpdate(){
@@ -634,4 +756,111 @@ void CheckForUpdate(){
   DEBUG.print("IP address: ");
   DEBUG.println(WiFi.localIP());
 
+}
+
+void loadSettingsnocheck() {
+  
+  
+  File file = LittleFS.open("/GradeSettings.json", FILE_READ);
+
+  if (!file) {
+    Serial.println("There was an error opening the file for reading");
+    return;
+  }
+
+  DynamicJsonDocument doc(1024);
+  DeserializationError error = deserializeJson(doc, file);
+
+  if (error) {
+    Serial.println("Failed to parse JSON");
+    return;
+  }
+
+  gcSettingsMsg.KP =doc["Kp"];
+  gcSettingsMsg.KI= doc["Ki"];
+  gcSettingsMsg.KD  = doc["Kd"];
+  gcSettingsMsg.retDead = doc["retDead"];
+  gcSettingsMsg.extDead = doc["extDead"];
+  gcSettingsMsg.ValveType = doc["valve"];
+
+  file.close();
+}
+
+void loadSettings() {
+  // Check if the settings file exists
+  if (!LittleFS.exists("/GradeSettings.json")) {
+    Serial.println("Settings file does not exist, using default values.");
+    
+    // Load default values
+    gcSettingsMsg.KP;
+    gcSettingsMsg.KI;
+    gcSettingsMsg.KD;
+    gcSettingsMsg.retDead;
+    gcSettingsMsg.extDead;
+    gcSettingsMsg.ValveType;
+
+    // Save the default values to the file for future use
+    saveSettings();
+  } else {
+    // Open the file for reading
+    File file = LittleFS.open("/GradeSettings.json", FILE_READ);
+
+    if (!file) {
+      Serial.println("There was an error opening the file for reading");
+      return;
+    }
+
+    // Parse the JSON data from the file
+    DynamicJsonDocument doc(1024);
+    DeserializationError error = deserializeJson(doc, file);
+
+    if (error) {
+      Serial.println("Failed to parse JSON, using default values.");
+      
+      // Load default values if JSON parsing fails
+      // gcSettingsMsg.KP = gcSettingsMsg.KP;
+      // gcSettingsMsg.KI = defaultKi;
+      // gcSettingsMsg.KD = defaultKd;
+      // gcSettingsMsg.retDead = defaultRetDead;
+      // gcSettingsMsg.extDead = defaultExtDead;
+      // gcSettingsMsg.ValveType = defaultValveType;
+
+      file.close();
+      return;
+    }
+
+    // Load values from the JSON document
+    gcSettingsMsg.KP = doc["Kp"];
+    gcSettingsMsg.KI = doc["Ki"];
+    gcSettingsMsg.KD = doc["Kd"];
+    gcSettingsMsg.retDead = doc["retDead"];
+    gcSettingsMsg.extDead = doc["extDead"];
+    gcSettingsMsg.ValveType = doc["valve"];
+
+    file.close();
+  }
+}
+
+void saveSettings() {
+  DynamicJsonDocument doc(1024);
+  
+  doc["Kp"] = gcSettingsMsg.KP;
+  doc["Ki"] = gcSettingsMsg.KI;
+  doc["Kd"] = gcSettingsMsg.KD;
+  doc["retDead"] = gcSettingsMsg.retDead;
+  doc["extDead"] = gcSettingsMsg.extDead;
+  doc["valve"] = gcSettingsMsg.ValveType;
+
+  File file = LittleFS.open("/GradeSettings.json", FILE_WRITE);
+
+  if (!file) {
+    Serial.println("There was an error opening the file for writing");
+    return;
+  }
+
+  if (serializeJson(doc, file) == 0) {
+    Serial.println("File write failed");
+  }
+
+  file.close();
 }

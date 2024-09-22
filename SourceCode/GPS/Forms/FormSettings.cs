@@ -273,7 +273,7 @@ namespace OpenGrade
             }
             else 
             {
-                mf.mc.gcSetting.valveType = 3;
+                mf.mc.gcSetting.valveType = 0;
 
                 Properties.Settings.Default.set_ValveType = mf.mc.gcSetting.valveType;
                 valveType = mf.mc.gcSetting.valveType;
@@ -363,6 +363,21 @@ namespace OpenGrade
         private void btnZeroImu_Click(object sender, EventArgs e)
         {
             //mf.SendUDPMessage(FormGPS.IMU_HEADER, mf.epAntennaModule);
+
+            mf.mc.imuRollOffset = mf.mc.a1Data.roll;
+            mf.mc.imuPitchOffset = mf.mc.a1Data.pitch;
+            mf.mc.imuYawOffset = mf.mc.a1Data.yaw;
+
+            Settings.Default.set_ImuRollOffset = mf.mc.imuRollOffset;
+            Settings.Default.set_ImuPitchOffset = mf.mc.imuPitchOffset;
+            Settings.Default.set_ImuYawOffset = mf.mc.imuYawOffset;
+
+
+
+
+
+            Settings.Default.Save();
+
         }
 
         private void btnUnits_Click(object sender, EventArgs e)
@@ -575,12 +590,44 @@ namespace OpenGrade
 
         private void btnImuReset_Click(object sender, EventArgs e)
         {
-
+            // Reset IMU
         }
 
         private void nudRetDeadband_ValueChanged_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnRemoveImuOffset_Click(object sender, EventArgs e)
+        {
+            mf.mc.imuRollOffset = 0;
+            mf.mc.imuPitchOffset = 0;
+            mf.mc.imuYawOffset = 0;
+
+            Settings.Default.set_ImuRollOffset = mf.mc.imuRollOffset;
+            Settings.Default.set_ImuPitchOffset = mf.mc.imuPitchOffset;
+            Settings.Default.set_ImuYawOffset = mf.mc.imuYawOffset;
+            Settings.Default.Save();
+        }
+
+        private void btnImuInvert_Click(object sender, EventArgs e)
+        {
+            // invert Roll 
+        }
+
+        private void btnImuPitchInvert_Click(object sender, EventArgs e)
+        {
+            //Invert Pitch
+        }
+
+        private void valveSelectChoice_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            mf.SendUDPMessageJSON((int)ModuleType.GradeControl_Slave, (int)DataType.Settings, 1, mf.epGradeControl);
         }
 
         private void nudPlowHeight_ValueChanged_2(object sender, EventArgs e)

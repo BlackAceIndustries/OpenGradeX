@@ -420,5 +420,11 @@ namespace OpenGrade
             mf.reconnectCounter = 0;               
             mf.StartNTRIP();           
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //mf.SettingsShutDownNTRIP();
+            mf.ShutDownNTRIP();
+        }
     }
 }

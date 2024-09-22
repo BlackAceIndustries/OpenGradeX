@@ -10,6 +10,7 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
+using System.Reflection.Emit;
 using System.Resources;
 using System.Runtime.InteropServices;
 using System.Security.Permissions;
@@ -77,6 +78,7 @@ namespace OpenGrade
         //Is it in 2D or 3D, metric or imperial, display lightbar, display grid etc
         public bool isIn3D = true, isDualAntenna = false, isImuAsDual = false, isMetric = true, isLightbarOn = true, isGridOn = true, isSideGuideLines = true, isFullScreen = false;
 
+        public bool isAutoVert = false, isAutoTilt = false;
 
 
         public bool isPureDisplayOn = true, isSkyOn = true, isBigAltitudeOn = false, isSimOn = true, isGuidelineOn = true;
@@ -1951,23 +1953,26 @@ namespace OpenGrade
 
         private void btnVertAuto_Click(object sender, EventArgs e)
         {
-            if (mc.gcData.autoVert)
-            {  
-                mc.gcData.autoVert = false;               
-                btnVertAuto.Image = Properties.Resources.Toggle_Vert_MANUAL;         
+            if (isAutoVert)
+            {
+                mc.gcData.autoVert = false;
+                isAutoVert = false;
+                btnVertAuto.Image = Properties.Resources.Toggle_Vert_MANUAL;
                 section[1].mappingOnRequest = false;
                 section[1].mappingOffRequest = true;
-                
+
             }
             else
             {
-                mc.gcData.autoVert = true;   
+                mc.gcData.autoVert = true;
+                isAutoVert = true;
                 btnVertAuto.Image = Properties.Resources.Toggle_Vert_AUTO;
                 section[1].mappingOnRequest = true;
                 section[1].mappingOffRequest = false;
 
             }
-            //SendUDPMessageJSON((int)CModuleComm.ModuleType.GradeControl_Slave, (int)CModuleComm.DataType.Data, 1, epGradeControl);
+           
+            SendUDPMessageJSON((int)CModuleComm.ModuleType.GradeControl_Slave, (int)CModuleComm.DataType.Data, 1, epGradeControl);
 
         }
 
@@ -2358,6 +2363,26 @@ namespace OpenGrade
             SendUDPMessageJSON((int)ModuleType.GradeControl_Slave, (int)DataType.Diagnostic, 1, epGradeControl);
         }
 
+        private void btnN2D_Click(object sender, EventArgs e)
+        {
+            camOffset = 0;
+            camera.camPitch = 0;
+
+
+        }
+
+        private void btnN3D_Click(object sender, EventArgs e)
+        {
+            camOffset = 0;
+            camera.camPitch = -65;
+        }
+
+        private void tStripManualValve_Click(object sender, EventArgs e)
+        {
+            Form form = new FormManualCtrl(this);
+            form.Show();
+        }
+
         private void PanelDisplays_Paint(object sender, PaintEventArgs e)
         {
 
@@ -2371,6 +2396,7 @@ namespace OpenGrade
         private void btnLaserSettings_Click(object sender, EventArgs e)
         {
             ct.LaserSetAltitude = pn.altitude;
+            lblZeroElevationSetpoint.Text = ct.LaserSetAltitude.ToString();
         }
 
         private void fORCERESETALLToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2522,14 +2548,18 @@ namespace OpenGrade
 
         }
 
-        private void ToggleLaserMode()
+        public void ToggleLaserMode()
         {
             if (isLevelOn)
             {
                 isLevelOn = false;
                 btnLaserSettings.Visible = false;
+
+
+                lblZeroElevationSetpoint.Visible = false;
+                label2.Visible = false;
                 //btnSurface.Enabled = true;
-                
+
                 btnLaserToggle.Image = Properties.Resources.Toggle_Laser_MANUAL;
                 lblMaxDepth.Visible = false;
                 sqrMaxDepth.Visible = false;
@@ -2574,7 +2604,8 @@ namespace OpenGrade
                 lblDitchCutLine.Visible = false;
                 sqrDitchCutLine.Visible = false;
                 btnLaserSettings.Visible = true;
-
+                lblZeroElevationSetpoint.Visible = true;
+                label2.Visible = true;
 
                 ///btnAutoCut.Visible = false;
                 //btnAutoShore.Visible = false;
@@ -2586,7 +2617,7 @@ namespace OpenGrade
 
 
                 //btnSurface.Enabled = false;
-                
+
                 btnLaserToggle.Image = Properties.Resources.Toggle_Laser_AUTO;
                 //ct.LaserSetAltitude = pn.altitude;
 
@@ -2815,8 +2846,8 @@ namespace OpenGrade
                 epA1 = new IPEndPoint(epIP, Properties.Settings.Default.setIP_AntennaPort);
 
                 //IP address and port of Antenna server
-                IPAddress a2IP = IPAddress.Parse(Properties.Settings.Default.setIP_AntennaIP);
-                epA2 = new IPEndPoint(a2IP, Properties.Settings.Default.setIP_AntennaPort);
+                IPAddress a2IP = IPAddress.Parse(Properties.Settings.Default.setIP_AntennaIP2);
+                epA2 = new IPEndPoint(a2IP, Properties.Settings.Default.setIP_AntennaPort2);
 
 
                 //IP address and port of GradeControl server

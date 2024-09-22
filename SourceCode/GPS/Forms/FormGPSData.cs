@@ -36,6 +36,11 @@ namespace OpenGrade
             //lblStatus.Text = mf.Status;
             //lblHDOP.Text = mf.HDOP;
 
+            //tboxSerialToAutoSteer.Text = mf.mc.a1RawString;
+
+            tboxA1.Text= mf.mc.a1RawString;
+            tboxGC.Text = mf.mc.gcRawString;
+
 
             lblStatus.Text = mf.Heading.ToString();
 
@@ -44,13 +49,25 @@ namespace OpenGrade
             lblEasting.Text = mf.pn.easting.ToString();
             lblLatitude.Text = mf.pn.latitude.ToString();
             lblLongitude.Text = mf.pn.longitude.ToString();
-            lblAltitude.Text = mf.pn.altitude.ToString();
+            lblAltitude.Text = mf.pn.altitude.ToString("F3");
             lblSpeed.Text = mf.pn.speed.ToString();
+            lblRTKAge.Text = mf.pn.ageDiff.ToString();
+            //lblSpeed.Text = mf.avgSpeed.ToString();
 
 
-            lblPitch.Text = mf.mc.a1Data.pitch.ToString();
-            lblRoll.Text = mf.mc.a1Data.roll.ToString();
-            lblGyro.Text = mf.mc.a1Data.yaw.ToString();
+
+            tboxRTCM.Text = mf.rtcm;
+            lblRtcmTrip.Text = mf.tripBytes.ToString();            
+            
+            
+            
+            mf.avgSpeed.ToString();
+            
+
+
+            lblPitch.Text = mf.mc.a1Data.pitch.ToString("F3");
+            lblRoll.Text = mf.mc.a1Data.roll.ToString("F3");
+            lblGyro.Text = mf.mc.a1Data.yaw.ToString("F3");
 
             //lblPitch.Text = mf.mc.pitchIMU.ToString();
             //lblRoll.Text = mf.mc.rollIMU.ToString();
@@ -75,6 +92,7 @@ namespace OpenGrade
             {
                 tboxNMEASerial.Text = mf.recvSentenceSettings;
             }
+
             
 
             //tboxSerialToAutoSteer.Text = mf.mc.Antenna

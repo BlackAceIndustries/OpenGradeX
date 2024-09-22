@@ -12,6 +12,7 @@ using SharpGL;
 using OpenGrade.Properties;
 using Microsoft.Win32;
 using static OpenGrade.CModuleComm;
+using System.Runtime;
 
 namespace OpenGrade
 {
@@ -30,7 +31,7 @@ namespace OpenGrade
 
 
             if (isGPSPositionInitialized)
-            {   
+            {
                 PanelDisplays.BackColor = Color.White;
 
             }
@@ -39,15 +40,15 @@ namespace OpenGrade
 
                 PanelDisplays.BackColor = Color.OrangeRed;
             }
-            
+
             if (isMetric)
-            {               
-                
+            {
+
                 //btnUnits.Image = Properties.Resources.Metric;
             }
             else
             {
-                
+
                 //btnUnits.Image = Properties.Resources.Imperial;
             }
 
@@ -77,6 +78,19 @@ namespace OpenGrade
             //pursuitLineToolStripMenuItem.Checked = isPureDisplayOn;
 
             isSkyOn = Settings.Default.setMenu_isSkyOn;
+
+            mc.imuRollOffset = Settings.Default.set_ImuRollOffset;
+            mc.imuPitchOffset = Settings.Default.set_ImuPitchOffset;
+            mc.imuYawOffset = Settings.Default.set_ImuYawOffset;
+
+
+
+
+
+
+            Settings.Default.Save();
+
+
             //skyToolStripMenu.Checked = isSkyOn;
 
             isSimOn = Settings.Default.setMenu_isSimulatorOn;
@@ -134,7 +148,7 @@ namespace OpenGrade
         //}
 
         //Open the dialog of tabbed settings
-        private void SettingsPageOpen(int page)
+        public void SettingsPageOpen(int page)
         {
             using (var form = new FormSettings(this, page))
             {
@@ -153,7 +167,7 @@ namespace OpenGrade
                 isGradeControlBtnOn = false;
                 //mc.gcData.autoVert = true;
                 //section[1].TurnMappingOff();
-                
+
             }
             else
             {
@@ -191,7 +205,7 @@ namespace OpenGrade
                     //btnABLine.Image = Properties.Resources.ABLineOff;
                     ABLine.isABLineBeingSet = false;
 
-                   // if (isGradeControlBtnOn) btnGradeControl.PerformClick();
+                    // if (isGradeControlBtnOn) btnGradeControl.PerformClick();
 
 
 
@@ -258,7 +272,7 @@ namespace OpenGrade
                 case btnStates.Stdby:
                     manualBtnState = btnStates.RecBnd;
                     //btnManualOffOn.Image = null;
-                   // btnManualOffOn.Text = "Recording Boundary";
+                    // btnManualOffOn.Text = "Recording Boundary";
                     userDistance = 0;
                     //btnStartPause.Visible = true;
                     //btnBoundarySide.Visible = true;
@@ -281,7 +295,7 @@ namespace OpenGrade
 
                 case btnStates.RecBnd:
                     manualBtnState = btnStates.Rec;
-                   // btnManualOffOn.Image = Properties.Resources.ManualOn;
+                    // btnManualOffOn.Image = Properties.Resources.ManualOn;
                     //btnManualOffOn.Text = null;
                     userDistance = 0;
                     //btnBoundarySide.Visible = false;
@@ -304,7 +318,7 @@ namespace OpenGrade
                 case btnStates.Rec:
                     manualBtnState = btnStates.Off;
                     //btnManualOffOn.Image = Properties.Resources.ManualOff;
-                   // btnManualOffOn.Text = null;
+                    // btnManualOffOn.Text = null;
                     //CalculateContourPointDistances();
                     //FileSaveContour();
                     //btnDoneDraw.Enabled = false;
@@ -325,7 +339,7 @@ namespace OpenGrade
 
             //switch (manualBtnState)
             //{
-               
+
             //    case btnStates.Off:
             //        {
 
@@ -505,17 +519,17 @@ namespace OpenGrade
         }
         private void btnUnits_Click(object sender, EventArgs e)
         {
-            
+
             if (!isMetric)
             {
                 isMetric = true;
                 //lblSpeedUnits.Text = "kmh";
                 //lblAltitudeUnits.Text = "M";
-               // lblAltitudeUnits2.Text = "M";
+                // lblAltitudeUnits2.Text = "M";
                 //metricToolStrip.Checked = true;
                 //imperialToolStrip.Checked = false;                
                 //btnUnits.Image = Properties.Resources.Metric;
-                
+
             }
             else
             {
@@ -537,7 +551,7 @@ namespace OpenGrade
         }
         private void btnAutoSteerConfig_Click(object sender, EventArgs e)
         {
-            
+
         }
         private void btnFileExplorer_Click(object sender, EventArgs e)
         {
@@ -563,8 +577,8 @@ namespace OpenGrade
 
 
         private void btnStartDraw_Click(object sender, EventArgs e)
-        {   
-            
+        {
+
             if (ct.ptList.Count > 5)
             {
                 //btnAutoDrain.Visible = true;
@@ -579,7 +593,7 @@ namespace OpenGrade
                 //btnStartDraw.Enabled = false;
             }
             else TimedMessageBox(1500, "No Surveyed Points", "Survey a Contour First");
-            
+
         }
         private void btnDoneDraw_Click(object sender, EventArgs e)
         {
@@ -1085,7 +1099,7 @@ namespace OpenGrade
         //taskbar buttons
         private void toolstripAutoSteerConfig_Click(object sender, EventArgs e)
         {
-           
+
         }
         private void toolstripVehicleConfig_Click(object sender, EventArgs e)
         {
@@ -1119,7 +1133,7 @@ namespace OpenGrade
         private void timerSim_Tick(object sender, EventArgs e)
         {
             //if a GPS is connected disable sim
-            if (a1Timeout > 10 )  // Need to change this
+            if (a1Timeout > 10)  // Need to change this
             {
                 if (isGradeControlBtnOn) sim.DoSimTick(guidanceLineSteerAngle / 10.0, cutDeltaCenter);
                 else sim.DoSimTick(sim.steerAngleScrollBar, cutDeltaCenter);//
@@ -1281,11 +1295,13 @@ namespace OpenGrade
             //count up the ntrip clock only if everything is alive
             if (startCounter > 50 && recvCounter < 20 && isNTRIP_RequiredOn)
             {
+
                 IncrementNTRIPWatchDog();
             }
+            //tboxNTRIPBuffer.Text += "IncrementNTRIPWatchDog()\r\n";
+            //tmr.Dispose();
+            isNTRIP_RequiredOn = Properties.Settings.Default.setNTRIP_isOn;
 
-            isNTRIP_RequiredOn = Properties.Settings.Default.setNTRIP_isOn;             
-            
 
             //check if we have a connection if not try and start NTRIP
             if (isNTRIP_RequiredOn && !isNTRIP_Connected && !isNTRIP_Connecting)
@@ -1301,37 +1317,32 @@ namespace OpenGrade
             {
                 if (ntripCounter > 50)
                 {
-                    TimedMessageBox(2000, "nTrip timeout", "nTrip timeout");
                     ReconnectRequest();
                 }
                 if (clientSocket != null && clientSocket.Connected)
                 {
-                    //TimedMessageBox(2000, "NTRIP Not Connected", " At the StartNTRIP() ");
-                    //ReconnectRequest();
-                    //return;                    
                     SendAuthorization();
                 }
-
-               
                 NTRIP_LED.BackColor = Color.Orange;
             }
 
-            if (isNTRIP_RequiredOn){
+            if (isNTRIP_RequiredOn)
+            {
                 NTRIP_LED.Value = 100;
-                //watchdog for Ntrip
+
                 if (isNTRIP_Connecting) NTRIP_LED.BackColor = Color.Purple;
-                
+
                 if (NTRIP_Watchdog > 20) NTRIP_LED.BackColor = Color.Yellow;
 
                 if (isNTRIP_Connected) NTRIP_LED.BackColor = Color.Lime;
-               
+
                 if (!isNTRIP_Connected && !isNTRIP_Connecting) NTRIP_LED.BackColor = Color.Black;
-                
+
                 if (sendGGAInterval > 0 && isNTRIP_Sending) isNTRIP_Sending = false;
 
             }
             else NTRIP_LED.BackColor = Color.Black;
-            
+
         }
 
         //Timer triggers at 20 msec, 50 hz, and is THE clock of the whole program//
@@ -1340,539 +1351,580 @@ namespace OpenGrade
             //go see if data ready for draw and position updates
             //tmrWatchdog.Enabled = false;
             ScanForNMEA();
-            
-            statusUpdateCounter++;            
+
+            statusUpdateCounter++;
             a1Timeout++;
             a2Timeout++;
             gcTimeout++;
 
 
-            if (fiveSecondCounter++ > 30)
+            if (fiveSecondCounter++ > 50)
             {
                 //do all the NTRIP routines
-                //if (isNTRIPOn)
-                //{
-                DoNTRIPSecondRoutine(); // Only when gps port is open
+                if (isNTRIPOn)
+                {
+                    DoNTRIPSecondRoutine(); // Only when gps port is open
 
-                SendUDPMessageJSON((int)ModuleType.Antenna_Master, (int)DataType.Connect, 1, epA1);
-                SendUDPMessageJSON((int)ModuleType.Antenna_Slave, (int)DataType.Connect, 1, epA2);               
-                //SendUDPMessageJSON((int)ModuleType.GradeControl_Slave, (int)DataType.Connect, 1, epGradeControl);
+                    fiveSecondCounter = 0;
 
-                fiveSecondCounter = 0;
-
-            }
-            //SendUDPMessageJSON((int)CModuleComm.ModuleType.GradeControl_Slave, (int)CModuleComm.DataType.Data, 1, epGradeControl);
-
-
-
-
-
-
-            //Antenna 1 
-            if (a1Timeout > 50) {
-                ANTENNA1_LED.Value = 0;
-                ANTENNA1_LED.BackColor = Color.Black;
-                mc.a1connectMsg.connected = 0;
-            }
-            else
-            {
-                ANTENNA1_LED.Value = 100;
-                ANTENNA1_LED.BackColor = Color.Lime;
-            }
-
-            //Antenna 2 
-            if (a2Timeout > 50)
-            {
-                ANTENNA2_LED.Value = 0;
-                ANTENNA2_LED.BackColor = Color.Black;
-            }
-            else
-            {
-                ANTENNA2_LED.Value = 100;
-                ANTENNA2_LED.BackColor = Color.Lime;
-            }
-
-
-
-
-
-
-            if (gcTimeout > 50) {
-                GRADECONTROL_LED.BackColor = Color.Black;
-                GRADECONTROL_LED.Value= 0;
-                mc.gcconnectMsg.connected = 0;
-                voltageBar.BarColorSolid = Color.Red;
-                voltageBar2.BarColorSolid = Color.Red;
-                voltageBar.Value = 0;
-                voltageBar2.Value = 0;
-            }
-            else
-            {
-                GRADECONTROL_LED.BackColor = Color.Lime;
-                GRADECONTROL_LED.Value = 100;
-                voltageBar.BarColorSolid = Color.White;
-                voltageBar2.BarColorSolid = Color.White;
-            }
-
-
-            //every half of a second update all status
-            if (statusUpdateCounter > 2)
-            {
-                //reset the counter
-                statusUpdateCounter = 0;
-
-                //counter used for saving field in background
-                saveCounter++;
-                //SendUDPMessageJSON((int)ModuleType.GradeControl_Slave, (int)DataType.Data, 1, epGradeControl);
+                }
                 //SendUDPMessageJSON((int)CModuleComm.ModuleType.GradeControl_Slave, (int)CModuleComm.DataType.Data, 1, epGradeControl);
 
-                if (pn.fixQuality != 4 && pn.lastFixQuality == 4 && isGradeControlBtnOn)
-                {
-                    //btnGradeControl.PerformClick();
-                    btnVertAuto.PerformClick();
-                    btnTiltAuto.PerformClick();
-                }
 
 
-                if (pn.ageDiff > 10)
+
+
+
+                //Antenna 1 
+                if (a1Timeout > 50)
                 {
-                    lblRTKPopup.Visible = true;
-                    lblRTKPopupTime.Visible = true;
-                    lblRTKPopupTime.Text = AgeDiff;
+                    ANTENNA1_LED.Value = 0;
+                    ANTENNA1_LED.BackColor = Color.Black;
+                    mc.a1connectMsg.connected = 0;
                 }
                 else
                 {
-                    lblRTKPopup.Visible = false;
-                    lblRTKPopupTime.Visible = false;
+                    ANTENNA1_LED.Value = 100;
+                    ANTENNA1_LED.BackColor = Color.Lime;
 
                 }
 
-                if (FixQuality == "RTK fix")
+                //Antenna 2 
+                if (a2Timeout > 50)
                 {
-
-                    RTK_LED.Value = 100;
-                    RTK_LED.ForeColor = Color.Green;
-                    PanelDisplays.BackColor = Color.Green;
-
-                }
-                else if (FixQuality == "Flt RTK")
-                {
-
-                    //RTK_LED.Value = 100;
-                   // RTK_LED.ForeColor = Color.Yellow;
-                    PanelDisplays.BackColor = Color.Yellow;
-                }
-                else if (FixQuality == "PPS fix")
-                {
-                    //RTK_LED.Value = 100;
-                    //RTK_LED.ForeColor = Color.Purple;                    
-                    PanelDisplays.BackColor = Color.DarkGray;
+                    ANTENNA2_LED.Value = 0;
+                    ANTENNA2_LED.BackColor = Color.Black;
                 }
                 else
                 {
-                    RTK_LED.Value = 0;
-                    //RTK_LED.ForeColor = Color.Black;
+                    ANTENNA2_LED.Value = 100;
+                    ANTENNA2_LED.BackColor = Color.Lime;
                 }
 
 
-                if (FixQuality == "RTK fix" || FixQuality == "Flt RTK")
+
+
+
+
+                if (gcTimeout > 50)
                 {
-                    if (!isNTRIP_Connected)
+                    GRADECONTROL_LED.BackColor = Color.Black;
+                    GRADECONTROL_LED.Value = 0;
+                    mc.gcconnectMsg.connected = 0;
+                    voltageBar.BarColorSolid = Color.Red;
+                    voltageBar2.BarColorSolid = Color.Red;
+                    voltageBar.Value = 0;
+                    voltageBar2.Value = 0;
+                }
+                else
+                {
+                    GRADECONTROL_LED.BackColor = Color.Lime;
+                    GRADECONTROL_LED.Value = 100;
+                    voltageBar.BarColorSolid = Color.White;
+                    voltageBar2.BarColorSolid = Color.White;
+                }
+
+
+                //every half of a second update all status
+                if (statusUpdateCounter > 2)
+                {
+                    //reset the counter
+                    statusUpdateCounter = 0;
+
+                    //counter used for saving field in background
+                    saveCounter++;
+
+                    if (pn.fixQuality != 4 && pn.lastFixQuality == 4 && isGradeControlBtnOn)
                     {
-                        RADIO_LED.Value = 100;
+                        //btnGradeControl.PerformClick();
+                        btnVertAuto.PerformClick();
+                        btnTiltAuto.PerformClick();
+                    }
+
+
+                    if (pn.ageDiff > 10)
+                    {
+                        lblRTKPopup.Visible = true;
+                        lblRTKPopupTime.Visible = true;
+                        lblRTKPopupTime.Text = AgeDiff;
+                    }
+                    else
+                    {
+                        lblRTKPopup.Visible = false;
+                        lblRTKPopupTime.Visible = false;
+
+                    }
+
+                    if (FixQuality == "RTK fix")
+                    {
+
+                        RTK_LED.Value = 100;
+                        RTK_LED.ForeColor = Color.Green;
+                        PanelDisplays.BackColor = Color.Green;
+                        btnVertAuto.Enabled= true;
+                        btnTiltAuto.Enabled = true;
+
+
+                    }
+                    else if (FixQuality == "Flt RTK")
+                    {
+
+                        RTK_LED.Value = 100;
+                        // RTK_LED.ForeColor = Color.Yellow;
+                        PanelDisplays.BackColor = Color.Yellow;
+                        btnVertAuto.Enabled = false;
+                        btnTiltAuto.Enabled = false;
+
+                        if (isAutoVert == true )
+                        {
+                            isAutoVert = false;
+                            btnVertAuto.BackgroundImage = Properties.Resources.Toggle_Vert_MANUAL;
+                        }
+                        if (isAutoTilt == true)
+                        {
+                            isAutoTilt = false;
+                            btnTiltAuto.BackgroundImage = Properties.Resources.Toggle_Tilt_MANUAL;
+                        }
+                    }
+                    else if (FixQuality == "GPS fix" || FixQuality == "DGPS fix")
+                    {
+                        RTK_LED.Value = 0;
+                        PanelDisplays.BackColor = Color.DarkOrange;
+                        btnVertAuto.Enabled = false;
+                        btnTiltAuto.Enabled = false;
+
+                        if (isAutoVert == true)
+                        {
+                            isAutoVert = false;
+                            btnVertAuto.BackgroundImage = Properties.Resources.Toggle_Vert_MANUAL;
+                        }
+                        if (isAutoTilt == true)
+                        {
+                            isAutoTilt = false;
+                            btnTiltAuto.BackgroundImage = Properties.Resources.Toggle_Tilt_MANUAL;
+                        }
+                    }
+                    else if (FixQuality == "")
+                    {
+                        //RTK_LED.Value = 100;
+                        //RTK_LED.ForeColor = Color.Purple;                    
+                        PanelDisplays.BackColor = Color.DarkGray;
+
+                        if (isAutoVert == true)
+                        {
+                            isAutoVert = false;
+                            btnVertAuto.BackgroundImage = Properties.Resources.Toggle_Vert_MANUAL;
+                        }
+                        if (isAutoTilt == true)
+                        {
+                            isAutoTilt = false;
+                            btnTiltAuto.BackgroundImage = Properties.Resources.Toggle_Tilt_MANUAL;
+                        }
+                    }
+                    else
+                    {
+                        RTK_LED.Value = 0;
+                        //RTK_LED.ForeColor = Color.Black;
+                    }
+
+
+                    if (FixQuality == "RTK fix" || FixQuality == "Flt RTK")
+                    {
+                        if (!isNTRIP_Connected)
+                        {
+                            RADIO_LED.Value = 100;
+                            RADIO_LED.BackColor = Color.Lime;
+                        }
+
+                    }
+                    else
+                    {
+                        RADIO_LED.Value = 0;
                         RADIO_LED.BackColor = Color.Lime;
                     }
 
-                }
-                else
-                {
-                    RADIO_LED.Value = 0;                        
-                    RADIO_LED.BackColor = Color.Lime;
-                }
+
+
+                    if (ct.surveyMode == false)
+                    {
+
+                        SURVEY_LED.Value = 100;
+                        SURVEY_LED.BackColor = Color.CornflowerBlue;
+
+
+                    }
+                    else
+                    {
+                        SURVEY_LED.Value = 0;
+
+                    }
 
 
 
-                if (ct.surveyMode == false)
-                {
+                    if (curMode == gradeMode.surface)
+                    {
+                        lblMode.Text = "SURFACE";
 
-                    SURVEY_LED.Value = 100;
-                    SURVEY_LED.BackColor= Color.CornflowerBlue;
-                    
-
-                }
-                else
-                {
-                    SURVEY_LED.Value = 0;
-
-                }
-
-
-
-                if (curMode == gradeMode.surface)
-                {
-                    lblMode.Text = "SURFACE";
-
-                }
-                else if (curMode == gradeMode.ditch)
-                {
-                    lblMode.Text = "DITCH";
-                }
-                else if (curMode == gradeMode.tile)
-                {
-                    lblMode.Text = "TILE";
-                }
-                else if (curMode == gradeMode.contour)
-                {
-                    lblMode.Text = "CONTOUR";
-                }
+                    }
+                    else if (curMode == gradeMode.ditch)
+                    {
+                        lblMode.Text = "DITCH";
+                    }
+                    else if (curMode == gradeMode.tile)
+                    {
+                        lblMode.Text = "TILE";
+                    }
+                    else if (curMode == gradeMode.contour)
+                    {
+                        lblMode.Text = "CONTOUR";
+                    }
 
 
 
-                tStripCurrentJob.Text = "BlackAce : " + curFieldName + " : " + cutName;
+                    tStripCurrentJob.Text = "BlackAce : " + curFieldName + " : " + cutName;
 
 
 
-                
-                
-                tStripSpeed.Text = pn.speed.ToString();
+                    tStripSpeed.Text = pn.speed.ToString();
+                    mc.pitchIMU = mc.a1Data.pitch - mc.imuPitchOffset;
+                    mc.rollIMU= mc.a1Data.roll - mc.imuRollOffset;
+                    mc.headingIMU = mc.a1Data.yaw - mc.imuYawOffset;
 
-                //tStripRoll.Text = mc.avgrollIMU.ToString("F2");
-                //tStripPitch.Text = mc.avgpitchIMU.ToString("F2");
-
-                tStripRoll.Text = mc.a1Data.roll.ToString("F2");
-                tStripPitch.Text = mc.a1Data.pitch.ToString("F2");
-
-
-
-                tStripAltitude.Text = pn.altitude.ToString("F3");
-                tStripHDOP.Text =pn.hdop.ToString("F2");
-                tStripVDOP.Text = pn.vdop.ToString("F2");
-                //tStripVDOP.Text = pn
+                    double angleInRadians = mc.pitchIMU * (Math.PI / 180.0);
+                    double slopeAsDecimal = Math.Tan(angleInRadians);
+                    double slopePercentage = slopeAsDecimal * 100.0;
+                    mc.pitchSlope = slopePercentage;
+                    angleInRadians = mc.rollIMU * (Math.PI / 180.0);
+                    slopeAsDecimal = Math.Tan(angleInRadians);
+                    double rollslopePercentage = slopeAsDecimal * 100.0;
+                    mc.rollSlope = slopePercentage;
 
 
 
 
+                    tStripPitch.Text = mc.pitchIMU.ToString("F2");
+                    tStripRoll.Text = mc.rollSlope.ToString("F2");
+                    tStripAltitude.Text = pn.altitude.ToString("F3");
+                    tStripHDOP.Text = pn.hdop.ToString("F2");
+                    tStripVDOP.Text = pn.vdop.ToString("F2");
+                    tStrip3.Text = userDistance.ToString("F3") + " m";
+
+
+                    //tStrip3.Text = Convert.ToString((double)(userDistance)) + " m";
 
 
 
 
-                //if (FixQuality == "RTK fix" || FixQuality == "Flt RTK")
-                //{
-                //    if (!isNTRIP_Connected)
-                //    {
+                    //up in the menu a few pieces of info
+                    if (isJobStarted)
+                    {
+                        //lblEasting.Text = "E: " + Math.Round(pn.easting, 1).ToString();
+                        //lblNorthing.Text = "N: " + Math.Round(pn.northing, 1).ToString();
+                    }
+                    else
+                    {
+                        //lblEasting.Text = "E: " + ((int)pn.actualEasting).ToString();
+                        //lblNorthing.Text = "N: " + ((int)pn.actualNorthing).ToString();
+                    }
 
-                //        ledRadio.BackColor = Color.Lime;
-                //    }
+                    //lblZone.Text = pn.zone.ToString();
+                    //tboxSentence.Text = pn.rawBuffer;
 
+                    // }
 
-                //}               
-                //else ledRadio.BackColor = Color.Black;
+                    //the main formgps window
+                    if (isMetric)  //metric or imperial
+                    {
+                        //Hectares on the master section soft control and sections
+                        //lblSpeed.Text = SpeedKPH;
 
+                        //status strip values
+                        // stripDistance.Text = Convert.ToString((UInt16)(userDistance)) + " m";
+                        //lblAltitude.Text = Altitude;
+                        //lblAltitude2.Text = Altitude;
+                        //btnZeroAltitude.Text = (pn.altitude - ct.zeroAltitude).ToString("N2");
+                    }
+                    else  //Imperial Measurements
+                    {
+                        //acres on the master section soft control and sections
+                        //lblSpeed.Text = SpeedMPH;
 
-                //lblSats.Text = SatsTracked;
-                //lblRoll.Text = RollInDegrees;
-                //lblGyroHeading.Text = GyroInDegrees;
-                //lblPitch.Text = PitchInDegrees;
-                //lblGPSHeading.Text = GPSHeading;                     
-
-                //up in the menu a few pieces of info
-                if (isJobStarted)
-                {
-                    //lblEasting.Text = "E: " + Math.Round(pn.easting, 1).ToString();
-                    //lblNorthing.Text = "N: " + Math.Round(pn.northing, 1).ToString();
-                }
-                else
-                {
-                    //lblEasting.Text = "E: " + ((int)pn.actualEasting).ToString();
-                    //lblNorthing.Text = "N: " + ((int)pn.actualNorthing).ToString();
-                }
-
-                //lblZone.Text = pn.zone.ToString();
-                //tboxSentence.Text = pn.rawBuffer;
-                
-                // }
-
-                //the main formgps window
-                if (isMetric)  //metric or imperial
-                {
-                    //Hectares on the master section soft control and sections
-                    //lblSpeed.Text = SpeedKPH;
-
-                    //status strip values
-                   // stripDistance.Text = Convert.ToString((UInt16)(userDistance)) + " m";
-                    //lblAltitude.Text = Altitude;
-                    //lblAltitude2.Text = Altitude;
-                    //btnZeroAltitude.Text = (pn.altitude - ct.zeroAltitude).ToString("N2");
-                }
-                else  //Imperial Measurements
-                {
-                    //acres on the master section soft control and sections
-                    //lblSpeed.Text = SpeedMPH;
-
-                    //status strip values
-                    //stripDistance.Text = Convert.ToString((UInt16)(userDistance * 3.28084)) + " ft";
-                    //lblAltitude.Text = AltitudeFeet;
-                    //lblAltitude2.Text = AltitudeFeet;
-                    //btnZeroAltitude.Text = ((pn.altitude - ct.zeroAltitude) * glm.m2ft).ToString("N2");
-                }
-
-                //not Metric/Standard units sensitive
-                //lblHeading.Text = Heading;
-                //btnABLine.Text = PassNumber;
-                //sqrCutLine.Text = PureSteerAngle;
-
-               
-                //voltageBar.Value = ((int)(mc.voltage * 100) +12) ;
-                //voltageBar2.Value = ((int)(mc.voltage2 * 100) +12);
+                        //status strip values
+                        //stripDistance.Text = Convert.ToString((UInt16)(userDistance * 3.28084)) + " ft";
+                        //lblAltitude.Text = AltitudeFeet;
+                        //lblAltitude2.Text = AltitudeFeet;
+                        //btnZeroAltitude.Text = ((pn.altitude - ct.zeroAltitude) * glm.m2ft).ToString("N2");
+                    }
 
 
-                //voltageBar.Value = ((int)(mc.gcData.setPointA * 100) + 12);
-                //voltageBar2.Value = ((int)(mc.gcData.setPointB * 100) + 12);
+                    voltageBar.Value = (mc.gcData.setPointA + 77);
+                    voltageBar2.Value = (mc.gcData.setPointB + 77);
 
-                voltageBar.Value = (mc.gcData.setPointA + 77);
-                voltageBar2.Value = (mc.gcData.setPointB + 77);
+                    //
+                    // Update all DRO's
+                    //
 
-                //
-                // Update all DRO's
-                //
+                    //Check distFromLastPass and Set DRO's
+                    if (distFromLastPass == 9999 || distFromLastPass > 2000)//
+                    {
+                        //lblCurrentCutDepth.Text = "--";
+                        //lblCurrentCutDepth.BackColor = Color.Black;
+                        isAutoCutOn = false;
+                        //btnAutoCut.Enabled = false;
 
-                //Check distFromLastPass and Set DRO's
-                if (distFromLastPass == 9999 || distFromLastPass > 2000)//
-                {
-                    //lblCurrentCutDepth.Text = "--";
-                    //lblCurrentCutDepth.BackColor = Color.Black;
-                    isAutoCutOn = false;
-                    //btnAutoCut.Enabled = false;
+                    }
+                    else
+                    {
+                        //btnAutoCut.Enabled = true;
 
-                }
-                else
-                {
-                    //btnAutoCut.Enabled = true;
+                        if (isMetric)  //metric or imperial
+                        {
+                            //lblCurrentCutDepth.Text = distFromLastPass.ToString("N1");                        
+                        }
+                        else
+                        {
+                            //lblCurrentCutDepth.Text = (0.3937 * distFromLastPass).ToString("N2");                            
+                        }
+
+                        if (distFromLastPass < 0)
+                        {
+                            //lblCurrentCutDepth.BackColor = Color.Tomato;
+                        }
+                        else
+                        {
+                            //lblCurrentCutDepth.BackColor = Color.Lime;
+                        }
+                    }
+
+                    //Check distoTaget and Set DRO's
+                    if (distToTarget == 9999)
+                    {
+                        //lblDistToTarget.Text = "--";
+                        //lblDistToTarget.BackColor = Color.Black;
+
+                    }
+                    else
+                    {
+                        if (isMetric)  //metric or imperial
+                        {
+                            // lblDistToTarget.Text = distToTarget.ToString("N1");
+                        }
+                        else
+                        {
+                            // lblDistToTarget.Text = (0.3937 * distToTarget).ToString("N2");
+                        }
+
+                        if (distToTarget < 0)
+                        {
+                            // lblDistToTarget.BackColor = Color.Tomato;
+                        }
+                        else
+                        {
+                            // lblDistToTarget.BackColor = Color.Lime;
+                        }
+
+                    }
+
 
                     if (isMetric)  //metric or imperial
                     {
-                        //lblCurrentCutDepth.Text = distFromLastPass.ToString("N1");                        
-                    }
-                    else{
-                        //lblCurrentCutDepth.Text = (0.3937 * distFromLastPass).ToString("N2");                            
-                    }
 
-                    if (distFromLastPass < 0)
-                    {
-                        //lblCurrentCutDepth.BackColor = Color.Tomato;
-                    }
-                    else
-                    {                        
-                        //lblCurrentCutDepth.BackColor = Color.Lime;
-                    }
-                }
-
-                //Check distoTaget and Set DRO's
-                if (distToTarget == 9999)
-                {
-                    //lblDistToTarget.Text = "--";
-                    //lblDistToTarget.BackColor = Color.Black;
-
-                }
-                else
-                {
-                    if (isMetric)  //metric or imperial
-                    {
-                       // lblDistToTarget.Text = distToTarget.ToString("N1");
+                        tStripCenterDelta.Text = cutDeltaCenter.ToString("N1");
+                        tStripRightDelta.Text = cutDeltaCenter.ToString("N1");
+                        tStripLeftDelta.Text = cutDeltaCenter.ToString("N1");
+                        //mc.gcData.deltaA = cutDelta;  
                     }
                     else
                     {
-                       // lblDistToTarget.Text = (0.3937 * distToTarget).ToString("N2");
+                        tStripCenterDelta.Text = (0.3937 * distFromLastPass).ToString("N1");
+                        tStripCenterDelta.Text = (0.3937 * cutDeltaCenter).ToString("N1");
+                        //mc.gcData.deltaA = 0.3937 * cutDelta;
+
                     }
 
-                    if (distToTarget < 0)
+                    if (cutDeltaCenter == 9999)
                     {
-                       // lblDistToTarget.BackColor = Color.Tomato;
-                    }
-                    else
-                    {
-                       // lblDistToTarget.BackColor = Color.Lime;
-                    }
-                
-                }  
+                        tStripCenterDelta.Text = "--";
+                        tStripRightDelta.Text = "--";
+                        tStripLeftDelta.Text = "--";
 
-
-                if (isMetric)  //metric or imperial
-                {
-                
-                    tStripCenterDelta.Text = cutDeltaCenter.ToString("N1");
-                    tStripRightDelta.Text = cutDeltaCenter.ToString("N1");
-                    tStripLeftDelta.Text = cutDeltaCenter.ToString("N1");
-                    //mc.gcData.deltaA = cutDelta;  
-                }
-                else
-                {
-                    tStripCenterDelta.Text = (0.3937 * distFromLastPass).ToString("N1");
-                    tStripCenterDelta.Text = (0.3937 * cutDeltaCenter).ToString("N1");
-                    //mc.gcData.deltaA = 0.3937 * cutDelta;
-                    
-                }
-
-                if (cutDeltaCenter == 9999)
-                {
-                    tStripCenterDelta.Text = "--";
-                    tStripRightDelta.Text = "--";
-                    tStripLeftDelta.Text = "--";
-
-                    pbarCutAboveL.Value = 0;
-                    pbarCutBelowL.Value = 0;
-
-                    pbarCutAboveR.Value = 0;
-                    pbarCutBelowR.Value = 0;
-
-                }
-                else
-                {
-                    mc.gcData.deltaA = (int)cutDeltaCenter;
-                    
-                    // FILL IN BAR GRAPHS                    
-                    if (cutDeltaCenter < 0) // Postive Cut Delta
-                    {
-                        int val = (int)((cutDeltaCenter / barGraphMax) * -100);
                         pbarCutAboveL.Value = 0;
-                        pbarCutBelowL.Value = val;
-                        pbarCutAboveR.Value = 0;
-                        pbarCutBelowR.Value = val;
-
-                        //pbarCutBelow.Value = 50;
-                    }                    
-                    else if (cutDeltaCenter > 0) // Negative Cut Delta
-                    {
-                        int val = (int)((cutDeltaCenter / barGraphMax) * 100 );
                         pbarCutBelowL.Value = 0;
-                        pbarCutAboveL.Value = val;
+
+                        pbarCutAboveR.Value = 0;
                         pbarCutBelowR.Value = 0;
-                        pbarCutAboveR.Value = val;
 
-                       
-
-                        //pbarCutAbove.Value = 50;
                     }
                     else
                     {
-                        pbarCutBelowL.Value = 0;
-                        pbarCutAboveL.Value = 0;
-                        pbarCutBelowR.Value = 0;
-                        pbarCutAboveR.Value = 0;
-                    }
+
+                        if (FixQuality == "RTK fix")
+                        {
+                            mc.gcData.deltaA = (int)cutDeltaCenter;
+                        }
+                        //
+                        //mc.gcData.deltaA = (int)cutDeltaCenter;
+                        // FILL IN BAR GRAPHS                    
+                        if (cutDeltaCenter < 0) // Postive Cut Delta
+                        {
+                            int val = (int)((cutDeltaCenter / barGraphMax) * -100);
+                            pbarCutAboveL.Value = 0;
+                            pbarCutBelowL.Value = val;
+                            pbarCutAboveR.Value = 0;
+                            pbarCutBelowR.Value = val;
+
+                            //pbarCutBelow.Value = 50;
+                        }
+                        else if (cutDeltaCenter > 0) // Negative Cut Delta
+                        {
+                            int val = (int)((cutDeltaCenter / barGraphMax) * 100);
+                            pbarCutBelowL.Value = 0;
+                            pbarCutAboveL.Value = val;
+                            pbarCutBelowR.Value = 0;
+                            pbarCutAboveR.Value = val;
+
+
+
+                            //pbarCutAbove.Value = 50;
+                        }
+                        else
+                        {
+                            pbarCutBelowL.Value = 0;
+                            pbarCutAboveL.Value = 0;
+                            pbarCutBelowR.Value = 0;
+                            pbarCutAboveR.Value = 0;
+                        }
 
 
 
 
 
-                    if (cutDeltaCenter < 1 && cutDeltaCenter > -1 )
-                    {  
-                        //lblCutDelta.BackColor = Color.Lime;
-                        Color.FromArgb(100, 18, 130, 18);
+                        if (cutDeltaCenter < 1 && cutDeltaCenter > -1)
+                        {
+                            //lblCutDelta.BackColor = Color.Lime;
+                            Color.FromArgb(100, 18, 130, 18);
 
-                        pbarCutAboveL.BarColorSolidB = Color.FromArgb(255, 18, 130, 18); ;
-                        pbarCutBelowL.BarColorSolidB = Color.FromArgb(255, 18, 130, 18); ;
-                        pbarCutAboveL.Value = 10;
-                        pbarCutBelowL.Value = 10;
-                        pbarCutAboveR.Value = 10;
-                        pbarCutBelowR.Value = 10;
+                            pbarCutAboveL.BarColorSolidB = Color.FromArgb(255, 18, 130, 18); ;
+                            pbarCutBelowL.BarColorSolidB = Color.FromArgb(255, 18, 130, 18); ;
+                            pbarCutAboveL.Value = 10;
+                            pbarCutBelowL.Value = 10;
+                            pbarCutAboveR.Value = 10;
+                            pbarCutBelowR.Value = 10;
 
-                        tStripCenterIndicator.Image = Properties.Resources.GradeOK;
-                        tStripRightIndicator.Image = Properties.Resources.GradeOK;
-                        tStripLeftIndicator.Image = Properties.Resources.GradeOK;
+                            tStripCenterIndicator.Image = Properties.Resources.GradeOK;
+                            tStripRightIndicator.Image = Properties.Resources.GradeOK;
+                            tStripLeftIndicator.Image = Properties.Resources.GradeOK;
 
-                        pbarCutAboveR.BarColorSolidB = Color.FromArgb(255, 18, 130, 18); ;
-                        pbarCutBelowR.BarColorSolidB = Color.FromArgb(255, 18, 130, 18); ;
+                            pbarCutAboveR.BarColorSolidB = Color.FromArgb(255, 18, 130, 18); ;
+                            pbarCutBelowR.BarColorSolidB = Color.FromArgb(255, 18, 130, 18); ;
 
-                        //lblCutDelta2.BackColor = Color.Lime;
-                    }
-                    else if(cutDeltaCenter < -1 && cutDeltaCenter > - 3)
-                    {
-                        tStripCenterIndicator.Image = Properties.Resources.GradeLow1;
-                        tStripRightIndicator.Image = Properties.Resources.GradeLow1;
-                        tStripLeftIndicator.Image = Properties.Resources.GradeLow1;
+                            //lblCutDelta2.BackColor = Color.Lime;
+                        }
+                        else if (cutDeltaCenter < -1 && cutDeltaCenter > -3)
+                        {
+                            tStripCenterIndicator.Image = Properties.Resources.GradeLow1;
+                            tStripRightIndicator.Image = Properties.Resources.GradeLow1;
+                            tStripLeftIndicator.Image = Properties.Resources.GradeLow1;
 
-                        pbarCutAboveL.BarColorSolidB = Color.FromArgb(255, 18, 130, 18); ;
-                        pbarCutBelowL.BarColorSolidB = Color.FromArgb(255, 18, 130, 18); ;
-
-
-
-                    }
-
-                    else if ((cutDeltaCenter > 1 && cutDeltaCenter < 3))
-                    {
-                        tStripCenterIndicator.Image = Properties.Resources.GradeHigh1;
-                        tStripRightIndicator.Image = Properties.Resources.GradeHigh1;
-                        tStripLeftIndicator.Image = Properties.Resources.GradeHigh1;
-
-                        pbarCutAboveL.BarColorSolidB = Color.FromArgb(255, 18, 130, 18); ;
-                        pbarCutBelowL.BarColorSolidB = Color.FromArgb(255, 18, 130, 18); ;
+                            pbarCutAboveL.BarColorSolidB = Color.FromArgb(255, 18, 130, 18); ;
+                            pbarCutBelowL.BarColorSolidB = Color.FromArgb(255, 18, 130, 18); ;
 
 
-                    }
-                    else if (cutDeltaCenter < -3)
-                    {
-                        pbarCutAboveL.BarColorSolidB = Color.Red;
-                        pbarCutBelowL.BarColorSolidB = Color.RoyalBlue;
-                        pbarCutAboveR.BarColorSolidB = Color.Red;
-                        pbarCutBelowR.BarColorSolidB = Color.RoyalBlue;
-                        tStripCenterIndicator.Image = Properties.Resources.GradeLow2;
-                        tStripRightIndicator.Image = Properties.Resources.GradeLow2;
-                        tStripLeftIndicator.Image = Properties.Resources.GradeLow2;
+
+                        }
+
+                        else if ((cutDeltaCenter > 1 && cutDeltaCenter < 3))
+                        {
+                            tStripCenterIndicator.Image = Properties.Resources.GradeHigh1;
+                            tStripRightIndicator.Image = Properties.Resources.GradeHigh1;
+                            tStripLeftIndicator.Image = Properties.Resources.GradeHigh1;
+
+                            pbarCutAboveL.BarColorSolidB = Color.FromArgb(255, 18, 130, 18); ;
+                            pbarCutBelowL.BarColorSolidB = Color.FromArgb(255, 18, 130, 18); ;
 
 
-                    }
+                        }
+                        else if (cutDeltaCenter < -3)
+                        {
+                            pbarCutAboveL.BarColorSolidB = Color.Red;
+                            pbarCutBelowL.BarColorSolidB = Color.RoyalBlue;
+                            pbarCutAboveR.BarColorSolidB = Color.Red;
+                            pbarCutBelowR.BarColorSolidB = Color.RoyalBlue;
+                            tStripCenterIndicator.Image = Properties.Resources.GradeLow2;
+                            tStripRightIndicator.Image = Properties.Resources.GradeLow2;
+                            tStripLeftIndicator.Image = Properties.Resources.GradeLow2;
+
+
+                        }
                         // lblCutDelta.BackColor = Color.Tomato;
-                    else if (cutDeltaCenter > 3)
+                        else if (cutDeltaCenter > 3)
+                        {
+                            pbarCutAboveL.BarColorSolidB = Color.Red;
+                            pbarCutBelowL.BarColorSolidB = Color.RoyalBlue;
+                            pbarCutAboveR.BarColorSolidB = Color.Red;
+                            pbarCutBelowR.BarColorSolidB = Color.RoyalBlue;
+                            tStripCenterIndicator.Image = Properties.Resources.GradeHigh2;
+                            tStripRightIndicator.Image = Properties.Resources.GradeHigh2;
+                            tStripLeftIndicator.Image = Properties.Resources.GradeHigh2;
+
+
+
+
+                            //lblCutDelta2.BackColor = Color.Tomato;
+                        }
+
+                    }
+                    //update the online indicator
+                    if (recvCounter > 50)
                     {
-                        pbarCutAboveL.BarColorSolidB = Color.Red; 
-                        pbarCutBelowL.BarColorSolidB = Color.RoyalBlue; 
-                        pbarCutAboveR.BarColorSolidB = Color.Red;
-                        pbarCutBelowR.BarColorSolidB = Color.RoyalBlue;
-                        tStripCenterIndicator.Image = Properties.Resources.GradeHigh2;
-                        tStripRightIndicator.Image = Properties.Resources.GradeHigh2;
-                        tStripLeftIndicator.Image = Properties.Resources.GradeHigh2;
+                        stripOnlineGPS.Value = 1;
+                        ANTENNA1_LED.Value = 1;
+                        
+                        if (recvCounter == 51) { 
+                            MessageBox.Show(gStr.gsNoGPS);
 
 
-                    
+                            if (isAutoVert == true)
+                            {
+                                isAutoVert = false;
+                                mf.btnVertAuto.BackgroundImage = Properties.Resources.Toggle_Vert_MANUAL;
+                            }
+                            if (isAutoTilt == true) { 
+                                isAutoTilt = false;
+                                mf.btnTiltAuto.BackgroundImage = Properties.Resources.Toggle_Tilt_MANUAL;
+                            }
+                        }
+                        
 
-                      //lblCutDelta2.BackColor = Color.Tomato;
+
+
+                    }
+                    else stripOnlineGPS.Value = 100;
+
+                    if (mc.a1connectMsg.connected == 0)
+                    {
+                        SendUDPMessageJSON((int)ModuleType.Antenna_Master, (int)DataType.Connect, 1, epA1);
+
                     }
 
+                    if (mc.a2connectMsg.connected == 0)
+                    {
+                        SendUDPMessageJSON((int)ModuleType.Antenna_Slave, (int)DataType.Connect, 1, epA2);
+
+                    }
+
+                    if (mc.gcconnectMsg.connected == 0)
+                    {
+                        SendUDPMessageJSON((int)ModuleType.GradeControl_Slave, (int)DataType.Connect, 1, epGradeControl);
+
+                    }
+
+
+
+                    //SendUDPMessage(DATA_HEADER, epGradeControl);
                 }
-                //update the online indicator
-                if (recvCounter > 50)
-                {
-                   stripOnlineGPS.Value = 1;
-                   ANTENNA1_LED.Value = 1;
-                   
-                  
-                }
-                else stripOnlineGPS.Value = 100;
-
-                if (mc.a1connectMsg.connected == 0)
-                {
-                    SendUDPMessageJSON((int)ModuleType.Antenna_Master, (int)DataType.Connect, 1, epA1);
-
-                }
-
-                if (mc.a2connectMsg.connected == 0)
-                {
-                    SendUDPMessageJSON((int)ModuleType.Antenna_Slave, (int)DataType.Connect, 1, epA2);
-
-                }
-
-                if (mc.gcconnectMsg.connected == 0)
-                {
-                    SendUDPMessageJSON((int)ModuleType.GradeControl_Slave, (int)DataType.Connect, 1, epGradeControl);
-
-                }
-
-
-
-                //SendUDPMessage(DATA_HEADER, epGradeControl);
-            }     
-            //wait till timer fires again.     
+                //wait till timer fires again.     
+            }
         }
     }
 }

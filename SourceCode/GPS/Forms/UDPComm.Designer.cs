@@ -22,7 +22,7 @@ namespace OpenGrade
         private Socket sendSocket;
         private Socket recvSocket;
 
-        enum dataType {Connect, Data, Settings, Diagnostic, Error}
+        enum dataType {Connect, Data, Settings, Diagnostic, Error, NTRIP}
         enum moduleType { Antenna_Master, Antenna_Slave, Grade_Control_Slave}
 
 
@@ -75,6 +75,7 @@ namespace OpenGrade
         public void SendUDPMessageNTRIP(int header, byte[] byteData)
         {
             //tboxNTRIPBuffer.Text = byteData.Length.ToString();  
+
 
             try
             {
@@ -255,6 +256,19 @@ namespace OpenGrade
                                     break;
 
                                 case (int)dataType.Error:
+                                   
+
+                                    break;
+
+                                case (int)dataType.NTRIP:
+
+                                    root["modType"] = _mod;
+                                    root["msgType"] = _msg;
+                                    root["modId"] = _id;
+                                    root["RTCM"] = rtcm;
+                                    //root["RTCM"] = "BALLS";
+                                    root["readingId"] = mc.a1Firmware.readingId++;
+                                    jsonString = JsonSerializer.Serialize(root);
 
                                     break;
 
@@ -320,18 +334,34 @@ namespace OpenGrade
                                     root["modType"] = _mod;
                                     root["msgType"] = _msg;
                                     root["modId"] = _id;
-                                    root["modId"] = mc.a2Firmware.firmware;
-                                    root["modId"] = mc.a2Firmware.hardware;
+                                    root["fw"] = mc.a2Firmware.firmware;
+                                    root["hw"] = mc.a2Firmware.hardware;
                                     root["readingId"] = mc.a2Firmware.readingId;
                                     jsonString = JsonSerializer.Serialize(root);
 
                                     break;
 
                                 case (int)dataType.Error:
+                                    root["modType"] = _mod;
+                                    root["msgType"] = _msg;
+                                    root["modId"] = _id;                                    
+                                    root["readingId"] = mc.a2Firmware.readingId;
+                                    break;
 
+                                case (int)dataType.NTRIP:
+
+                                    root["modType"] = _mod;
+                                    root["msgType"] = _msg;
+                                    root["modId"] = _id;
+                                    root["RTCM"] = rtcm;
+                                    root["readingId"]= mc.a2Firmware.readingId;
+                                    jsonString = JsonSerializer.Serialize(root);
+                                    
                                     break;
 
                                 default:
+
+
 
                                     break;
                             }
@@ -511,14 +541,23 @@ namespace OpenGrade
                 case (byte)moduleType.Antenna_Master:
                     {
                         a1Timeout = 0;
-                        
+                        //mc.a1RawString = doc.ToString();
+                        mc.a1RawString = doc.RootElement.GetRawText();
+
+
                         if (msgType == (byte)dataType.Connect)
                         {
+
                             mc.a1connectMsg.modType = doc.RootElement.GetProperty("modType").GetByte();
                             mc.a1connectMsg.msgType = doc.RootElement.GetProperty("msgType").GetByte();
                             mc.a1connectMsg.modId = doc.RootElement.GetProperty("modId").GetByte();
                             mc.a1connectMsg.connected = doc.RootElement.GetProperty("connected").GetByte();
                             mc.a1connectMsg.readingId = doc.RootElement.GetProperty("readingId").GetUInt16();
+
+                            //mc.a1connectMsg.connected = 1;
+
+
+                            //SendUDPMessageJSON((int)CModuleComm.ModuleType.Antenna_Master, (int)CModuleComm.DataType.Connect, 1, epA1);
 
 
                         }
@@ -536,8 +575,14 @@ namespace OpenGrade
                             mc.a1Data.pitch = Convert.ToDouble(doc.RootElement.GetProperty("pitch").GetString());
                             mc.a1Data.yaw = Convert.ToDouble(doc.RootElement.GetProperty("yaw").GetString());
                             mc.a1Data.battery = doc.RootElement.GetProperty("battery").GetString();
-                            //mc.a1Data.readingId = doc.RootElement.GetProperty("readingId").GetUInt16();
                             mc.a1Data.readingId = doc.RootElement.GetProperty("readingId").GetUInt64();
+
+
+                            //if invert pitch or roll here 
+                            mc.a1Data.pitch *= -1;
+
+                            //SendUDPMessageJSON((int)CModuleComm.ModuleType.GradeControl_Slave, (int)CModuleComm.DataType.Diagnostic, 1, epA1);
+                            SendUDPMessageJSON((int)CModuleComm.ModuleType.Antenna_Master, (int)CModuleComm.DataType.Diagnostic, 1, epA1);
 
 
                             pn.rawBuffer = mc.a1Data.GGA + "\r\n";
@@ -583,7 +628,8 @@ namespace OpenGrade
                 case (byte)moduleType.Antenna_Slave:
                     {
                         a2Timeout = 0;
-                        
+                        mc.a2RawString = doc.RootElement.GetRawText();
+
                         if (msgType == (byte)dataType.Connect)
                         {
                             mc.a2connectMsg.modType = doc.RootElement.GetProperty("modType").GetByte();
@@ -649,6 +695,7 @@ namespace OpenGrade
                 case (byte)moduleType.Grade_Control_Slave:
                     {
                         gcTimeout = 0;
+                        mc.gcRawString = doc.RootElement.GetRawText();
 
                         if (msgType == (byte)dataType.Connect)
                         {
@@ -657,10 +704,17 @@ namespace OpenGrade
                             mc.gcconnectMsg.modId = doc.RootElement.GetProperty("modId").GetByte();
                             mc.gcconnectMsg.connected = doc.RootElement.GetProperty("connected").GetByte();
                             mc.gcconnectMsg.readingId = doc.RootElement.GetProperty("readingId").GetUInt64();
+                            SendUDPMessageJSON((int)CModuleComm.ModuleType.GradeControl_Slave, (int)CModuleComm.DataType.Settings, 1, epGradeControl);
 
                         }
                         if (msgType == (byte)dataType.Data)
                         {
+
+
+                            bool vi = false;
+                            bool ti = false;
+
+
                             mc.gcData.modType = doc.RootElement.GetProperty("modType").GetByte();
                             mc.gcData.msgType = doc.RootElement.GetProperty("msgType").GetByte();
                             mc.gcData.modId = doc.RootElement.GetProperty("modId").GetByte();
@@ -670,25 +724,24 @@ namespace OpenGrade
                             mc.gcData.setPointB = doc.RootElement.GetProperty("setpointB").GetInt16();
                             //mc.gcData.autoVert = doc.RootElement.GetProperty("autoVert").GetBoolean();
                             //mc.gcData.autoTilt = doc.RootElement.GetProperty("autoTilt").GetBoolean();
-                            mc.isAutoVertIn = doc.RootElement.GetProperty("autoVert").GetBoolean();
-                            mc.isAutoTiltIn = doc.RootElement.GetProperty("autoTilt").GetBoolean();
+                            vi = doc.RootElement.GetProperty("autoVert").GetBoolean();
+                            ti = doc.RootElement.GetProperty("autoTilt").GetBoolean();
                             mc.gcData.readingId = doc.RootElement.GetProperty("readingId").GetUInt64();
 
 
-
-
-
-                            if (mc.isAutoVertIn != mc.gcData.autoVert)
+                            if (mc.isAutoVertLast && !mc.gcData.autoVert) // if i
                             {
                                 //btnVertAuto.PerformClick();
-
+                                //repeatButton2.PerformClick();
                             }
-                           
 
-                            if (mc.isAutoTiltIn != mc.gcData.autoTilt)
+                            if (mc.isAutoTiltLast != mc.gcData.autoTilt)
                             {
 
                             }
+
+                            mc.isAutoVertLast = mc.gcData.autoVert;
+                            mc.isAutoTiltLast = mc.gcData.autoTilt;
 
                             SendUDPMessageJSON((int)CModuleComm.ModuleType.GradeControl_Slave, (int)CModuleComm.DataType.Data, 1, epGradeControl);
 

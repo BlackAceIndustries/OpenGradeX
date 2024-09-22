@@ -261,7 +261,7 @@ namespace OpenGrade
 
                         case FormGPS.gradeMode.ditch:
                             //draw the ground profile
-                            gl.Color(0.22f, 0.22f, 0.22f);
+                            gl.Color(.35f, .35f, .35f);
                             gl.Begin(OpenGL.GL_TRIANGLE_STRIP);
                             for (int i = 0; i < ptCnt; i++)
                             {
@@ -283,7 +283,7 @@ namespace OpenGrade
 
                         case FormGPS.gradeMode.tile:
                             //draw the ground profile
-                            gl.Color(0.22f, 0.22f, 0.22f);
+                            gl.Color(.35f, .35f, .35f);
                             gl.Begin(OpenGL.GL_TRIANGLE_STRIP);
                             for (int i = 0; i < ptCnt; i++)
                             {
@@ -293,24 +293,59 @@ namespace OpenGrade
                             }
                             gl.End();
 
-                            gl.LineWidth(3);
-                            gl.Begin(OpenGL.GL_LINE_STRIP);
 
-                            gl.Color(1.0f, 0.2f, 0.2f); // MaxDepth 
+                            gl.Color(1.0f, 0.2f, 0.2f);
+                            gl.Begin(OpenGL.GL_TRIANGLE_STRIP);
+                            //gl.Begin(OpenGL.GL_LINE_STRIP);
+
+                            gl.Color(1.0f, 0.2f, 0.2f,0.5f); // MaxDepth 
                             for (int i = 0; i < ptCnt; i++)
-                            {
+                            { 
+                                gl.Vertex(i, ((((mf.ct.ptList[i].altitude - mf.vehicle.minTileCover) - centerY) * altitudeWindowGain) + centerY), 0);
                                 gl.Vertex(i, ((((mf.ct.ptList[i].altitude - mf.vehicle.maxTileCut) - centerY) * altitudeWindowGain) + centerY), 0);
+                               
                             }
                             gl.End();
-
-                            gl.LineWidth(3);
-                            gl.Begin(OpenGL.GL_LINE_STRIP);
-                            gl.Color(0.88f, 0.83f, 0.15f);  // MinCover
+                            
+                            
+                            
+                            gl.Begin(OpenGL.GL_TRIANGLE_STRIP);
+                            gl.Color(0.88f, 0.83f, 0.15f, 0.5f); // MaxDepth 
                             for (int i = 0; i < ptCnt; i++)
                             {
                                 gl.Vertex(i, ((((mf.ct.ptList[i].altitude - mf.vehicle.minTileCover) - centerY) * altitudeWindowGain) + centerY), 0);
+                                gl.Vertex(i, ((((mf.ct.ptList[i].altitude - mf.vehicle.minTileCover - .30) - centerY) * altitudeWindowGain) + centerY), 0);
+
                             }
                             gl.End();
+
+
+
+
+                            // Define depth intervals
+                            double depthInterval = .30f; // Adjust this for your needs
+                            int numberOfMarkers = 25; // Adjust based on how many markers you want
+                            gl.Color(0.0f, 0.0f, 0.0f, 0.9f); // Black or any other color for depth markings
+                            gl.LineWidth(1);
+                            // Draw vertical depth markings
+                            for (int i = 0; i <= numberOfMarkers; i++)
+                            {
+                                //double depthMarkY = centerY - (i * depthInterval * altitudeWindowGain);
+
+                                double depthMarkY = (maxFieldY + centerY) - (i * depthInterval * altitudeWindowGain);
+                                gl.Begin(OpenGL.GL_LINES);
+
+                                // Vertical line marking
+                                gl.Vertex(0, depthMarkY, 0); // Starting point of the line
+                                gl.Vertex(ptCnt - 1, depthMarkY, 0); // End point of the line (across the profile)
+
+                                gl.End();
+                            }
+
+
+
+
+                            //(((mf.ct.ptList[i].altitude - centerY) * altitudeWindowGain) + centerY), 0);
                             break;
 
                         default:
@@ -367,16 +402,16 @@ namespace OpenGrade
                    
                     if (mf.ct.ptList.Count > 0 && !mf.ct.isContourOn)
                        {
-                        gl.LineWidth(3);
+                        gl.LineWidth(4);
                         gl.Begin(OpenGL.GL_LINES);
                         gl.Color(0.00f, 0.90f, 0.90f);
                         gl.Vertex(screen2FieldPt.easting - .5, (((screen2FieldPt.northing - centerY) * altitudeWindowGain) + centerY), 0);
                         gl.Vertex(screen2FieldPt.easting - .5, (((mf.ct.ptList[(int)screen2FieldPt.easting].cutAltitude - centerY)) * altitudeWindowGain) + centerY, 0);
                         gl.End();
 
-
                         gl.Begin(OpenGL.GL_LINES);
-                        gl.Color(1.0f, 0.0f, 0.00f);
+                        gl.Color(1.0f, 1.0f, 0.00f);
+                        //gl.Color(1.0f, 0.0f, 0.00f);
                         gl.Vertex(screen2FieldPt.easting + .5, (((mf.ct.ptList[(int)screen2FieldPt.easting].altitude - centerY) * altitudeWindowGain) + centerY), 0);
                         gl.Vertex(screen2FieldPt.easting + .5, (((mf.ct.ptList[(int)screen2FieldPt.easting].cutAltitude - centerY)) * altitudeWindowGain) + centerY, 0);
                         gl.End();
@@ -485,7 +520,19 @@ namespace OpenGrade
                             //AutoShore Active
                             if (mf.isAutoShoreOn)
                             {
-                                double xy = (Math.Tan(glm.toRadians(mf.vehicle.minCrossSlope)) * mf.ct.distanceFromCurrentLine);
+                                //double xy = (Math.Tan(glm.toRadians(mf.vehicle.minCrossSlope/100)) * mf.ct.distanceFromCurrentLine);
+
+                                double slopeAsDecimal = mf.vehicle.minCrossSlope / 100.0;
+
+                                // Use Math.Atan to get the angle in radians
+                                double angleInRadians = Math.Atan(slopeAsDecimal);
+
+                                // Convert the angle to degrees
+                                double angleInDegrees = angleInRadians * (180.0 / Math.PI);
+
+                                double xy = (Math.Tan(angleInRadians) * mf.ct.distanceFromCurrentLine);
+
+
                                 mf.cutDeltaCenter += xy;
                             }
 
@@ -717,8 +764,20 @@ namespace OpenGrade
             if (mf.ct.ptList.Count > 0 && !mf.ct.isContourOn)
             {
                 int pnt = (int)screen2FieldPt.easting;
-                double x = mf.ct.ptList[pnt].altitude - mf.ct.ptList[pnt].cutAltitude;
-                double y = screen2FieldPt.northing - mf.ct.ptList[pnt].cutAltitude;
+                double x =0;
+
+                if (pnt >= 0 && pnt < mf.ct.ptList.Count-1)
+                {
+                    x = mf.ct.ptList[pnt].altitude - mf.ct.ptList[pnt].cutAltitude;
+
+
+                }
+
+                
+               
+                    double y = screen2FieldPt.northing - mf.ct.ptList[pnt].cutAltitude;
+
+                   
 
                 x *= 100;
                 y *= 100;
@@ -894,23 +953,25 @@ namespace OpenGrade
 
                 if (cameraDistanceZ < 10) cameraDistanceZ = 10;
                 if (cameraDistanceZ > 6000) cameraDistanceZ = 6000;
-
+                
+                
+                //cameraDistanceZ -= 300;
 
                 // Black Ace Industries
                 switch (mf.curMode)
                 {
                     case gradeMode.surface:
-                        maxFieldY = (maxFieldY + .3); // vehicle.viewDistAboveGnd
-                        minFieldY = (minFieldY - .3);    //  vehicle.viewDistUnderGnd
+                        //maxFieldY = (maxFieldY + .3); // vehicle.viewDistAboveGnd
+                        //minFieldY = (minFieldY - .1);    //  vehicle.viewDistUnderGnd
                         break;
 
                     case gradeMode.ditch:
-                        maxFieldY = (maxFieldY + 1);
+                        //maxFieldY = (maxFieldY + 1);
                         minFieldY = (minFieldY - mf.vehicle.maxDitchCut);
                         break;
 
                     case gradeMode.tile:
-                        maxFieldY = (maxFieldY + 1);
+                        //maxFieldY = (maxFieldY + 1);
                         minFieldY = (minFieldY - mf.vehicle.maxTileCut);
                         break;
 
@@ -1085,6 +1146,16 @@ namespace OpenGrade
             tStrip2.Text = mf.slopeDraw.ToString("F2");
             tStrip3.Text = mf.ct.GetMaxCut().ToString("F2");
 
+            //tStripSlopeAuto.Text = m
+
+
+
+            tStripSlopeAuto.Text = mf.vehicle.minSlope.ToString("F2") + " % ";
+            tStripShoreAuto.Text = mf.vehicle.minCrossSlope.ToString("F2") + " % ";
+
+
+            //toolStripStatusLabel3
+
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -1097,6 +1168,16 @@ namespace OpenGrade
             //mf.ct.Update();
                //mf.ct.ptList.Clear();
             //mf.ct.ptList.Add(mf.ct.autoList);
+        }
+
+        private void toolStripStatusLabel12_Click(object sender, EventArgs e)
+        {
+            mf.SettingsPageOpen(1);
+        }
+
+        private void toolStripStatusLabel11_Click(object sender, EventArgs e)
+        {
+            mf.SettingsPageOpen(1);
         }
 
         private void button1_Click(object sender, EventArgs e)

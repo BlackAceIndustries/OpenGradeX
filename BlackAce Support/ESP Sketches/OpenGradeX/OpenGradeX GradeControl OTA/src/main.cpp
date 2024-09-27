@@ -30,8 +30,8 @@
 ///
 /// BUILD VERSION
 ///
-const char *hwVersion = "1.4.2.0";
-const char *fwVersion = "1.4.2.0";
+const char *hwVersion = "1.2.2.0";
+const char *fwVersion = "2.3.1.0";
 
 // Function STUBS for Platform IO
 
@@ -599,6 +599,7 @@ bool RecvUdpDataJSON()
       watchdogTimer = 0;      
       if (msgType == int(Connect))
       {
+        
         connectMsg.modType = root["modType"].as<uint8_t>();  
         connectMsg.msgType = root["msgType"].as<uint8_t>();
         connectMsg.modId = root["modId"].as<uint8_t>();
@@ -608,7 +609,8 @@ bool RecvUdpDataJSON()
         if(connectMsg.connected == 0){             
           connectMsg.connected = 1;  
           
-          SendUdpDataJSON(Grade_Control_Slave, Connect, 1 );                
+          SendUdpDataJSON(Grade_Control_Slave, Connect, 1 );              
+
         }
         
       }

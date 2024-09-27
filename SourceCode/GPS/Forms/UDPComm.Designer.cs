@@ -554,7 +554,7 @@ namespace OpenGrade
                             mc.a1connectMsg.connected = doc.RootElement.GetProperty("connected").GetByte();
                             mc.a1connectMsg.readingId = doc.RootElement.GetProperty("readingId").GetUInt16();
 
-                            //mc.a1connectMsg.connected = 1;
+                            //mc.a1connectMsg.connected = 1;connected
 
 
                             //SendUDPMessageJSON((int)CModuleComm.ModuleType.Antenna_Master, (int)CModuleComm.DataType.Connect, 1, epA1);

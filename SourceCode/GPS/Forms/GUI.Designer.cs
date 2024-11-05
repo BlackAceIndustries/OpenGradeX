@@ -1368,12 +1368,6 @@ namespace OpenGrade
                     fiveSecondCounter = 0;
 
                 }
-                //SendUDPMessageJSON((int)CModuleComm.ModuleType.GradeControl_Slave, (int)CModuleComm.DataType.Data, 1, epGradeControl);
-
-
-
-
-
 
                 //Antenna 1 
                 if (a1Timeout > 50)
@@ -1472,37 +1466,37 @@ namespace OpenGrade
                         RTK_LED.Value = 100;
                         // RTK_LED.ForeColor = Color.Yellow;
                         PanelDisplays.BackColor = Color.Yellow;
-                        btnVertAuto.Enabled = false;
-                        btnTiltAuto.Enabled = false;
+                       btnVertAuto.Enabled = false;
+                       btnTiltAuto.Enabled = false;
 
-                        if (isAutoVert == true )
-                        {
-                            isAutoVert = false;
-                            btnVertAuto.BackgroundImage = Properties.Resources.Toggle_Vert_MANUAL;
-                        }
-                        if (isAutoTilt == true)
-                        {
-                            isAutoTilt = false;
-                            btnTiltAuto.BackgroundImage = Properties.Resources.Toggle_Tilt_MANUAL;
-                        }
+                       if (isAutoVert == true )
+                       {
+                           isAutoVert = false;
+                           btnVertAuto.BackgroundImage = Properties.Resources.Toggle_Vert_MANUAL;
+                       }
+                       if (isAutoTilt == true)
+                       {
+                           isAutoTilt = false;
+                           btnTiltAuto.BackgroundImage = Properties.Resources.Toggle_Tilt_MANUAL;
+                       }
                     }
                     else if (FixQuality == "GPS fix" || FixQuality == "DGPS fix")
                     {
                         RTK_LED.Value = 0;
                         PanelDisplays.BackColor = Color.DarkOrange;
-                        btnVertAuto.Enabled = false;
-                        btnTiltAuto.Enabled = false;
+                       btnVertAuto.Enabled = false;
+                       btnTiltAuto.Enabled = false;
 
-                        if (isAutoVert == true)
-                        {
-                            isAutoVert = false;
-                            btnVertAuto.BackgroundImage = Properties.Resources.Toggle_Vert_MANUAL;
-                        }
-                        if (isAutoTilt == true)
-                        {
-                            isAutoTilt = false;
-                            btnTiltAuto.BackgroundImage = Properties.Resources.Toggle_Tilt_MANUAL;
-                        }
+                       if (isAutoVert == true)
+                       {
+                           isAutoVert = false;
+                           btnVertAuto.BackgroundImage = Properties.Resources.Toggle_Vert_MANUAL;
+                       }
+                       if (isAutoTilt == true)
+                       {
+                           isAutoTilt = false;
+                           btnTiltAuto.BackgroundImage = Properties.Resources.Toggle_Tilt_MANUAL;
+                       }
                     }
                     else if (FixQuality == "")
                     {
@@ -1589,15 +1583,8 @@ namespace OpenGrade
                     mc.pitchIMU = mc.a1Data.pitch - mc.imuPitchOffset;
                     mc.rollIMU= mc.a1Data.roll - mc.imuRollOffset;
                     mc.headingIMU = mc.a1Data.yaw - mc.imuYawOffset;
-
-                    double angleInRadians = mc.pitchIMU * (Math.PI / 180.0);
-                    double slopeAsDecimal = Math.Tan(angleInRadians);
-                    double slopePercentage = slopeAsDecimal * 100.0;
-                    mc.pitchSlope = slopePercentage;
-                    angleInRadians = mc.rollIMU * (Math.PI / 180.0);
-                    slopeAsDecimal = Math.Tan(angleInRadians);
-                    double rollslopePercentage = slopeAsDecimal * 100.0;
-                    mc.rollSlope = slopePercentage;
+                    mc.pitchSlope = glm.DegreetoSlope(mc.pitchIMU);
+                    mc.rollSlope = glm.DegreetoSlope(mc.rollIMU);
 
 
 
@@ -1605,8 +1592,8 @@ namespace OpenGrade
                     tStripPitch.Text = mc.pitchIMU.ToString("F2");
                     tStripRoll.Text = mc.rollSlope.ToString("F2");
                     tStripAltitude.Text = pn.altitude.ToString("F3");
-                    tStripHDOP.Text = pn.hdop.ToString("F2");
-                    tStripVDOP.Text = pn.vdop.ToString("F2");
+                    tStripHeading.Text = glm.toDegrees(fixHeading).ToString("F2");
+                    tStripSlope.Text = glm.RadiantoSlope(slopeHeading).ToString("F2");
                     tStrip3.Text = userDistance.ToString("F3") + " m";
 
 
@@ -1617,43 +1604,18 @@ namespace OpenGrade
 
                     //up in the menu a few pieces of info
                     if (isJobStarted)
-                    {
-                        //lblEasting.Text = "E: " + Math.Round(pn.easting, 1).ToString();
-                        //lblNorthing.Text = "N: " + Math.Round(pn.northing, 1).ToString();
-                    }
+                    { }
+
                     else
                     {
-                        //lblEasting.Text = "E: " + ((int)pn.actualEasting).ToString();
-                        //lblNorthing.Text = "N: " + ((int)pn.actualNorthing).ToString();
                     }
-
-                    //lblZone.Text = pn.zone.ToString();
-                    //tboxSentence.Text = pn.rawBuffer;
-
-                    // }
 
                     //the main formgps window
                     if (isMetric)  //metric or imperial
                     {
-                        //Hectares on the master section soft control and sections
-                        //lblSpeed.Text = SpeedKPH;
-
-                        //status strip values
-                        // stripDistance.Text = Convert.ToString((UInt16)(userDistance)) + " m";
-                        //lblAltitude.Text = Altitude;
-                        //lblAltitude2.Text = Altitude;
-                        //btnZeroAltitude.Text = (pn.altitude - ct.zeroAltitude).ToString("N2");
                     }
                     else  //Imperial Measurements
                     {
-                        //acres on the master section soft control and sections
-                        //lblSpeed.Text = SpeedMPH;
-
-                        //status strip values
-                        //stripDistance.Text = Convert.ToString((UInt16)(userDistance * 3.28084)) + " ft";
-                        //lblAltitude.Text = AltitudeFeet;
-                        //lblAltitude2.Text = AltitudeFeet;
-                        //btnZeroAltitude.Text = ((pn.altitude - ct.zeroAltitude) * glm.m2ft).ToString("N2");
                     }
 
 
@@ -1755,13 +1717,16 @@ namespace OpenGrade
                         pbarCutBelowR.Value = 0;
 
                     }
+
+
+
                     else
                     {
-
-                        if (FixQuality == "RTK fix")
+                        if(!isManualOverride)
                         {
                             mc.gcData.deltaA = (int)cutDeltaCenter;
                         }
+                        
                         //
                         //mc.gcData.deltaA = (int)cutDeltaCenter;
                         // FILL IN BAR GRAPHS                    

@@ -850,7 +850,7 @@
             resources.ApplyResources(this.nudExtDeadband, "nudExtDeadband");
             this.nudExtDeadband.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.nudExtDeadband.Maximum = new decimal(new int[] {
-            25,
+            255,
             0,
             0,
             0});
@@ -867,7 +867,7 @@
             resources.ApplyResources(this.nudRetDeadband, "nudRetDeadband");
             this.nudRetDeadband.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.nudRetDeadband.Maximum = new decimal(new int[] {
-            25,
+            255,
             0,
             0,
             0});
@@ -1055,6 +1055,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormSettings";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.FormSettings_Load);
             this.tabIMU.ResumeLayout(false);
             this.tabIMU.PerformLayout();

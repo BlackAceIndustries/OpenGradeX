@@ -64,7 +64,9 @@ namespace OpenGrade
 
             degrees = headingTrue * 57.2958;
             degrees = Math.Round(degrees, 1);
-            //lblHeading.Text = degrees.ToString();
+
+
+
 
             //Calculate the next Lat Long based on heading and distance
             CalculateNewPostionFromBearingDistance(latitude, longitude, degrees, stepDistance / 1000.0);

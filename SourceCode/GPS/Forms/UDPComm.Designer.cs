@@ -554,8 +554,6 @@ namespace OpenGrade
                             mc.a1connectMsg.connected = doc.RootElement.GetProperty("connected").GetByte();
                             mc.a1connectMsg.readingId = doc.RootElement.GetProperty("readingId").GetUInt16();
 
-                            //mc.a1connectMsg.connected = 1;connected
-
 
                             //SendUDPMessageJSON((int)CModuleComm.ModuleType.Antenna_Master, (int)CModuleComm.DataType.Connect, 1, epA1);
 
@@ -581,8 +579,8 @@ namespace OpenGrade
                             //if invert pitch or roll here 
                             mc.a1Data.pitch *= -1;
 
-                            //SendUDPMessageJSON((int)CModuleComm.ModuleType.GradeControl_Slave, (int)CModuleComm.DataType.Diagnostic, 1, epA1);
-                            SendUDPMessageJSON((int)CModuleComm.ModuleType.Antenna_Master, (int)CModuleComm.DataType.Diagnostic, 1, epA1);
+                            SendUDPMessageJSON((int)CModuleComm.ModuleType.GradeControl_Slave, (int)CModuleComm.DataType.Diagnostic, 1, epA1);
+                            //SendUDPMessageJSON((int)CModuleComm.ModuleType.Antenna_Master, (int)CModuleComm.DataType.Diagnostic, 1, epA1);
 
 
                             pn.rawBuffer = mc.a1Data.GGA + "\r\n";
@@ -590,7 +588,7 @@ namespace OpenGrade
                             pn.rawBuffer = pn.rawBuffer + mc.a1Data.GSA + "\r\n";
                             recvSentenceSettings = pn.rawBuffer;
 
-                            //SendUDPMessageJSON((int)CModuleComm.ModuleType.Antenna_Master, (int)CModuleComm.DataType.Data, 1, epAntennaModule);
+                            //SendUDPMessageJSON((int)CModuleComm.ModuleType.Antenna_Master, (int)CModuleComm.DataType.Data, 1, epA1);
 
 
 

@@ -80,9 +80,9 @@ namespace OpenGrade
         public double bladeAngle = 0.0;
 
 
-        public vec2 lookaheadCenter = new vec2( 0, 0);
-        public vec2 lookaheadRight = new vec2(0, 0);
-        public vec2 lookaheadLeft = new vec2(0, 0);
+        public vec4 lookaheadCenter = new vec4( 0, 0,0,0);
+        public vec4 lookaheadRight = new vec4(0, 0,0,0);
+        public vec4 lookaheadLeft = new vec4(0, 0,0,0);
 
         public vec2 GuideLine1 = new vec2(0, 0);
         public vec2 GuideLine2 = new vec2(0, 0);

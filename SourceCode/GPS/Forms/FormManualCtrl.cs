@@ -81,40 +81,63 @@ namespace OpenGrade
         {
             lblTargetPitch.Text = manTargetPitch.ToString("F2");
 
+            double temp = 0;
+
+            if (mf.mc.gcData.setPointA < 2048)
+            {
+                temp = (2048-(4096 - mf.mc.gcData.setPointA))/16;
+            }
+            if (mf.mc.gcData.setPointA > 2048)
+            {
+                temp = (mf.mc.gcData.setPointA - 2048)/16;
+
+            }
+
+
+            label5.Text = (mf.mc.gcData.setPointA).ToString("F2");
+            label6.Text = temp.ToString("F2");
+            label1.Text = (mf.mc.gcData.deltaA).ToString("F2");
+            
+
 
         }
         private void timer2_Tick(object sender, EventArgs e)
         {
-            //mf.mc.gcData.deltaA = (int)(mf.mc.pitchSlope - manTargetPitch);
+           
 
-            mf.mc.gcData.deltaA = (int)((mf.mc.pitchSlope - manTargetPitch) * 100.0);
-        } 
+            if (mf.isManualOverride)
+            {
+                mf.mc.gcData.deltaA = (int)((mf.mc.pitchSlope - manTargetPitch) * 10.0);
+            }
+
+
+        }
 
         private void btnValveAUp_MouseDown(object sender, MouseEventArgs e)
         {
-            mf.mc.gcData.deltaA = 1000;
-            //timer1.Start();
-            
-            //mf.cutDeltaCenter = 255;
+            mf.mc.gcData.deltaA = -100;
+            btnValveAUp.BackColor = Color.Lime;
         }
 
         private void btnValveAUp_MouseUp(object sender, MouseEventArgs e)
         {
             mf.mc.gcData.deltaA = 0;
-            //timer1.Stop();
-            
+            btnValveAUp.BackColor = Color.DimGray;
+
+
+
         }
         private void btnValveADown_MouseDown(object sender, MouseEventArgs e)
         {  
-            mf.mc.gcData.deltaA = -1000;         
-            //timer2.Start();
-            
+            mf.mc.gcData.deltaA = 100;
+            btnValveADown.BackColor = Color.Lime;
+
         }
 
         private void btnValveADown_MouseUp(object sender, MouseEventArgs e)
         {
             mf.mc.gcData.deltaA = 0;
-            //timer2.Stop();
+            btnValveADown.BackColor = Color.DimGray;
 
         }
 
@@ -135,31 +158,39 @@ namespace OpenGrade
 
         private void btnValveBDown_Click(object sender, EventArgs e)
         {
-            manTargetPitch -= .01;
+            manTargetPitch -= .1;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //OpenGrade.Properties.Resources.OK64
-            if (mf.mc.gcData.autoVert)
+
+
+            if (!mf.isManualOverride)// && 
             {
-                mf.mc.gcData.autoVert = false;
-                button1.Image = OpenGrade.Properties.Resources.Cancel64;
-                //timer1.Enabled = false;
-                //timer2.Enabled = false;
-                btnValveADown.Enabled = false;
-                btnValveAUp.Enabled = false;
+                mf.isManualOverride = true;                
+                mf.mc.gcData.autoVert = true;               
+                button1.BackColor = Color.LimeGreen;
+                button1.Text = "ENABLED";
+                btnValveADown.Enabled = true;
+                btnValveAUp.Enabled = true;
+                mf.mc.gcData.deltaA = 0;
             }
             else
             {
-                mf.mc.gcData.autoVert = true;
-                button1.Image = OpenGrade.Properties.Resources.OK64;
-                //timer1.Enabled = true;
-                //timer2.Enabled = true;
-                btnValveADown.Enabled = true;
-                btnValveAUp.Enabled = true;
-                //timer1.Stop();
-                //timer2.Stop();
+                mf.isManualOverride = false;
+                mf.mc.gcData.autoVert = false;
+                button1.Text = "DISABLED";
+                button1.BackColor = Color.IndianRed;
+                btnValveADown.Enabled = false;
+                btnValveAUp.Enabled = false;
+
+                if (mf.isAutoVert)
+                {
+                    mf.mc.gcData.autoVert = true;
+                    mf.mc.gcData.deltaA = 0;
+
+                }
+
 
             }
 
@@ -189,23 +220,45 @@ namespace OpenGrade
 
         private void btnValveBUp_Click_1(object sender, EventArgs e)
         {
-            manTargetPitch += .01;
+            manTargetPitch += .1;
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox1.Checked == true)
             {
-                timer2.Enabled = true;
-                mf.mc.gcData.deltaA = (int)((mf.mc.pitchSlope - manTargetPitch)*10.0);
+                timer2.Enabled = true;                
+                  mf.mc.gcData.deltaA = (int)((mf.mc.pitchSlope - manTargetPitch)*10.0);                       
+                                
             }
             else
             {
                 timer2.Enabled = false;
                 mf.mc.gcData.deltaA = 0;
+                                
             }
             
             
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            mf.mc.gcData.deltaA += 1;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            mf.mc.gcData.deltaA -= 1;
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            mf.SettingsPageOpen(0);
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         private void lblUserOne_Click(object sender, EventArgs e)
@@ -229,6 +282,7 @@ namespace OpenGrade
         {
             mf.mc.gcData.autoVert = false;
             mf.mc.gcData.deltaA = 0;
+            mf.isManualOverride = false;
 
 
         }

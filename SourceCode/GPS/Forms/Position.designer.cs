@@ -38,7 +38,7 @@ namespace OpenGrade
         public vec2 prevFix = new vec2(0, 0);
 
         //headings
-        public double fixHeading = 0.0, camHeading = 0.0, camOffset = 0, gpsHeading = 0.0, prevGPSHeading = 0.0, prevPrevGPSHeading = 0.0;
+        public double fixHeading = 0.0, camHeading = 0.0, camOffset = 0, gpsHeading = 0.0, prevGPSHeading = 0.0, prevPrevGPSHeading = 0.0, slopeHeading= 0.0, altitudeHeading = 0.0;
         public bool isTurningRight = false;
         public bool isTurning = false;
 
@@ -79,9 +79,11 @@ namespace OpenGrade
 
         //step position - slow speed spinner killer
         private int totalFixSteps = 10, currentStepFix = 0;
-        private vec3 vHold;
-        public vec3[] stepFixPts = new vec3[50];
-        public double distanceCurrentStepFix = 0, fixStepDist, minFixStepDist = 0;        
+        private vec4 vHold;
+        public vec4[] stepFixPts = new vec4[50];
+        //public vec4[] stepFixPtsAlt = new vec4[50];
+        public double distanceCurrentStepFix = 0, fixStepDist, minFixStepDist = 1;
+        public double distanceCurrentStepAlt = 0, AltStepDist, minAltStepDist = 1;
         bool isFixHolding = false, isFixHoldLoaded = false;
         
         //called by watchdog timer every 50 ms
@@ -202,33 +204,18 @@ namespace OpenGrade
                     pitchCorrectionAltitude =   vehicle.antennaHeight - pitchCorrectionAltitude;
                     pitchCorrectionAltitude = pitchCorrectionAltitude / 10;
 
-                    //tStripHorizontalOffset.Text = rollCorrectionAltitude.ToString("F2");
-                    //tStripVerticalOffset.Text = rollCorrectionDistance.ToString("F2");
-
-                    //tStripRollCorrection.Text = pitchCorrectionDistance.ToString("F3");
-                    //tStripPitchCorrection.Text = pitchCorrectionAltitude.ToString("F3");
-
-
                     // tilt to front is positive  **** important!!
                     if (pitchdist > 0)
                     {
                         pn.easting += (Math.Sin(fixHeading) * pitchCorrectionDistance);                        
                         pn.northing += (Math.Cos(fixHeading) * -pitchCorrectionDistance);
                         pn.altitude += pitchCorrectionAltitude;
-
-                        //pn.PitchCorrectedFix.easting += (Math.Sin(fixHeading) * pitchCorrectionDistance);
-                        //pn.PitchCorrectedFix.northing += (Math.Cos(fixHeading) * -pitchCorrectionDistance);
-                        //pn.PitchCorrectedFix.altitude += pitchCorrectionAltitude;
                     }
                     else
                     {
                         pn.easting += (Math.Sin(fixHeading) * -pitchCorrectionDistance);                        
                         pn.northing += (Math.Cos(fixHeading) * pitchCorrectionDistance);
                         pn.altitude += pitchCorrectionAltitude;
-
-                        //pn.PitchCorrectedFix.easting += (Math.Sin(fixHeading) * -pitchCorrectionDistance);
-                        //pn.PitchCorrectedFix.northing += (Math.Cos(fixHeading) * pitchCorrectionDistance);
-                        //pn.PitchCorrectedFix.altitude += pitchCorrectionAltitude;
                     }
                 }
             }
@@ -239,14 +226,17 @@ namespace OpenGrade
 
             //grab the most current fix and save the distance from the last fix
             distanceCurrentStepFix = pn.Distance(pn.northing, pn.easting, stepFixPts[0].northing, stepFixPts[0].easting);
-            fixStepDist = distanceCurrentStepFix;
+            distanceCurrentStepAlt = pn.altitude - stepFixPts[0].altitude;
 
+            fixStepDist = distanceCurrentStepFix;
             //if  min distance isn't exceeded, keep adding old fixes till it does
             if (distanceCurrentStepFix <= minFixStepDist)
             {
                 for (currentStepFix = 0; currentStepFix < totalFixSteps; currentStepFix++)
                 {
                     fixStepDist += stepFixPts[currentStepFix].heading;
+                    AltStepDist += stepFixPts[currentStepFix].altitude;
+
                     if (fixStepDist > minFixStepDist)
                     {
                         //if we reached end, keep the oldest and stay till distance is exceeded
@@ -254,7 +244,9 @@ namespace OpenGrade
                         isFixHolding = false;
                         break;
                     }
+
                     else isFixHolding = true;
+
                 }
             }
 
@@ -277,23 +269,27 @@ namespace OpenGrade
                 stepFixPts[0].heading = pn.Distance(pn.northing, pn.easting, stepFixPts[0].northing, stepFixPts[0].easting);
                 stepFixPts[0].easting = pn.easting;
                 stepFixPts[0].northing = pn.northing;
+                stepFixPts[0].altitude = pn.altitude;
 
                 //reload the last position that was triggered.
                 stepFixPts[(totalFixSteps - 1)].heading = pn.Distance(vHold.northing, vHold.easting, stepFixPts[(totalFixSteps - 1)].northing, stepFixPts[(totalFixSteps - 1)].easting);
                 stepFixPts[(totalFixSteps - 1)].easting = vHold.easting;
                 stepFixPts[(totalFixSteps - 1)].northing = vHold.northing;
+                stepFixPts[(totalFixSteps - 1)].altitude = vHold.altitude;
+
             }
 
             else //distance is exceeded, time to do all calcs and next frame
             {
                 //positions and headings 
-                CalculatePositionHeading();
+                CalculatePositionHeading();                
 
                 //get rid of hold position
                 isFixHoldLoaded = false;
 
                 //don't add the total distance again
-                stepFixPts[(totalFixSteps - 1)].heading = 0;
+                stepFixPts[(totalFixSteps - 1)].heading = 0;                
+                stepFixPts[(totalFixSteps - 1)].altitude = 0;
 
                 //grab sentences for logging
                 if (isLogNMEA)
@@ -304,15 +300,11 @@ namespace OpenGrade
                     }
                 }
 
-                //add another point if on
-                //AddSectionContourPathPoints();
 
                 //To prevent drawing high numbers of triangles, determine and test before drawing vertex
                 sectionTriggerDistance = pn.Distance(pn.northing, pn.easting, prevContourPos.northing, prevContourPos.easting);
-
-             
+                             
                 //numTriangles
-
                 UpdateBladeEnds();
 
                 //section on off and points, contour points
@@ -323,18 +315,9 @@ namespace OpenGrade
                     AddSectionContourPathPoints();
                 }
 
-
                 //calc distance travelled since last GPS fix
                 distance = pn.Distance(pn.northing, pn.easting, prevFix.northing, prevFix.easting);
                 if ((userDistance += distance) > 9000) userDistance = 0; ;//userDistance can be reset
-
-
-                //calc distance travelled since last GPS fix
-                //distance = pn.Distance(pn.northing, pn.easting, prevFix.northing, prevFix.easting);
-                //if ((userDistance += distance) > 9000) userDistance = 0; ;//userDistance can be reset
-
-
-
 
 
                 //most recent fixes are now the prev ones
@@ -345,6 +328,8 @@ namespace OpenGrade
                 stepFixPts[0].heading = pn.Distance(pn.northing, pn.easting, stepFixPts[0].northing, stepFixPts[0].easting);
                 stepFixPts[0].easting = pn.easting;
                 stepFixPts[0].northing = pn.northing;
+                stepFixPts[0].altitude = pn.altitude; 
+
             }
             #endregion fix
 
@@ -353,20 +338,108 @@ namespace OpenGrade
             //guidanceLineDistanceOff = 32000;    //preset the values
 
             //do the distance from line calculations for contour and AB
-            if (ct.isContourBtnOn) ct.DistanceFromContourLine();
+            if (ct.isContourBtnOn) ct.DistanceFromContourLine(); 
 
-            if (ABLine.isABLineSet && !ct.isContourBtnOn)
-            {
-                ABLine.GetCurrentABLine();
-            }
-
-            
             #endregion
-            
+
             //openGLControl_Draw routine triggered manuallyrollIMU
             openGLControl.DoRender();
 
         //end of UppdateFixPosition
+        }
+
+        //all the hitch, pivot, section, trailing hitch, headings and fixes
+        private void CalculatePositionHeading()
+        {
+            gpsHeading = Math.Atan2(pn.easting - stepFixPts[currentStepFix].easting, pn.northing - stepFixPts[currentStepFix].northing);
+            if (gpsHeading < 0) gpsHeading += glm.twoPI;
+            fixHeading = gpsHeading;
+
+            //pn.headingTrue = fixHeading;
+
+            //double altdiff = pn.altitude - stepFixPts[currentStepFix].altitude;
+            //double horizontaldiff = pn.Distance(pn.northing, pn.easting, stepFixPts[currentStepFix].northing, stepFixPts[currentStepFix].easting);
+            //altitudeHeading = Math.Atan2(altdiff, horizontaldiff);
+
+
+            altitudeHeading = Math.Atan2(pn.altitude - stepFixPts[currentStepFix].altitude, 
+                pn.Distance(pn.northing, pn.easting, stepFixPts[currentStepFix].northing, stepFixPts[currentStepFix].easting));
+            if (altitudeHeading < 0) altitudeHeading += glm.twoPI;
+            slopeHeading = altitudeHeading;
+
+            tStripToDesign.Text = glm.RadiantoSlope(slopeHeading).ToString("F2");
+
+
+
+            //determine fix positions and heading
+            //in degrees for glRotate opengl methods.
+            int camStep = currentStepFix * 4;
+            if (camStep > (totalFixSteps - 1)) camStep = (totalFixSteps - 1);
+            camHeading = Math.Atan2(pn.easting - stepFixPts[camStep].easting, pn.northing - stepFixPts[camStep].northing);
+            if (camHeading < 0) camHeading += glm.twoPI;
+            camHeading = glm.toDegrees(camHeading);
+
+
+             //make sure there is a gyro otherwise 9999 are sent from autosteer
+            //if (mc.isImuCorrection)
+            //{
+            //    if (mc.headingIMU != 9999)
+            //    {
+            //        mc.headingIMU = -mc.headingIMU;
+            //        //current gyro angle in radians
+            //        gyroRaw = (glm.toRadians((double)mc.prevHeadingIMU));
+
+            //        //Difference between the IMU heading and the GPS heading
+            //        gyroDelta = (gyroRaw + gyroCorrection) - gpsHeading;
+            //        if (gyroDelta < 0) gyroDelta += glm.twoPI;
+
+            //        //calculate delta based on circular data problem 0 to 360 to 0, clamp to +- 2 Pi
+            //        if (gyroDelta >= -glm.PIBy2 && gyroDelta <= glm.PIBy2) gyroDelta *= -1.0;
+            //        else
+            //        {
+            //            if (gyroDelta > glm.PIBy2) { gyroDelta = glm.twoPI - gyroDelta; }
+            //            else { gyroDelta = (glm.twoPI + gyroDelta) * -1.0; }
+            //        }
+            //        if (gyroDelta > glm.twoPI) gyroDelta -= glm.twoPI;
+            //        if (gyroDelta < -glm.twoPI) gyroDelta += glm.twoPI;
+
+            //        //calculate current turn rate of vehicle
+            //        prevPrevGPSHeading = prevGPSHeading;
+            //        prevGPSHeading = gpsHeading;
+            //        turnDelta = Math.Abs(Math.Atan2(Math.Sin(fixHeading - prevPrevGPSHeading), Math.Cos(fixHeading - prevPrevGPSHeading)));
+
+
+            //        //Only adjust gyro if going in a straight line 
+            //        if (turnDelta < 0.01 && pn.speed > 1) //
+            //        {
+            //            //a bit of delta and add to correction to current gyro
+            //            gyroCorrection += (gyroDelta * (0.4 / fixUpdateHz));
+            //            if (gyroCorrection > glm.twoPI) gyroCorrection -= glm.twoPI;
+            //            if (gyroCorrection < -glm.twoPI) gyroCorrection += glm.twoPI;
+            //            gyroRaw = (glm.toRadians((double)mc.headingIMU));
+            //        }
+
+            //        //if the gyro and GPS delta are > 10 degrees speed up filter
+            //        if (Math.Abs(gyroDelta) > 0.18)
+            //        {
+            //            //a bit of delta and add to correction to current gyro
+            //            gyroCorrection += (gyroDelta * (2.0 / fixUpdateHz));
+            //            if (gyroCorrection > glm.twoPI) gyroCorrection -= glm.twoPI;
+            //            if (gyroCorrection < -glm.twoPI) gyroCorrection += glm.twoPI;
+            //            gyroRaw = (glm.toRadians((double)mc.headingIMU));
+            //        }
+            //        //determine the Corrected heading based on gyro and GPS
+            //        gyroCorrected = gyroRaw + gyroCorrection;
+            //        if (gyroCorrected > glm.twoPI) gyroCorrected -= glm.twoPI;
+            //        if (gyroCorrected < 0) gyroCorrected += glm.twoPI;
+
+            //        fixHeading = gyroCorrected;
+            //    }
+            //}
+             //pn.headingTrue = fixHeading ;
+            //fixHeading = pn.headingTrue;
+            //check to make sure the grid is big enough
+            worldGrid.checkZoomWorldGrid(pn.northing, pn.easting);
         }
 
         private void UpdateFixPosition3D()
@@ -410,12 +483,7 @@ namespace OpenGrade
             ////pn.easting = (Math.Sin(fixHeading) * tiltDistance) + pn.easting;
             //pn.northing = (Math.Cos(fixHeading) * tiltDistance) + pn.northing;
 
-            #endregion Roll
-
-            
-
-
-
+            #endregion Roll    
 
 
             #region Step Fix
@@ -526,12 +594,12 @@ namespace OpenGrade
             //do the distance from line calculations for contour and AB
             //if (ct.isContourBtnOn) ct.DistanceFromContourLine();
 
-            ct.DistanceFromContourLine();
+            //ct.DistanceFromContourLine();
 
-            if (ABLine.isABLineSet && !ct.isContourBtnOn)
-            {
-                ABLine.GetCurrentABLine();
-            }
+            //if (ABLine.isABLineSet && !ct.isContourBtnOn)
+            //{
+            //    ABLine.GetCurrentABLine();
+            //}
 
             // autosteer at full speed of updates
             if (!isGradeControlBtnOn) //32020 means auto steer is off
@@ -603,8 +671,6 @@ namespace OpenGrade
                 //Find RightSide
                 pn.bladeRight.easting = pn.easting + Math.Sin(fixHeading - glm.PIBy2) * -halfToolWidth;
                 pn.bladeRight.northing = pn.northing + Math.Cos(fixHeading - glm.PIBy2) * -halfToolWidth;
-
-
                 pn.bladeRight.heading = pn.headingTrue;
                 pn.bladeRight.altitude = pn.altitude;
 
@@ -663,13 +729,13 @@ namespace OpenGrade
 
                 //Find RightSide
                 pn.bladeRight.easting = pn.easting + Math.Sin(fixHeading - glm.PIBy2) * -halfToolWidth;
-                pn.bladeRight.northing = pn.northing + Math.Cos(mf.fixHeading - glm.PIBy2) * -halfToolWidth;
+                pn.bladeRight.northing = pn.northing + Math.Cos(fixHeading - glm.PIBy2) * -halfToolWidth;
                 pn.bladeRight.heading = pn.headingTrue;
                 pn.bladeRight.altitude = pn.altitude;
 
                 //Find LeftSide
-                pn.bladeLeft.easting = pn.easting + Math.Sin(mf.fixHeading - glm.PIBy2) * halfToolWidth;
-                pn.bladeLeft.northing = pn.northing + Math.Cos(mf.fixHeading - glm.PIBy2) * halfToolWidth;
+                pn.bladeLeft.easting = pn.easting + Math.Sin(fixHeading - glm.PIBy2) * halfToolWidth;
+                pn.bladeLeft.northing = pn.northing + Math.Cos(fixHeading - glm.PIBy2) * halfToolWidth;
                 pn.bladeLeft.heading = pn.headingTrue;
                 pn.bladeLeft.altitude = pn.altitude;
 
@@ -684,81 +750,7 @@ namespace OpenGrade
 
 
 
-        //all the hitch, pivot, section, trailing hitch, headings and fixes
-        private void CalculatePositionHeading()
-        {
-            gpsHeading = Math.Atan2(pn.easting - stepFixPts[currentStepFix].easting, pn.northing - stepFixPts[currentStepFix].northing);
-            if (gpsHeading < 0) gpsHeading += glm.twoPI;
-            fixHeading = gpsHeading;
-
-            //determine fix positions and heading
-            //in degrees for glRotate opengl methods.
-            int camStep = currentStepFix*4;
-            if (camStep > (totalFixSteps - 1)) camStep = (totalFixSteps - 1);
-            camHeading = Math.Atan2(pn.easting - stepFixPts[camStep].easting, pn.northing - stepFixPts[camStep].northing);
-            if (camHeading < 0) camHeading += glm.twoPI;
-            camHeading = glm.toDegrees(camHeading);
-
-
-           // make sure there is a gyro otherwise 9999 are sent from autosteer
-            //if (mc.isImuCorrection)
-            //{
-            //    if (mc.headingIMU != 9999)
-            //    {
-            //        mc.headingIMU = -mc.headingIMU;
-            //        //current gyro angle in radians
-            //        gyroRaw = (glm.toRadians((double)mc.prevHeadingIMU));
-
-            //        //Difference between the IMU heading and the GPS heading
-            //        gyroDelta = (gyroRaw + gyroCorrection) - gpsHeading;
-            //        if (gyroDelta < 0) gyroDelta += glm.twoPI;
-
-            //        //calculate delta based on circular data problem 0 to 360 to 0, clamp to +- 2 Pi
-            //        if (gyroDelta >= -glm.PIBy2 && gyroDelta <= glm.PIBy2) gyroDelta *= -1.0;
-            //        else
-            //        {
-            //            if (gyroDelta > glm.PIBy2) { gyroDelta = glm.twoPI - gyroDelta; }
-            //            else { gyroDelta = (glm.twoPI + gyroDelta) * -1.0; }
-            //        }
-            //        if (gyroDelta > glm.twoPI) gyroDelta -= glm.twoPI;
-            //        if (gyroDelta < -glm.twoPI) gyroDelta += glm.twoPI;
-
-            //        //calculate current turn rate of vehicle
-            //        prevPrevGPSHeading = prevGPSHeading;
-            //        prevGPSHeading = gpsHeading;
-            //        turnDelta = Math.Abs(Math.Atan2(Math.Sin(fixHeading - prevPrevGPSHeading), Math.Cos(fixHeading - prevPrevGPSHeading)));
-
-
-            //        //Only adjust gyro if going in a straight line 
-            //        if (turnDelta < 0.01 && pn.speed > 1) //
-            //        {
-            //            //a bit of delta and add to correction to current gyro
-            //            gyroCorrection += (gyroDelta * (0.4 / fixUpdateHz));
-            //            if (gyroCorrection > glm.twoPI) gyroCorrection -= glm.twoPI;
-            //            if (gyroCorrection < -glm.twoPI) gyroCorrection += glm.twoPI;
-            //            gyroRaw = (glm.toRadians((double)mc.headingIMU));
-            //        }
-
-            //        //if the gyro and GPS delta are > 10 degrees speed up filter
-            //        if (Math.Abs(gyroDelta) > 0.18)
-            //        {
-            //            //a bit of delta and add to correction to current gyro
-            //            gyroCorrection += (gyroDelta * (2.0 / fixUpdateHz));
-            //            if (gyroCorrection > glm.twoPI) gyroCorrection -= glm.twoPI;
-            //            if (gyroCorrection < -glm.twoPI) gyroCorrection += glm.twoPI;
-            //            gyroRaw = (glm.toRadians((double)mc.headingIMU));
-            //        }
-            //        //determine the Corrected heading based on gyro and GPS
-            //        gyroCorrected = gyroRaw + gyroCorrection;
-            //        if (gyroCorrected > glm.twoPI) gyroCorrected -= glm.twoPI;
-            //        if (gyroCorrected < 0) gyroCorrected += glm.twoPI;
-
-            //        fixHeading = gyroCorrected;
-            //    }
-            //}
-            //check to make sure the grid is big enough
-            worldGrid.checkZoomWorldGrid(pn.northing, pn.easting);
-        }
+        
         
 
         //add the points for section, contour line points, Area Calc feature
@@ -838,6 +830,11 @@ namespace OpenGrade
                 stepFixPts[0].easting = pn.easting;
                 stepFixPts[0].northing = pn.northing;
                 stepFixPts[0].heading = 0;
+                stepFixPts[0].altitude = 0;
+
+
+
+
 
                 //preset the zero height button
                 //ct.zeroAltitude = pn.altitude;
@@ -859,17 +856,21 @@ namespace OpenGrade
                     stepFixPts[i].easting = stepFixPts[i - 1].easting;
                     stepFixPts[i].northing = stepFixPts[i - 1].northing;
                     stepFixPts[i].heading = stepFixPts[i - 1].heading;
+                    stepFixPts[i].altitude = stepFixPts[i - 1].altitude;
+
+
                 }
 
                 stepFixPts[0].heading = pn.Distance(pn.northing, pn.easting, stepFixPts[0].northing, stepFixPts[0].easting);
                 stepFixPts[0].easting = pn.easting;
                 stepFixPts[0].northing = pn.northing;
+                stepFixPts[0].northing = pn.altitude - stepFixPts[0].altitude;
 
                 //keep here till valid data
                 if (startCounter > (totalFixSteps/2)) isGPSPositionInitialized = true;
 
                 //in radians
-                fixHeading = Math.Atan2(pn.easting - stepFixPts[totalFixSteps - 1].easting, pn.northing - stepFixPts[totalFixSteps - 1].northing); 
+                fixHeading = Math.Atan2(pn.easting - stepFixPts[totalFixSteps - 1].easting, pn.northing - stepFixPts[totalFixSteps - 1].northing);
                 if (fixHeading < 0) fixHeading += glm.twoPI;
 
                 gyroCorrection = fixHeading;

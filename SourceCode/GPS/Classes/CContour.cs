@@ -3,7 +3,9 @@ using SharpGL;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Windows.Forms;
 using static OpenGrade.FormGPS;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 
 namespace OpenGrade
 {
@@ -19,7 +21,21 @@ namespace OpenGrade
         private double mappingDist;
 
 
-        public bool isContourOn, isContourBtnOn = false;
+
+        //difference between blade tip and guide line
+        private double cutDeltaCenter = 0, cutDeltaLeft = 0, cutDeltaRight = 0, distFromLastPass = 0, distToTarget = 0;
+
+        public int closestPoint = 0;
+        public int distToClosestPoint = 0;
+
+
+
+
+
+
+
+
+        public bool isContourOn, isContourBtnOn = true;
         public bool surveyMode;
         public bool isSurveyOn;
         public bool markBM;
@@ -169,12 +185,14 @@ namespace OpenGrade
 
 
         //pure pursuit values
-        public vec2 goalPointCT = new vec2(0, 0);
+        public vec4 goalPointCT = new vec4(0, 0,0,0);
 
         public vec2 radiusPointCT = new vec2(0, 0);
         public double steerAngleCT;
-        public double rEastCT, rNorthCT;
+        public double slopeAngleCT;
+        public double rEastCT, rNorthCT, rAltitudeCT, rDistCT;
         public double ppRadiusCT;
+        public double paRadiusCT;
 
         //list of contour data from GPS
         //public List<vec4> ptList = new List<vec4>();
@@ -343,6 +361,8 @@ namespace OpenGrade
             double minDistA = 1000000, minDistB = 1000000;
             int ptCount = ptList.Count;
             distanceFromCurrentLine = 9999;
+
+
             if (ptCount > 0)
             {
                 //find the closest 2 points to current fix
@@ -362,6 +382,7 @@ namespace OpenGrade
                         minDistB = dist;
                         B = t;
                     }
+    
                 }
 
                 //just need to make sure the points continue ascending or heading switches all over the place
@@ -373,15 +394,28 @@ namespace OpenGrade
                 //z2-z1
                 double dz = ptList[B].northing - ptList[A].northing;
 
+                double dy = ptList[B].cutAltitude - ptList[A].cutAltitude;
+
+                double dd = ptList[A].distance;
+
+
                 if (Math.Abs(dx) < Double.Epsilon && Math.Abs(dz) < Double.Epsilon) return;
 
                 //abHeading = Math.Atan2(dz, dx);
                 abHeading = ptList[A].heading;
 
+                //mf.lblDiag.Text = A.ToString("F3") + " A "+ B.ToString("F3") + " B " + mf.ct.closestPoint.ToString("F3") + " C ";
+
                 //how far from current AB Line is fix
                 distanceFromCurrentLine = ((dz * mf.pn.easting) - (dx * mf.pn.northing)
                     + (ptList[B].easting * ptList[A].northing) - (ptList[B].northing * ptList[A].easting))
                                 / Math.Sqrt((dz * dz) + (dx * dx));
+                               
+                ptList[A].slope = Math.Atan(dy / dd);                
+                
+                //mf.lblDiag.Text = glm.RadiantoSlope(ptList[A].slope).ToString("F4") + "\n";
+                //mf.lblDiag.Text += glm.RadiantoSlope(mf.slopeHeading).ToString("F4") + "\n";
+                //mf.lblDiag.Text += glm.RadiantoSlope(mf.slopeHeading - ptList[A].slope).ToString("F4"); 
 
                 //are we on the right side or not
                 isOnRightSideCurrentLine = distanceFromCurrentLine > 0;
@@ -389,13 +423,38 @@ namespace OpenGrade
                 //absolute the distance
                 distanceFromCurrentLine = Math.Abs(distanceFromCurrentLine);
 
-                // ** Pure pursuit ** - calc point on ABLine closest to current position
+                double x = mf.pn.Distance(mf.pn.northing, mf.pn.easting, ptList[A].northing, ptList[A].easting);
+
+                double y = mf.pn.altitude - ptList[A].cutAltitude;
+
+                //double hyp = Math.Sqrt((x * x) + (y * y));
+                double hyp = (x * x) + (y * y);
+
+
+                // ** Pure pursuit ** - calc point on ABLine closest to current position for xz 
+                double EU = ((y) * (dy)          
+                    + (x * (dd)))                 
+                    / ((dy * dy) + (dd * dd));
+
+                //double EU = (((mf.pn.easting - ptList[A].easting) * (dx)) + ((mf.pn.northing - ptList[A].northing) * (dz))) / ((dy * dy) + (dd * dd));
+
+                rDistCT = ptList[A].distance + (EU * (dd));
+                rAltitudeCT = ptList[A].cutAltitude + (EU * (dy));
+
+
+
+
+                // ** Pure pursuit ** - calc point on ABLine closest to current position for xz 
                 double U = (((mf.pn.easting - ptList[A].easting) * (dx))
                             + ((mf.pn.northing - ptList[A].northing) * (dz)))
                             / ((dx * dx) + (dz * dz));
 
                 rEastCT = ptList[A].easting + (U * (dx));
                 rNorthCT = ptList[A].northing + (U * (dz));
+
+
+
+
 
                 //Subtract the two headings, if > 1.57 its going the opposite heading as refAB
                 abFixHeadingDelta = (Math.Abs(mf.fixHeading - abHeading));
@@ -407,11 +466,12 @@ namespace OpenGrade
                 //how far should goal point be away  - speed * seconds * kmph -> m/s + min value
                 double goalPointDistance = mf.pn.speed * mf.vehicle.goalPointLookAhead * 0.27777777;
 
-                //minimum of 4.0 meters look ahead
-                if (goalPointDistance < 3.0) goalPointDistance = 3.0;
+                                //minimum of 4.0 meters look ahead
+                if (goalPointDistance <3.0) goalPointDistance = 3.0;
 
                 // used for calculating the length squared of next segment.
                 double tempDist = 0.0;
+                double tempAlt = 0.0;
 
                 if (abFixHeadingDelta >= glm.PIBy2)
                 {
@@ -423,7 +483,8 @@ namespace OpenGrade
                     {
                         //treat current segment like an AB Line
                         goalPointCT.easting = rEastCT - (Math.Sin(ptList[A].heading) * goalPointDistance);
-                        goalPointCT.northing = rNorthCT - (Math.Cos(ptList[A].heading) * goalPointDistance);
+                        goalPointCT.northing = rNorthCT - (Math.Cos(ptList[A].heading) * goalPointDistance);              
+                        goalPointCT.altitude = rAltitudeCT - (Math.Cos(ptList[A].cutAltitude) * goalPointDistance);
                     }
 
                     //multiple segments required
@@ -434,7 +495,7 @@ namespace OpenGrade
                         {
                             B--; A--;
                             tempDist = mf.pn.Distance(ptList[B].northing, ptList[B].easting, ptList[A].northing, ptList[A].easting);
-
+                            tempAlt = ptList[B].altitude - ptList[B].altitude;
                             //will we go too far?
                             if ((tempDist + distSoFar) > goalPointDistance)
                             {
@@ -452,6 +513,7 @@ namespace OpenGrade
 
                         goalPointCT.easting = (((1 - t) * ptList[B].easting) + (t * ptList[A].easting));
                         goalPointCT.northing = (((1 - t) * ptList[B].northing) + (t * ptList[A].northing));
+                        goalPointCT.altitude = (((1 - t) * ptList[B].cutAltitude) + (t * ptList[A].cutAltitude));
                     }
                 }
                 else
@@ -466,6 +528,7 @@ namespace OpenGrade
                         //treat current segment like an AB Line
                         goalPointCT.easting = rEastCT + (Math.Sin(ptList[A].heading) * goalPointDistance);
                         goalPointCT.northing = rNorthCT + (Math.Cos(ptList[A].heading) * goalPointDistance);
+                        goalPointCT.altitude = rAltitudeCT + (Math.Cos(ptList[A].cutAltitude) * goalPointDistance);
                     }
 
                     //multiple segments required
@@ -496,18 +559,98 @@ namespace OpenGrade
 
                         goalPointCT.easting = (((1 - t) * ptList[A].easting) + (t * ptList[B].easting));
                         goalPointCT.northing = (((1 - t) * ptList[A].northing) + (t * ptList[B].northing));
+                        goalPointCT.altitude = (((1 - t) * ptList[A].cutAltitude) + (t * ptList[B].cutAltitude));
+
                     }
                 }
 
+
+
+               
+
                 //calc "D" the distance from pivot axle to lookahead point
                 double goalPointDistanceSquared = mf.pn.DistanceSquared(goalPointCT.northing, goalPointCT.easting, mf.pn.northing, mf.pn.easting);
+                double goalPointAltitudeSquared = Math.Pow(mf.pn.Distance(goalPointCT.northing, goalPointCT.easting, mf.pn.northing, mf.pn.easting), 2) + Math.Pow(goalPointCT.altitude - mf.pn.altitude, 2);
+                double k = mf.pn.Distance(goalPointCT.northing, goalPointCT.easting, mf.pn.northing, mf.pn.easting);
+               
 
                 //calculate the the delta x in local coordinates and steering angle degrees based on wheelbase
                 double localHeading = glm.twoPI - mf.fixHeading;
-                ppRadiusCT = goalPointDistanceSquared / (2 * (((goalPointCT.easting - mf.pn.easting) * Math.Cos(localHeading)) + ((goalPointCT.northing - mf.pn.northing) * Math.Sin(localHeading))));
+                ppRadiusCT = goalPointDistanceSquared / (2 * (((goalPointCT.easting - mf.pn.easting) * Math.Cos(localHeading)) + ((goalPointCT.northing - mf.pn.northing) * Math.Sin(localHeading))));                
+                
+                steerAngleCT = glm.toDegrees(Math.Atan(2 * (
+                    ((goalPointCT.easting - mf.pn.easting) * Math.Cos(localHeading))
+                    + ((goalPointCT.northing - mf.pn.northing) * Math.Sin(localHeading)))
+                    * mf.vehicle.wheelbase / goalPointDistanceSquared));
 
-                steerAngleCT = glm.toDegrees(Math.Atan(2 * (((goalPointCT.easting - mf.pn.easting) * Math.Cos(localHeading))
-                    + ((goalPointCT.easting - mf.pn.northing) * Math.Sin(localHeading))) * mf.vehicle.wheelbase / goalPointDistanceSquared));
+
+                double localSlope = glm.twoPI - mf.slopeHeading;
+               localSlope =  -mf.slopeHeading;
+                paRadiusCT = goalPointAltitudeSquared / (2 * (((goalPointCT.altitude - mf.pn.altitude) * Math.Cos(localSlope)) + (k *  Math.Sin(localSlope))));
+
+
+
+                slopeAngleCT = ((Math.Atan(2 * 
+                   (goalPointCT.altitude - mf.pn.altitude) *  Math.Cos(localSlope))
+                    + k * Math.Sin(localSlope)
+                    * mf.vehicle.wheelbase / goalPointAltitudeSquared)/4);
+
+                
+
+
+                //slopeAngleCT /= 4;
+                //slopeAngleCT = glm.RadiantoSlope(slopeAngleCT);
+                //slopeAngleCT = slopeAngleCT ;
+
+                //slopeAngleCT = glm.toDegrees(Math.Atan(2 * (
+                //    ((goalPointCT.easting - mf.pn.easting) * Math.Cos(localSlope))
+                //    + ((goalPointCT.northing - mf.pn.northing) * Math.Sin(localSlope)))
+                //    * mf.vehicle.wheelbase / goalPointDistanceSquared));
+
+
+                //mf.lblDiag.Text = ((goalPointCT.altitude - mf.pn.altitude) * Math.Sin(localSlope)).ToString("F8") + " A Sin  \n";
+                //mf.lblDiag.Text += (k * Math.Cos(localSlope)).ToString("F8") + " K Sin  \n";
+                //mf.lblDiag.Text += ((goalPointCT.easting - mf.pn.easting) * Math.Cos(localHeading)).ToString("F8") + " eH\n";
+                //mf.lblDiag.Text += ((goalPointCT.northing - mf.pn.northing) * Math.Sin(localHeading)).ToString("F8") + " nH\n";                
+                //mf.lblDiag.Text += Math.Cos(localSlope).ToString("F8") + " Cos  \n";
+                //mf.lblDiag.Text += Math.Sin(localSlope).ToString("F8") + " Sin  \n";
+                ////mf.lblDiag.Text += k.ToString("F8") + " K  \n";
+                ////mf.lblDiag.Text += q.ToString("F8") + " Q  \n";
+                //mf.lblDiag.Text += goalPointCT.altitude.ToString("F3") + " GP \n";
+                ////mf.lblDiag.Text += glm.RadiantoSlope(localSlope).ToString("F3") + " LS \n";
+
+
+
+
+
+                //mf.lblDiag.Text = goalPointAltitudeSquared.ToString("F8") + " GPA  \n";
+                //mf.lblDiag.Text += goalPointDistanceSquared.ToString("F8") + " GPD  \n";
+                //mf.lblDiag.Text += Math.Cos(localSlope).ToString("F8") + " Cos  \n";
+                //mf.lblDiag.Text += Math.Sin(localSlope).ToString("F8") + " Sin  \n";
+                //mf.lblDiag.Text += k.ToString("F8") + " K  \n";
+                //mf.lblDiag.Text += q.ToString("F8") + " Q  \n";                
+                //mf.lblDiag.Text += goalPointCT.altitude.ToString("F3") + " GP \n";
+                //mf.lblDiag.Text += glm.RadiantoSlope(localSlope).ToString("F3") + " LS \n";
+
+                //mf.lblDiag.Text += hyp.ToString("F8") + " Hyp  \n";
+                //mf.lblDiag.Text += EU.ToString("F8") + " EU  \n";
+                //mf.lblDiag.Text += rDistCT.ToString("F3") + " rDist \n";
+                //mf.lblDiag.Text += rAltitudeCT.ToString("F3") + " rAlt \n";
+                //slopeAngleCT = glm.toDegrees(Math.Atan(2 * (((goalPointCT.easting - mf.pn.easting) * Math.Cos(localHeading))
+                //    + ((goalPointCT.northing - mf.pn.northing) * Math.Sin(localHeading))) * mf.vehicle.wheelbase / goalPointDistanceSquared));
+
+
+
+                //slopeAngleCT = glm.toDegrees(Math.Atan(2 * (((goalPointCT.easting - mf.pn.easting) * Math.Cos(localHeading))+ ((goalPointCT.northing - mf.pn.northing) * Math.Sin(localHeading))) * mf.vehicle.wheelbase / goalPointDistanceSquared));
+
+
+
+
+                //((goalPointCT.easting - mf.pn.easting) * Math.Cos(localHeading))
+                //((goalPointCT.northing - mf.pn.northing) * Math.Sin(localHeading))
+
+                //mf.vehicle.wheelbase / goalPointDistanceSquared)    
+
 
                 if (steerAngleCT < -mf.vehicle.maxSteerAngle) steerAngleCT = -mf.vehicle.maxSteerAngle;
                 if (steerAngleCT > mf.vehicle.maxSteerAngle) steerAngleCT = mf.vehicle.maxSteerAngle;
@@ -515,12 +658,16 @@ namespace OpenGrade
                 if (ppRadiusCT < -500) ppRadiusCT = -500;
                 if (ppRadiusCT > 500) ppRadiusCT = 500;
 
+                if (paRadiusCT < -500) paRadiusCT = -500;
+                if (paRadiusCT > 500) paRadiusCT = 500;
+
                 goalPointCT.easting = mf.pn.easting + (ppRadiusCT * Math.Cos(localHeading));
                 goalPointCT.northing = mf.pn.northing + (ppRadiusCT * Math.Sin(localHeading));
+                goalPointCT.altitude = mf.pn.altitude + (paRadiusCT * Math.Cos(localSlope));
+
 
                 //angular velocity in rads/sec  = 2PI * m/sec * radians/meters
                 double angVel = glm.twoPI * 0.277777 * mf.pn.speed * (Math.Tan(glm.toRadians(steerAngleCT))) / mf.vehicle.wheelbase;
-
                 //clamp the steering angle to not exceed safe angular velocity
                 if (Math.Abs(angVel) > mf.vehicle.maxAngularVelocity)
                 {
@@ -549,6 +696,14 @@ namespace OpenGrade
                     if (isOnRightSideCurrentLine) distanceFromCurrentLine *= -1.0;
                 }
 
+
+                if (paRadiusCT > 0)
+
+
+
+
+
+
                 mf.guidanceLineDistanceOff = (Int16)distanceFromCurrentLine;
                 mf.guidanceLineSteerAngle = (Int16)(steerAngleCT * 10);
                 //mf.guidanceLineHeadingDelta = (Int16)((Math.Atan2(Math.Sin(temp - mf.fixHeading),
@@ -560,9 +715,99 @@ namespace OpenGrade
                 distanceFromCurrentLine = 32000;
                 mf.guidanceLineDistanceOff = 32000;
             }
+
+            //mf.lblDiag.Text = paRadiusCT.ToString("F8") + " PaRad \n";
+            //mf.lblDiag.Text += ppRadiusCT.ToString("F8") + " ppRad \n";
+
+            mf.lblDiag.Text = glm.RadiantoSlope(slopeAngleCT).ToString("F8") + " Slope \n";
+            mf.lblDiag.Text += glm.RadiantoSlope(mf.slopeHeading).ToString("F8") + "  Head \n";
+
+            mf.lblDiag.Text += glm.RadiantoSlope(slopeAngleCT - mf.slopeHeading).ToString("F8") + " Delta \n";
+
+
         }
 
-        
+        public double DistancefromCutLine()
+        {
+            //Cut Delta calculator
+
+            //switch (mf.curBlade)
+            //{
+            //    case BladePoint.left:
+            //        closestPoint = FindClosestPoint(mf.pn.bladeLeft);
+            //        break;
+            //    case BladePoint.center:
+            //        closestPoint = FindClosestPoint(mf.pn.bladeCenter);
+            //        break;
+
+            //    case BladePoint.right:
+            //        closestPoint = FindClosestPoint(mf.pn.bladeRight);
+            //        break;
+
+            //    default:
+            //        closestPoint = FindClosestPoint(mf.pn.bladeCenter);
+            //        break;
+
+            //}
+
+            if (ptList[closestPoint].cutAltitude > 0)
+            {
+                //in cm                            
+                distFromLastPass = (int)(((mf.pn.altitude - ptList[closestPoint].lastPassAltitude) * 100) - mf.bladeOffset);
+                distToTarget = (int)((mf.pn.altitude - ptList[closestPoint].cutAltitude) * 100) - mf.bladeOffset;
+
+                //AutoCut Active
+                if (mf.isAutoCutOn && distToTarget < 0)
+                {
+                    cutDeltaCenter = distToTarget;
+                }
+
+                else
+                {
+                    cutDeltaCenter = distFromLastPass - mf.autoCutDepth;
+                }
+            }
+            else
+            {
+            cutDeltaCenter = distToTarget;
+            }
+
+            return cutDeltaCenter;
+
+        }
+
+        public int FindClosestPoint(vec4 pnt)
+        {
+            int ptCnt = ptList.Count - 1;
+            int closestPoint = -1;
+
+            if (ptCnt > 0)
+            {
+                minDist = 8000;
+                int ptCount = ptList.Count - 1;//
+
+                //find the closest point to current fix
+                for (int t = 0; t < ptCount; t++)
+                {
+                //    double dist = ((pnt.easting - ptList[t].easting) * (pnt.easting - ptList[t].easting))
+                //                    + ((pnt.northing - ptList[t].northing) * (pnt.northing - ptList[t].northing));
+
+
+
+                    double dist = ((pnt.easting - ptList[t].easting) * (pnt.easting - ptList[t].easting))
+                                   + ((pnt.northing - ptList[t].northing) * (pnt.northing - ptList[t].northing));
+
+
+                    if (dist < minDist)
+                    {
+                        minDist = dist; closestPoint = t;
+                    }
+
+                }
+            }
+            return closestPoint;
+
+        }
 
 
         public void clearPTList()
@@ -577,41 +822,12 @@ namespace OpenGrade
             {
                 for (int i = 0; i < cnnt; i++) ptList[i].currentPassAltitude = -1;
             }
-
-
-
-
-
         }
-
-
-
-
-
-
 
         //########################################## 2D ###########################################################
 
-
-
-
-
         public void DrawContourLine()
         {
-            //gl.Color(0.98f, 0.98f, 0.50f);
-            //gl.Begin(OpenGL.GL_LINE_STRIP);
-            ////for (int h = 0; h < ptCount; h++) gl.Vertex(guideList[h].x, 0, guideList[h].z);
-            //gl.Vertex(boxA.easting, boxA.northing, 0);
-            //gl.Vertex(boxB.easting, boxB.northing, 0);
-            //gl.Vertex(boxC.easting, boxC.northing, 0);
-            //gl.Vertex(boxD.easting, boxD.northing, 0);
-            //gl.Vertex(boxA.easting, boxA.northing, 0);
-            //gl.End();
-
-
-            //GetBladeEndUTM();
-            //DrawShoreLines();
-
             ////draw the guidance line
             int ptCount = ptList.Count;
             gl.LineWidth(2);
@@ -620,117 +836,94 @@ namespace OpenGrade
             for (int h = 0; h < ptCount; h++) gl.Vertex(ptList[h].easting, ptList[h].northing, 0);
             gl.End();
 
-            gl.PointSize(5.0f);
+            gl.Color(0.00f, 0.0f, 0.0f); 
+            gl.PointSize(5);            
             gl.Begin(OpenGL.GL_POINTS);
 
-            ////gl.Color(0.30f, 0.31f, 0.77f);
-            //for (int h = 0; h < ptCount; h++) gl.Vertex(ptList[h].easting, ptList[h].northing, 0);
 
-            //gl.End();
-            //gl.PointSize(1.0f);
+            ptCount = ptList.Count;
+               if (ptCount > 0)
+               {
+                   //gl.Begin(OpenGL.GL_POINTS);
+                   for (int i = 0; i < ptCount; i++)
+                   {
+                        if (i == mf.ct.closestPoint)
+                        {
+                            gl.Color(1.0f, 0f, 0.77f);
+                        }
+                        else
+                        {
+                            gl.Color(0.10f, 0.1f, 0.66f);
+                        }
 
-            ////draw the reference line
-            gl.PointSize(3.0f);
-            //if (isContourBtnOn)
-            {
-                ptCount = ptList.Count;
-                if (ptCount > 0)
-                {
-                    gl.Begin(OpenGL.GL_POINTS);
-                    for (int i = 0; i < ptCount; i++)
-                    {
-                        gl.Vertex(ptList[i].easting, ptList[i].northing, 0);
-                    }
-                    gl.End();
-                }
-            }
-
-
-            
-
-
-            //if (mf.isAutoShoreOn)
-            //{
-            ////    gl.LineWidth(2);
-            //    gl.Color(0.98f, 0.2f, 0.0f);
-            ////    gl.Begin(OpenGL.GL_LINE_STRIP);
-            ////    for (int h = 0; h < ptCount; h++) gl.Vertex(ptList[h].easting + 10, ptList[h].northing + 50, 0);
-            ////    gl.End();
-
-            ////    gl.PointSize(4.0f);
-            ////    gl.Begin(OpenGL.GL_POINTS);
-
-            ////    gl.Color(0.97f, 0.42f, 0.45f);
-            ////    for (int h = 0; h < ptCount; h++) gl.Vertex(ptList[h].easting + 10, ptList[h].northing + 50, 0);
-
-            ////    gl.End();
-            ////    gl.PointSize(1.0f);
-
-            //  //draw the reference line
-            //  gl.PointSize(3.0f);
-            //  //if (isContourBtnOn)
-            //  {
-            //      ptCount = ptList.Count;
-            //      if (ptCount > 0)
-            //      {
-            //          gl.Begin(OpenGL.GL_POINTS);
-            //          for (int i = 0; i < ptCount; i++)
-            //          {
-            //              gl.Vertex(ptList[i].easting, ptList[i].northing, 0);
-            //          }
-            //          gl.End();
-            //      }
-            //  }
-
-
-
-
-            //}
+                       gl.Vertex(ptList[i].easting, ptList[i].northing, 0);
+                   }
+                   
+               }
+            gl.End();
+                        
 
             if (true)//mf.isPureDisplayOn
             {
                 const int numSegments = 100;
-                {
-                    gl.Color(0.95f, 0.30f, 0.950f);
+               
+                  gl.Color(0.2f, 0.2f, 0.20f);
 
-                    double theta = glm.twoPI / (numSegments);
-                    double c = Math.Cos(theta);//precalculate the sine and cosine
-                    double s = Math.Sin(theta);
+                  double theta = glm.twoPI / (numSegments);
+                  double c = Math.Cos(theta);//precalculate the sine and cosine
+                  double s = Math.Sin(theta);
 
-                    double x = ppRadiusCT;//we start at angle = 0
-                    double y = 0;
+                  double x = ppRadiusCT;//we start at angle = 0
+                  double z = paRadiusCT;//we start at angle = 0
+                  double y = 0;
 
-                    gl.LineWidth(1);
-                    gl.Begin(OpenGL.GL_LINE_LOOP);
+
+                gl.LineWidth(1);
+                gl.Begin(OpenGL.GL_LINE_LOOP);
                     for (int ii = 0; ii < numSegments; ii++)
                     {
-                        //glVertex2f(x + cx, y + cy);//output vertex
-                        gl.Vertex(x + radiusPointCT.easting, y + radiusPointCT.northing);//output vertex
 
-                        //apply the rotation matrix
-                        double t = x;
-                        x = (c * x) - (s * y);
+                    //gl.Vertex(z + mf.ct.goalPointCT.easting, y + mf.ct.goalPointCT.northing);//output vertex
+
+                    gl.Vertex(z + mf.pn.easting, y + mf.pn.northing);//output vertex
+                    //apply the rotation matrix
+                    double t = z;
+                        z = (c * z) - (s * y);
                         y = (s * t) + (c * y);
                     }
-                    gl.End();
+                gl.End();
 
-                    //Draw lookahead Point
-                    gl.PointSize(4.0f);
-                    gl.Begin(OpenGL.GL_POINTS);
+                gl.Color(0.95f, 0.30f, 0.950f);
+                 y = 0;
 
+                gl.Begin(OpenGL.GL_LINE_LOOP);
+                for (int ii = 0; ii < numSegments; ii++)
+                {
                     //
-                    //gl.Vertex(rEast, rNorth, 0.0);
+                    gl.Vertex(x + goalPointCT.easting, y + goalPointCT.northing);//output vertex
 
-                    //gl.Color(1.0f, 0.5f, 0.95f);
-                    gl.Color(1.0f, 1.0f, 0.25f);
-                    gl.Vertex(goalPointCT.easting, goalPointCT.northing, 0.0);
 
-                    //mf.lblGoalEasting.Text = goalPointCT.easting.ToString();
-                    // mf.lblGoalNorthing.Text = goalPointCT.easting.ToString();
-
-                    gl.End();
-                    gl.PointSize(1.0f);
+                    //apply the rotation matrix
+                    double t = x;
+                    x = (c * x) - (s * y);
+                    y = (s * t) + (c * y);
                 }
+                gl.End();
+
+                //Draw lookahead Point
+                gl.PointSize(4.0f);                 
+                gl.PointSize(10);
+                gl.Begin(OpenGL.GL_POINTS);
+
+                gl.Color(1.0f, 1.0f, 0.25f);
+                gl.Vertex(mf.pn.lookaheadCenter.easting, mf.pn.lookaheadCenter.northing, 0.0);
+
+                //mf.lblGoalEasting.Text = goalPointCT.easting.ToString();
+                // mf.lblGoalNorthing.Text = goalPointCT.easting.ToString();
+
+                gl.End();
+                gl.PointSize(1.0f);
+               
             }
         }
 
@@ -1949,19 +2142,14 @@ namespace OpenGrade
 
 
             //BuildGuideCross(mf.pn.bladeCenter.easting, mf.pn.bladeCenter.northing, 50.0);
+
             
-            
-            
+
             // DRAWLOOK AHEAD POINT
-            double lookAheadDistance = 10;
+            double lookAheadDistance = 20;
             lookAheadDistance = mf.pn.speed * .01 * lookAheadDistance;
             double halfToolWidth = (Properties.Vehicle.Default.setVehicle_toolWidth) / 2;
-            CalcLookaheadPoints(lookAheadDistance);
-
-
-
-
-
+            CalcLookaheadPoints(lookAheadDistance);      
 
             //Draw lookahead Point
             //gl.PointSize(8.0f);
@@ -1988,7 +2176,6 @@ namespace OpenGrade
             gl.End();
 
 
-
             gl.LineWidth(2);
             gl.Color(0.01f, 0.99f, 0.01f, .75f);
             gl.Begin(OpenGL.GL_LINE_STRIP);
@@ -2008,61 +2195,52 @@ namespace OpenGrade
 
 
 
-            //*---------  end paste
-            if (mf.isPureDisplayOn)//
+
+            
+            const int numSegments = 100;
+            
+            gl.Color(0.95f, 0.30f, 0.950f);
+
+            double theta = glm.twoPI / (numSegments);
+            double c = Math.Cos(theta);//precalculate the sine and cosine
+            double s = Math.Sin(theta);
+
+            double x = ppRadiusCT;//we start at angle = 0
+            double y = 0;
+            
+            gl.LineWidth(20);
+            gl.Begin(OpenGL.GL_LINE_LOOP);
+            for (int ii = 0; ii < numSegments; ii++)
             {
-                const int numSegments = 100;
-                {
-                    gl.Color(0.95f, 0.30f, 0.950f);
+                //glVertex2f(x + cx, y + cy);//output vertex
+                gl.Vertex(x + radiusPointCT.easting, y + radiusPointCT.northing, 50);//output vertex
 
-                    double theta = glm.twoPI / (numSegments);
-                    double c = Math.Cos(theta);//precalculate the sine and cosine
-                    double s = Math.Sin(theta);
-
-                    double x = ppRadiusCT;//we start at angle = 0
-                    double y = 0;
-
-                    gl.LineWidth(20);
-                    gl.Begin(OpenGL.GL_LINE_LOOP);
-                    for (int ii = 0; ii < numSegments; ii++)
-                    {
-                        //glVertex2f(x + cx, y + cy);//output vertex
-                        gl.Vertex(x + radiusPointCT.easting, y + radiusPointCT.northing);//output vertex
-
-                        //apply the rotation matrix
-                        double t = x;
-                        x = (c * x) - (s * y);
-                        y = (s * t) + (c * y);
-                    }
-                    gl.End();
-
-                    //Draw lookahead Point
-                    gl.PointSize(4.0f);
-                    gl.Begin(OpenGL.GL_POINTS);
-
-                    //
-                    //gl.Vertex(rEast, rNorth, 0.0);
-
-                    //gl.Color(1.0f, 0.5f, 0.95f);
-                    gl.Color(1.0f, 1.0f, 0.25f);
-                    gl.Vertex(goalPointCT.easting, goalPointCT.northing, 0.0);
-
-                    gl.End();
-                    gl.PointSize(1.0f);
-
-                    
-                }
+                //apply the rotation matrix
+                double t = x;
+                x = (c * x) - (s * y);
+                y = (s * t) + (c * y);
             }
-        }
+            gl.End();
+            
 
+            //Draw lookahead Point
+            gl.PointSize(4.0f);
+            gl.Begin(OpenGL.GL_POINTS);
 
-        //public void start3DSurvey()
-        //    {
+            //
+            //gl.Vertex(rEast, rNorth, 0.0);
 
+            //gl.Color(1.0f, 0.5f, 0.95f);
+            gl.Color(1.0f, 1.0f, 0.25f);
+            gl.Vertex(goalPointCT.easting, goalPointCT.northing, 0.0);
 
+            gl.End();
 
+                
+          }
+            
+        
 
-        //    }
 
 
         public void validate3DSurvey()
@@ -3203,12 +3381,13 @@ namespace OpenGrade
             public double latitude { get; set; }
             public double longitude { get; set; }
             public double distance { get; set; }
+            public double slope { get; set; }
 
 
             //constructor
             public CContourPt(double _easting, double _heading, double _northing,
                                 double _altitude, double _lat, double _long,
-                                double _cutAltitude = -1, double _currentPassAltitude = -1, double _lastPassAltitude = -1, double _distance = -1)
+                                double _cutAltitude = -1, double _currentPassAltitude = -1, double _lastPassAltitude = -1, double _distance = -1, double _slope = -1)
             {
                 easting = _easting;
                 northing = _northing;
@@ -3222,8 +3401,9 @@ namespace OpenGrade
                 currentPassAltitude = _currentPassAltitude;
                 lastPassAltitude = _lastPassAltitude;
                 distance = _distance;
+                slope = _slope;
 
-            }
+        }
         }
 
         public class CCutPt
@@ -3238,12 +3418,13 @@ namespace OpenGrade
             public double latitude { get; set; }
             public double longitude { get; set; }
             public double distance { get; set; }
+            public double slope { get; set; }
 
 
-            //constructor
-            public CCutPt(double _easting, double _heading, double _northing,
+        //constructor
+        public CCutPt(double _easting, double _heading, double _northing,
                                 double _altitude, double _lat, double _long,
-                                double _cutAltitude = -1, double _currentPassAltitude = -1, double _lastPassAltitude = -1, double _distance = -1)
+                                double _cutAltitude = -1, double _currentPassAltitude = -1, double _lastPassAltitude = -1, double _distance = -1, double _slope = -1)
             {
                 easting = _easting;
                 northing = _northing;
@@ -3255,6 +3436,7 @@ namespace OpenGrade
                 currentPassAltitude = _currentPassAltitude;
                 lastPassAltitude = _lastPassAltitude;
                 distance = _distance;
+                slope = _slope; 
             }
         }
         // A list for the boundary pts in the visual Map

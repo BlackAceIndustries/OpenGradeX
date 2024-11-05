@@ -23,6 +23,11 @@
 #include <iostream>
 #include <string>
 #include <Base64.h>
+
+#include <CNMEA.h>
+#include "zNMEAParser.h"
+#include <cmath>
+
 /* IMU Board layout:
             Front
          +----------+
@@ -105,6 +110,8 @@ char packetBuffer[1460];
 char *OG_data[1460];
 long MSG_ID = 0;
 
+NMEAParser<2> parser;
+
 struct_message_Antenna_data antennaDataMsg;
 struct_message_Antenna_settings antennaSettingsMsg;
 struct_message_Firmware antennaFirmwareMsg;
@@ -127,7 +134,7 @@ IPAddress senderIP;
 
 ///////////////////////PINS///////////////////////
 #define DEBUG_BAUD 460800
-#define RTK_BAUD 921600
+#define RTK_BAUD 230400
 #define DAC1_ENABLE 4      // DAC 1 enable/
 #define DAC2_ENABLE 5     //  DAC 2 enable/
 #define SCL_PIN 22      // I2C SCL PIN
@@ -398,6 +405,7 @@ void setReports(sh2_SensorId_t reportType, long report_interval) {
 //UDP// 
 ///////
 
+
 void RelayGPSData(){
     
   if(RTK.available()){   
@@ -540,15 +548,9 @@ bool SendUdpDataJSON(uint8_t _moduleType, uint8_t _msgType, uint8_t _modID)
         root["GGA"] = antennaDataMsg.GGA;
         root["VTG"] = antennaDataMsg.VTG;
         root["GSA"] = antennaDataMsg.GSA;
-        // root["roll"] = int(antennaDataMsg.roll*10000);
-        // root["pitch"] = antennaDataMsg.pitch*10000;
-        // root["yaw"] = antennaDataMsg.yaw*10000;
-
         root["roll"] = String(antennaDataMsg.roll, 4);
         root["pitch"] = String(antennaDataMsg.pitch, 4);
         root["yaw"] = String(antennaDataMsg.yaw, 4);
-
-
         root["battery"] = antennaDataMsg.battery;
         root["readingId"] = antennaDataMsg.readingId++;
         serializeJson(root, payload);

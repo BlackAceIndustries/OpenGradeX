@@ -40,6 +40,11 @@
             this.tStripShoreAuto = new System.Windows.Forms.ToolStripStatusLabel();
             this.tStripAltitude = new System.Windows.Forms.ToolStripStatusLabel();
             this.tStrip2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel13 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel6 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tStrip3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip2 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel7 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -48,6 +53,10 @@
             this.toolStripStatusLabel11 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel10 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel17 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel16 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel15 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel14 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.vrbSave = new System.Windows.Forms.Button();
             this.btnSerialCancel = new System.Windows.Forms.Button();
@@ -58,15 +67,6 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel6 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel13 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel14 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel15 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel16 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel17 = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.openGLControlBack)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.statusStrip2.SuspendLayout();
@@ -173,6 +173,7 @@
             this.tStripSlopeAuto.Size = new System.Drawing.Size(100, 25);
             this.tStripSlopeAuto.Text = "0.00";
             this.tStripSlopeAuto.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.tStripSlopeAuto.Click += new System.EventHandler(this.tStripSlopeAuto_Click);
             // 
             // tStripShoreAuto
             // 
@@ -184,6 +185,7 @@
             this.tStripShoreAuto.Size = new System.Drawing.Size(100, 25);
             this.tStripShoreAuto.Text = "0.00";
             this.tStripShoreAuto.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.tStripShoreAuto.Click += new System.EventHandler(this.tStripShoreAuto_Click);
             // 
             // tStripAltitude
             // 
@@ -206,6 +208,61 @@
             this.tStrip2.Size = new System.Drawing.Size(100, 25);
             this.tStrip2.Text = "0.00";
             this.tStrip2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // toolStripStatusLabel3
+            // 
+            this.toolStripStatusLabel3.AutoSize = false;
+            this.toolStripStatusLabel3.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripStatusLabel3.ForeColor = System.Drawing.Color.White;
+            this.toolStripStatusLabel3.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
+            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(100, 25);
+            this.toolStripStatusLabel3.Text = "0.00";
+            this.toolStripStatusLabel3.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // toolStripStatusLabel13
+            // 
+            this.toolStripStatusLabel13.AutoSize = false;
+            this.toolStripStatusLabel13.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripStatusLabel13.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.toolStripStatusLabel13.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
+            this.toolStripStatusLabel13.Name = "toolStripStatusLabel13";
+            this.toolStripStatusLabel13.Size = new System.Drawing.Size(100, 25);
+            this.toolStripStatusLabel13.Text = "0.00";
+            this.toolStripStatusLabel13.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // toolStripStatusLabel6
+            // 
+            this.toolStripStatusLabel6.AutoSize = false;
+            this.toolStripStatusLabel6.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripStatusLabel6.ForeColor = System.Drawing.Color.White;
+            this.toolStripStatusLabel6.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
+            this.toolStripStatusLabel6.Name = "toolStripStatusLabel6";
+            this.toolStripStatusLabel6.Size = new System.Drawing.Size(100, 25);
+            this.toolStripStatusLabel6.Text = "0.00";
+            this.toolStripStatusLabel6.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // toolStripStatusLabel4
+            // 
+            this.toolStripStatusLabel4.AutoSize = false;
+            this.toolStripStatusLabel4.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripStatusLabel4.ForeColor = System.Drawing.Color.White;
+            this.toolStripStatusLabel4.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
+            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
+            this.toolStripStatusLabel4.Size = new System.Drawing.Size(100, 25);
+            this.toolStripStatusLabel4.Text = "0.00";
+            this.toolStripStatusLabel4.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.AutoSize = false;
+            this.toolStripStatusLabel1.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripStatusLabel1.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.toolStripStatusLabel1.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(100, 25);
+            this.toolStripStatusLabel1.Text = "0.00";
+            this.toolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // tStrip3
             // 
@@ -303,6 +360,46 @@
             this.toolStripStatusLabel5.Name = "toolStripStatusLabel5";
             this.toolStripStatusLabel5.Size = new System.Drawing.Size(100, 20);
             this.toolStripStatusLabel5.Text = "T2";
+            // 
+            // toolStripStatusLabel17
+            // 
+            this.toolStripStatusLabel17.AutoSize = false;
+            this.toolStripStatusLabel17.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.toolStripStatusLabel17.ForeColor = System.Drawing.Color.White;
+            this.toolStripStatusLabel17.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
+            this.toolStripStatusLabel17.Name = "toolStripStatusLabel17";
+            this.toolStripStatusLabel17.Size = new System.Drawing.Size(100, 20);
+            this.toolStripStatusLabel17.Text = "Max Cut";
+            // 
+            // toolStripStatusLabel16
+            // 
+            this.toolStripStatusLabel16.AutoSize = false;
+            this.toolStripStatusLabel16.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.toolStripStatusLabel16.ForeColor = System.Drawing.Color.White;
+            this.toolStripStatusLabel16.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
+            this.toolStripStatusLabel16.Name = "toolStripStatusLabel16";
+            this.toolStripStatusLabel16.Size = new System.Drawing.Size(100, 20);
+            this.toolStripStatusLabel16.Text = "Min Cover";
+            // 
+            // toolStripStatusLabel15
+            // 
+            this.toolStripStatusLabel15.AutoSize = false;
+            this.toolStripStatusLabel15.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.toolStripStatusLabel15.ForeColor = System.Drawing.Color.White;
+            this.toolStripStatusLabel15.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
+            this.toolStripStatusLabel15.Name = "toolStripStatusLabel15";
+            this.toolStripStatusLabel15.Size = new System.Drawing.Size(100, 20);
+            this.toolStripStatusLabel15.Text = "Max Depth";
+            // 
+            // toolStripStatusLabel14
+            // 
+            this.toolStripStatusLabel14.AutoSize = false;
+            this.toolStripStatusLabel14.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.toolStripStatusLabel14.ForeColor = System.Drawing.Color.White;
+            this.toolStripStatusLabel14.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
+            this.toolStripStatusLabel14.Name = "toolStripStatusLabel14";
+            this.toolStripStatusLabel14.Size = new System.Drawing.Size(100, 20);
+            this.toolStripStatusLabel14.Text = "Max Cut";
             // 
             // toolStripStatusLabel2
             // 
@@ -448,101 +545,6 @@
             this.button4.UseVisualStyleBackColor = false;
             this.button4.Visible = false;
             this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.AutoSize = false;
-            this.toolStripStatusLabel1.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripStatusLabel1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.toolStripStatusLabel1.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(100, 25);
-            this.toolStripStatusLabel1.Text = "0.00";
-            this.toolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            // 
-            // toolStripStatusLabel3
-            // 
-            this.toolStripStatusLabel3.AutoSize = false;
-            this.toolStripStatusLabel3.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripStatusLabel3.ForeColor = System.Drawing.Color.White;
-            this.toolStripStatusLabel3.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
-            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(100, 25);
-            this.toolStripStatusLabel3.Text = "0.00";
-            this.toolStripStatusLabel3.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            // 
-            // toolStripStatusLabel4
-            // 
-            this.toolStripStatusLabel4.AutoSize = false;
-            this.toolStripStatusLabel4.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripStatusLabel4.ForeColor = System.Drawing.Color.White;
-            this.toolStripStatusLabel4.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
-            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
-            this.toolStripStatusLabel4.Size = new System.Drawing.Size(100, 25);
-            this.toolStripStatusLabel4.Text = "0.00";
-            this.toolStripStatusLabel4.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            // 
-            // toolStripStatusLabel6
-            // 
-            this.toolStripStatusLabel6.AutoSize = false;
-            this.toolStripStatusLabel6.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripStatusLabel6.ForeColor = System.Drawing.Color.White;
-            this.toolStripStatusLabel6.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
-            this.toolStripStatusLabel6.Name = "toolStripStatusLabel6";
-            this.toolStripStatusLabel6.Size = new System.Drawing.Size(100, 25);
-            this.toolStripStatusLabel6.Text = "0.00";
-            this.toolStripStatusLabel6.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            // 
-            // toolStripStatusLabel13
-            // 
-            this.toolStripStatusLabel13.AutoSize = false;
-            this.toolStripStatusLabel13.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripStatusLabel13.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.toolStripStatusLabel13.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
-            this.toolStripStatusLabel13.Name = "toolStripStatusLabel13";
-            this.toolStripStatusLabel13.Size = new System.Drawing.Size(100, 25);
-            this.toolStripStatusLabel13.Text = "0.00";
-            this.toolStripStatusLabel13.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            // 
-            // toolStripStatusLabel14
-            // 
-            this.toolStripStatusLabel14.AutoSize = false;
-            this.toolStripStatusLabel14.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.toolStripStatusLabel14.ForeColor = System.Drawing.Color.White;
-            this.toolStripStatusLabel14.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
-            this.toolStripStatusLabel14.Name = "toolStripStatusLabel14";
-            this.toolStripStatusLabel14.Size = new System.Drawing.Size(100, 20);
-            this.toolStripStatusLabel14.Text = "Max Cut";
-            // 
-            // toolStripStatusLabel15
-            // 
-            this.toolStripStatusLabel15.AutoSize = false;
-            this.toolStripStatusLabel15.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.toolStripStatusLabel15.ForeColor = System.Drawing.Color.White;
-            this.toolStripStatusLabel15.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
-            this.toolStripStatusLabel15.Name = "toolStripStatusLabel15";
-            this.toolStripStatusLabel15.Size = new System.Drawing.Size(100, 20);
-            this.toolStripStatusLabel15.Text = "Max Depth";
-            // 
-            // toolStripStatusLabel16
-            // 
-            this.toolStripStatusLabel16.AutoSize = false;
-            this.toolStripStatusLabel16.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.toolStripStatusLabel16.ForeColor = System.Drawing.Color.White;
-            this.toolStripStatusLabel16.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
-            this.toolStripStatusLabel16.Name = "toolStripStatusLabel16";
-            this.toolStripStatusLabel16.Size = new System.Drawing.Size(100, 20);
-            this.toolStripStatusLabel16.Text = "Min Cover";
-            // 
-            // toolStripStatusLabel17
-            // 
-            this.toolStripStatusLabel17.AutoSize = false;
-            this.toolStripStatusLabel17.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.toolStripStatusLabel17.ForeColor = System.Drawing.Color.White;
-            this.toolStripStatusLabel17.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
-            this.toolStripStatusLabel17.Name = "toolStripStatusLabel17";
-            this.toolStripStatusLabel17.Size = new System.Drawing.Size(100, 20);
-            this.toolStripStatusLabel17.Text = "Max Cut";
             // 
             // Form2dSurvey
             // 

@@ -92,6 +92,20 @@ namespace OpenGrade
         {
             return degrees * (0.01745329251994329576923690768489);
         }
+        public static double DegreetoSlope(double degrees)
+        {                   
+            double angleInRadians =  toRadians(degrees);
+            double slopeAsDecimal = Math.Tan(angleInRadians);
+            double slopePercentage = slopeAsDecimal * 100.0;        
+            return slopePercentage;
+        }
+        public static double RadiantoSlope(double radians)
+        {
+            double slopeAsDecimal = Math.Tan(radians);
+            double slopePercentage = slopeAsDecimal * 100.0;
+            return slopePercentage;
+        }
+
 
         public static float sin(float angle)
         {

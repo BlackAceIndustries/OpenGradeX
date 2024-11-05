@@ -78,7 +78,7 @@ namespace OpenGrade
         //Is it in 2D or 3D, metric or imperial, display lightbar, display grid etc
         public bool isIn3D = true, isDualAntenna = false, isImuAsDual = false, isMetric = true, isLightbarOn = true, isGridOn = true, isSideGuideLines = true, isFullScreen = false;
 
-        public bool isAutoVert = false, isAutoTilt = false;
+        public bool isAutoVert = false, isAutoTilt = false, isManualOverride = false;
 
 
         public bool isPureDisplayOn = true, isSkyOn = true, isBigAltitudeOn = false, isSimOn = true, isGuidelineOn = true;
@@ -1953,22 +1953,23 @@ namespace OpenGrade
 
         private void btnVertAuto_Click(object sender, EventArgs e)
         {
-            if (isAutoVert)
-            {
-                mc.gcData.autoVert = false;
-                isAutoVert = false;
-                btnVertAuto.Image = Properties.Resources.Toggle_Vert_MANUAL;
-                section[1].mappingOnRequest = false;
-                section[1].mappingOffRequest = true;
-
-            }
-            else
+            if (!isAutoVert)
             {
                 mc.gcData.autoVert = true;
                 isAutoVert = true;
                 btnVertAuto.Image = Properties.Resources.Toggle_Vert_AUTO;
                 section[1].mappingOnRequest = true;
-                section[1].mappingOffRequest = false;
+                section[1].mappingOffRequest = false;               
+
+            }
+            else
+            {          
+                
+                mc.gcData.autoVert = false;
+                isAutoVert = false;
+                btnVertAuto.Image = Properties.Resources.Toggle_Vert_MANUAL;
+                section[1].mappingOnRequest = false;
+                section[1].mappingOffRequest = true;
 
             }
            
@@ -2396,7 +2397,7 @@ namespace OpenGrade
         private void btnLaserSettings_Click(object sender, EventArgs e)
         {
             ct.LaserSetAltitude = pn.altitude;
-            lblZeroElevationSetpoint.Text = ct.LaserSetAltitude.ToString();
+            lblZeroElevationSetpoint.Text = ct.LaserSetAltitude.ToString("f3");
         }
 
         private void fORCERESETALLToolStripMenuItem_Click(object sender, EventArgs e)

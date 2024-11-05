@@ -55,14 +55,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OXG_3D.exe" size="4137472">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OXG_3D.exe" size="4139520">
       <assemblyIdentity name="OXG_3D" version="1.4.3.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>UFe4lFM/C84MEMV4jyxL9f2ZEWVNCVjagzU6AX/YS/Q=</dsig:DigestValue>
+        <dsig:DigestValue>O2x6yogB7Cu1QDUgco8uOpoezrHt65/8IS4nS2QHsJM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -303,13 +303,13 @@
       <dsig:DigestValue>AqGdcYW7NywLwl42uTmWrWjAQsTH8yXi19U5iaWKpKo=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="OXG_3D.exe.config" size="22971">
+  <file name="OXG_3D.exe.config" size="22973">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>mFXVM2XP9uMCYma0TUXGKjDIHiRnAZZW0RlMIJR/+MQ=</dsig:DigestValue>
+      <dsig:DigestValue>cNVkt5ui2xBwZOK8rR5KMRWXbiLfyTaia289Ihdnw4Q=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

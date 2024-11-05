@@ -1180,6 +1180,16 @@ namespace OpenGrade
             mf.SettingsPageOpen(1);
         }
 
+        private void tStripSlopeAuto_Click(object sender, EventArgs e)
+        {
+            mf.SettingsPageOpen(1);
+        }
+
+        private void tStripShoreAuto_Click(object sender, EventArgs e)
+        {
+            mf.SettingsPageOpen(1);
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
 

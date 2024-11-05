@@ -15,10 +15,10 @@
       <Value Profile="(Default)">3</Value>
     </Setting>
     <Setting Name="setVehicle_maxAngularVelocity" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">3</Value>
+      <Value Profile="(Default)">5</Value>
     </Setting>
     <Setting Name="setVehicle_maxSteerAngle" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">35</Value>
+      <Value Profile="(Default)">1000</Value>
     </Setting>
     <Setting Name="setVehicle_toolWidth" Type="System.Double" Scope="User">
       <Value Profile="(Default)">4</Value>

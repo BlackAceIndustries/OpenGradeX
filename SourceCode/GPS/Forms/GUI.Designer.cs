@@ -1694,7 +1694,8 @@ namespace OpenGrade
                         tStripCenterDelta.Text = cutDeltaCenter.ToString("N1");
                         tStripRightDelta.Text = cutDeltaCenter.ToString("N1");
                         tStripLeftDelta.Text = cutDeltaCenter.ToString("N1");
-                        //mc.gcData.deltaA = cutDelta;  
+                        //mc.gcData.deltaA =
+                        //;  
                     }
                     else
                     {
@@ -1724,7 +1725,20 @@ namespace OpenGrade
                     {
                         if(!isManualOverride)
                         {
-                            mc.gcData.deltaA = (int)cutDeltaCenter;
+                            //mc.gcData.deltaA = (int)cutDeltaCenter;
+                            if (curMode == gradeMode.tile)
+                            {
+                                //double CombinedDelta = (Math.Abs(cutDeltaCenter) + Math.Abs(glm.RadiantoSlope(ct.slopeAngleCT - slopeHeading)));
+                                //if (cutDeltaCenter < 0) CombinedDelta = -CombinedDelta;
+                                //mc.gcData.deltaA = (int)CombinedDelta;
+                                //cutDeltaCenter = CombinedDelta;
+
+
+                            }
+                            else
+                            {
+                                mc.gcData.deltaA = (int)cutDeltaCenter;
+                            }
                         }
                         
                         //

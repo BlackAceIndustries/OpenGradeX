@@ -80,7 +80,7 @@ namespace OpenGrade
             //if (mf.isAutoVertOn && cutDelta != 9999)
             if (mf.mc.gcData.autoVert && cutDelta != 9999)
             {
-                altitude = altitude - (cutDelta/100 * .3); 
+                altitude = altitude - (cutDelta/100 * .1); 
             }
             BuildGGA();
             BuildVTG();

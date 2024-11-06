@@ -15,7 +15,7 @@ namespace OpenGrade
         public double[] frustum = new double[24];
 
         //difference between blade tip and guide line
-        public double cutDeltaCenter = 0, cutDeltaLeft=0, cutDeltaRight = 0, distFromLastPass = 0, distToTarget = 0;
+        public double cutDeltaCenter = 0, cutDeltaLeft=0, cutDeltaRight = 0, distFromLastPass = 0, distToTarget = 0, CombinedDelta = 0;
         public double autoCutDepth = 0;
         public double minDist;
         public double bladeOffset;
@@ -1092,7 +1092,7 @@ namespace OpenGrade
 
             //autogain the window
             if ((maxFieldY - minFieldY) != 0)
-                altitudeWindowGain = (Math.Abs(cameraDistanceZ / (maxFieldY - minFieldY))) * 0.80;
+                altitudeWindowGain = (Math.Abs(cameraDistanceZ / (maxFieldY - minFieldY)));
             else altitudeWindowGain = 10;
 
             //translate to that spot in the world 
@@ -1114,22 +1114,48 @@ namespace OpenGrade
             int autoCnt = ct.autoList.Count;
             double distToClosestPoint = 0;
 
+            //switch (curBlade)
+            //{
+            //    case BladePoint.left:
+            //        ct.closestPoint = ct.FindClosestPoint(pn.lookaheadLeft);
+
+            //        break;
+            //    case BladePoint.center:
+            //        ct.closestPoint = ct.FindClosestPoint(pn.lookaheadCenter);
+            //        //ct.closestPoint = ct.FindClosestPoint(ct.goalPointCT);
+
+            //        break;
+
+            //    case BladePoint.right:
+            //        ct.closestPoint = ct.FindClosestPoint(pn.lookaheadRight);
+            //        break;
+
+            //    default:
+            //        ct.closestPoint = ct.FindClosestPoint(pn.lookaheadCenter);
+            //        break;
+
+            //}
+
             switch (curBlade)
             {
                 case BladePoint.left:
-                    ct.closestPoint = ct.FindClosestPoint(pn.lookaheadLeft);
+                    ct.closestPoint = ct.FindClosestPoint(ct.goalPointCT);
 
                     break;
                 case BladePoint.center:
+                    ct.closestPoint = ct.FindClosestPoint(ct.goalPointCT);
                     ct.closestPoint = ct.FindClosestPoint(pn.lookaheadCenter);
+
                     break;
 
                 case BladePoint.right:
-                    ct.closestPoint = ct.FindClosestPoint(pn.lookaheadRight);
+                    ct.closestPoint = ct.FindClosestPoint(ct.goalPointCT);
                     break;
 
                 default:
-                    ct.closestPoint = ct.FindClosestPoint(pn.lookaheadCenter);
+                    ct.closestPoint = ct.FindClosestPoint(ct.goalPointCT);
+
+
                     break;
 
             }
@@ -1158,6 +1184,9 @@ namespace OpenGrade
                         }
 
                     }
+                    //CalculateMinMaxZoomMoving(ct.FindClosestPoint(ct.goalPointCT));
+                    
+                    
                     CalculateMinMaxZoomMoving(lookAheadPnt);
 
 
@@ -1346,7 +1375,7 @@ namespace OpenGrade
                     if (cutPts > 0)
                     {
                         gl.LineWidth(2);
-                        gl.Color(0.35f, 0.92f, 0.92f);
+                        gl.Color(0.35f, 0.2f, 0.92f); // Cut Line Color
                         gl.Begin(OpenGL.GL_LINE_STRIP);
 
                         for (int i = 0; i < ptCnt; i++)
@@ -1427,51 +1456,92 @@ namespace OpenGrade
                         if (minDist < vehicle.disFromSurvey * 1000.0)
                         {// record current pass 
 
+
+                            //draw the lookahead elevation lines and blade
+                            gl.LineWidth(15);
+                            gl.Begin(OpenGL.GL_LINES);
+                            gl.Color(0.95f, 0.90f, 0.0f , 0.25f);
+                            gl.Vertex(ct.FindClosestPoint(ct.goalPointCT), (((ct.goalPointCT.altitude - centerY) * altitudeWindowGain) + centerY), 0);
+                            gl.Vertex(ct.FindClosestPoint(ct.goalPointCT), (((ct.goalPointCT.altitude - centerY) * altitudeWindowGain) + centerY) + (vehicle.antennaHeight * altitudeWindowGain), 0);
+                            //gl.Vertex(lookAheadPnt, (((ct.goalPointCT.altitude - centerY) * altitudeWindowGain) + centerY), 0);
+                            //gl.Vertex(lookAheadPnt, (((ct.goalPointCT.altitude - centerY) * altitudeWindowGain) + centerY) + (vehicle.antennaHeight * altitudeWindowGain), 0);
+                            gl.End();
+
+
+
+                            
+                            gl.PointSize(20);
+                            gl.Begin(OpenGL.GL_POINT);
+                            gl.Color(0.5f, 0.5f, 0.0f);
+                            gl.Vertex(ct.FindClosestPoint(ct.goalPointCT), (((pn.altitude - centerY) * altitudeWindowGain) + centerY), 0);// Blade Point
+                            gl.End();
+
+
+
+
                             //draw the actual elevation lines and blade
                             gl.LineWidth(15);
                             gl.Begin(OpenGL.GL_LINES);
                             gl.Color(0.95f, 0.90f, 0.0f);
-                            gl.Vertex(lookAheadPnt, (((pn.altitude - centerY) * altitudeWindowGain) + centerY), 0);
-                            gl.Vertex(lookAheadPnt, (((pn.altitude - centerY) * altitudeWindowGain) + centerY)+ (vehicle.antennaHeight*altitudeWindowGain), 0);
+                            ct.FindClosestPoint(pn.bladeCenter);
+                            gl.Vertex(ct.FindClosestPoint(pn.bladeCenter), (((pn.altitude - centerY) * altitudeWindowGain) + centerY), 0);
+                            gl.Vertex(ct.FindClosestPoint(pn.bladeCenter), (((pn.altitude - centerY) * altitudeWindowGain) + centerY) + (vehicle.antennaHeight * altitudeWindowGain), 0);
                             gl.End();
 
-                            //the skinny actual elevation lines
+
+
+                            //lblDiag.Text += altitudeWindowGain.ToString("F8") + " aGain \n";
+                            //lblDiag.Text += ct.paRadiusCT.ToString("F8") + " paRad \n";
+                            //lblDiag.Text += ct.ppRadiusCT.ToString("F8") + " ppRad \n";
+                            //lblDiag.Text += ct.goalPointCT.altitude.ToString("F8") + " gC \n";
+
+                            double numSegments = 100;
+                            double theta = glm.twoPI / (numSegments);
+                            double c = Math.Cos(theta);//precalculate the sine and cosine
+                            double s = Math.Sin(theta);
+                            double z = ct.paRadiusCT;
+                            double y = 0;
+
+
                             gl.LineWidth(1);
-                            gl.Begin(OpenGL.GL_LINES);
-                            gl.Color(0.57f, 0.80f, 0.00f);
-                            gl.Vertex(-5000, (((pn.altitude - centerY) * altitudeWindowGain) + centerY), 0);
-                            gl.Vertex(5000, (((pn.altitude - centerY) * altitudeWindowGain) + centerY), 0);
-                            gl.Vertex(lookAheadPnt, -10000, 0);
-                            gl.Vertex(lookAheadPnt, 10000, 0);
+                            gl.Begin(OpenGL.GL_LINE_LOOP);
+                            gl.Color(0.0f, 0.0f, 0.0f);
+                            for (int ii = 0; ii < numSegments; ii++)
+                            {
+
+                                gl.Vertex(z + lookAheadPnt, (y + ct.goalPointCT.altitude + ct.paRadiusCT) );//output vertex
+
+                                //apply the rotation matrix
+                                double t = z;
+                                z = (c * z) - (s * y);
+                                y = (s * t) + (c * y);
+                            }
                             gl.End();
 
-                            //gl.Begin(OpenGL.GL_LINES);
-                            //gl.Color(.0f, 1.0f, 1.0f);
-                            //gl.Vertex(closestPoint, (((pn.altitude - centerY) * altitudeWindowGain) + centerY), 0);
-                            //gl.Vertex(closestPoint - 20, (((pn.altitude - centerY) * altitudeWindowGain) + centerY), 0);
-                            
-                            
-                            //gl.Vertex(closestPoint - 20, (((pn.altitude - centerY) * altitudeWindowGain) + centerY) + 50, 0);
-                            //gl.Vertex(closestPoint, (((pn.altitude - centerY) * altitudeWindowGain) + centerY) + 50, 0);
-                            //gl.End();
 
-                            //gl.LineWidth(1);
-                            //gl.Begin(OpenGL.GL_POLYGON);
-                            //gl.Color(.0f, 1.0f, 1.0f);
-                            //gl.Vertex(closestPoint, (((pn.altitude - centerY) * altitudeWindowGain) + centerY), 0);
-                            //gl.Vertex(closestPoint -1, (((pn.altitude - centerY) * altitudeWindowGain) + centerY), 0);
-                            //gl.Vertex(closestPoint -1, (((pn.altitude - centerY) * altitudeWindowGain) + centerY) + 10, 0);
-                            //gl.Vertex(closestPoint, (((pn.altitude - centerY) * altitudeWindowGain) + centerY) + 10, 0);
-                            //gl.End();
-
-                            //little point at cutting edge of blade
-                            gl.Color(0.0f, 0.0f, 0.0f);
+                            gl.Color(0.0f, 0.0f,0.0f);
                             gl.PointSize(8);
                             gl.Begin(OpenGL.GL_POINTS);
-                            gl.Vertex(lookAheadPnt, (((pn.altitude - centerY) * altitudeWindowGain) + centerY), 0);
+                            gl.Vertex(ct.FindClosestPoint(pn.bladeCenter), (((pn.altitude - centerY) * altitudeWindowGain) + centerY), 0);// Blade Point
+
+                            gl.Color(1.0f, 0.0f, 0.0f);
+                            gl.Vertex(ct.FindClosestPoint(ct.goalPointCT), (((pn.altitude - centerY) * altitudeWindowGain) + centerY), 0);// Blade Point
+
+                            gl.Color(0.0f, 1.0f, 0.0f);
+                            gl.Vertex(lookAheadPnt, ((((ct.goalPointCT.altitude - centerY) * altitudeWindowGain) + centerY) ));//output vertex
+
+
+                            lblDiag.Text += ct.FindClosestPoint(ct.goalPointCT).ToString("F2") + " cp Goal \n";
+                            lblDiag.Text += ct.FindClosestPoint(pn.bladeCenter).ToString("F2") + " cp Blade \n";
+                            lblDiag.Text += ct.goalPointCT.altitude.ToString("F8") + " gC \n";
+
+
+
+                            //gl.Vertex(z + lookAheadPnt, (y + ct.goalPointCT.altitude + ct.paRadiusCT ));
+                            //gl.Vertex(z + lookAheadPnt, y + ct.goalPointCT.altitude );
                             gl.End();
 
-                            //rge
+
 
 
 

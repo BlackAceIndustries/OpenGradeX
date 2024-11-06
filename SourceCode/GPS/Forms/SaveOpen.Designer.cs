@@ -1119,7 +1119,7 @@ namespace OpenGrade
                     //for every new chunk of patch in the whole section
 
                     writer.WriteLine(count2.ToString(CultureInfo.InvariantCulture));
-                    writer.WriteLine("easting, heading, northing, altitude, latitude, longitude, cutAltitude, currentPassAltitude, lastPassAltitude, distance");
+                    writer.WriteLine("easting, heading, northing, altitude, latitude, longitude, cutAltitude, currentPassAltitude, lastPassAltitude, distance, slope");
 
                     for (int i = 0; i < count2; i++)
                     {
@@ -1132,7 +1132,9 @@ namespace OpenGrade
                             Math.Round(ct.ptList[i].cutAltitude, 7).ToString(CultureInfo.InvariantCulture) + "," +
                             Math.Round(ct.ptList[i].currentPassAltitude, 3).ToString(CultureInfo.InvariantCulture) + "," +
                             Math.Round(ct.ptList[i].lastPassAltitude, 3).ToString(CultureInfo.InvariantCulture) + "," +                           
-                            Math.Round(ct.ptList[i].distance, 3).ToString(CultureInfo.InvariantCulture));
+                            Math.Round(ct.ptList[i].distance, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                            Math.Round(ct.ptList[i].slope, 3).ToString(CultureInfo.InvariantCulture));
+                
                     }
                 }
             }
@@ -1253,8 +1255,9 @@ namespace OpenGrade
                             Math.Round(ct.cutList[i].cutAltitude, 7).ToString(CultureInfo.InvariantCulture) + "," +
                             Math.Round(ct.cutList[i].currentPassAltitude, 3).ToString(CultureInfo.InvariantCulture) + "," +
                             Math.Round(ct.cutList[i].lastPassAltitude, 3).ToString(CultureInfo.InvariantCulture) + "," +                            
-                            Math.Round(ct.cutList[i].distance, 3).ToString(CultureInfo.InvariantCulture));
-                    }
+                            Math.Round(ct.cutList[i].distance, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                            Math.Round(ct.ptList[i].slope, 3).ToString(CultureInfo.InvariantCulture));
+                }
                     
                 }
             }
@@ -1297,7 +1300,8 @@ namespace OpenGrade
                             Math.Round(ct.cutList[i].cutAltitude, 7).ToString(CultureInfo.InvariantCulture) + "," +
                             Math.Round(ct.cutList[i].currentPassAltitude, 3).ToString(CultureInfo.InvariantCulture) + "," +
                             Math.Round(ct.cutList[i].lastPassAltitude, 3).ToString(CultureInfo.InvariantCulture) + "," +                            
-                            Math.Round(ct.cutList[i].distance, 3).ToString(CultureInfo.InvariantCulture));
+                            Math.Round(ct.cutList[i].distance, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                            Math.Round(ct.ptList[i].slope, 3).ToString(CultureInfo.InvariantCulture));
                     }
                 }
             }

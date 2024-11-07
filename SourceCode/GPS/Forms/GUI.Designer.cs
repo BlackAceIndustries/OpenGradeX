@@ -1585,10 +1585,6 @@ namespace OpenGrade
                     mc.headingIMU = mc.a1Data.yaw - mc.imuYawOffset;
                     mc.pitchSlope = glm.DegreetoSlope(mc.pitchIMU);
                     mc.rollSlope = glm.DegreetoSlope(mc.rollIMU);
-
-
-
-
                     tStripPitch.Text = mc.pitchIMU.ToString("F2");
                     tStripRoll.Text = mc.rollSlope.ToString("F2");
                     tStripAltitude.Text = pn.altitude.ToString("F3");
@@ -1694,14 +1690,12 @@ namespace OpenGrade
                         tStripCenterDelta.Text = cutDeltaCenter.ToString("N1");
                         tStripRightDelta.Text = cutDeltaCenter.ToString("N1");
                         tStripLeftDelta.Text = cutDeltaCenter.ToString("N1");
-                        //mc.gcData.deltaA =
                         //;  
                     }
                     else
                     {
                         tStripCenterDelta.Text = (0.3937 * distFromLastPass).ToString("N1");
                         tStripCenterDelta.Text = (0.3937 * cutDeltaCenter).ToString("N1");
-                        //mc.gcData.deltaA = 0.3937 * cutDelta;
 
                     }
 
@@ -1725,22 +1719,18 @@ namespace OpenGrade
                     {
                         if(!isManualOverride)
                         {
-                            //mc.gcData.deltaA = (int)cutDeltaCenter;
                             if (curMode == gradeMode.tile)
-                            {
-                                //double CombinedDelta = (Math.Abs(cutDeltaCenter) + Math.Abs(glm.RadiantoSlope(ct.slopeAngleCT - slopeHeading)));
-                                //if (cutDeltaCenter < 0) CombinedDelta = -CombinedDelta;
-                                //mc.gcData.deltaA = (int)CombinedDelta;
-                                //cutDeltaCenter = CombinedDelta;
-
-
+                            {                                
+                                mc.gcData.deltaA = (int)slopeDelta;
                             }
                             else
                             {
                                 mc.gcData.deltaA = (int)cutDeltaCenter;
                             }
                         }
-                        
+
+                        tStripToDesign.Text = mc.gcData.deltaA.ToString("F3");
+
                         //
                         //mc.gcData.deltaA = (int)cutDeltaCenter;
                         // FILL IN BAR GRAPHS                    

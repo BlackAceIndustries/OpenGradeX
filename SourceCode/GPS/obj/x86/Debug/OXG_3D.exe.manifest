@@ -55,14 +55,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OXG_3D.exe" size="4141568">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OXG_3D.exe" size="4141056">
       <assemblyIdentity name="OXG_3D" version="1.4.3.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>J2b5mRK11ShCrXnYR+TFj8eFjEQc4hYCAAND5LbWhSA=</dsig:DigestValue>
+        <dsig:DigestValue>mEgYfOco7DPZtdfUJi4dKwmzjoXHsXNqZWLOsUCWlzc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

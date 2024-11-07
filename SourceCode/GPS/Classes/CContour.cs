@@ -671,21 +671,19 @@ namespace OpenGrade
                 distanceFromCurrentLine = 32000;
                 mf.guidanceLineDistanceOff = 32000;
             }
-
-            //mf.lblDiag.Text = paRadiusCT.ToString("F8") + " PaRad \n";
-            //mf.lblDiag.Text += ppRadiusCT.ToString("F8") + " ppRad \n";
+            mf.slopeDelta = glm.RadiantoSlope(slopeAngleCT - mf.slopeHeading);
+            mf.slopeDelta = glm.RadiantoSlope(mf.slopeHeading - slopeAngleCT );
+            mf.CombinedDelta = (mf.cutDeltaCenter - mf.slopeDelta);
 
             mf.lblDiag.Text = glm.RadiantoSlope(slopeAngleCT).ToString("F3") + " SlopeSet \n";
             mf.lblDiag.Text += glm.RadiantoSlope(mf.slopeHeading).ToString("F3") + "  SlopeHead \n";        
-            mf.lblDiag.Text += glm.RadiantoSlope(slopeAngleCT - mf.slopeHeading).ToString("F3") + " SlopeDelta \n";
-            mf.lblDiag.Text += mf.cutDeltaCenter.ToString("F3") + "CutDelta \n";
-
-             mf.CombinedDelta = (Math.Abs(mf.cutDeltaCenter) + Math.Abs(glm.RadiantoSlope(slopeAngleCT - mf.slopeHeading)));
-            if (mf.cutDeltaCenter < 0)
-            {
-                mf.CombinedDelta = -mf.CombinedDelta;
-            }
-            mf.lblDiag.Text += (mf.CombinedDelta).ToString("F3") + "TotDelta \n";
+            mf.lblDiag.Text += (mf.slopeDelta*10).ToString("F3") + " SlopeDelta \n";
+            //mf.lblDiag.Text += mf.cutDeltaCenter.ToString("F3") + "CutDelta \n";
+            
+            
+            
+            
+            //mf.lblDiag.Text += (mf.CombinedDelta).ToString("F3") + "TotDelta \n";
 
 
 
@@ -961,7 +959,7 @@ namespace OpenGrade
             vec2 temp = new vec2();
 
             double distFromLastPlot = 0;
-            double minPtDist = 1;
+            double minPtDist = .2;
             int drawPts;
             int ptCnt = ptList.Count;
             double minDeltaHt = 0;
@@ -1060,8 +1058,7 @@ namespace OpenGrade
                             drawPts = drawList.Count;
                         }
 
-                        minDeltaHt = (Math.Tan((angle * (Math.PI / 180))) * distFromLastPlot);     // distFromLastPlot                    
-                       
+                        minDeltaHt = (Math.Tan((angle * (Math.PI / 180))) * distFromLastPlot);     // distFromLastPlot                                           
                         temp.easting = i;
                         temp.northing = ((double)ptList[i].altitude);
 
@@ -1196,19 +1193,38 @@ namespace OpenGrade
                             }
                         }
 
+                        if (i == ptCnt - 1)
+                        {
+                            if (distFromLastPlot > minPtDist)
+                            {
+
+                                //calculate min Delta
+                                minDeltaHt = (Math.Tan((angle * (Math.PI / 180))) * distFromLastPlot);     // distFromLastPlot       
+
+                                // set temp point and altitude
+                                temp.easting = i;
+                                temp.northing = ((double)ptList[i].altitude) + minDeltaHt - mf.vehicle.minTileCover;
+                                drawList.Add(temp);
+                                lastPt = i;
+                            }
+                        }
+
+
+
+
                         distFromLastPlot = 0;
                         endPt = i;
                     }
 
-                    for (int i = lastPt; i < ptCnt; i++)
-                    {
+                    //for (int i = lastPt; i < ptCnt; i++)
+                    //{
 
-                        temp.easting = i;
-                        temp.northing = ((double)ptList[i].altitude - mf.vehicle.minTileCover);
-                        drawList.Add(temp);
+                    //    temp.easting = i;
+                    //    temp.northing = ((double)ptList[i].altitude - mf.vehicle.minTileCover);
+                    //    drawList.Add(temp);
 
 
-                    }
+                    //}
                     break;
 
                 default:

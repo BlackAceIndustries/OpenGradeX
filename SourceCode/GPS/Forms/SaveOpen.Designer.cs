@@ -1089,8 +1089,9 @@ namespace OpenGrade
                             Math.Round(ct.ptList[i].cutAltitude, 7).ToString(CultureInfo.InvariantCulture) + "," +
                             Math.Round(ct.ptList[i].currentPassAltitude, 3).ToString(CultureInfo.InvariantCulture) + "," +
                             Math.Round(ct.ptList[i].lastPassAltitude, 3).ToString(CultureInfo.InvariantCulture) + "," +                          
-                            Math.Round(ct.ptList[i].distance, 3).ToString(CultureInfo.InvariantCulture));
-                    }
+                            Math.Round(ct.ptList[i].distance, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                            Math.Round(ct.ptList[i].slope, 3).ToString(CultureInfo.InvariantCulture));
+                }
                 }
             }
 

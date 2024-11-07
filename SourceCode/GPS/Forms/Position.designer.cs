@@ -367,7 +367,6 @@ namespace OpenGrade
             if (altitudeHeading < 0) altitudeHeading += glm.twoPI;
             slopeHeading = altitudeHeading;
 
-            tStripToDesign.Text = glm.RadiantoSlope(slopeHeading).ToString("F2");
 
 
 

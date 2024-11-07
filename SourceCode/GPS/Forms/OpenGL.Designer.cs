@@ -15,7 +15,7 @@ namespace OpenGrade
         public double[] frustum = new double[24];
 
         //difference between blade tip and guide line
-        public double cutDeltaCenter = 0, cutDeltaLeft=0, cutDeltaRight = 0, distFromLastPass = 0, distToTarget = 0, CombinedDelta = 0;
+        public double cutDeltaCenter = 0, cutDeltaLeft=0, cutDeltaRight = 0, distFromLastPass = 0, distToTarget = 0, CombinedDelta = 0, slopeDelta = 0;
         public double autoCutDepth = 0;
         public double minDist;
         public double bladeOffset;
@@ -1531,9 +1531,9 @@ namespace OpenGrade
                             gl.Vertex(lookAheadPnt, ((((ct.goalPointCT.altitude - centerY) * altitudeWindowGain) + centerY) ));//output vertex
 
 
-                            lblDiag.Text += ct.FindClosestPoint(ct.goalPointCT).ToString("F2") + " cp Goal \n";
-                            lblDiag.Text += ct.FindClosestPoint(pn.bladeCenter).ToString("F2") + " cp Blade \n";
-                            lblDiag.Text += ct.goalPointCT.altitude.ToString("F8") + " gC \n";
+                           // lblDiag.Text += ct.FindClosestPoint(ct.goalPointCT).ToString("F2") + " cp Goal \n";
+                           // lblDiag.Text += ct.FindClosestPoint(pn.bladeCenter).ToString("F2") + " cp Blade \n";
+                            //lblDiag.Text += ct.goalPointCT.altitude.ToString("F8") + " gC \n";
 
 
 

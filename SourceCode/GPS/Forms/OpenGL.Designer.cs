@@ -1461,15 +1461,12 @@ namespace OpenGrade
                             gl.LineWidth(15);
                             gl.Begin(OpenGL.GL_LINES);
                             gl.Color(0.95f, 0.90f, 0.0f , 0.25f);
-                            gl.Vertex(ct.FindClosestPoint(ct.goalPointCT), (((ct.goalPointCT.altitude - centerY) * altitudeWindowGain) + centerY), 0);
-                            gl.Vertex(ct.FindClosestPoint(ct.goalPointCT), (((ct.goalPointCT.altitude - centerY) * altitudeWindowGain) + centerY) + (vehicle.antennaHeight * altitudeWindowGain), 0);
+                            gl.Vertex(lookAheadPnt, (((pn.altitude - centerY) * altitudeWindowGain) + centerY), 0);
+                            gl.Vertex(lookAheadPnt, (((pn.altitude - centerY) * altitudeWindowGain) + centerY) + (vehicle.antennaHeight * altitudeWindowGain), 0);
                             //gl.Vertex(lookAheadPnt, (((ct.goalPointCT.altitude - centerY) * altitudeWindowGain) + centerY), 0);
                             //gl.Vertex(lookAheadPnt, (((ct.goalPointCT.altitude - centerY) * altitudeWindowGain) + centerY) + (vehicle.antennaHeight * altitudeWindowGain), 0);
                             gl.End();
-
-
-
-                            
+                                                        
                             gl.PointSize(20);
                             gl.Begin(OpenGL.GL_POINT);
                             gl.Color(0.5f, 0.5f, 0.0f);
@@ -1690,7 +1687,7 @@ namespace OpenGrade
                             gl.LineWidth(5);
                             gl.Begin(OpenGL.GL_LINE_STRIP);
 
-                            gl.Color(0.46f, 0.60f, 0.20f);// Green 
+                            gl.Color(0.46f, 0.60f, 0.2f);// Green 
                             for (int i = 0; i < ptCnt; i++)
                             {
                                 if (ct.ptList[i].cutAltitude > 0 & ct.ptList[i].currentPassAltitude > 0)

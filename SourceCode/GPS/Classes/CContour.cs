@@ -585,14 +585,12 @@ namespace OpenGrade
                localSlope =  -mf.slopeHeading;
                 paRadiusCT = goalPointAltitudeSquared / (2 * (((goalPointCT.altitude - mf.pn.altitude) * Math.Cos(localSlope)) + (k *  Math.Sin(localSlope))));
 
-                //paRadiusCT = goalPointAltitudeSquared / (2 * (((goalPointCT.altitude - mf.pn.altitude) * Math.Sin(localSlope)) + (k * Math.Cos(localSlope))));
-
                 slopeAngleCT = ((Math.Atan(2 * 
                    (goalPointCT.altitude - mf.pn.altitude) *  Math.Cos(localSlope))
                     + k * Math.Sin(localSlope)
                     * mf.vehicle.wheelbase / goalPointAltitudeSquared)/4);
 
-
+                //slopeAngleCT =  glm.toDegrees(slopeAngleCT);
 
                 if (steerAngleCT < -mf.vehicle.maxSteerAngle) steerAngleCT = -mf.vehicle.maxSteerAngle;
                 if (steerAngleCT > mf.vehicle.maxSteerAngle) steerAngleCT = mf.vehicle.maxSteerAngle;
@@ -606,20 +604,6 @@ namespace OpenGrade
                 goalPointCT.easting = mf.pn.easting + (ppRadiusCT * Math.Cos(localHeading));
                 goalPointCT.northing = mf.pn.northing + (ppRadiusCT * Math.Sin(localHeading));
                 goalPointCT.altitude = mf.pn.altitude + (paRadiusCT * Math.Sin(localSlope));
-
-
-
-
-
-                //goalPointCT.altitude = mf.pn.altitude + (paRadiusCT * Math.Cos(localSlope));
-                //goalPointCT.altitude = mf.ct.ptList[A].cutAltitude + (paRadiusCT * Math.Cos(localSlope));
-
-                //goalPointCT.altitude = ptList[A].cutAltitude + (paRadiusCT * Math.Sin(localSlope));
-
-
-
-                //ptList[B].cutAltitude
-                //goalPointCT.altitude = mf.pn.altitude + (paRadiusCT * Math.Sin(localSlope));
 
 
                 //angular velocity in rads/sec  = 2PI * m/sec * radians/meters
@@ -656,28 +640,25 @@ namespace OpenGrade
                 if (paRadiusCT > 0)
 
 
-
-
-
-
                 mf.guidanceLineDistanceOff = (Int16)distanceFromCurrentLine;
                 mf.guidanceLineSteerAngle = (Int16)(steerAngleCT * 10);
-                //mf.guidanceLineHeadingDelta = (Int16)((Math.Atan2(Math.Sin(temp - mf.fixHeading),
-                //                                    Math.Cos(temp - mf.fixHeading))) * 10000);
+               
             }
             else
             {
                 //invalid distance so tell AS module
+
                 distanceFromCurrentLine = 32000;
                 mf.guidanceLineDistanceOff = 32000;
-            }
-            mf.slopeDelta = glm.RadiantoSlope(slopeAngleCT - mf.slopeHeading);
-            mf.slopeDelta = glm.RadiantoSlope(mf.slopeHeading - slopeAngleCT );
-            mf.CombinedDelta = (mf.cutDeltaCenter - mf.slopeDelta);
 
+            }
+
+
+            mf.slopeDelta = glm.RadiantoSlope(mf.slopeHeading - slopeAngleCT) ;
+            mf.CombinedDelta = (mf.cutDeltaCenter - mf.slopeDelta);
             mf.lblDiag.Text = glm.RadiantoSlope(slopeAngleCT).ToString("F3") + " SlopeSet \n";
             mf.lblDiag.Text += glm.RadiantoSlope(mf.slopeHeading).ToString("F3") + "  SlopeHead \n";        
-            mf.lblDiag.Text += (mf.slopeDelta*10).ToString("F3") + " SlopeDelta \n";
+            mf.lblDiag.Text += (mf.slopeDelta).ToString("F3") + " SlopeDelta \n";
             //mf.lblDiag.Text += mf.cutDeltaCenter.ToString("F3") + "CutDelta \n";
             
             

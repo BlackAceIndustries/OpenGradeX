@@ -326,16 +326,16 @@ void SetOutput2(){
     }       
       PID_total = PID_p + PID_i + PID_d;
     
-    if (PID_total >  4096) PID_total = 4096;      
-    
-    PWMOutput = map(PID_total, 0.0, 4096, 0, 255);
+    if (PID_total >  4096) PID_total = 4096;       
 
     if (gcDataMsg.deltaA > 0) {
-      analogOutput1 = map(PID_total, 0.0, 4096, gcSettingsMsg.retDead, retMin);
+      analogOutput1 = map(PID_total, 0.0, 4096, gcSettingsMsg.retDead, retMin);      
+      PWMOutput = map(PID_total, 0.0, 4096, abs((gcSettingsMsg.retDead - VALVE_FLOAT)/16), 255);
       PWMDir = 0;
     }
     else if (gcDataMsg.deltaA < 0) {
       analogOutput1 = map(PID_total, 0.0, 4096, gcSettingsMsg.extDead, extMax);
+      PWMOutput = map(PID_total, 0.0, 4096, abs((gcSettingsMsg.extDead- VALVE_FLOAT)/16), 255);
       PWMDir = 1;
     }
     else {
@@ -349,7 +349,7 @@ void SetOutput2(){
 
 
     gcDataMsg.setPointA = analogOutput1;
-    gcDataMsg.setPointB = analogOutput2; // Ensure analogOutput2 is set correctly elsewhere in the code
+    gcDataMsg.setPointB = PWMOutput; // Ensure analogOutput2 is set correctly elsewhere in the code
 
    
 
@@ -362,72 +362,72 @@ void SetOutput2(){
 }
 
 
-void SetOutput()
-{
-  if (gcDataMsg.autoVert  && isOGXConnected){    //&& isCutting
+// void SetOutput()
+// {
+//   if (gcDataMsg.autoVert  && isOGXConnected){    //&& isCutting
     
-    analogOutput1 = VALVE_FLOAT;    
-    delta_error = (delta_setpoint) - gcDataMsg.deltaA;
+//     analogOutput1 = VALVE_FLOAT;    
+//     delta_error = (delta_setpoint) - gcDataMsg.deltaA;
     
-    PID_p = double(gcSettingsMsg.KP) * delta_error;// calculate the P errror  
+//     PID_p = double(gcSettingsMsg.KP) * delta_error;// calculate the P errror  
     
-    PID_d = double(gcSettingsMsg.KD)*((delta_error - delta_previous_error)/LOOP_TIME);// calculate the d error
+//     PID_d = double(gcSettingsMsg.KD)*((delta_error - delta_previous_error)/LOOP_TIME);// calculate the d error
     
-    if(gcSettingsMsg.retDead < delta_error && delta_error < gcSettingsMsg.extDead){  // 3 cm deadband for i
-      PID_i = PID_i + (double(gcSettingsMsg.KI) * delta_error);//calculate the i error
-    }
-    else{
-      PID_i = 0;
-    }
+//     if(gcSettingsMsg.retDead < delta_error && delta_error < gcSettingsMsg.extDead){  // 3 cm deadband for i
+//       PID_i = PID_i + (double(gcSettingsMsg.KI) * delta_error);//calculate the i error
+//     }
+//     else{
+//       PID_i = 0;
+//     }
 
-    PID_total = PID_p + PID_i + PID_d;
-    Serial.println(PID_total);
-    if (PID_total >  2300) PID_total = 2300;      
-    if (PID_total <  -2300) PID_total = -2300;
+//     PID_total = PID_p + PID_i + PID_d;
+//     Serial.println(PID_total);
+//     if (PID_total >  2300) PID_total = 2300;      
+//     if (PID_total <  -2300) PID_total = -2300;
 
-    if (gcDataMsg.deltaA >= 0){ // Delta is Positive need to lower IMP RETRACT
-      analogOutput1 = map(PID_total, 0.0, -2300, gcSettingsMsg.retDead , retMin);
-    }
-    else if (gcDataMsg.deltaA < 0){// Delta is Negative need to raise IMP
-      analogOutput1 = map(PID_total,  0.0, 2300, gcSettingsMsg.extDead, extMax);
-    }
+//     if (gcDataMsg.deltaA >= 0){ // Delta is Positive need to lower IMP RETRACT
+//       analogOutput1 = map(PID_total, 0.0, -2300, gcSettingsMsg.retDead , retMin);
+//     }
+//     else if (gcDataMsg.deltaA < 0){// Delta is Negative need to raise IMP
+//       analogOutput1 = map(PID_total,  0.0, 2300, gcSettingsMsg.extDead, extMax);
+//     }
     
-    if (analogOutput1 >= extMax) analogOutput1 = extMax; // do not exceed 4096
-    if (analogOutput1 <= retMin) analogOutput1 = retMin; // do not write negative numbers 
+//     if (analogOutput1 >= extMax) analogOutput1 = extMax; // do not exceed 4096
+//     if (analogOutput1 <= retMin) analogOutput1 = retMin; // do not write negative numbers 
     
-    //  if (gcDataMsg.deltaA < 1.5){
+//     //  if (gcDataMsg.deltaA < 1.5){
     
-    //    analogOutput1 = VALVE_FLOAT;
-    //    gcDataMsg.setPointA = ((double)(VALVE_FLOAT/4096.0) * 100);
-    //    gcDataMsg.setPointB = ((double)(VALVE_FLOAT/4096.0) * 100);
-    //  }
-     //else
-     //{ 
-       //gcDataMsg.setPointA = ((double)(analogOutput1/4096.0) * 1000);
-       //gcDataMsg.setPointB = ((double)(analogOutput2/4096.0) * 1000); 
+//     //    analogOutput1 = VALVE_FLOAT;
+//     //    gcDataMsg.setPointA = ((double)(VALVE_FLOAT/4096.0) * 100);
+//     //    gcDataMsg.setPointB = ((double)(VALVE_FLOAT/4096.0) * 100);
+//     //  }
+//      //else
+//      //{ 
+//        //gcDataMsg.setPointA = ((double)(analogOutput1/4096.0) * 1000);
+//        //gcDataMsg.setPointB = ((double)(analogOutput2/4096.0) * 1000); 
     
-      gcDataMsg.setPointA = analogOutput1;
-      gcDataMsg.setPointB = analogOutput2; 
-    //}
+//       gcDataMsg.setPointA = analogOutput1;
+//       gcDataMsg.setPointB = analogOutput2; 
+//     //}
     
-    //Serial.println(gcDataMsg.setPointA);
+//     //Serial.println(gcDataMsg.setPointA);
     
     
-    delta_previous_error = delta_error;
-  }
-  else{
+//     delta_previous_error = delta_error;
+//   }
+//   else{
     
-    analogOutput1 = VALVE_FLOAT;
-    analogOutput2 = VALVE_FLOAT;       
-    gcDataMsg.setPointA = analogOutput1;
-    gcDataMsg.setPointB = analogOutput2; 
-  }  
+//     analogOutput1 = VALVE_FLOAT;
+//     analogOutput2 = VALVE_FLOAT;       
+//     gcDataMsg.setPointA = analogOutput1;
+//     gcDataMsg.setPointB = analogOutput2; 
+//   }  
   
-  Dac1.setVoltage(analogOutput1, false);
-  Dac2.setVoltage(analogOutput2, false);
+//   Dac1.setVoltage(analogOutput1, false);
+//   Dac2.setVoltage(analogOutput2, false);
 
     
-}
+// }
 
 void SetValveLimits(){
 

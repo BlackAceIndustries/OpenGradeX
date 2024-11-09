@@ -1722,6 +1722,7 @@ namespace OpenGrade
                             if (curMode == gradeMode.tile)
                             {                                
                                 mc.gcData.deltaA = (int)slopeDelta;
+
                             }
                             else
                             {

@@ -96,7 +96,7 @@ namespace OpenGrade
         {                   
             double angleInRadians =  toRadians(degrees);
             double slopeAsDecimal = Math.Tan(angleInRadians);
-            double slopePercentage = slopeAsDecimal * 100.0;        
+            double slopePercentage = (slopeAsDecimal * 100.0);
             return slopePercentage;
         }
         public static double RadiantoSlope(double radians)

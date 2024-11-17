@@ -1135,8 +1135,8 @@ namespace OpenGrade
             //if a GPS is connected disable sim
             if (a1Timeout > 10)  // Need to change this
             {
-                if (isGradeControlBtnOn) sim.DoSimTick(guidanceLineSteerAngle / 10.0, cutDeltaCenter);
-                else sim.DoSimTick(sim.steerAngleScrollBar, cutDeltaCenter);//
+                if (isGradeControlBtnOn) sim.DoSimTick(guidanceLineSteerAngle / 10.0, cutDeltaCenter,   0);
+                else sim.DoSimTick(sim.steerAngleScrollBar, cutDeltaCenter, 0);//
             }
             else
             {
@@ -1857,11 +1857,11 @@ namespace OpenGrade
                             if (isAutoVert == true)
                             {
                                 isAutoVert = false;
-                                mf.btnVertAuto.BackgroundImage = Properties.Resources.Toggle_Vert_MANUAL;
+                                btnVertAuto.BackgroundImage = Properties.Resources.Toggle_Vert_MANUAL;
                             }
                             if (isAutoTilt == true) { 
                                 isAutoTilt = false;
-                                mf.btnTiltAuto.BackgroundImage = Properties.Resources.Toggle_Tilt_MANUAL;
+                                btnTiltAuto.BackgroundImage = Properties.Resources.Toggle_Tilt_MANUAL;
                             }
                         }
                         

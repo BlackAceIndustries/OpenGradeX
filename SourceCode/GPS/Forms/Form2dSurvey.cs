@@ -454,7 +454,7 @@ namespace OpenGrade
 
 
 
-                    if (Math.Abs(mf.ct.distanceFromCurrentLine) < mf.vehicle.disFromSurvey * 100000.0)
+                    if (Math.Abs(mf.ct.distanceFromCurrentLine) < mf.vehicle.disFromSurvey)
                     {      //(vehicle.disFromSurvey*10000 )                                
                         if (mf.minDist < mf.vehicle.disFromSurvey * 100.0)
                         {// record current pass 

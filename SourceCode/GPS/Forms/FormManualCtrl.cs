@@ -107,7 +107,7 @@ namespace OpenGrade
 
             if (mf.isManualOverride)
             {
-                mf.mc.gcData.deltaA = (int)((mf.mc.pitchSlope - manTargetPitch) * 10.0);
+                mf.mc.gcData.deltaA = (int)((mf.mc.pitchSlope - manTargetPitch) * 100.0);
             }
 
 
@@ -228,7 +228,7 @@ namespace OpenGrade
             if (checkBox1.Checked == true)
             {
                 timer2.Enabled = true;                
-                  mf.mc.gcData.deltaA = (int)((mf.mc.pitchSlope - manTargetPitch)*10.0);                       
+                mf.mc.gcData.deltaA = (int)((mf.mc.pitchSlope - manTargetPitch)*100.0);                       
                                 
             }
             else

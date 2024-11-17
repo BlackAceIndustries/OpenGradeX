@@ -1208,7 +1208,9 @@ namespace OpenGrade
                 {
                     for (int i = 0; i < cnt; i++)
                         //sw.Write(Convert.ToString(ct.ptList[i].longitude) + ',' + Convert.ToString(ct.ptList[i].latitude) + ",0 ");
-                        sw.Write(Convert.ToString(ct.ptList[i].longitude) + ',' + Convert.ToString(ct.ptList[i].latitude) + ',' + Convert.ToString(ct.ptList[i].altitude) + ' ');
+                        //sw.Write(Convert.ToString(ct.ptList[i].longitude) + ',' + Convert.ToString(ct.ptList[i].latitude) + ',' + Convert.ToString(ct.ptList[i].altitude) + ' ');
+
+                    sw.Write(Convert.ToString(ct.ptList[i].longitude) + ',' + Convert.ToString(ct.ptList[i].latitude) + ',' + Convert.ToString(ct.ptList[i].cutAltitude) + ' ');
                 }
                 else sw.Write(Convert.ToString(pn.longitude) + ',' + Convert.ToString(pn.latitude) + ',' + Convert.ToString(pn.altitude) + ' '); 
                     //sw.Write(Convert.ToString(pn.longitude) + ',' + Convert.ToString(pn.latitude) + ",0 ");

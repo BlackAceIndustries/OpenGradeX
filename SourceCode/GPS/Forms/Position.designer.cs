@@ -39,6 +39,7 @@ namespace OpenGrade
 
         //headings
         public double fixHeading = 0.0, camHeading = 0.0, camOffset = 0, gpsHeading = 0.0, prevGPSHeading = 0.0, prevPrevGPSHeading = 0.0, slopeHeading= 0.0, altitudeHeading = 0.0;
+        public double smoothedfixHeading = 0.0, smoothedcamHeading = 0.0, smoothedcamOffset = 0, smoothedgpsHeading = 0.0, smoothedprevGPSHeading = 0.0, smoothedprevPrevGPSHeading = 0.0, smoothedslopeHeading = 0.0, smoothedaltitudeHeading = 0.0;
         public bool isTurningRight = false;
         public bool isTurning = false;
 
@@ -230,20 +231,16 @@ namespace OpenGrade
 
             fixStepDist = distanceCurrentStepFix;
 
-            //minFixStepDist = 1;
-            //minAltStepDist = 10;
+            minFixStepDist = .3;
+
+
             //if  min distance isn't exceeded, keep adding old fixes till it does
             if (distanceCurrentStepFix <= minFixStepDist)
             {
                 for (currentStepFix = 0; currentStepFix < totalFixSteps; currentStepFix++)
                 {
                     fixStepDist += stepFixPts[currentStepFix].heading;
-                    //AltStepDist += stepFixPts[currentStepFix].altitude;
-
-                    if (distanceCurrentStepAlt <= minAltStepDist)
-                    {                        
-                        AltStepDist += stepFixPts[currentStepFix].altitude;                       
-                    }
+                    AltStepDist += stepFixPts[currentStepFix].altitude;
 
                     if (fixStepDist > minFixStepDist)
                     {
@@ -371,8 +368,18 @@ namespace OpenGrade
             if (altitudeHeading < 0) altitudeHeading += glm.twoPI;
             slopeHeading = altitudeHeading;
 
+            // Weighting factor (alpha) for the EMA (closer to 1 gives more weight to recent values)
+            double alpha = .1;
+            // Initialize smoothed values (start with the first measurement)
+             smoothedgpsHeading = gpsHeading;
+             smoothedaltitudeHeading = altitudeHeading;
 
+            // Applying EMA
+            smoothedgpsHeading = alpha * gpsHeading + (1 - alpha) * smoothedgpsHeading;
+            fixHeading = smoothedgpsHeading;
 
+            smoothedaltitudeHeading = alpha * altitudeHeading + (1 - alpha) * smoothedaltitudeHeading;
+            slopeHeading = smoothedaltitudeHeading;
 
             //determine fix positions and heading
             //in degrees for glRotate opengl methods.

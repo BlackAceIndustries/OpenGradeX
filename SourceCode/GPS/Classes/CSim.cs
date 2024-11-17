@@ -54,7 +54,7 @@ namespace OpenGrade
             altitude += Properties.Vehicle.Default.setVehicle_antennaHeight;
         }
 
-        public void DoSimTick(double _st, double cutDelta)
+        public void DoSimTick(double _st, double cutDelta, double slopeDelta)
         {
             steerAngle = _st;
             double temp = (stepDistance * Math.Tan(steerAngle * 0.01745329252) / 3.3);
@@ -80,7 +80,10 @@ namespace OpenGrade
             //if (mf.isAutoVertOn && cutDelta != 9999)
             if (mf.mc.gcData.autoVert && cutDelta != 9999)
             {
-                altitude = altitude - (cutDelta/100 * .1); 
+                altitude = altitude - (cutDelta/100 * .1);
+
+
+                altitude = altitude - (cutDelta / 100 * .1);
             }
             BuildGGA();
             BuildVTG();

@@ -611,8 +611,8 @@
             resources.ApplyResources(this.nudDistFromSurvey, "nudDistFromSurvey");
             this.nudDistFromSurvey.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.nudDistFromSurvey.Maximum = new decimal(new int[] {
-            99999,
-            0,
+            -1981284352,
+            -1966660860,
             0,
             0});
             this.nudDistFromSurvey.Name = "nudDistFromSurvey";

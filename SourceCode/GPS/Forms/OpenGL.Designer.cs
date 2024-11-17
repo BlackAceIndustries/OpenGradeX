@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using OpenGrade.Properties;
 using SharpGL;
@@ -474,12 +475,6 @@ namespace OpenGrade
                     if (ct.isContourBtnOn)
                     {
                         string dist;
-                        //txtDistanceOffABLine.Visible = true;
-                        //lblDelta.Visible = true;
-                        
-                        //if (ct.distanceFromCurrentLine >= vehicle.disFromSurvey * 100) ct.distanceFromCurrentLine = 0;
-
-                        //DrawLightBar(openGLControl.Width, openGLControl.Height, ct.distanceFromCurrentLine * 0.1);
 
                         if ((ct.distanceFromCurrentLine) < 0.0)
                         {
@@ -1114,27 +1109,6 @@ namespace OpenGrade
             int autoCnt = ct.autoList.Count;
             double distToClosestPoint = 0;
 
-            //switch (curBlade)
-            //{
-            //    case BladePoint.left:
-            //        ct.closestPoint = ct.FindClosestPoint(pn.lookaheadLeft);
-
-            //        break;
-            //    case BladePoint.center:
-            //        ct.closestPoint = ct.FindClosestPoint(pn.lookaheadCenter);
-            //        //ct.closestPoint = ct.FindClosestPoint(ct.goalPointCT);
-
-            //        break;
-
-            //    case BladePoint.right:
-            //        ct.closestPoint = ct.FindClosestPoint(pn.lookaheadRight);
-            //        break;
-
-            //    default:
-            //        ct.closestPoint = ct.FindClosestPoint(pn.lookaheadCenter);
-            //        break;
-
-            //}
 
             switch (curBlade)
             {
@@ -1144,7 +1118,6 @@ namespace OpenGrade
                     break;
                 case BladePoint.center:
                     ct.closestPoint = ct.FindClosestPoint(ct.goalPointCT);
-                    ct.closestPoint = ct.FindClosestPoint(pn.lookaheadCenter);
 
                     break;
 
@@ -1226,38 +1199,39 @@ namespace OpenGrade
 
                     //Black Ace Industries 
 
+
                     switch (curMode)
                     {
-                        case gradeMode.surface:
-                            
+                        case FormGPS.gradeMode.surface:
                             //draw the ground profile
                             gl.Color(.35f, .35f, .35f);
                             gl.Begin(OpenGL.GL_TRIANGLE_STRIP);
 
                             if (ptCnt > 0)
-                            { 
-                                for (int i = 0 ; i < ptCnt; i++)
+                            {
+                                for (int i = 0; i < ptCnt; i++)
                                 {
                                     if (ct.ptList[i].cutAltitude > ct.ptList[i].altitude)
                                     {
                                         gl.Vertex(i, (((ct.ptList[i].altitude - centerY) * altitudeWindowGain) + centerY), 0);
                                         gl.Vertex(i, -10000, 0);
                                     }
-                                    else{
+                                    else
+                                    {
                                         gl.Vertex(i, (((ct.ptList[i].cutAltitude - centerY) * altitudeWindowGain) + centerY), 0);
                                         gl.Vertex(i, -10000, 0);
 
 
                                     }
-                                  
+
 
                                 }
-                              
+
                             }
-                                                      
+
                             gl.End();
 
-                            //gl.Color(.0f, .0f, 1.0f);
+                            gl.Color(.0f, .0f, 1.0f);
                             gl.Begin(OpenGL.GL_TRIANGLE_STRIP);
 
                             if (ptCnt > 0)
@@ -1274,9 +1248,11 @@ namespace OpenGrade
                                     }
                                     else
                                     {
-                                        gl.Color(1.0f, .0f, .0f, 0.25f);
+                                        gl.Color(1.0f, .0f, .0f);
                                         gl.Vertex(i, (((ct.ptList[i].altitude - centerY) * altitudeWindowGain) + centerY), 0);
                                         gl.Vertex(i, (((ct.ptList[i].cutAltitude - centerY) * altitudeWindowGain) + centerY), 0);
+
+
                                     }
 
 
@@ -1285,33 +1261,32 @@ namespace OpenGrade
                             }
 
                             gl.End();
-                            
-                            
+
+
                             gl.Color(0.0f, 0.99f, .0f);
                             gl.LineWidth(2);
                             gl.Begin(OpenGL.GL_LINE_STRIP);
                             if (ptCnt > 0)
                             {
-                                for (int i = 0; i < ptCnt -1; i++)
+                                for (int i = 0; i < ptCnt; i++)
                                 {
 
-                                    gl.Vertex(i, (((ct.ptList[i].cutAltitude - centerY) * altitudeWindowGain) + centerY), 0);
+                                    gl.Vertex(i, (((ct.ptList[i].altitude - centerY) * altitudeWindowGain) + centerY), 0);
                                     //gl.Vertex(i, -10000, 0);
 
                                 }
                                 //gl.Disable(OpenGL.GL_LINE_STIPPLE);
-                               
+
 
                             }
-                            gl.End();                          
-                            
+                            gl.End();
 
 
                             break;
 
-                        case gradeMode.ditch:
+                        case FormGPS.gradeMode.ditch:
                             //draw the ground profile
-                            gl.Color(0.22f, 0.22f, 0.22f);
+                            gl.Color(.35f, .35f, .35f);
                             gl.Begin(OpenGL.GL_TRIANGLE_STRIP);
                             for (int i = 0; i < ptCnt; i++)
                             {
@@ -1331,9 +1306,9 @@ namespace OpenGrade
                             gl.End();
                             break;
 
-                        case gradeMode.tile:
+                        case FormGPS.gradeMode.tile:
                             //draw the ground profile
-                            gl.Color(0.22f, 0.22f, 0.22f);
+                            gl.Color(.35f, .35f, .35f);
                             gl.Begin(OpenGL.GL_TRIANGLE_STRIP);
                             for (int i = 0; i < ptCnt; i++)
                             {
@@ -1343,24 +1318,59 @@ namespace OpenGrade
                             }
                             gl.End();
 
-                            gl.LineWidth(3);
-                            gl.Begin(OpenGL.GL_LINE_STRIP);
 
-                            gl.Color(1.0f, 0.2f, 0.2f); // MaxDepth 
-                            for (int i = 0; i < ptCnt; i++)
-                            {
-                                gl.Vertex(i, ((((ct.ptList[i].altitude - vehicle.maxTileCut) - centerY) * altitudeWindowGain) + centerY), 0);
-                            }
-                            gl.End();
+                            gl.Color(1.0f, 0.2f, 0.2f);
+                            gl.Begin(OpenGL.GL_TRIANGLE_STRIP);
+                            //gl.Begin(OpenGL.GL_LINE_STRIP);
 
-                            gl.LineWidth(3);
-                            gl.Begin(OpenGL.GL_LINE_STRIP);
-                            gl.Color(0.88f, 0.83f, 0.15f);  // MinCover
+                            gl.Color(1.0f, 0.2f, 0.2f, 0.5f); // MaxDepth 
                             for (int i = 0; i < ptCnt; i++)
                             {
                                 gl.Vertex(i, ((((ct.ptList[i].altitude - vehicle.minTileCover) - centerY) * altitudeWindowGain) + centerY), 0);
+                                gl.Vertex(i, ((((ct.ptList[i].altitude -    vehicle.maxTileCut) - centerY) * altitudeWindowGain) + centerY), 0);
+
                             }
                             gl.End();
+
+
+
+                            gl.Begin(OpenGL.GL_TRIANGLE_STRIP);
+                            gl.Color(0.88f, 0.83f, 0.15f, 0.5f); // MaxDepth 
+                            for (int i = 0; i < ptCnt; i++)
+                            {
+                                gl.Vertex(i, ((((ct.ptList[i].altitude - vehicle.minTileCover) - centerY) * altitudeWindowGain) + centerY), 0);
+                                gl.Vertex(i, ((((ct.ptList[i].altitude -  vehicle.minTileCover - .30) - centerY) * altitudeWindowGain) + centerY), 0);
+
+                            }
+                            gl.End();
+
+
+
+
+                            // Define depth intervals
+                            double depthInterval = .30f; // Adjust this for your needs
+                            int numberOfMarkers = 25; // Adjust based on how many markers you want
+                            gl.Color(0.0f, 0.0f, 0.0f, 0.9f); // Black or any other color for depth markings
+                            gl.LineWidth(1);
+                            // Draw vertical depth markings
+                            for (int i = 0; i <= numberOfMarkers; i++)
+                            {
+                                //double depthMarkY = centerY - (i * depthInterval * altitudeWindowGain);
+
+                                double depthMarkY = (maxFieldY + centerY) - (i * depthInterval * altitudeWindowGain);
+                                gl.Begin(OpenGL.GL_LINES);
+
+                                // Vertical line marking
+                                gl.Vertex(0, depthMarkY, 0); // Starting point of the line
+                                gl.Vertex(ptCnt - 1, depthMarkY, 0); // End point of the line (across the profile)
+
+                                gl.End();
+                            }
+
+
+
+
+                            //(((mf.ct.ptList[i].altitude - centerY) * altitudeWindowGain) + centerY), 0);
                             break;
 
                         default:
@@ -1369,6 +1379,149 @@ namespace OpenGrade
 
                     }
 
+                    //switch (curMode)
+                    //{
+                    //    case gradeMode.surface:
+                            
+                    //        //draw the ground profile
+                    //        gl.Color(.35f, .35f, .35f);
+                    //        gl.Begin(OpenGL.GL_TRIANGLE_STRIP);
+
+                    //        if (ptCnt > 0)
+                    //        { 
+                    //            for (int i = 0 ; i < ptCnt; i++)
+                    //            {
+                    //                if (ct.ptList[i].cutAltitude > ct.ptList[i].altitude)
+                    //                {
+                    //                    gl.Vertex(i, (((ct.ptList[i].altitude - centerY) * altitudeWindowGain) + centerY), 0);
+                    //                    gl.Vertex(i, -10000, 0);
+                    //                }
+                    //                else{
+                    //                    gl.Vertex(i, (((ct.ptList[i].cutAltitude - centerY) * altitudeWindowGain) + centerY), 0);
+                    //                    gl.Vertex(i, -10000, 0);
+
+
+                    //                }
+                                  
+
+                    //            }
+                              
+                    //        }
+                                                      
+                    //        gl.End();
+
+                    //        //gl.Color(.0f, .0f, 1.0f);
+                    //        gl.Begin(OpenGL.GL_TRIANGLE_STRIP);
+
+                    //        if (ptCnt > 0)
+                    //        {
+                    //            for (int i = 0; i < ptCnt; i++)
+                    //            {
+                    //                if (ct.ptList[i].cutAltitude > ct.ptList[i].altitude)
+                    //                {
+                    //                    gl.Color(.0f, .0f, 1.0f);
+                    //                    gl.Vertex(i, (((ct.ptList[i].cutAltitude - centerY) * altitudeWindowGain) + centerY), 0);
+                    //                    gl.Vertex(i, (((ct.ptList[i].altitude - centerY) * altitudeWindowGain) + centerY), 0);
+
+
+                    //                }
+                    //                else
+                    //                {
+                    //                    gl.Color(1.0f, .0f, .0f, 0.25f);
+                    //                    gl.Vertex(i, (((ct.ptList[i].altitude - centerY) * altitudeWindowGain) + centerY), 0);
+                    //                    gl.Vertex(i, (((ct.ptList[i].cutAltitude - centerY) * altitudeWindowGain) + centerY), 0);
+                    //                }
+
+
+                    //            }
+
+                    //        }
+
+                    //        gl.End();
+                            
+                            
+                    //        gl.Color(0.0f, 0.99f, .0f);
+                    //        gl.LineWidth(2);
+                    //        gl.Begin(OpenGL.GL_LINE_STRIP);
+                    //        if (ptCnt > 0)
+                    //        {
+                    //            for (int i = 0; i < ptCnt -1; i++)
+                    //            {
+
+                    //                gl.Vertex(i, (((ct.ptList[i].cutAltitude - centerY) * altitudeWindowGain) + centerY), 0);
+                    //                //gl.Vertex(i, -10000, 0);
+
+                    //            }
+                    //            //gl.Disable(OpenGL.GL_LINE_STIPPLE);
+                               
+
+                    //        }
+                    //        gl.End();                          
+                            
+
+
+                    //        break;
+
+                    //    case gradeMode.ditch:
+                    //        //draw the ground profile
+                    //        gl.Color(0.22f, 0.22f, 0.22f);
+                    //        gl.Begin(OpenGL.GL_TRIANGLE_STRIP);
+                    //        for (int i = 0; i < ptCnt; i++)
+                    //        {
+                    //            gl.Vertex(i,
+                    //              (((ct.ptList[i].altitude - centerY) * altitudeWindowGain) + centerY), 0);
+                    //            gl.Vertex(i, -10000, 0);
+                    //        }
+                    //        gl.End();
+
+                    //        gl.LineWidth(3);
+                    //        gl.Begin(OpenGL.GL_LINE_STRIP);
+                    //        gl.Color(1.0f, 0.2f, 0.2f); // MaxDepth
+                    //        for (int i = 0; i < ptCnt; i++)
+                    //        {
+                    //            gl.Vertex(i, ((((ct.ptList[i].altitude - vehicle.maxDitchCut) - centerY) * altitudeWindowGain) + centerY), 0);
+                    //        }
+                    //        gl.End();
+                    //        break;
+
+                    //    case gradeMode.tile:
+                    //        //draw the ground profile
+                    //        gl.Color(0.22f, 0.22f, 0.22f);
+                    //        gl.Begin(OpenGL.GL_TRIANGLE_STRIP);
+                    //        for (int i = 0; i < ptCnt; i++)
+                    //        {
+                    //            gl.Vertex(i,
+                    //              (((ct.ptList[i].altitude - centerY) * altitudeWindowGain) + centerY), 0);
+                    //            gl.Vertex(i, -10000, 0);
+                    //        }
+                    //        gl.End();
+
+                    //        gl.LineWidth(3);
+                    //        gl.Begin(OpenGL.GL_LINE_STRIP);
+
+                    //        gl.Color(1.0f, 0.2f, 0.2f); // MaxDepth 
+                    //        for (int i = 0; i < ptCnt; i++)
+                    //        {
+                    //            gl.Vertex(i, ((((ct.ptList[i].altitude - vehicle.maxTileCut) - centerY) * altitudeWindowGain) + centerY), 0);
+                    //        }
+                    //        gl.End();
+
+                    //        gl.LineWidth(3);
+                    //        gl.Begin(OpenGL.GL_LINE_STRIP);
+                    //        gl.Color(0.88f, 0.83f, 0.15f);  // MinCover
+                    //        for (int i = 0; i < ptCnt; i++)
+                    //        {
+                    //            gl.Vertex(i, ((((ct.ptList[i].altitude - vehicle.minTileCover) - centerY) * altitudeWindowGain) + centerY), 0);
+                    //        }
+                    //        gl.End();
+                    //        break;
+
+                    //    default:
+
+                    //        break;
+
+                    //}
+
 
                     //cut line drawn in full
                     int cutPts = ct.ptList.Count;
@@ -1376,6 +1529,7 @@ namespace OpenGrade
                     {
                         gl.LineWidth(2);
                         gl.Color(0.35f, 0.2f, 0.92f); // Cut Line Color
+                        gl.Color(0.0f, 0.98f, 0.0f);
                         gl.Begin(OpenGL.GL_LINE_STRIP);
 
                         for (int i = 0; i < ptCnt; i++)
@@ -1436,7 +1590,8 @@ namespace OpenGrade
                     {
                         if (isMetric)
                         {
-                            tStripHorizontalOffset.Text = (ct.distanceFromCurrentLine / 1000).ToString("F2");
+                            tStripHorizontalOffset.Text = (ct.distanceFromCurrentLine / 10).ToString("F2");
+                            //tStripHorizontalOffset.Text = (ct.distanceFromCurrentLine ).ToString("F2");
                         }
                         else
                         {
@@ -1450,12 +1605,10 @@ namespace OpenGrade
                         tStripHorizontalOffset.Text = "--";
                     }
 
-
-                    if (Math.Abs(ct.distanceFromCurrentLine) < vehicle.disFromSurvey * 100000.0)
-                    {      //(vehicle.disFromSurvey*10000 )                                
-                        if (minDist < vehicle.disFromSurvey * 1000.0)
-                        {// record current pass 
-
+                    if (Math.Abs(distToClosestPoint) < vehicle.disFromSurvey * 100)   
+                    {            
+                        //if (minDist < vehicle.disFromSurvey * 100000)
+                        //{// record current pass 
 
                             //draw the lookahead elevation lines and blade
                             gl.LineWidth(15);
@@ -1474,23 +1627,73 @@ namespace OpenGrade
                             gl.End();
 
 
-
-
                             //draw the actual elevation lines and blade
                             gl.LineWidth(15);
                             gl.Begin(OpenGL.GL_LINES);
                             gl.Color(0.95f, 0.90f, 0.0f);
-                            ct.FindClosestPoint(pn.bladeCenter);
                             gl.Vertex(ct.FindClosestPoint(pn.bladeCenter), (((pn.altitude - centerY) * altitudeWindowGain) + centerY), 0);
                             gl.Vertex(ct.FindClosestPoint(pn.bladeCenter), (((pn.altitude - centerY) * altitudeWindowGain) + centerY) + (vehicle.antennaHeight * altitudeWindowGain), 0);
                             gl.End();
 
+                            gl.LineWidth(1);
+                            gl.Begin(OpenGL.GL_LINES);
+                            gl.Color(0.90f, 0.90f, 0.70f);                       
+                            gl.Vertex(-10, (((pn.altitude - centerY) * altitudeWindowGain) + centerY), 0);
+                            gl.Vertex(1000, (((pn.altitude - centerY) * altitudeWindowGain) + centerY), 0);
+                            gl.End();
 
 
-                            //lblDiag.Text += altitudeWindowGain.ToString("F8") + " aGain \n";
-                            //lblDiag.Text += ct.paRadiusCT.ToString("F8") + " paRad \n";
-                            //lblDiag.Text += ct.ppRadiusCT.ToString("F8") + " ppRad \n";
-                            //lblDiag.Text += ct.goalPointCT.altitude.ToString("F8") + " gC \n";
+
+                            int pnt = ct.FindClosestPoint(pn.bladeCenter);
+
+                            double dist = 0;
+                            int startIndex = pnt - 20;
+                            int endIndex = pnt + 20;
+
+                            // Ensure the loop doesn't exceed the list boundaries
+                            startIndex = Math.Max(startIndex, 0); // Ensure startIndex is not less than 0
+                            endIndex = Math.Min(endIndex, ptCnt); // Ensure endIndex does not exceed ptCnt
+
+                            for (int i = startIndex; i < endIndex; i++)
+                            {
+                                dist += ct.ptList[i].distance;
+                            }
+
+                            
+
+                            dist = (dist * Math.Sin(slopeHeading))/2;
+
+
+                            gl.LineWidth(4);
+                            gl.Begin(OpenGL.GL_LINES);
+                            gl.Color(0.75f, 0.0f, 0.75f , .75f); // Vibrant purple
+
+                        lblDiag.Text += slopeHeading.ToString("f3");
+
+                        if (glm.RadiantoSlope(slopeHeading) > 0 )
+                        {
+                            gl.Vertex(ct.FindClosestPoint(pn.bladeCenter) + 15, (((pn.altitude - dist - centerY) * altitudeWindowGain) + centerY), 0);
+                            gl.Vertex(ct.FindClosestPoint(pn.bladeCenter) - 15, (((pn.altitude + dist - centerY) * altitudeWindowGain) + centerY), 0);
+
+                        }
+                        else
+                        {
+                            gl.Vertex(ct.FindClosestPoint(pn.bladeCenter) - 15, (((pn.altitude - dist - centerY) * altitudeWindowGain) + centerY), 0);
+                            gl.Vertex(ct.FindClosestPoint(pn.bladeCenter) + 15, (((pn.altitude + dist - centerY) * altitudeWindowGain) + centerY), 0);
+
+                        }
+                            
+
+
+
+                            //gl.Begin(OpenGL.GL_LINES);
+                            //gl.Color(0.90f, 0.90f, 0.70f);
+                            //gl.Vertex(ct.FindClosestPoint(pn.bladeCenter) - 20, (((pn.altitude + .10 - centerY) * altitudeWindowGain) + centerY), 0);
+                            //gl.Vertex(ct.FindClosestPoint(pn.bladeCenter) + 20, (((pn.altitude - .10 - centerY) * altitudeWindowGain) + centerY), 0);
+                            gl.End();
+
+
+
 
                             double numSegments = 100;
                             double theta = glm.twoPI / (numSegments);
@@ -1578,18 +1781,22 @@ namespace OpenGrade
                                 cutDeltaCenter += x;
                             }
 
-
-                            if (ct.ptList[lookAheadPnt].cutAltitude > 0)
+                        if (ptCnt > 0)
+                        {
+                            if (ct.ptList[ct.FindClosestPoint(pn.bladeCenter)].cutAltitude > 0)
                             {
-                                ct.ptList[lookAheadPnt].currentPassAltitude = pn.altitude;
-                                ct.isOnPass = true;
-                                ct.isDoneCopy = false;
+
+                                
+                                   ct.ptList[ct.FindClosestPoint(pn.bladeCenter)].currentPassAltitude = pn.altitude;
+                                   ct.isOnPass = true;
+                                   ct.isDoneCopy = false;
+                                
+                                
                             }
                             else
                             {
                                 ct.isOnPass = false;
                             }
-
                             // light up isOnPass Indicator
                             if (ct.isOnPass)
                             {
@@ -1684,16 +1891,21 @@ namespace OpenGrade
                             lblDitchCutLine.Visible = true;
                             sqrDitchCutLine.Visible = true;
 
-                            gl.LineWidth(5);
-                            gl.Begin(OpenGL.GL_LINE_STRIP);
+                            //gl.LineWidth(3);
 
-                            gl.Color(0.46f, 0.60f, 0.2f);// Green 
-                            for (int i = 0; i < ptCnt; i++)
-                            {
-                                if (ct.ptList[i].cutAltitude > 0 & ct.ptList[i].currentPassAltitude > 0)
-                                    gl.Vertex(i, ((((ct.ptList[i].currentPassAltitude) - centerY) * altitudeWindowGain) + centerY), 0);
-                            }
-                            gl.End();
+                            //gl.Enable(OpenGL.GL_LINE_STIPPLE);
+                            //gl.Begin(OpenGL.GL_LINE_STRIP);
+
+                            //gl.Color(0.46f, 0.60f, 0.2f);// Green 
+                            //gl.Color(0.0f, 1.0f, 1.0f); // Aqua color
+                            //for (int i = 0; i < ptCnt; i++)
+                            //{
+                            //    if (ct.ptList[i].cutAltitude > 0 & ct.ptList[i].currentPassAltitude > 0)
+                            //        gl.Vertex(i, ((((ct.ptList[i].currentPassAltitude) - centerY) * altitudeWindowGain) + centerY), 0);
+                            //}
+                            //gl.End();
+
+                            //gl.Disable(OpenGL.GL_LINE_STIPPLE);
 
                             break;
 
@@ -2830,37 +3042,7 @@ namespace OpenGrade
 
         //}
         
-        public int FindClosestPoint()
-        {
-            int ptCnt = ct.ptList.Count - 1;
-            int closestPoint = -1;
-
-            if (ptCnt > 0)
-            {
-                minDist = 8000;
-                int ptCount = ct.ptList.Count - 1;//
-
-                //find the closest point to current fix
-                for (int t = 0; t < ptCount; t++)
-                {
-                    double dist = ((pn.lookaheadCenter.easting - ct.ptList[t].easting) * (pn.lookaheadCenter.easting - ct.ptList[t].easting))
-                                    + ((pn.lookaheadCenter.northing - ct.ptList[t].northing) * (pn.lookaheadCenter.northing - ct.ptList[t].northing));
-
-                    //double dist = ((pn.easting - ct.ptList[t].easting) * (pn.easting - ct.ptList[t].easting))
-                    //                + ((pn.northing - ct.ptList[t].northing) * (pn.northing - ct.ptList[t].northing));
-
-
-                    if (dist < minDist)
-                    {
-                        minDist = dist; closestPoint = t;
-                    }
-
-
-                }
-            }
-            return closestPoint;
-
-        }
+        
 
         public void BuildCrossSectionView(int closetPnt, double _easting, double _northing)
         {       

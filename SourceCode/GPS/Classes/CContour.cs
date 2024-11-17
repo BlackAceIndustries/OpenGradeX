@@ -400,62 +400,51 @@ namespace OpenGrade
 
 
                 if (Math.Abs(dx) < Double.Epsilon && Math.Abs(dz) < Double.Epsilon) return;
+                if (Math.Abs(dy) < Double.Epsilon && Math.Abs(dd) < Double.Epsilon) return;
+
+
 
                 //abHeading = Math.Atan2(dz, dx);
                 abHeading = ptList[A].heading;
-
-                //mf.lblDiag.Text = A.ToString("F3") + " A "+ B.ToString("F3") + " B " + mf.ct.closestPoint.ToString("F3") + " C ";
 
                 //how far from current AB Line is fix
                 distanceFromCurrentLine = ((dz * mf.pn.easting) - (dx * mf.pn.northing)
                     + (ptList[B].easting * ptList[A].northing) - (ptList[B].northing * ptList[A].easting))
                                 / Math.Sqrt((dz * dz) + (dx * dx));
                                
-                ptList[A].slope = Math.Atan(dy / dd);                
-                
-                //mf.lblDiag.Text = glm.RadiantoSlope(ptList[A].slope).ToString("F4") + "\n";
-                //mf.lblDiag.Text += glm.RadiantoSlope(mf.slopeHeading).ToString("F4") + "\n";
-                //mf.lblDiag.Text += glm.RadiantoSlope(mf.slopeHeading - ptList[A].slope).ToString("F4"); 
-
+                ptList[A].slope = Math.Atan(dy / dd);      
                 //are we on the right side or not
                 isOnRightSideCurrentLine = distanceFromCurrentLine > 0;
 
                 //absolute the distance
                 distanceFromCurrentLine = Math.Abs(distanceFromCurrentLine);
 
-                double x = mf.pn.Distance(mf.pn.northing, mf.pn.easting, ptList[A].northing, ptList[A].easting);
-
+                double d = mf.pn.Distance(mf.pn.northing, mf.pn.easting, ptList[A].northing, ptList[A].easting);
                 double y = mf.pn.altitude - ptList[A].cutAltitude;
 
-                //double hyp = Math.Sqrt((x * x) + (y * y));
-                double hyp = (x * x) + (y * y);
-
-
-                // ** Pure pursuit ** - calc point on ABLine closest to current position for xz 
                 double EU = ((y) * (dy)          
-                    + (x * (dd)))                 
+                    + (d * (dd)))                 
                     / ((dy * dy) + (dd * dd));
 
-                //double EU = (((mf.pn.easting - ptList[A].easting) * (dx)) + ((mf.pn.northing - ptList[A].northing) * (dz))) / ((dy * dy) + (dd * dd));
 
-                rDistCT = ptList[A].distance + (EU * (dd));
-                rAltitudeCT = ptList[A].cutAltitude + (EU * (dy));
-
-
-
+                 EU = ((d) * (dy)
+                    + (y * (dd)))
+                    / ((dy * dy) + (dd * dd));
 
                 // ** Pure pursuit ** - calc point on ABLine closest to current position for xz 
                 double U = (((mf.pn.easting - ptList[A].easting) * (dx))
                             + ((mf.pn.northing - ptList[A].northing) * (dz)))
                             / ((dx * dx) + (dz * dz));
 
+                
+                
                 rEastCT = ptList[A].easting + (U * (dx));
                 rNorthCT = ptList[A].northing + (U * (dz));
+                rDistCT = ptList[A].distance + (EU * (dd));
+                rAltitudeCT = ptList[A].cutAltitude + (EU * (dy));
 
-
-
-
-
+                
+                mf.lblDiag.Text = rAltitudeCT.ToString("F3") + " rAlt \n";
                 //Subtract the two headings, if > 1.57 its going the opposite heading as refAB
                 abFixHeadingDelta = (Math.Abs(mf.fixHeading - abHeading));
                 if (abFixHeadingDelta >= Math.PI) abFixHeadingDelta = Math.Abs(abFixHeadingDelta - glm.twoPI);
@@ -484,7 +473,7 @@ namespace OpenGrade
                         //treat current segment like an AB Line
                         goalPointCT.easting = rEastCT - (Math.Sin(ptList[A].heading) * goalPointDistance);
                         goalPointCT.northing = rNorthCT - (Math.Cos(ptList[A].heading) * goalPointDistance);              
-                        goalPointCT.altitude = rAltitudeCT - (Math.Sin(ptList[A].slope) * goalPointDistance);
+                        goalPointCT.altitude = rAltitudeCT - (Math.Cos(ptList[A].slope) * goalPointDistance);
                     }
 
                     //multiple segments required
@@ -528,7 +517,7 @@ namespace OpenGrade
                         //treat current segment like an AB Line
                         goalPointCT.easting = rEastCT + (Math.Sin(ptList[A].heading) * goalPointDistance);
                         goalPointCT.northing = rNorthCT + (Math.Cos(ptList[A].heading) * goalPointDistance);
-                        goalPointCT.altitude = rAltitudeCT + (Math.Sin(ptList[A].slope) * goalPointDistance);
+                        goalPointCT.altitude = rAltitudeCT + (Math.Cos(ptList[A].slope) * goalPointDistance);
                     }
 
                     //multiple segments required
@@ -582,15 +571,14 @@ namespace OpenGrade
 
 
                double localSlope = glm.twoPI - mf.slopeHeading;
-               localSlope =  -mf.slopeHeading;
-                paRadiusCT = goalPointAltitudeSquared / (2 * (((goalPointCT.altitude - mf.pn.altitude) * Math.Cos(localSlope)) + (k *  Math.Sin(localSlope))));
+                paRadiusCT = goalPointAltitudeSquared / (2 * (((mf.ct.goalPointCT.altitude - mf.pn.altitude) * Math.Cos(localSlope)) + (k *  Math.Sin(localSlope))));
 
-                slopeAngleCT = ((Math.Atan(2 * 
-                   (goalPointCT.altitude - mf.pn.altitude) *  Math.Cos(localSlope))
+
+                slopeAngleCT = (Math.Atan((
+                   (goalPointCT.altitude - mf.pn.altitude) * Math.Cos(localSlope))
                     + k * Math.Sin(localSlope)
-                    * mf.vehicle.wheelbase / goalPointAltitudeSquared)/4);
+                    * .1/ goalPointAltitudeSquared) /4);
 
-                //slopeAngleCT =  glm.toDegrees(slopeAngleCT);
 
                 if (steerAngleCT < -mf.vehicle.maxSteerAngle) steerAngleCT = -mf.vehicle.maxSteerAngle;
                 if (steerAngleCT > mf.vehicle.maxSteerAngle) steerAngleCT = mf.vehicle.maxSteerAngle;
@@ -603,8 +591,7 @@ namespace OpenGrade
 
                 goalPointCT.easting = mf.pn.easting + (ppRadiusCT * Math.Cos(localHeading));
                 goalPointCT.northing = mf.pn.northing + (ppRadiusCT * Math.Sin(localHeading));
-                goalPointCT.altitude = mf.pn.altitude + (paRadiusCT * Math.Sin(localSlope));
-
+                goalPointCT.altitude = mf.pn.altitude + (paRadiusCT * Math.Cos(localSlope));
 
                 //angular velocity in rads/sec  = 2PI * m/sec * radians/meters
                 double angVel = glm.twoPI * 0.277777 * mf.pn.speed * (Math.Tan(glm.toRadians(steerAngleCT))) / mf.vehicle.wheelbase;
@@ -637,7 +624,7 @@ namespace OpenGrade
                 }
 
 
-                if (paRadiusCT > 0)
+                //if (paRadiusCT > 0)
 
 
                 mf.guidanceLineDistanceOff = (Int16)distanceFromCurrentLine;
@@ -654,22 +641,14 @@ namespace OpenGrade
             }
 
 
-            mf.slopeDelta = glm.RadiantoSlope(mf.slopeHeading - slopeAngleCT) ;
+            mf.slopeDelta = glm.RadiantoSlope(mf.slopeHeading - slopeAngleCT) *100 ;
             mf.CombinedDelta = (mf.cutDeltaCenter - mf.slopeDelta);
+
+
             mf.lblDiag.Text = glm.RadiantoSlope(slopeAngleCT).ToString("F3") + " SlopeSet \n";
             mf.lblDiag.Text += glm.RadiantoSlope(mf.slopeHeading).ToString("F3") + "  SlopeHead \n";        
-            mf.lblDiag.Text += (mf.slopeDelta).ToString("F3") + " SlopeDelta \n";
-            //mf.lblDiag.Text += mf.cutDeltaCenter.ToString("F3") + "CutDelta \n";
-            
-            
-            
-            
-            //mf.lblDiag.Text += (mf.CombinedDelta).ToString("F3") + "TotDelta \n";
-
-
-
-
-
+            mf.lblDiag.Text += mf.slopeDelta.ToString("F3") + " SlopeDelta \n";
+            //mf.lblDiag.Text += goalPointCT.altitude.ToString("F3") + "GAlt \n";
 
 
         }
@@ -940,7 +919,7 @@ namespace OpenGrade
             vec2 temp = new vec2();
 
             double distFromLastPlot = 0;
-            double minPtDist = .2;
+            double minPtDist = 2.0;
             int drawPts;
             int ptCnt = ptList.Count;
             double minDeltaHt = 0;
@@ -1122,19 +1101,11 @@ namespace OpenGrade
                 case FormGPS.gradeMode.tile:
 
 
+                    //mf.ct.SmoothLine(5);
 
-
-
-                    
-                    //for (int i = 0; i < startPt-1; i++)
-                    //{
-
-                    //    temp.easting = i;
-                    //    temp.northing = ((double)ptList[i].altitude - mf.vehicle.minTileCover);
-                    //    drawList.Add(temp);
-
-
-                    //}
+                    //mf.ct.Update();
+                    //mf.ct.ptList.altitude.Clear();
+                    //ptList.Add(autoList);
 
                     for (int i = 0; i < ptCnt; i++)
                     {
@@ -1266,18 +1237,15 @@ namespace OpenGrade
                 movingAvg.Update(ptList[0].altitude);
             }
 
-            for (int k = 0; k < ptCnt; k++)
+            for (int k = 1; k < ptCnt; k++)
             {
                 double sma = movingAvg.Update(ptList[k].altitude);
-
-
                 Temp.easting = k;
-                Temp.northing = sma;
-                autoList.Add(Temp);                
-
+                Temp.northing = sma;                 
+                ptList[k-1].altitude = sma; 
+                autoList.Add(Temp);        
 
             }
-
 
 
 

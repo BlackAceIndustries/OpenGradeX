@@ -2378,6 +2378,11 @@ namespace OpenGrade
             camera.camPitch = -65;
         }
 
+        private void tStrip3_Click(object sender, EventArgs e)
+        {
+           userDistance = 0;
+        }
+
         private void tStripManualValve_Click(object sender, EventArgs e)
         {
             Form form = new FormManualCtrl(this);

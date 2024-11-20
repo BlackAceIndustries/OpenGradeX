@@ -1781,16 +1781,11 @@ namespace OpenGrade
                                 cutDeltaCenter += x;
                             }
 
-                        if (ptCnt > 0)
-                        {
                             if (ct.ptList[ct.FindClosestPoint(pn.bladeCenter)].cutAltitude > 0)
-                            {
-
-                                
+                            {                                
                                    ct.ptList[ct.FindClosestPoint(pn.bladeCenter)].currentPassAltitude = pn.altitude;
                                    ct.isOnPass = true;
-                                   ct.isDoneCopy = false;
-                                
+                                   ct.isDoneCopy = false;                              
                                 
                             }
                             else
@@ -1827,7 +1822,7 @@ namespace OpenGrade
                             }
                             gl.End();
 
-                        }
+                        
                     }
 
 

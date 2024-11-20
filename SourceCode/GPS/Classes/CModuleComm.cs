@@ -117,6 +117,7 @@ namespace OpenGrade
         public bool isPitchCorrection = false;
 
         public string a1RawString;
+        public string a1NtripString;
         public string a2RawString;
         public string gcRawString;
 

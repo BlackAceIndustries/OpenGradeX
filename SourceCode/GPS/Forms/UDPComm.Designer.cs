@@ -270,6 +270,8 @@ namespace OpenGrade
                                     root["readingId"] = mc.a1Firmware.readingId++;
                                     jsonString = JsonSerializer.Serialize(root);
 
+                                    mc.a1NtripString = jsonString;
+
                                     break;
 
                                 default:

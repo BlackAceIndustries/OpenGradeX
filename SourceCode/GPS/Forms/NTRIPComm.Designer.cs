@@ -84,13 +84,12 @@ namespace OpenGrade
             ntripCounter++;
 
             //Thinks is connected but not receiving anything
-            if (NTRIP_Watchdog++ > 15 && isNTRIP_Connected)
+            if (NTRIP_Watchdog++ > 200 && isNTRIP_Connected)
             {   
                 isNTRIPOn = false;                
                 TimedMessageBox(2500, "NTRIP DATA TIMEOUT", "RECONNECTING");
                 //ledNTRIP.BackColor = Color.Orange;
-                NTRIP_LED.Value = 100;
-                NTRIP_LED.BackColor = Color.Orange;
+                NTRIP_LED.Value = 0;
                 ReconnectRequest();
             }    
             
@@ -252,8 +251,8 @@ namespace OpenGrade
                 // Convert to byte array and send.
                 Byte[] byteDateLine = Encoding.ASCII.GetBytes(str.ToCharArray());
                 clientSocket.Send(byteDateLine, byteDateLine.Length, 0);
-                    
-                
+
+                rtcm = "Authorization\n";
                 //enable to periodically send GGA sentence to server.
                 if (sendGGAInterval > 0) tmr.Enabled = true;
                
@@ -279,7 +278,8 @@ namespace OpenGrade
             uint nBytesRecvd = (uint)data.Length;            
             tripBytes += (uint)nBytesRecvd;         
             //reset watchdog since we have updated data
-            NTRIP_Watchdog = 0;      
+            NTRIP_Watchdog = 0;
+            
 
             try
             {          
@@ -323,99 +323,9 @@ namespace OpenGrade
             {
                 WriteErrorLog("NTRIP Data UDP Send" + ex.ToString());
             }
-           
-            //sbRTCM.Clear();
-
-
-
-            //sbRTCM.Append("Total Bytes Recieved -> " + tripBytes.ToString() + "\r\n");
-            //sbRTCM.Append("Message Recieved -> ");
-            ////sbRTCM.Append("\r\n");
-            ////sbRTCM.Append("Message Recieved -> " + rtcmRaw +"\r\n");
-            ////sbRTCM.Append("\r\n");
-            //tboxNTRIPBuffer.Text = sbRTCM.ToString() +"{" + rtcm.ToString() + "}" + "\r\n\r\n";
-            //sbRTCMdata.Clear();
-            //sbRTCM.Clear();
-            //rtcmRaw = "";
-            //rtcm = "";
-
-
         }
 
-        public void OnAddMessage2(byte[] data)
-        {
-            //update gui with stats 
-            uint nBytesRecvd = (uint)data.Length;
-            tripBytes += (uint)nBytesRecvd;
-            //reset watchdog since we have updated data
-            NTRIP_Watchdog = 0;
-
-            try
-            {
-
-                if (nBytesRecvd > 0)
-                {
-                    byte[] localMsg = new byte[nBytesRecvd];
-                    Array.Copy(data, localMsg, nBytesRecvd);
-
-                    for (int i = 0; i < nBytesRecvd; i++)
-                    {
-                        //sbRTCMdata.Append(data[i]).Append(" ");
-                        sbRTCMdata.Append(data[i]);
-                    }
-                    //rtcmRaw = sbRTCMdata.ToString();
-                    //rtcmRaw = sbRTCMdata.ToString();
-                    //rtcmRaw = Convert.FromBase64String(sbRTCMdata.ToString())
-
-                    const int maxSize = 250; // Define your maximum size for each chunk
-
-                    // Check if the final string exceeds the maximum size
-                    if (rtcmRaw.Length > maxSize)
-                    {
-                        List<string> choppedStrings = ChopString(rtcmRaw, maxSize);
-
-                        // Process each chopped string as needed
-                        foreach (var choppedString in choppedStrings)
-                        {
-                            // Process each chunk (e.g., logging, sending over network, etc.)
-                            rtcm = choppedString;
-
-                            SendUDPMessageJSON((int)ModuleType.Antenna_Master, (int)DataType.NTRIP, 1, epA1);
-
-                        }
-                    }
-                    else
-                    {
-                        rtcm = rtcmRaw;
-                        // If the string does not exceed the maximum size, process it directly
-                        SendUDPMessageJSON((int)ModuleType.Antenna_Master, (int)DataType.NTRIP, 1, epA1);
-                    }
-
-                }
-
-            }
-            catch (Exception ex)
-            {
-                WriteErrorLog("NTRIP Data UDP Send" + ex.ToString());
-            }
-
-            sbRTCM.Clear();
-
-
-
-            sbRTCM.Append("Total Bytes Recieved -> " + tripBytes.ToString() + "\r\n");
-            sbRTCM.Append("Message Recieved -> ");
-            //sbRTCM.Append("\r\n");
-            //sbRTCM.Append("Message Recieved -> " + rtcmRaw +"\r\n");
-            //sbRTCM.Append("\r\n");
-            //tboxNTRIPBuffer.Text = sbRTCM.ToString() + "{" + sbRTCMdata.ToString() + "}" + "\r\n\r\n";
-            sbRTCMdata.Clear();
-            sbRTCM.Clear();
-            rtcmRaw = "";
-            rtcm = "";
-
-
-        }
+       
 
         // Method to chop a large string into smaller strings of a defined size
         static List<string> ChopString(string str, int maxSize)
@@ -476,6 +386,8 @@ namespace OpenGrade
                 if (sock.Connected){
                     //MessageBox.Show("Connected Socket", "Socket!");
                     SetupRecieveCallback(sock);
+                    //rtcm = "Connected Socket \n";
+
                 }
                 else
                     MessageBox.Show("Unable to connect to remote machine", "Connect Failed!");
@@ -555,7 +467,7 @@ namespace OpenGrade
                 System.Threading.Thread.Sleep(500);
 
                 //TimedMessageBox(2000, gStr.gsNTRIPOff, gStr.gsClickStartToResume);
-                //ReconnectRequest();
+                ReconnectRequest();
 
                 //Also stop the requests now
                 isNTRIP_RequiredOn = false;

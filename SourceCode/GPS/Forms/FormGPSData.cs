@@ -27,6 +27,7 @@ namespace OpenGrade
             //lblLatitude.Text = mf.Latitude;
             //lblLongitude.Text = mf.Longitude;
             //lblAltitude.Text = mf.Altitude;
+           
 
 
 
@@ -40,6 +41,7 @@ namespace OpenGrade
 
             tboxA1.Text= mf.mc.a1RawString;
             tboxGC.Text = mf.mc.gcRawString;
+            tboxRTCM.Text = mf.mc.a1NtripString;
 
 
             lblStatus.Text = mf.Heading.ToString();
@@ -56,7 +58,7 @@ namespace OpenGrade
 
 
 
-            tboxRTCM.Text = mf.rtcm;
+            //tboxRTCM.Text = mf.rtcm;
             lblRtcmTrip.Text = mf.tripBytes.ToString();            
             
             
@@ -157,6 +159,11 @@ namespace OpenGrade
         }
 
         private void label25_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
         {
 
         }

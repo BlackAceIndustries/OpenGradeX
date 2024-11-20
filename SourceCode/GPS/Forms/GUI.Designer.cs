@@ -1295,13 +1295,8 @@ namespace OpenGrade
             //count up the ntrip clock only if everything is alive
             if (startCounter > 50 && recvCounter < 20 && isNTRIP_RequiredOn)
             {
-
                 IncrementNTRIPWatchDog();
             }
-            //tboxNTRIPBuffer.Text += "IncrementNTRIPWatchDog()\r\n";
-            //tmr.Dispose();
-            isNTRIP_RequiredOn = Properties.Settings.Default.setNTRIP_isOn;
-
 
             //check if we have a connection if not try and start NTRIP
             if (isNTRIP_RequiredOn && !isNTRIP_Connected && !isNTRIP_Connecting)
@@ -1309,15 +1304,17 @@ namespace OpenGrade
                 if (!isNTRIP_Starting && ntripCounter > 20 && reconnectCounter < 100)
                 {
                     StartNTRIP();
+                    //rtcm = "Ntrip Start \n";
                 }
             }
+
 
             // if currently connecting
             if (isNTRIP_Connecting)
             {
                 if (ntripCounter > 50)
                 {
-                    ReconnectRequest();
+                    //ReconnectRequest();
                 }
                 if (clientSocket != null && clientSocket.Connected)
                 {
@@ -1326,23 +1323,7 @@ namespace OpenGrade
                 NTRIP_LED.BackColor = Color.Orange;
             }
 
-            if (isNTRIP_RequiredOn)
-            {
-                NTRIP_LED.Value = 100;
-
-                if (isNTRIP_Connecting) NTRIP_LED.BackColor = Color.Purple;
-
-                if (NTRIP_Watchdog > 20) NTRIP_LED.BackColor = Color.Yellow;
-
-                if (isNTRIP_Connected) NTRIP_LED.BackColor = Color.Lime;
-
-                if (!isNTRIP_Connected && !isNTRIP_Connecting) NTRIP_LED.BackColor = Color.Black;
-
-                if (sendGGAInterval > 0 && isNTRIP_Sending) isNTRIP_Sending = false;
-
-            }
-            else NTRIP_LED.BackColor = Color.Black;
-
+          
         }
 
         //Timer triggers at 20 msec, 50 hz, and is THE clock of the whole program//
@@ -1357,17 +1338,23 @@ namespace OpenGrade
             a2Timeout++;
             gcTimeout++;
 
-
-            if (fiveSecondCounter++ > 50)
+            if (isNTRIPOn)
             {
-                //do all the NTRIP routines
-                if (isNTRIPOn)
-                {
-                    DoNTRIPSecondRoutine(); // Only when gps port is open
+                DoNTRIPSecondRoutine(); // Only when gps port is open
+            }
 
-                    fiveSecondCounter = 0;
 
-                }
+            if (fiveSecondCounter++ > 25)
+            {
+                //fiveSecondCounter = 0; 
+                //////do all the NTRIP routines
+                //if (isNTRIPOn)
+                //{
+                //    DoNTRIPSecondRoutine(); // Only when gps port is open                
+
+                //}
+
+                  
 
                 //Antenna 1 
                 if (a1Timeout > 50)
@@ -1893,8 +1880,10 @@ namespace OpenGrade
 
                     //SendUDPMessage(DATA_HEADER, epGradeControl);
                 }
-                //wait till timer fires again.     
+                //wait till timer fires again.
+                 
             }
+            
         }
     }
 }

@@ -63,8 +63,9 @@
             this.label20 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.btnStartNtrip = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.btnStartNtrip = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCasterPort)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudGGAInterval)).BeginInit();
@@ -204,7 +205,7 @@
             this.tboxUserName.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.tboxUserName.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tboxUserName.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.tboxUserName.Location = new System.Drawing.Point(136, 171);
+            this.tboxUserName.Location = new System.Drawing.Point(136, 153);
             this.tboxUserName.Name = "tboxUserName";
             this.tboxUserName.Size = new System.Drawing.Size(168, 33);
             this.tboxUserName.TabIndex = 100;
@@ -215,7 +216,7 @@
             this.tboxUserPassword.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.tboxUserPassword.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tboxUserPassword.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.tboxUserPassword.Location = new System.Drawing.Point(136, 231);
+            this.tboxUserPassword.Location = new System.Drawing.Point(136, 213);
             this.tboxUserPassword.Name = "tboxUserPassword";
             this.tboxUserPassword.PasswordChar = '*';
             this.tboxUserPassword.Size = new System.Drawing.Size(168, 33);
@@ -263,7 +264,7 @@
             this.tboxEnterURL.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.tboxEnterURL.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tboxEnterURL.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.tboxEnterURL.Location = new System.Drawing.Point(137, 111);
+            this.tboxEnterURL.Location = new System.Drawing.Point(137, 93);
             this.tboxEnterURL.Name = "tboxEnterURL";
             this.tboxEnterURL.Size = new System.Drawing.Size(169, 33);
             this.tboxEnterURL.TabIndex = 108;
@@ -391,7 +392,7 @@
             this.btnPassPassword.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPassPassword.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPassPassword.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnPassPassword.Location = new System.Drawing.Point(349, 171);
+            this.btnPassPassword.Location = new System.Drawing.Point(349, 139);
             this.btnPassPassword.Name = "btnPassPassword";
             this.btnPassPassword.Size = new System.Drawing.Size(121, 33);
             this.btnPassPassword.TabIndex = 134;
@@ -410,7 +411,7 @@
             this.cboxHTTP.Items.AddRange(new object[] {
             "1.0",
             "1.1"});
-            this.cboxHTTP.Location = new System.Drawing.Point(385, 112);
+            this.cboxHTTP.Location = new System.Drawing.Point(385, 94);
             this.cboxHTTP.Name = "cboxHTTP";
             this.cboxHTTP.Size = new System.Drawing.Size(80, 33);
             this.cboxHTTP.TabIndex = 135;
@@ -507,7 +508,7 @@
             this.label7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.label7.Font = new System.Drawing.Font("Tahoma", 15F);
             this.label7.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label7.Location = new System.Drawing.Point(11, 116);
+            this.label7.Location = new System.Drawing.Point(11, 98);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(115, 24);
             this.label7.TabIndex = 137;
@@ -519,7 +520,7 @@
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Tahoma", 15F);
             this.label17.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label17.Location = new System.Drawing.Point(32, 236);
+            this.label17.Location = new System.Drawing.Point(32, 218);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(94, 24);
             this.label17.TabIndex = 139;
@@ -542,7 +543,7 @@
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label20.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label20.Location = new System.Drawing.Point(317, 117);
+            this.label20.Location = new System.Drawing.Point(317, 99);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(62, 23);
             this.label20.TabIndex = 142;
@@ -553,7 +554,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Tahoma", 15F);
             this.label3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label3.Location = new System.Drawing.Point(26, 176);
+            this.label3.Location = new System.Drawing.Point(26, 158);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(100, 24);
             this.label3.TabIndex = 143;
@@ -561,6 +562,7 @@
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.button2);
             this.groupBox6.Controls.Add(this.button1);
             this.groupBox6.Controls.Add(this.btnStartNtrip);
             this.groupBox6.Controls.Add(this.tboxUserPassword);
@@ -585,13 +587,27 @@
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "NTRIP Caster Settings";
             // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Red;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.button1.Location = new System.Drawing.Point(349, 218);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(121, 33);
+            this.button1.TabIndex = 2103;
+            this.button1.Text = "STOP";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // btnStartNtrip
             // 
             this.btnStartNtrip.BackColor = System.Drawing.Color.Lime;
             this.btnStartNtrip.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStartNtrip.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStartNtrip.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnStartNtrip.Location = new System.Drawing.Point(349, 210);
+            this.btnStartNtrip.Location = new System.Drawing.Point(349, 179);
             this.btnStartNtrip.Name = "btnStartNtrip";
             this.btnStartNtrip.Size = new System.Drawing.Size(121, 33);
             this.btnStartNtrip.TabIndex = 2102;
@@ -599,19 +615,19 @@
             this.btnStartNtrip.UseVisualStyleBackColor = false;
             this.btnStartNtrip.Click += new System.EventHandler(this.btnStartNtrip_Click);
             // 
-            // button1
+            // button2
             // 
-            this.button1.BackColor = System.Drawing.Color.Red;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button1.Location = new System.Drawing.Point(349, 249);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(121, 33);
-            this.button1.TabIndex = 2103;
-            this.button1.Text = "STOP";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button2.BackColor = System.Drawing.Color.Red;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.button2.Location = new System.Drawing.Point(349, 257);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(121, 33);
+            this.button2.TabIndex = 2104;
+            this.button2.Text = "ESTOP";
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // FormNtrip
             // 
@@ -688,5 +704,6 @@
         private System.Windows.Forms.Button btnNtripOnOff;
         private System.Windows.Forms.Button btnStartNtrip;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }

@@ -1776,17 +1776,17 @@ namespace OpenGrade
                                 cutDeltaCenter += x;
                             }
 
-                            //if (ct.ptList[ct.FindClosestPoint(pn.bladeCenter)].cutAltitude > 0)
-                            //{                                
-                            //       ct.ptList[ct.FindClosestPoint(pn.bladeCenter)].currentPassAltitude = pn.altitude;
-                            //       ct.isOnPass = true;
-                            //       ct.isDoneCopy = false;                              
-                                
-                            //}
-                            //else
-                            //{
-                            //    ct.isOnPass = false;
-                            //}
+                            if (ct.ptList[ct.FindClosestPoint(pn.bladeCenter)].cutAltitude > 0)
+                            {                                
+                                   ct.ptList[ct.FindClosestPoint(pn.bladeCenter)].currentPassAltitude = pn.altitude;
+                                   ct.isOnPass = true;
+                                   ct.isDoneCopy = false;                              
+                              
+                            }
+                            else
+                            {
+                                ct.isOnPass = false;
+                            }
                             // light up isOnPass Indicator
                             if (ct.isOnPass)
                             {

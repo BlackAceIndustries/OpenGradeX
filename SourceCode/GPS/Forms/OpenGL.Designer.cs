@@ -1668,7 +1668,6 @@ namespace OpenGrade
                             gl.Begin(OpenGL.GL_LINES);
                             gl.Color(0.75f, 0.0f, 0.75f , .75f); // Vibrant purple
 
-                        lblDiag.Text += slopeHeading.ToString("f3");
 
                         if (glm.RadiantoSlope(slopeHeading) > 0 )
                         {
@@ -1731,10 +1730,6 @@ namespace OpenGrade
                             gl.Vertex(lookAheadPnt, ((((ct.goalPointCT.altitude - centerY) * altitudeWindowGain) + centerY) ));//output vertex
 
 
-                           // lblDiag.Text += ct.FindClosestPoint(ct.goalPointCT).ToString("F2") + " cp Goal \n";
-                           // lblDiag.Text += ct.FindClosestPoint(pn.bladeCenter).ToString("F2") + " cp Blade \n";
-                            //lblDiag.Text += ct.goalPointCT.altitude.ToString("F8") + " gC \n";
-
 
 
                             //gl.Vertex(z + lookAheadPnt, (y + ct.goalPointCT.altitude + ct.paRadiusCT ));
@@ -1781,17 +1776,17 @@ namespace OpenGrade
                                 cutDeltaCenter += x;
                             }
 
-                            if (ct.ptList[ct.FindClosestPoint(pn.bladeCenter)].cutAltitude > 0)
-                            {                                
-                                   ct.ptList[ct.FindClosestPoint(pn.bladeCenter)].currentPassAltitude = pn.altitude;
-                                   ct.isOnPass = true;
-                                   ct.isDoneCopy = false;                              
+                            //if (ct.ptList[ct.FindClosestPoint(pn.bladeCenter)].cutAltitude > 0)
+                            //{                                
+                            //       ct.ptList[ct.FindClosestPoint(pn.bladeCenter)].currentPassAltitude = pn.altitude;
+                            //       ct.isOnPass = true;
+                            //       ct.isDoneCopy = false;                              
                                 
-                            }
-                            else
-                            {
-                                ct.isOnPass = false;
-                            }
+                            //}
+                            //else
+                            //{
+                            //    ct.isOnPass = false;
+                            //}
                             // light up isOnPass Indicator
                             if (ct.isOnPass)
                             {

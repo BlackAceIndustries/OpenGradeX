@@ -231,7 +231,8 @@ namespace OpenGrade
 
             fixStepDist = distanceCurrentStepFix;
 
-            minFixStepDist = .3;
+
+            minFixStepDist = .5;
 
 
             //if  min distance isn't exceeded, keep adding old fixes till it does

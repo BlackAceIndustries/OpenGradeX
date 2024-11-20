@@ -32,9 +32,9 @@ namespace OpenGrade
         Timer tmr;
 
         public bool isNTRIPOn;
-        public string rtcm ="";
+        public string a1NtripString ="";
         private string rtcmRaw="";
-        
+        private string rtcm = "";
         private string mount;
         private string username;
         private string password;
@@ -252,7 +252,6 @@ namespace OpenGrade
                 Byte[] byteDateLine = Encoding.ASCII.GetBytes(str.ToCharArray());
                 clientSocket.Send(byteDateLine, byteDateLine.Length, 0);
 
-                rtcm = "Authorization\n";
                 //enable to periodically send GGA sentence to server.
                 if (sendGGAInterval > 0) tmr.Enabled = true;
                
@@ -386,7 +385,6 @@ namespace OpenGrade
                 if (sock.Connected){
                     //MessageBox.Show("Connected Socket", "Socket!");
                     SetupRecieveCallback(sock);
-                    //rtcm = "Connected Socket \n";
 
                 }
                 else

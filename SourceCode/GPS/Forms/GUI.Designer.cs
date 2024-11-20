@@ -1304,7 +1304,6 @@ namespace OpenGrade
                 if (!isNTRIP_Starting && ntripCounter > 20 && reconnectCounter < 100)
                 {
                     StartNTRIP();
-                    //rtcm = "Ntrip Start \n";
                 }
             }
 
@@ -1570,10 +1569,20 @@ namespace OpenGrade
                     mc.pitchIMU = mc.a1Data.pitch - mc.imuPitchOffset;
                     mc.rollIMU= mc.a1Data.roll - mc.imuRollOffset;
                     mc.headingIMU = mc.a1Data.yaw - mc.imuYawOffset;
-                    mc.pitchSlope = glm.DegreetoSlope(mc.pitchIMU);
-                    mc.rollSlope = glm.DegreetoSlope(mc.rollIMU);
-                    tStripPitch.Text = mc.pitchIMU.ToString("F2");
+
+
+                    mc.pitchSlope = glm.DegreetoSlope(mc.avgpitchIMU);
+                    mc.rollSlope = glm.DegreetoSlope(mc.avgrollIMU);
+
+
+
+                    tStripPitch.Text = mc.pitchSlope.ToString("F2");
                     tStripRoll.Text = mc.rollSlope.ToString("F2");
+                    //mc.pitchSlope = glm.DegreetoSlope(mc.pitchIMU);
+                    //mc.rollSlope = glm.DegreetoSlope(mc.rollIMU);
+                    //tStripPitch.Text = mc.pitchIMU.ToString("F2");
+                    //tStripRoll.Text = mc.rollSlope.ToString("F2");
+
                     tStripAltitude.Text = pn.altitude.ToString("F3");
                     tStripHeading.Text = glm.toDegrees(fixHeading).ToString("F2");
                     tStripSlope.Text = glm.RadiantoSlope(slopeHeading).ToString("F2");

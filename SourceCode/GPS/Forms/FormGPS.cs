@@ -2912,7 +2912,7 @@ namespace OpenGrade
             }
         }
 
-        private void SettingsNtrip()
+        public void SettingsNtrip()
         {
             using (var form = new FormNtrip(this))
             {

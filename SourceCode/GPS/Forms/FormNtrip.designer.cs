@@ -63,9 +63,10 @@
             this.label20 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.btnStartNtrip = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCasterPort)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudGGAInterval)).BeginInit();
@@ -73,6 +74,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudLongitude)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox6.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox2
@@ -81,7 +83,7 @@
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.groupBox2.Location = new System.Drawing.Point(12, 524);
+            this.groupBox2.Location = new System.Drawing.Point(12, 505);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(191, 103);
             this.groupBox2.TabIndex = 98;
@@ -119,7 +121,7 @@
             this.tboxCasterIP.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.tboxCasterIP.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tboxCasterIP.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.tboxCasterIP.Location = new System.Drawing.Point(136, 51);
+            this.tboxCasterIP.Location = new System.Drawing.Point(129, 32);
             this.tboxCasterIP.Name = "tboxCasterIP";
             this.tboxCasterIP.Size = new System.Drawing.Size(168, 33);
             this.tboxCasterIP.TabIndex = 79;
@@ -128,11 +130,10 @@
             // 
             // nudCasterPort
             // 
-            this.nudCasterPort.AutoSize = true;
             this.nudCasterPort.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.nudCasterPort.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudCasterPort.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.nudCasterPort.Location = new System.Drawing.Point(369, 51);
+            this.nudCasterPort.Location = new System.Drawing.Point(364, 32);
             this.nudCasterPort.Maximum = new decimal(new int[] {
             65535,
             0,
@@ -144,7 +145,7 @@
             0,
             0});
             this.nudCasterPort.Name = "nudCasterPort";
-            this.nudCasterPort.Size = new System.Drawing.Size(122, 33);
+            this.nudCasterPort.Size = new System.Drawing.Size(80, 33);
             this.nudCasterPort.TabIndex = 2101;
             this.nudCasterPort.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudCasterPort.Value = new decimal(new int[] {
@@ -159,7 +160,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Tahoma", 15F);
             this.label5.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label5.Location = new System.Drawing.Point(28, 56);
+            this.label5.Location = new System.Drawing.Point(21, 37);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(98, 24);
             this.label5.TabIndex = 82;
@@ -176,7 +177,7 @@
             this.btnSerialCancel.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSerialCancel.ForeColor = System.Drawing.Color.Black;
             this.btnSerialCancel.Image = global::OpenGrade.Properties.Resources.Cancel64;
-            this.btnSerialCancel.Location = new System.Drawing.Point(266, 541);
+            this.btnSerialCancel.Location = new System.Drawing.Point(213, 518);
             this.btnSerialCancel.Name = "btnSerialCancel";
             this.btnSerialCancel.Size = new System.Drawing.Size(88, 76);
             this.btnSerialCancel.TabIndex = 95;
@@ -192,7 +193,7 @@
             this.btnSerialOK.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSerialOK.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnSerialOK.Image = global::OpenGrade.Properties.Resources.OK64;
-            this.btnSerialOK.Location = new System.Drawing.Point(365, 541);
+            this.btnSerialOK.Location = new System.Drawing.Point(311, 517);
             this.btnSerialOK.Name = "btnSerialOK";
             this.btnSerialOK.Size = new System.Drawing.Size(138, 76);
             this.btnSerialOK.TabIndex = 94;
@@ -205,7 +206,7 @@
             this.tboxUserName.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.tboxUserName.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tboxUserName.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.tboxUserName.Location = new System.Drawing.Point(136, 153);
+            this.tboxUserName.Location = new System.Drawing.Point(129, 112);
             this.tboxUserName.Name = "tboxUserName";
             this.tboxUserName.Size = new System.Drawing.Size(168, 33);
             this.tboxUserName.TabIndex = 100;
@@ -216,7 +217,7 @@
             this.tboxUserPassword.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.tboxUserPassword.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tboxUserPassword.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.tboxUserPassword.Location = new System.Drawing.Point(136, 213);
+            this.tboxUserPassword.Location = new System.Drawing.Point(129, 151);
             this.tboxUserPassword.Name = "tboxUserPassword";
             this.tboxUserPassword.PasswordChar = '*';
             this.tboxUserPassword.Size = new System.Drawing.Size(168, 33);
@@ -228,7 +229,7 @@
             this.tboxMount.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.tboxMount.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tboxMount.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.tboxMount.Location = new System.Drawing.Point(212, 69);
+            this.tboxMount.Location = new System.Drawing.Point(189, 69);
             this.tboxMount.Name = "tboxMount";
             this.tboxMount.Size = new System.Drawing.Size(253, 33);
             this.tboxMount.TabIndex = 104;
@@ -241,7 +242,7 @@
             this.nudGGAInterval.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.nudGGAInterval.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudGGAInterval.ForeColor = System.Drawing.Color.Yellow;
-            this.nudGGAInterval.Location = new System.Drawing.Point(330, 28);
+            this.nudGGAInterval.Location = new System.Drawing.Point(307, 28);
             this.nudGGAInterval.Maximum = new decimal(new int[] {
             600,
             0,
@@ -264,7 +265,7 @@
             this.tboxEnterURL.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.tboxEnterURL.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tboxEnterURL.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.tboxEnterURL.Location = new System.Drawing.Point(137, 93);
+            this.tboxEnterURL.Location = new System.Drawing.Point(130, 74);
             this.tboxEnterURL.Name = "tboxEnterURL";
             this.tboxEnterURL.Size = new System.Drawing.Size(169, 33);
             this.tboxEnterURL.TabIndex = 108;
@@ -282,7 +283,7 @@
             0,
             0,
             131072});
-            this.nudLatitude.Location = new System.Drawing.Point(88, 112);
+            this.nudLatitude.Location = new System.Drawing.Point(65, 112);
             this.nudLatitude.Maximum = new decimal(new int[] {
             90,
             0,
@@ -315,7 +316,7 @@
             0,
             0,
             131072});
-            this.nudLongitude.Location = new System.Drawing.Point(88, 155);
+            this.nudLongitude.Location = new System.Drawing.Point(65, 155);
             this.nudLongitude.Maximum = new decimal(new int[] {
             180,
             0,
@@ -349,7 +350,7 @@
             this.btnGetSourceTable.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGetSourceTable.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGetSourceTable.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnGetSourceTable.Location = new System.Drawing.Point(33, 25);
+            this.btnGetSourceTable.Location = new System.Drawing.Point(10, 25);
             this.btnGetSourceTable.Name = "btnGetSourceTable";
             this.btnGetSourceTable.Size = new System.Drawing.Size(161, 45);
             this.btnGetSourceTable.TabIndex = 127;
@@ -368,7 +369,7 @@
             this.cboxGGAManual.Items.AddRange(new object[] {
             "Use Manual Fix",
             "Use GPS Fix"});
-            this.cboxGGAManual.Location = new System.Drawing.Point(329, 155);
+            this.cboxGGAManual.Location = new System.Drawing.Point(306, 155);
             this.cboxGGAManual.Name = "cboxGGAManual";
             this.cboxGGAManual.Size = new System.Drawing.Size(136, 24);
             this.cboxGGAManual.TabIndex = 128;
@@ -379,7 +380,7 @@
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label19.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label19.Location = new System.Drawing.Point(244, 53);
+            this.label19.Location = new System.Drawing.Point(221, 53);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(43, 13);
             this.label19.TabIndex = 131;
@@ -392,9 +393,9 @@
             this.btnPassPassword.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPassPassword.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPassPassword.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnPassPassword.Location = new System.Drawing.Point(349, 139);
+            this.btnPassPassword.Location = new System.Drawing.Point(303, 112);
             this.btnPassPassword.Name = "btnPassPassword";
-            this.btnPassPassword.Size = new System.Drawing.Size(121, 33);
+            this.btnPassPassword.Size = new System.Drawing.Size(139, 68);
             this.btnPassPassword.TabIndex = 134;
             this.btnPassPassword.Text = "VERIFY";
             this.btnPassPassword.UseVisualStyleBackColor = false;
@@ -411,9 +412,9 @@
             this.cboxHTTP.Items.AddRange(new object[] {
             "1.0",
             "1.1"});
-            this.cboxHTTP.Location = new System.Drawing.Point(385, 94);
+            this.cboxHTTP.Location = new System.Drawing.Point(366, 75);
             this.cboxHTTP.Name = "cboxHTTP";
-            this.cboxHTTP.Size = new System.Drawing.Size(80, 33);
+            this.cboxHTTP.Size = new System.Drawing.Size(78, 33);
             this.cboxHTTP.TabIndex = 135;
             // 
             // groupBox1
@@ -434,7 +435,7 @@
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(508, 204);
+            this.groupBox1.Size = new System.Drawing.Size(456, 204);
             this.groupBox1.TabIndex = 137;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "NTRIP Stream";
@@ -443,7 +444,7 @@
             // 
             this.cBoxManPos.AutoSize = true;
             this.cBoxManPos.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cBoxManPos.Location = new System.Drawing.Point(329, 121);
+            this.cBoxManPos.Location = new System.Drawing.Point(306, 121);
             this.cBoxManPos.Name = "cBoxManPos";
             this.cBoxManPos.Size = new System.Drawing.Size(141, 20);
             this.cBoxManPos.TabIndex = 141;
@@ -456,7 +457,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label2.Location = new System.Drawing.Point(29, 156);
+            this.label2.Location = new System.Drawing.Point(6, 156);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(59, 29);
             this.label2.TabIndex = 135;
@@ -468,7 +469,7 @@
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label15.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label15.Location = new System.Drawing.Point(34, 113);
+            this.label15.Location = new System.Drawing.Point(11, 113);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(54, 29);
             this.label15.TabIndex = 134;
@@ -481,7 +482,7 @@
             this.lblMnt.BackColor = System.Drawing.Color.Transparent;
             this.lblMnt.Font = new System.Drawing.Font("Tahoma", 15F);
             this.lblMnt.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblMnt.Location = new System.Drawing.Point(29, 73);
+            this.lblMnt.Location = new System.Drawing.Point(6, 73);
             this.lblMnt.Name = "lblMnt";
             this.lblMnt.Size = new System.Drawing.Size(177, 24);
             this.lblMnt.TabIndex = 138;
@@ -494,7 +495,7 @@
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Tahoma", 12F);
             this.label9.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label9.Location = new System.Drawing.Point(200, 33);
+            this.label9.Location = new System.Drawing.Point(177, 33);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(124, 19);
             this.label9.TabIndex = 132;
@@ -508,7 +509,7 @@
             this.label7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.label7.Font = new System.Drawing.Font("Tahoma", 15F);
             this.label7.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label7.Location = new System.Drawing.Point(11, 98);
+            this.label7.Location = new System.Drawing.Point(4, 79);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(115, 24);
             this.label7.TabIndex = 137;
@@ -520,7 +521,7 @@
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Tahoma", 15F);
             this.label17.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label17.Location = new System.Drawing.Point(32, 218);
+            this.label17.Location = new System.Drawing.Point(25, 156);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(94, 24);
             this.label17.TabIndex = 139;
@@ -531,7 +532,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Tahoma", 15F);
             this.label6.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label6.Location = new System.Drawing.Point(310, 57);
+            this.label6.Location = new System.Drawing.Point(310, 38);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(53, 24);
             this.label6.TabIndex = 141;
@@ -543,7 +544,7 @@
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label20.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label20.Location = new System.Drawing.Point(317, 99);
+            this.label20.Location = new System.Drawing.Point(301, 80);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(62, 23);
             this.label20.TabIndex = 142;
@@ -554,7 +555,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Tahoma", 15F);
             this.label3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label3.Location = new System.Drawing.Point(26, 158);
+            this.label3.Location = new System.Drawing.Point(19, 117);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(100, 24);
             this.label3.TabIndex = 143;
@@ -562,9 +563,6 @@
             // 
             // groupBox6
             // 
-            this.groupBox6.Controls.Add(this.button2);
-            this.groupBox6.Controls.Add(this.button1);
-            this.groupBox6.Controls.Add(this.btnStartNtrip);
             this.groupBox6.Controls.Add(this.tboxUserPassword);
             this.groupBox6.Controls.Add(this.label20);
             this.groupBox6.Controls.Add(this.label3);
@@ -582,22 +580,36 @@
             this.groupBox6.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.groupBox6.Location = new System.Drawing.Point(12, 222);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(508, 296);
+            this.groupBox6.Size = new System.Drawing.Size(456, 193);
             this.groupBox6.TabIndex = 144;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "NTRIP Caster Settings";
             // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.Red;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.button2.Location = new System.Drawing.Point(314, 13);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(133, 66);
+            this.button2.TabIndex = 2104;
+            this.button2.Text = "STOP";
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.Color.Red;
+            this.button1.BackColor = System.Drawing.Color.Yellow;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button1.Location = new System.Drawing.Point(349, 218);
+            this.button1.Location = new System.Drawing.Point(168, 13);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(121, 33);
+            this.button1.Size = new System.Drawing.Size(133, 66);
             this.button1.TabIndex = 2103;
-            this.button1.Text = "STOP";
+            this.button1.Text = "RESTART";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -607,35 +619,35 @@
             this.btnStartNtrip.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStartNtrip.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStartNtrip.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnStartNtrip.Location = new System.Drawing.Point(349, 179);
+            this.btnStartNtrip.Location = new System.Drawing.Point(16, 13);
             this.btnStartNtrip.Name = "btnStartNtrip";
-            this.btnStartNtrip.Size = new System.Drawing.Size(121, 33);
+            this.btnStartNtrip.Size = new System.Drawing.Size(133, 66);
             this.btnStartNtrip.TabIndex = 2102;
-            this.btnStartNtrip.Text = "RESTART";
+            this.btnStartNtrip.Text = "START";
             this.btnStartNtrip.UseVisualStyleBackColor = false;
             this.btnStartNtrip.Click += new System.EventHandler(this.btnStartNtrip_Click);
             // 
-            // button2
+            // groupBox3
             // 
-            this.button2.BackColor = System.Drawing.Color.Red;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button2.Location = new System.Drawing.Point(349, 257);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(121, 33);
-            this.button2.TabIndex = 2104;
-            this.button2.Text = "ESTOP";
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.groupBox3.Controls.Add(this.btnStartNtrip);
+            this.groupBox3.Controls.Add(this.button2);
+            this.groupBox3.Controls.Add(this.button1);
+            this.groupBox3.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.groupBox3.Location = new System.Drawing.Point(12, 416);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(456, 85);
+            this.groupBox3.TabIndex = 131;
+            this.groupBox3.TabStop = false;
             // 
             // FormNtrip
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.ClientSize = new System.Drawing.Size(534, 639);
+            this.ClientSize = new System.Drawing.Size(475, 616);
             this.ControlBox = false;
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox2);
@@ -663,6 +675,7 @@
             this.groupBox1.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -705,5 +718,6 @@
         private System.Windows.Forms.Button btnStartNtrip;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.GroupBox groupBox3;
     }
 }

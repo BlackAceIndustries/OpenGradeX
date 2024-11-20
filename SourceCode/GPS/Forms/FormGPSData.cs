@@ -3,6 +3,7 @@
 
 using System;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace OpenGrade
 {
@@ -20,24 +21,6 @@ namespace OpenGrade
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            ////all the fixings and position
-            //lblZone.Text = mf.Zone;
-            //lblNorthing.Text = mf.pn.FixNorthing;
-            //lblEasting.Text = mf.FixEasting;
-            //lblLatitude.Text = mf.Latitude;
-            //lblLongitude.Text = mf.Longitude;
-            //lblAltitude.Text = mf.Altitude;
-           
-
-
-
-            ////other sat and GPS info
-            //lblFixQuality.Text = mf.FixQuality;
-            //lblSatsTracked.Text = mf.SatsTracked;
-            //lblStatus.Text = mf.Status;
-            //lblHDOP.Text = mf.HDOP;
-
-            //tboxSerialToAutoSteer.Text = mf.mc.a1RawString;
 
             tboxA1.Text= mf.mc.a1RawString;
             tboxGC.Text = mf.mc.gcRawString;
@@ -47,10 +30,10 @@ namespace OpenGrade
             lblStatus.Text = mf.Heading.ToString();
 
             lblZone.Text = mf.Zone;
-            lblNorthing.Text = mf.pn.northing.ToString();
-            lblEasting.Text = mf.pn.easting.ToString();
-            lblLatitude.Text = mf.pn.latitude.ToString();
-            lblLongitude.Text = mf.pn.longitude.ToString();
+            lblNorthing.Text = mf.pn.northing.ToString("F3");
+            lblEasting.Text = mf.pn.easting.ToString("F3");
+            lblLatitude.Text = mf.pn.latitude.ToString("F8");
+            lblLongitude.Text = mf.pn.longitude.ToString("F8");
             lblAltitude.Text = mf.pn.altitude.ToString("F3");
             lblSpeed.Text = mf.pn.speed.ToString();
             lblRTKAge.Text = mf.pn.ageDiff.ToString();
@@ -59,7 +42,7 @@ namespace OpenGrade
 
 
             //tboxRTCM.Text = mf.rtcm;
-            lblRtcmTrip.Text = mf.tripBytes.ToString();            
+            lblRtcmTrip.Text = ((double)(mf.tripBytes)/(1024.0*1024.0)).ToString("F3") + "MB" ;            
             
             
             
@@ -70,6 +53,8 @@ namespace OpenGrade
             lblPitch.Text = mf.mc.a1Data.pitch.ToString("F3");
             lblRoll.Text = mf.mc.a1Data.roll.ToString("F3");
             lblGyro.Text = mf.mc.a1Data.yaw.ToString("F3");
+
+            
 
             //lblPitch.Text = mf.mc.pitchIMU.ToString();
             //lblRoll.Text = mf.mc.rollIMU.ToString();
@@ -125,7 +110,7 @@ namespace OpenGrade
 
         private void label18_Click(object sender, EventArgs e)
         {
-
+            mf.SettingsNtrip();
         }
 
         private void label19_Click(object sender, EventArgs e)

@@ -443,8 +443,6 @@ namespace OpenGrade
                 rDistCT = ptList[A].distance + (EU * (dd));
                 rAltitudeCT = ptList[A].cutAltitude + (EU * (dy));
 
-                
-                mf.lblDiag.Text = rAltitudeCT.ToString("F3") + " rAlt \n";
                 //Subtract the two headings, if > 1.57 its going the opposite heading as refAB
                 abFixHeadingDelta = (Math.Abs(mf.fixHeading - abHeading));
                 if (abFixHeadingDelta >= Math.PI) abFixHeadingDelta = Math.Abs(abFixHeadingDelta - glm.twoPI);
@@ -648,7 +646,6 @@ namespace OpenGrade
             mf.lblDiag.Text = glm.RadiantoSlope(slopeAngleCT).ToString("F3") + " SlopeSet \n";
             mf.lblDiag.Text += glm.RadiantoSlope(mf.slopeHeading).ToString("F3") + "  SlopeHead \n";        
             mf.lblDiag.Text += mf.slopeDelta.ToString("F3") + " SlopeDelta \n";
-            //mf.lblDiag.Text += goalPointCT.altitude.ToString("F3") + "GAlt \n";
 
 
         }

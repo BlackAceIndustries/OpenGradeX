@@ -1319,10 +1319,19 @@ namespace OpenGrade
                 {
                     SendAuthorization();
                 }
-                NTRIP_LED.BackColor = Color.Orange;
+                //NTRIP_LED.Value = 100;
             }
 
-          
+
+            if (isNTRIP_Connected)
+            {
+                NTRIP_LED.Value = 100;
+            }
+            else
+            {
+                NTRIP_LED.Value = 0;
+            }
+
         }
 
         //Timer triggers at 20 msec, 50 hz, and is THE clock of the whole program//
@@ -1343,9 +1352,9 @@ namespace OpenGrade
             }
 
 
-            if (fiveSecondCounter++ > 25)
+            if (fiveSecondCounter++ > 2)
             {
-                //fiveSecondCounter = 0; 
+                fiveSecondCounter = 0; 
                 //////do all the NTRIP routines
                 //if (isNTRIPOn)
                 //{
@@ -1353,19 +1362,17 @@ namespace OpenGrade
 
                 //}
 
-                  
+
 
                 //Antenna 1 
                 if (a1Timeout > 50)
                 {
                     ANTENNA1_LED.Value = 0;
-                    ANTENNA1_LED.BackColor = Color.Black;
                     mc.a1connectMsg.connected = 0;
                 }
                 else
                 {
                     ANTENNA1_LED.Value = 100;
-                    ANTENNA1_LED.BackColor = Color.Lime;
 
                 }
 
@@ -1373,12 +1380,10 @@ namespace OpenGrade
                 if (a2Timeout > 50)
                 {
                     ANTENNA2_LED.Value = 0;
-                    ANTENNA2_LED.BackColor = Color.Black;
                 }
                 else
                 {
                     ANTENNA2_LED.Value = 100;
-                    ANTENNA2_LED.BackColor = Color.Lime;
                 }
 
 
@@ -1388,7 +1393,6 @@ namespace OpenGrade
 
                 if (gcTimeout > 50)
                 {
-                    GRADECONTROL_LED.BackColor = Color.Black;
                     GRADECONTROL_LED.Value = 0;
                     mc.gcconnectMsg.connected = 0;
                     voltageBar.BarColorSolid = Color.Red;
@@ -1398,7 +1402,6 @@ namespace OpenGrade
                 }
                 else
                 {
-                    GRADECONTROL_LED.BackColor = Color.Lime;
                     GRADECONTROL_LED.Value = 100;
                     voltageBar.BarColorSolid = Color.White;
                     voltageBar2.BarColorSolid = Color.White;
@@ -1508,22 +1511,6 @@ namespace OpenGrade
                     }
 
 
-                    if (FixQuality == "RTK fix" || FixQuality == "Flt RTK")
-                    {
-                        if (!isNTRIP_Connected)
-                        {
-                            RADIO_LED.Value = 100;
-                            RADIO_LED.BackColor = Color.Lime;
-                        }
-
-                    }
-                    else
-                    {
-                        RADIO_LED.Value = 0;
-                        RADIO_LED.BackColor = Color.Lime;
-                    }
-
-
 
                     if (ct.surveyMode == false)
                     {
@@ -1578,10 +1565,6 @@ namespace OpenGrade
 
                     tStripPitch.Text = mc.pitchSlope.ToString("F2");
                     tStripRoll.Text = mc.rollSlope.ToString("F2");
-                    //mc.pitchSlope = glm.DegreetoSlope(mc.pitchIMU);
-                    //mc.rollSlope = glm.DegreetoSlope(mc.rollIMU);
-                    //tStripPitch.Text = mc.pitchIMU.ToString("F2");
-                    //tStripRoll.Text = mc.rollSlope.ToString("F2");
 
                     tStripAltitude.Text = pn.altitude.ToString("F3");
                     tStripHeading.Text = glm.toDegrees(fixHeading).ToString("F2");

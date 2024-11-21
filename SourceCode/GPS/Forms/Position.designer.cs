@@ -230,9 +230,7 @@ namespace OpenGrade
             distanceCurrentStepAlt = pn.altitude - stepFixPts[0].altitude;
 
             fixStepDist = distanceCurrentStepFix;
-
-
-            minFixStepDist = 0.8;
+            minFixStepDist = 0.75;
 
 
             //if  min distance isn't exceeded, keep adding old fixes till it does
@@ -392,63 +390,68 @@ namespace OpenGrade
 
 
              //make sure there is a gyro otherwise 9999 are sent from autosteer
-            //if (mc.isImuCorrection)
-            //{
-            //    if (mc.headingIMU != 9999)
-            //    {
-            //        mc.headingIMU = -mc.headingIMU;
-            //        //current gyro angle in radians
-            //        gyroRaw = (glm.toRadians((double)mc.prevHeadingIMU));
+            if (mc.isImuCorrection)
+            {
+                if (mc.headingIMU != 9999)
+                {
+                    mc.headingIMU = -mc.headingIMU;
+                    //current gyro angle in radians
+                    gyroRaw = (glm.toRadians((double)mc.prevHeadingIMU));
 
-            //        //Difference between the IMU heading and the GPS heading
-            //        gyroDelta = (gyroRaw + gyroCorrection) - gpsHeading;
-            //        if (gyroDelta < 0) gyroDelta += glm.twoPI;
+                    //Difference between the IMU heading and the GPS heading
+                    gyroDelta = (gyroRaw + gyroCorrection) - gpsHeading;
+                    if (gyroDelta < 0) gyroDelta += glm.twoPI;
 
-            //        //calculate delta based on circular data problem 0 to 360 to 0, clamp to +- 2 Pi
-            //        if (gyroDelta >= -glm.PIBy2 && gyroDelta <= glm.PIBy2) gyroDelta *= -1.0;
-            //        else
-            //        {
-            //            if (gyroDelta > glm.PIBy2) { gyroDelta = glm.twoPI - gyroDelta; }
-            //            else { gyroDelta = (glm.twoPI + gyroDelta) * -1.0; }
-            //        }
-            //        if (gyroDelta > glm.twoPI) gyroDelta -= glm.twoPI;
-            //        if (gyroDelta < -glm.twoPI) gyroDelta += glm.twoPI;
+                    //calculate delta based on circular data problem 0 to 360 to 0, clamp to +- 2 Pi
+                    if (gyroDelta >= -glm.PIBy2 && gyroDelta <= glm.PIBy2) gyroDelta *= -1.0;
+                    else
+                    {
+                        if (gyroDelta > glm.PIBy2) { gyroDelta = glm.twoPI - gyroDelta; }
+                        else { gyroDelta = (glm.twoPI + gyroDelta) * -1.0; }
+                    }
+                    if (gyroDelta > glm.twoPI) gyroDelta -= glm.twoPI;
+                    if (gyroDelta < -glm.twoPI) gyroDelta += glm.twoPI;
 
-            //        //calculate current turn rate of vehicle
-            //        prevPrevGPSHeading = prevGPSHeading;
-            //        prevGPSHeading = gpsHeading;
-            //        turnDelta = Math.Abs(Math.Atan2(Math.Sin(fixHeading - prevPrevGPSHeading), Math.Cos(fixHeading - prevPrevGPSHeading)));
+                    //calculate current turn rate of vehicle
+                    prevPrevGPSHeading = prevGPSHeading;
+                    prevGPSHeading = gpsHeading;
+                    turnDelta = Math.Abs(Math.Atan2(Math.Sin(fixHeading - prevPrevGPSHeading), Math.Cos(fixHeading - prevPrevGPSHeading)));
 
 
-            //        //Only adjust gyro if going in a straight line 
-            //        if (turnDelta < 0.01 && pn.speed > 1) //
-            //        {
-            //            //a bit of delta and add to correction to current gyro
-            //            gyroCorrection += (gyroDelta * (0.4 / fixUpdateHz));
-            //            if (gyroCorrection > glm.twoPI) gyroCorrection -= glm.twoPI;
-            //            if (gyroCorrection < -glm.twoPI) gyroCorrection += glm.twoPI;
-            //            gyroRaw = (glm.toRadians((double)mc.headingIMU));
-            //        }
+                    //Only adjust gyro if going in a straight line 
+                    if (turnDelta < 0.01 && pn.speed > 1) //
+                    {
+                        //a bit of delta and add to correction to current gyro
+                        gyroCorrection += (gyroDelta * (0.4 / fixUpdateHz));
+                        if (gyroCorrection > glm.twoPI) gyroCorrection -= glm.twoPI;
+                        if (gyroCorrection < -glm.twoPI) gyroCorrection += glm.twoPI;
+                        gyroRaw = (glm.toRadians((double)mc.headingIMU));
+                    }
 
-            //        //if the gyro and GPS delta are > 10 degrees speed up filter
-            //        if (Math.Abs(gyroDelta) > 0.18)
-            //        {
-            //            //a bit of delta and add to correction to current gyro
-            //            gyroCorrection += (gyroDelta * (2.0 / fixUpdateHz));
-            //            if (gyroCorrection > glm.twoPI) gyroCorrection -= glm.twoPI;
-            //            if (gyroCorrection < -glm.twoPI) gyroCorrection += glm.twoPI;
-            //            gyroRaw = (glm.toRadians((double)mc.headingIMU));
-            //        }
-            //        //determine the Corrected heading based on gyro and GPS
-            //        gyroCorrected = gyroRaw + gyroCorrection;
-            //        if (gyroCorrected > glm.twoPI) gyroCorrected -= glm.twoPI;
-            //        if (gyroCorrected < 0) gyroCorrected += glm.twoPI;
+                    //if the gyro and GPS delta are > 10 degrees speed up filter
+                    if (Math.Abs(gyroDelta) > 0.18)
+                    {
+                        //a bit of delta and add to correction to current gyro
+                        gyroCorrection += (gyroDelta * (2.0 / fixUpdateHz));
+                        if (gyroCorrection > glm.twoPI) gyroCorrection -= glm.twoPI;
+                        if (gyroCorrection < -glm.twoPI) gyroCorrection += glm.twoPI;
+                        gyroRaw = (glm.toRadians((double)mc.headingIMU));
+                    }
+                    //determine the Corrected heading based on gyro and GPS
+                    gyroCorrected = gyroRaw + gyroCorrection;
+                    if (gyroCorrected > glm.twoPI) gyroCorrected -= glm.twoPI;
+                    if (gyroCorrected < 0) gyroCorrected += glm.twoPI;
 
-            //        fixHeading = gyroCorrected;
-            //    }
-            //}
-             //pn.headingTrue = fixHeading ;
+                    fixHeading = gyroCorrected;
+                    mc.prevHeadingIMU = mc.headingIMU;
+                    
+                }
+            }
+            pn.headingTrue = fixHeading ;
             //fixHeading = pn.headingTrue;
+
+
+           // lblDiag.Text = glm.toDegrees(pn.headingTrue).ToString("F3");
             //check to make sure the grid is big enough
             worldGrid.checkZoomWorldGrid(pn.northing, pn.easting);
         }

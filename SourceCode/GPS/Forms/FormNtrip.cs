@@ -359,7 +359,8 @@ namespace OpenGrade
                 btnNtripOnOff.Text = "ON";
                 btnNtripOnOff.BackColor = System.Drawing.Color.Lime;
                 Properties.Settings.Default.setNTRIP_isOn = true;
-                mf.isNTRIPOn = true;                
+                mf.isNTRIPOn = true;
+                mf.isNTRIP_RequiredOn = true;
 
             }
         }
@@ -416,14 +417,17 @@ namespace OpenGrade
 
         private void btnStartNtrip_Click(object sender, EventArgs e)
         {
-            //mf.reconnectCounter = 0;
+
+            //mf.isNTRIPOn = true;//mf.reconnectCounter = 0;
             mf.StartNTRIP();           
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             mf.reconnectCounter = 0;
+            //mf.isNTRIPOn = true;//mf.reconnectCounter = 0;
             mf.SettingsShutDownNTRIP();
+            //mf.isNTRIPOn = true;//mf.reconnectCounter = 0;
         }
 
         private void button2_Click(object sender, EventArgs e)

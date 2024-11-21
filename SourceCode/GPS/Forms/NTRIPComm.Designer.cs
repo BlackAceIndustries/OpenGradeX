@@ -70,7 +70,7 @@ namespace OpenGrade
             isNTRIP_Connected = false;
             isNTRIP_Starting = false;
             isNTRIP_Connecting = false;
-
+            //isNTRIPOn = false;
             //if we had a timer already, kill it
             if (tmr != null)
             {
@@ -84,16 +84,15 @@ namespace OpenGrade
             ntripCounter++;
 
             //Thinks is connected but not receiving anything
-            if (NTRIP_Watchdog++ > 200 && isNTRIP_Connected)
+            if (NTRIP_Watchdog++ > 1000 && isNTRIP_Connected)
             {   
-                isNTRIPOn = false;                
+                isNTRIP_Connected = false;                
                 TimedMessageBox(2500, "NTRIP DATA TIMEOUT", "RECONNECTING");
-                //ledNTRIP.BackColor = Color.Orange;
-                NTRIP_LED.Value = 0;
                 ReconnectRequest();
-            }    
-            
+            }
 
+
+            
 
             //Once all connected set the timer GGA to NTRIP Settings
             if (sendGGAInterval > 0 && ntripCounter == 40) tmr.Interval = sendGGAInterval * 1000;
@@ -278,13 +277,16 @@ namespace OpenGrade
             tripBytes += (uint)nBytesRecvd;         
             //reset watchdog since we have updated data
             NTRIP_Watchdog = 0;
-            
+           
+
 
             try
             {          
 
                 if (nBytesRecvd > 0)
                 {
+
+                    isNTRIPOn = true;
 
                     // Convert the received RTCM data bytes to a Base64 string
                     string base64EncodedData = Convert.ToBase64String(data);

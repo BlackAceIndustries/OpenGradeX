@@ -2383,6 +2383,11 @@ namespace OpenGrade
            userDistance = 0;
         }
 
+        private void NTRIP_LED_Click(object sender, EventArgs e)
+        {
+            SettingsNtrip();
+        }
+
         private void tStripManualValve_Click(object sender, EventArgs e)
         {
             Form form = new FormManualCtrl(this);

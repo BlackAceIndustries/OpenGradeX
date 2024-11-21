@@ -2421,6 +2421,7 @@
             this.NTRIP_LED.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.NTRIP_LED.Name = "NTRIP_LED";
             this.NTRIP_LED.Size = new System.Drawing.Size(25, 14);
+            this.NTRIP_LED.Click += new System.EventHandler(this.NTRIP_LED_Click);
             // 
             // toolStripStatusLabel33
             // 

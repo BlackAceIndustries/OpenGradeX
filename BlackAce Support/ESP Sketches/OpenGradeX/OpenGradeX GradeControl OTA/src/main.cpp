@@ -564,7 +564,7 @@ bool SendUdpDataJSON(uint8_t _moduleType, uint8_t _msgType, uint8_t _modID)
       break; 
   }
   //(">>> ");
-  Serial.println(payload);
+  //Serial.println(payload);
 
 
 

@@ -1,6 +1,7 @@
 ﻿//Please, if you use this, share the improvements
 
 using Microsoft.Win32;
+using OpenGrade.Classes;
 using OpenGrade.Properties;
 using SharpGL;
 using System;
@@ -2388,6 +2389,21 @@ namespace OpenGrade
             SettingsNtrip();
         }
 
+        private void GRADECONTROL_LED_Click(object sender, EventArgs e)
+        {
+            var firmwareFilePath = @" C:\Users\Austin\Documents\OpenGradeX\Ota\firmware.bin";
+            var filesystemFilePath = @"C:\Users\Austin\Documents\OpenGradeX\Ota\partitions.bin";
+
+            // The IP address of your ESP32
+            var esp32IpAddress = "192.168.1.229"; // Replace with your ESP32's IP
+
+            // Initialize the updater
+            var updater = new COTAUpdate("", "", "", ""); // URLs not required for local testing
+
+            // Perform the update
+            updater.UpdateESP32FromLocalFile(esp32IpAddress, firmwareFilePath, filesystemFilePath);
+        }
+
         private void tStripManualValve_Click(object sender, EventArgs e)
         {
             Form form = new FormManualCtrl(this);
@@ -2846,7 +2862,6 @@ namespace OpenGrade
                 recvSocket.Bind(recv);
 
                 // Initialise the send socket
-                sendSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
 
                 // Initialise the IPEndPoint for the server to send on port 9998
                 IPEndPoint server = new IPEndPoint(IPAddress.Any, 9998);

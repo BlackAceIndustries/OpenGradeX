@@ -2403,6 +2403,7 @@
             this.GRADECONTROL_LED.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.GRADECONTROL_LED.Name = "GRADECONTROL_LED";
             this.GRADECONTROL_LED.Size = new System.Drawing.Size(25, 14);
+            this.GRADECONTROL_LED.Click += new System.EventHandler(this.GRADECONTROL_LED_Click);
             // 
             // toolStripStatusLabel34
             // 

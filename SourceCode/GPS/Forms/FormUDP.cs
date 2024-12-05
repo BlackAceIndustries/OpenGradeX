@@ -5,6 +5,8 @@ using System.Windows.Forms;
 using System.Reflection;
 using System.Windows;
 using System.Runtime.Remoting;
+using OpenGrade.Classes;
+using System.Threading.Tasks;
 
 namespace OpenGrade
 {
@@ -152,10 +154,24 @@ namespace OpenGrade
 
         private void button1_Click(object sender, EventArgs e)
         {
+            // Paths to your local firmware and filesystem files
+            //var firmwareFilePath = @"C:\Path\To\Your\Firmware\firmware.bin";
+            //var filesystemFilePath = @"C:\Path\To\Your\Filesystem\filesystem.bin";
 
-            //mf.SendUDPMessage(FormGPS.WIFI_HEADER, mf.epAntennaModule, 1);
+            var firmwareFilePath = @" C:\Users\Austin\Documents\OpenGradeX\Ota\firmware.bin";
+            var filesystemFilePath = @"C:\Users\Austin\Documents\OpenGradeX\Ota\partitions.bin";
 
-        }                
+            // The IP address of your ESP32
+            var esp32IpAddress = "192.168.1.229"; // Replace with your ESP32's IP
+
+            // Initialize the updater
+            var updater = new COTAUpdate("", "", "", ""); // URLs not required for local testing
+
+            // Perform the update
+            updater.UpdateESP32FromLocalFile(esp32IpAddress, firmwareFilePath, filesystemFilePath);
+
+
+        }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -187,6 +203,12 @@ namespace OpenGrade
         {
             //mf.SendUDPMessage(FormGPS.RESET_HEADER, mf.epAntennaModule);
 
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+
+           
         }
     }
 }

@@ -71,6 +71,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.btnResetAntenna = new System.Windows.Forms.Button();
             this.btnResetGradeControl = new System.Windows.Forms.Button();
+            this.BtnUpdate = new System.Windows.Forms.Button();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudThisPort)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudAutoSteerPort)).BeginInit();
@@ -635,6 +636,21 @@
             this.btnResetGradeControl.UseVisualStyleBackColor = false;
             this.btnResetGradeControl.Click += new System.EventHandler(this.btnResetGradeControl_Click);
             // 
+            // BtnUpdate
+            // 
+            this.BtnUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnUpdate.BackColor = System.Drawing.Color.Silver;
+            this.BtnUpdate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.BtnUpdate.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.BtnUpdate.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnUpdate.Location = new System.Drawing.Point(581, 52);
+            this.BtnUpdate.Name = "BtnUpdate";
+            this.BtnUpdate.Size = new System.Drawing.Size(194, 76);
+            this.BtnUpdate.TabIndex = 101;
+            this.BtnUpdate.Text = "Update ";
+            this.BtnUpdate.UseVisualStyleBackColor = false;
+            this.BtnUpdate.Click += new System.EventHandler(this.button1_Click);
+            // 
             // FormUDP
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
@@ -642,6 +658,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.ClientSize = new System.Drawing.Size(811, 578);
             this.ControlBox = false;
+            this.Controls.Add(this.BtnUpdate);
             this.Controls.Add(this.btnResetGradeControl);
             this.Controls.Add(this.btnResetAntenna);
             this.Controls.Add(this.groupBox3);
@@ -719,5 +736,6 @@
         private System.Windows.Forms.CheckBox cbSavePassword;
         private System.Windows.Forms.Button btnResetAntenna;
         private System.Windows.Forms.Button btnResetGradeControl;
+        private System.Windows.Forms.Button BtnUpdate;
     }
 }

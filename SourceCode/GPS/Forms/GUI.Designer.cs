@@ -33,11 +33,9 @@ namespace OpenGrade
             if (isGPSPositionInitialized)
             {
                 PanelDisplays.BackColor = Color.White;
-
             }
             else
             {
-
                 PanelDisplays.BackColor = Color.OrangeRed;
             }
 

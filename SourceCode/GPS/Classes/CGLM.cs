@@ -102,8 +102,15 @@ namespace OpenGrade
         public static double RadiantoSlope(double radians)
         {
             double slopeAsDecimal = Math.Tan(radians);
-            double slopePercentage = slopeAsDecimal * 100.0;
+            double slopePercentage = slopeAsDecimal * 100.0;   //  
             return slopePercentage;
+        }
+
+        public static double SlopeToRadian(double slopePercentage)
+        {
+            double slopeAsDecimal = slopePercentage / 100; //  
+            double radians = Math.Atan(slopeAsDecimal);
+            return radians;
         }
 
 

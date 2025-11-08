@@ -1082,26 +1082,11 @@ namespace OpenGrade
                 if (!isAutoCutOn)
                 {
                     isAutoCutOn = true;
-                    //btnAutoCut.BackColor = Color.Green;
-                    //btnAutoCut.ForeColor = Color.Black;
-                    
-                    //lblAutoCutDepth.Visible = true;
-                    //lblPassDepth.Visible = true;
-
                 }
                 else
                 {
-                    isAutoCutOn = false;
-                    //btnAutoCut.BackColor = Color.Black;
-                    //btnAutoCut.Text = "Auto\nCut";
-                    //btnAutoCut.ForeColor = Color.White;
-                    
-                    //lblAutoCutDepth.Visible = false;
-                    //lblPassDepth.Visible = false;
-
+                    isAutoCutOn = false;                    
                 }
-
-
 
             }
 
@@ -1113,24 +1098,10 @@ namespace OpenGrade
                 if (!isAutoShoreOn)
                 {
                     isAutoShoreOn = true;
-                    //btnAutoShore.BackColor = Color.Green;
-                    //btnAutoShore.Text = "Auto\nShore";
-                    //btnAutoShore.ForeColor = Color.Black;
-                    //btnIncCut.Visible = true;
-                    //btnDecCut.Visible = true;
-                    //lblAutoCutDepth.Visible = true;
-                    //lblPassDepth.Visible = true;
                 }
                 else
                 {
-                    isAutoShoreOn = false;
-                    //btnAutoShore.BackColor = Color.Black;
-                    //btnAutoShore.Text = "Auto\nShore";
-                    //btnAutoShore.ForeColor = Color.White;
-                    //btnIncCut.Visible = false;
-                    //btnDecCut.Visible = false;
-                    //lblAutoCutDepth.Visible = false;
-                    //lblPassDepth.Visible = false;
+                    isAutoShoreOn = false;                    
                 }
 
                 
@@ -2404,6 +2375,27 @@ namespace OpenGrade
             updater.UpdateESP32FromLocalFile(esp32IpAddress, firmwareFilePath, filesystemFilePath);
         }
 
+        private void button1_Click_4(object sender, EventArgs e)
+        {
+            if (isLevelOn)
+            {
+                isLevelOn = false;                
+                openGLControlCS.Visible = true;
+                openGLControlBack.Visible = true;
+                openGLControlCS.Width = this.Width - 710;
+
+            }
+
+            else
+            {
+                isLevelOn = true;
+                openGLControlBack.Width = this.Width - 290;
+                openGLControl.Visible = false;
+                openGLControlCS.Visible = false;
+
+            }
+        }
+
         private void tStripManualValve_Click(object sender, EventArgs e)
         {
             Form form = new FormManualCtrl(this);
@@ -2615,8 +2607,6 @@ namespace OpenGrade
                 openGLControl.Width = this.Width - 710;
                 
 
-            //    PanelDisplays.Height = this.Height - 225;
-            //    PanelDisplays.Width = this.Width - 115;
             }
 
             else
@@ -2634,16 +2624,6 @@ namespace OpenGrade
                 lblZeroElevationSetpoint.Visible = true;
                 label2.Visible = true;
 
-                ///btnAutoCut.Visible = false;
-                //btnAutoShore.Visible = false;
-
-                //btnIncCut.Visible = false;
-                //btnDecCut.Visible = false;
-                //lblAutoCutDepth.Visible = false;
-                //lblPassDepth.Visible = false;
-
-
-                //btnSurface.Enabled = false;
 
                 btnLaserToggle.Image = Properties.Resources.Toggle_Laser_AUTO;
                 //ct.LaserSetAltitude = pn.altitude;
@@ -2735,7 +2715,7 @@ namespace OpenGrade
                 PanelDisplays.Height = this.Height - 210;
                 PanelDisplays.Width = this.Width - 115;
 
-                //openGLControl.Height = PanelDisplays.Height - 250  ;
+                openGLControl.Height = PanelDisplays.Height /2-4  ;
                 Point pbarL = new Point(0, 0);
                 Point pbarR = new Point(0, 0);
                 pbarCutAboveL.Height = ((PanelDisplays.Height-24)/2) ;
@@ -2760,10 +2740,12 @@ namespace OpenGrade
                 openGLControlCS.Location = pbarL;
                 openGLControlCS.Height = (PanelDisplays.Height) / 2 - 4 ;
 
-                pbarR.X = openGLControl.Location.X + openGLControl.Width + 8;
+                pbarR.X = openGLControl.Location.X;
                 pbarR.Y = 20 + openGLControlCS.Height;
+                //openGLControlBack.Location = (inopenGLControl.Location.X;
                 openGLControlBack.Location = pbarR;
                 openGLControlBack.Height = ((PanelDisplays.Height) / 2) - 28;
+                openGLControlBack.Width = PanelDisplays.Width - 173 ;
 
 
 

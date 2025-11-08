@@ -1162,7 +1162,8 @@ namespace OpenGrade
                     //CalculateMinMaxZoomMoving(ct.FindClosestPoint(ct.goalPointCT));
 
 
-                    CalculateMinMaxZoomMoving(lookAheadPnt);
+                    CalculateMinMaxZoomMoving(lookAheadPnt,75);
+                    //CalculateMinMaxZoom();
 
 
 
@@ -1500,76 +1501,88 @@ namespace OpenGrade
 
 
 
-                        dist = (dist * Math.Sin(slopeHeading)) / 2;
+                        //dist = (dist * Math.Sin(slopeHeading)) / 2;
 
-
-                        gl.LineWidth(4);
-                        gl.Begin(OpenGL.GL_LINES);
-                        gl.Color(0.75f, 0.0f, 0.75f, .75f); // Vibrant purple
-
-
-                        if (glm.RadiantoSlope(slopeHeading) > 0)
-                        {
-                            gl.Vertex(ct.FindClosestPoint(pn.bladeCenter) + 15, (((pn.altitude - dist - centerY) * altitudeWindowGain) + centerY), 0);
-                            gl.Vertex(ct.FindClosestPoint(pn.bladeCenter) - 15, (((pn.altitude + dist - centerY) * altitudeWindowGain) + centerY), 0);
-
-                        }
-                        else
-                        {
-                            gl.Vertex(ct.FindClosestPoint(pn.bladeCenter) - 15, (((pn.altitude - dist - centerY) * altitudeWindowGain) + centerY), 0);
-                            gl.Vertex(ct.FindClosestPoint(pn.bladeCenter) + 15, (((pn.altitude + dist - centerY) * altitudeWindowGain) + centerY), 0);
-
-                        }
-
-
-
-
+                        //gl.LineWidth(3);
                         //gl.Begin(OpenGL.GL_LINES);
-                        //gl.Color(0.90f, 0.90f, 0.70f);
-                        //gl.Vertex(ct.FindClosestPoint(pn.bladeCenter) - 20, (((pn.altitude + .10 - centerY) * altitudeWindowGain) + centerY), 0);
-                        //gl.Vertex(ct.FindClosestPoint(pn.bladeCenter) + 20, (((pn.altitude - .10 - centerY) * altitudeWindowGain) + centerY), 0);
-                        gl.End();
+                        //gl.Color(0.0f, 0.0f, 0.95f, .75f); // Vibrant purple
+                        //gl.Vertex(ct.FindClosestPoint(pn.bladeCenter) - 15, (((pn.altitude - dist - centerY) * altitudeWindowGain) + centerY), 0);
+                        //gl.Vertex(ct.FindClosestPoint(pn.bladeCenter) + 15, (((pn.altitude + dist - centerY) * altitudeWindowGain) + centerY), 0);
+                        //gl.End();
+
+
+
+                        //double numSegments = 100;
+                        //double theta = glm.twoPI / (numSegments);
+                        //double c = Math.Cos(theta);//precalculate the sine and cosine
+                        //double s = Math.Sin(theta);
+                        //double z = ct.paRadiusCT;
+                        //double y = 0;
+
+
+                        //gl.Color(0.95f, 0.30f, 0.950f);
+                       
+
+
+                        //gl.LineWidth(20);
+                        //gl.Begin(OpenGL.GL_LINE_LOOP);
+                        //for (int ii = 0; ii < numSegments; ii++)
+                        //{
+                        //    //glVertex2f(x + cx, y + cy);//output vertex
+                        //    gl.Vertex(z + ct.FindClosestPoint(ct.goalPointCT), (y + (ct.goalPointCT.altitude - centerY)) * altitudeWindowGain);//output vertex
+                        //    //apply the rotation matrix
+                        //    double t = z;
+                        //    z = (c * z) - (s * y);
+                        //    y = (s * t) + (c * y);
+                        //}
+                        //gl.End();
+
+
+
+                        //double x = ppRadiusCT;//we start at angle = 0
+                        //double z = paRadiusCT;//we start at angle = 0
+                        //double y = 0;
+
+
+
+                        //gl.LineWidth(6);
+                        //gl.Begin(OpenGL.GL_LINE_LOOP);
+                        //gl.Color(0.95f, 0.95f, 0.95f);
+                        //for (int ii = 0; ii < numSegments; ii++)
+                        //{
+
+                        //    //gl.Vertex(z + lookAheadPnt, ((y + ct.goalPointCT.altitude + ct.paRadiusCT) * altitudeWindowGain) + centerY);//output vertex
+
+                        //    gl.Vertex(z + ct.FindClosestPoint(pn.bladeCenter), ((y + (ct.goalPointCT.altitude - centerY - (ct.paRadiusCT*.5)) * altitudeWindowGain)) + centerY);//output vertex
+
+                        //    //apply the rotation matrix
+                        //    double t = z;
+                        //    z = (c * z) - (s * y);
+                        //    y = (s * t) + (c * y);
+                        //}
+
+                        //gl.End();
 
 
 
 
-                        double numSegments = 100;
-                        double theta = glm.twoPI / (numSegments);
-                        double c = Math.Cos(theta);//precalculate the sine and cosine
-                        double s = Math.Sin(theta);
-                        double z = ct.paRadiusCT;
-                        double y = 0;
-
-
-                        gl.LineWidth(1);
-                        gl.Begin(OpenGL.GL_LINE_LOOP);
                         gl.Color(0.0f, 0.0f, 0.0f);
-                        for (int ii = 0; ii < numSegments; ii++)
-                        {
-
-                            gl.Vertex(z + lookAheadPnt, (y + ct.goalPointCT.altitude + ct.paRadiusCT));//output vertex
-
-                            //apply the rotation matrix
-                            double t = z;
-                            z = (c * z) - (s * y);
-                            y = (s * t) + (c * y);
-                        }
-                        gl.End();
-
-
-                        gl.Color(0.0f, 0.0f, 0.0f);
-                        gl.PointSize(8);
+                        gl.PointSize(6);
                         gl.Begin(OpenGL.GL_POINTS);
                         gl.Vertex(ct.FindClosestPoint(pn.bladeCenter), (((pn.altitude - centerY) * altitudeWindowGain) + centerY), 0);// Blade Point
 
+                        gl.PointSize(15);
                         gl.Color(1.0f, 0.0f, 0.0f);
                         gl.Vertex(ct.FindClosestPoint(ct.goalPointCT), (((pn.altitude - centerY) * altitudeWindowGain) + centerY), 0);// Blade Point
 
                         gl.Color(0.0f, 1.0f, 0.0f);
-                        gl.Vertex(lookAheadPnt, ((((ct.goalPointCT.altitude - centerY) * altitudeWindowGain) + centerY)));//output vertex
-
-
+                        gl.Vertex(lookAheadPnt, ((ct.goalPointCT.altitude - centerY) * altitudeWindowGain) + centerY,0);//output vertex
                         gl.End();
+
+
+                        //lblDiag.Text = ct.FindClosestPoint(ct.goalPointCT).ToString("F3") + " GoalpointCLoseset \n";
+                        //lblDiag.Text += ct.paRadiusCT.ToString("F3") + " paRadiusCT \n";
+                        
 
 
 
@@ -2423,12 +2436,12 @@ namespace OpenGrade
             }
         }
 
-        private void CalculateMinMaxZoomMoving(int closestPnt)
+        private void CalculateMinMaxZoomMoving(int closestPnt, int pnts)
         {
             minFieldX = 9999999; minFieldY = 9999999;
             maxFieldX = -9999999; maxFieldY = -9999999;
-            int ForwardPnts = 30;
-            int BackwardPnts = 30;
+            int ForwardPnts = pnts;
+            int BackwardPnts = pnts;
 
             //every time the section turns off and on is a new patch
             int cnt = ct.ptList.Count;
@@ -2462,7 +2475,8 @@ namespace OpenGrade
                     for (int i = closestPnt - BackwardPnts; i < closestPnt + ForwardPnts; i++)
                     {
                         double x = i;
-                        double y = pn.altitude;
+                        double y = ct.ptList[i].altitude;
+                        //double y = pn.altitude;
                         //also tally the max/min of Cut x and z
                         if (minFieldX > x) minFieldX = x;
                         if (maxFieldX < x) maxFieldX = x;
@@ -2506,6 +2520,7 @@ namespace OpenGrade
             {
                 //Max horizontal
                 cameraDistanceZ = Math.Abs(minFieldX - maxFieldX);
+                cameraDistanceZ *= 2;
 
                 if (cameraDistanceZ < 10) cameraDistanceZ = 10;
                 if (cameraDistanceZ > 6000) cameraDistanceZ = 6000;
@@ -2515,8 +2530,8 @@ namespace OpenGrade
                 switch (curMode)
                 {
                     case gradeMode.surface:
-                        maxFieldY = (maxFieldY + 3.0); // vehicle.viewDistAboveGnd
-                        minFieldY = (minFieldY - 2.0);    //  vehicle.viewDistUnderGnd
+                        maxFieldY = (maxFieldY + 1); // vehicle.viewDistAboveGnd
+                        minFieldY = (minFieldY - 1);    //  vehicle.viewDistUnderGnd
                         break;
 
                     case gradeMode.ditch:

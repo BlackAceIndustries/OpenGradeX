@@ -194,7 +194,7 @@ namespace OpenGrade
         }
         public void AvgPitch()
         {
-            avgpitchIMU = (avgpitchIMU * .8f) + ((float)pitchIMU * .2f);
+            avgpitchIMU = (avgpitchIMU * .2f) + ((float)pitchIMU * .8f);
 
         }
 

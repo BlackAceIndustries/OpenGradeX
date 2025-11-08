@@ -115,9 +115,9 @@ namespace OpenGrade
             gl.Color(1, 1, 1);
 
             //reset cut delta for frame
-            mf.cutDeltaCenter = 9999;
-            mf.distToTarget = 9999;
-            mf.distFromLastPass = 9999;
+            //mf.cutDeltaCenter = 9999;
+            //mf.distToTarget = 9999;
+            //mf.distFromLastPass = 9999;
 
 
             int closestPoint = 0;
@@ -245,18 +245,6 @@ namespace OpenGrade
 
 
 
-
-
-
-                            //gl.Color(0.22f, 0.22f, 0.22f);
-                            //gl.Begin(OpenGL.GL_TRIANGLE_STRIP);
-                            //for (int i = 0; i < ptCnt; i++)
-                            //{
-                            //    gl.Vertex(i,
-                            //      (((mf.ct.ptList[i].altitude - centerY) * altitudeWindowGain) + centerY), 0);
-                            //    gl.Vertex(i, -10000, 0);
-                            //}
-                            //gl.End();
                             break;
 
                         case FormGPS.gradeMode.ditch:
@@ -398,9 +386,9 @@ namespace OpenGrade
                     //int pnt = (int)screen2FieldPt.easting;
                     //double x = mf.ct.ptList[pnt].altitude - mf.ct.ptList[i].cutAltitude;
                     //double y = screen2FieldPt.northing - mf.ct.ptList[pnt].cutAltitude;
+                    int index = (int)Math.Round(screen2FieldPt.easting);
                     
-                   
-                    if (mf.ct.ptList.Count > 0 && !mf.ct.isContourOn)
+                    if (index >= 0 && index < mf.ct.ptList.Count && !mf.ct.isContourOn)
                        {
                         gl.LineWidth(4);
                         gl.Begin(OpenGL.GL_LINES);
@@ -418,7 +406,7 @@ namespace OpenGrade
 
                     }
 
-                    
+
 
                     /////  Black Ace Industries
                     ///
@@ -449,139 +437,52 @@ namespace OpenGrade
 
 
 
-                    // tStripVerticalOffset.Text = (vehicle.disFromSurvey * 100000.0).ToString("F2");
+
+                    if (Math.Abs(mf.ct.distanceFromCurrentLine) < mf.vehicle.disFromSurvey* 10000.0)                   
+                    {// record current pass 
+
+                        //draw the actual elevation lines and blade
+                        gl.LineWidth(8);
+                        gl.Begin(OpenGL.GL_LINES);
+                        gl.Color(0.95f, 0.90f, 0.0f);
+                        gl.Vertex(closestPoint, (((mf.pn.altitude - centerY) * altitudeWindowGain) + centerY), 0);
+                        gl.Vertex(closestPoint, 10000, 0);
+                        gl.End();
+
+                        //the skinny actual elevation lines
+                        gl.LineWidth(1);
+                        gl.Begin(OpenGL.GL_LINES);
+                        gl.Color(0.57f, 0.80f, 0.00f);
+                        gl.Vertex(-5000, (((mf.pn.altitude - centerY) * altitudeWindowGain) + centerY), 0);
+                        gl.Vertex(5000, (((mf.pn.altitude - centerY) * altitudeWindowGain) + centerY), 0);
+                        gl.Vertex(closestPoint, -10000, 0);
+                        gl.Vertex(closestPoint, 10000, 0);
+                        gl.End();
+
+                        //little point at cutting edge of blade
+                        gl.Color(0.0f, 0.0f, 0.0f);
+                        gl.PointSize(8);
+                        gl.Begin(OpenGL.GL_POINTS);
+                        gl.Vertex(closestPoint, (((mf.pn.altitude - centerY) * altitudeWindowGain) + centerY), 0);
+                        gl.End();
 
 
 
+                        //draw current Antenna path as it is driven on ALL MODES
+                        //
 
-                    if (Math.Abs(mf.ct.distanceFromCurrentLine) < mf.vehicle.disFromSurvey)
-                    {      //(vehicle.disFromSurvey*10000 )                                
-                        if (mf.minDist < mf.vehicle.disFromSurvey * 100.0)
-                        {// record current pass 
+                        gl.LineWidth(3);
+                        gl.Begin(OpenGL.GL_LINE_STRIP);
 
-                            //draw the actual elevation lines and blade
-                            gl.LineWidth(8);
-                            gl.Begin(OpenGL.GL_LINES);
-                            gl.Color(0.95f, 0.90f, 0.0f);
-                            gl.Vertex(closestPoint, (((mf.pn.altitude - centerY) * altitudeWindowGain) + centerY), 0);
-                            gl.Vertex(closestPoint, 10000, 0);
-                            gl.End();
-
-                            //the skinny actual elevation lines
-                            gl.LineWidth(1);
-                            gl.Begin(OpenGL.GL_LINES);
-                            gl.Color(0.57f, 0.80f, 0.00f);
-                            gl.Vertex(-5000, (((mf.pn.altitude - centerY) * altitudeWindowGain) + centerY), 0);
-                            gl.Vertex(5000, (((mf.pn.altitude - centerY) * altitudeWindowGain) + centerY), 0);
-                            gl.Vertex(closestPoint, -10000, 0);
-                            gl.Vertex(closestPoint, 10000, 0);
-                            gl.End();
-
-                            //little point at cutting edge of blade
-                            gl.Color(0.0f, 0.0f, 0.0f);
-                            gl.PointSize(8);
-                            gl.Begin(OpenGL.GL_POINTS);
-                            gl.Vertex(closestPoint, (((mf.pn.altitude - centerY) * altitudeWindowGain) + centerY), 0);
-                            gl.End();
-
-                            //rge
-
-
-
-                            //calculate blade to guideline delta
-                            //double temp = (double)closestPoint / (double)count2;
-                            if (mf.ct.ptList[closestPoint].cutAltitude > 0)
-                            {
-                                //in cm                            
-                                mf.distFromLastPass = ((mf.pn.altitude - mf.ct.ptList[closestPoint].lastPassAltitude) * 100) - mf.bladeOffset;
-                                mf.distToTarget = ((mf.pn.altitude - mf.ct.ptList[closestPoint].cutAltitude) * 100) - mf.bladeOffset;
-
-                                //AutoCut Active
-                                if (mf.isAutoCutOn)
-                                {
-                                    if (mf.distToTarget < 0)//  && cutDepth < -5
-                                    {
-                                        mf.cutDeltaCenter = mf.distToTarget;
-                                    }
-                                    else
-                                    {
-                                        mf.cutDeltaCenter = mf.distFromLastPass - mf.autoCutDepth;
-                                    }
-
-                                }
-                                else
-                                {
-                                    mf.cutDeltaCenter = mf.distToTarget;
-                                }
-
-
-                            }
-
-                            //AutoShore Active
-                            if (mf.isAutoShoreOn)
-                            {
-                                //double xy = (Math.Tan(glm.toRadians(mf.vehicle.minCrossSlope/100)) * mf.ct.distanceFromCurrentLine);
-
-                                double slopeAsDecimal = mf.vehicle.minCrossSlope / 100.0;
-
-                                // Use Math.Atan to get the angle in radians
-                                double angleInRadians = Math.Atan(slopeAsDecimal);
-
-                                // Convert the angle to degrees
-                                double angleInDegrees = angleInRadians * (180.0 / Math.PI);
-
-                                double xy = (Math.Tan(angleInRadians) * mf.ct.distanceFromCurrentLine);
-
-
-                                mf.cutDeltaCenter += xy;
-                            }
-
-
-                            if (mf.ct.ptList[closestPoint].cutAltitude > 0)
-                            {
-                                mf.ct.ptList[closestPoint].currentPassAltitude = mf.pn.altitude;
-                                mf.ct.isOnPass = true;
-                                mf.ct.isDoneCopy = false;
-                            }
-                            else
-                            {
-                                mf.ct.isOnPass = false;
-                            }
-
-                            // light up isOnPass Indicator
-                            if (mf.ct.isOnPass)
-                            {
-                                //stripOnlineAutoSteer.Value = 100;
-
-                                mf.ct.isContourBtnOn = true;
-                            }
-                            else
-                            {
-                                //stripOnlineAutoSteer.Value = 0;
-
-                                mf.ct.isContourBtnOn = false;
-
-                            }
-
-
-                            //draw current Antenna path as it is driven on ALL MODES
-                            //
-
-                            gl.LineWidth(3);
-                            gl.Begin(OpenGL.GL_LINE_STRIP);
-
-                            gl.Color(1.0f, 0.62f, 0.18f);  // orange
-                            for (int i = 0; i < ptCnt; i++)
-                            {
-                                if (mf.ct.ptList[i].cutAltitude > 0 & mf.ct.ptList[i].currentPassAltitude > 0)
-                                    gl.Vertex(i, (((mf.ct.ptList[i].currentPassAltitude - centerY) * altitudeWindowGain) + centerY), 0);
-                            }
-                            gl.End();
-
+                        gl.Color(1.0f, 0.62f, 0.18f);  // orange
+                        for (int i = 0; i < ptCnt; i++)
+                        {
+                            if (mf.ct.ptList[i].cutAltitude > 0 & mf.ct.ptList[i].currentPassAltitude > 0)
+                                gl.Vertex(i, (((mf.ct.ptList[i].currentPassAltitude - centerY) * altitudeWindowGain) + centerY), 0);
                         }
-                    }
+                        gl.End();
 
-
+                    }               
 
                     switch (mf.curMode)
                     {
@@ -765,17 +666,18 @@ namespace OpenGrade
             {
                 int pnt = (int)screen2FieldPt.easting;
                 double x =0;
+                double y = 0;
 
                 if (pnt >= 0 && pnt < mf.ct.ptList.Count-1)
                 {
                     x = mf.ct.ptList[pnt].altitude - mf.ct.ptList[pnt].cutAltitude;
-
+                    y = screen2FieldPt.northing - mf.ct.ptList[pnt].cutAltitude;
 
                 }
 
                 
                
-                    double y = screen2FieldPt.northing - mf.ct.ptList[pnt].cutAltitude;
+                
 
                    
 

@@ -230,7 +230,7 @@ namespace OpenGrade
             distanceCurrentStepAlt = pn.altitude - stepFixPts[0].altitude;
 
             fixStepDist = distanceCurrentStepFix;
-            minFixStepDist = 0.75;
+            minFixStepDist = .5;
 
 
             //if  min distance isn't exceeded, keep adding old fixes till it does
@@ -362,13 +362,18 @@ namespace OpenGrade
             fixHeading = gpsHeading;
 
 
-            altitudeHeading = Math.Atan2(pn.altitude - stepFixPts[currentStepFix].altitude, 
-                pn.Distance(pn.northing, pn.easting, stepFixPts[currentStepFix].northing, stepFixPts[currentStepFix].easting));
-            if (altitudeHeading < 0) altitudeHeading += glm.twoPI;
+            // Calculate slope (pitch angle, not wrapped to 0..2π)
+            double horizontalDistance = pn.Distance(pn.northing, pn.easting,
+                                                    stepFixPts[currentStepFix].northing,
+                                                    stepFixPts[currentStepFix].easting);
+
+            altitudeHeading = Math.Atan2(pn.altitude - stepFixPts[currentStepFix].altitude,
+                                         horizontalDistance);
+            // Do NOT wrap slope to 0..2π — keep it in -π/2..+π/2 range
             slopeHeading = altitudeHeading;
 
             // Weighting factor (alpha) for the EMA (closer to 1 gives more weight to recent values)
-            double alpha = .1;
+            double alpha = .5;
             // Initialize smoothed values (start with the first measurement)
              smoothedgpsHeading = gpsHeading;
              smoothedaltitudeHeading = altitudeHeading;
@@ -448,11 +453,6 @@ namespace OpenGrade
                 }
             }
             pn.headingTrue = fixHeading ;
-            //fixHeading = pn.headingTrue;
-
-
-           // lblDiag.Text = glm.toDegrees(pn.headingTrue).ToString("F3");
-            //check to make sure the grid is big enough
             worldGrid.checkZoomWorldGrid(pn.northing, pn.easting);
         }
 

@@ -54,11 +54,9 @@ namespace OpenGrade
             altitude += Properties.Vehicle.Default.setVehicle_antennaHeight;
         }
 
-        private const double AltitudeResponsePerTick = 0.05;
-
-        public void DoSimTick(double steeringAngle, double altitudeCorrectionCm, bool hasValidAltitudeCorrection)
+        public void DoSimTick(double _st, double cutDelta, double slopeDelta)
         {
-            steerAngle = steeringAngle;
+            steerAngle = _st;
             double temp = (stepDistance * Math.Tan(steerAngle * 0.01745329252) / 3.3);
             headingTrue += temp;
             if (headingTrue > (2.0 * Math.PI)) headingTrue -= (2.0 * Math.PI);
@@ -79,7 +77,12 @@ namespace OpenGrade
             //lblSpeed.Text = (Math.Round(1.852 * speed, 1)).ToString();
 
 
-            SimulateAltitudeControl(altitudeCorrectionCm, hasValidAltitudeCorrection);
+            //if (mf.isAutoVertOn && cutDelta != 9999)
+            if (mf.mc.gcData.autoVert && cutDelta != 9999)
+            {
+                altitude = altitude - (cutDelta/100 * .05);
+
+            }
             BuildGGA();
             BuildVTG();
 
@@ -94,16 +97,6 @@ namespace OpenGrade
            
 
             sbSendText.Clear();
-        }
-
-        private void SimulateAltitudeControl(double correctionCm, bool hasValidCorrection)
-        {
-            if (!mf.mc.gcData.autoVert || !hasValidCorrection)
-            {
-                return;
-            }
-
-            altitude -= (correctionCm / 100.0) * AltitudeResponsePerTick;
         }
 
         public void CalculateNewPostionFromBearingDistance(double lat, double lng, double bearing, double distance)

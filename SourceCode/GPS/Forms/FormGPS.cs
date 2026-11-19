@@ -2467,7 +2467,8 @@ namespace OpenGrade
 
         private void btnAutoDrain_Click(object sender, EventArgs e)
         {
-            ct.AutoDrain();
+            //ct.AutoDrain();
+            ct.AutoDrainSimplified();
         }
 
         private void labelDiagnostics_TextChanged(object sender, EventArgs e)

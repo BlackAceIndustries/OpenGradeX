@@ -91,14 +91,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OXG_3D.exe" size="4154368">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OXG_3D.exe" size="4137472">
       <assemblyIdentity name="OXG_3D" version="1.4.3.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>1IWa6rAxjWs28JSKYSCjZRIlOYN3hJLgAeEXIvPNXD4=</dsig:DigestValue>
+        <dsig:DigestValue>597IxvmRaypm1cT2lpR65pWLj/qU9DzPCIWjXvqiT9U=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -115,18 +115,6 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="RepeatButtonControl.dll" size="6656">
-      <assemblyIdentity name="RepeatButtonControl" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
-      <hash>
-        <dsig:Transforms>
-          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-        </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>5P9qpOBzVyu1Ylyp9svc9097Sf3DmEGJp5frlmQbm18=</dsig:DigestValue>
-      </hash>
-    </dependentAssembly>
-  </dependency>
-  <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="RJCP.SerialPortStream.dll" size="233472">
       <assemblyIdentity name="RJCP.SerialPortStream" version="2.1.2.0" publicKeyToken="5F5E7B70C6A74DEB" language="neutral" processorArchitecture="msil" />
       <hash>
@@ -135,6 +123,18 @@
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
         <dsig:DigestValue>WyUzZQjEXbfkiFFqfmCWvd39SuBJ8xUJBUA+oi9oQiM=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="RepeatButtonControl.dll" size="6656">
+      <assemblyIdentity name="RepeatButtonControl" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>5P9qpOBzVyu1Ylyp9svc9097Sf3DmEGJp5frlmQbm18=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -270,15 +270,6 @@
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="aChangeLog.txt" size="42">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>iISYLm+6wpHLpZ0QTTyeWfrIeqivwmMSF77Haqwq3Vk=</dsig:DigestValue>
-    </hash>
-  </file>
   <file name="ALicense.txt" size="37032">
     <hash>
       <dsig:Transforms>
@@ -358,6 +349,15 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
       <dsig:DigestValue>cNVkt5ui2xBwZOK8rR5KMRWXbiLfyTaia289Ihdnw4Q=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="aChangeLog.txt" size="42">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>iISYLm+6wpHLpZ0QTTyeWfrIeqivwmMSF77Haqwq3Vk=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

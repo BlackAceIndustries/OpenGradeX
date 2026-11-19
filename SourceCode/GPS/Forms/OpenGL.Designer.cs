@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 using OpenGrade.Properties;
 using SharpGL;
@@ -1162,8 +1163,8 @@ namespace OpenGrade
                     //CalculateMinMaxZoomMoving(ct.FindClosestPoint(ct.goalPointCT));
 
 
-                    CalculateMinMaxZoomMoving(lookAheadPnt,75);
-                    //CalculateMinMaxZoom();
+                    //CalculateMinMaxZoomMoving(lookAheadPnt,10);
+                    CalculateMinMaxZoom();
 
 
 
@@ -1425,6 +1426,27 @@ namespace OpenGrade
                     gl.Vertex(1000, (((screen2FieldPt.northing - centerY) * altitudeWindowGain) + centerY), 0);
                     gl.End();
                     gl.Disable(OpenGL.GL_LINE_STIPPLE);
+
+
+                    int index = (int)Math.Round(screen2FieldPt.easting);
+                    if (index >= 0 && index < ct.ptList.Count && !ct.isContourOn)
+                       {
+                        gl.LineWidth(4);
+                        gl.Begin(OpenGL.GL_LINES);
+                        gl.Color(0.00f, 0.90f, 0.90f);
+                        gl.Vertex(screen2FieldPt.easting - .5, (((screen2FieldPt.northing - centerY) * altitudeWindowGain) + centerY), 0);
+                        gl.Vertex(screen2FieldPt.easting - .5, (((ct.ptList[(int)screen2FieldPt.easting].cutAltitude - centerY)) * altitudeWindowGain) + centerY, 0);
+                        gl.End();
+
+                        gl.Begin(OpenGL.GL_LINES);
+                        gl.Color(1.0f, 1.0f, 0.00f);
+                        //gl.Color(1.0f, 0.0f, 0.00f);
+                        gl.Vertex(screen2FieldPt.easting + .5, (((ct.ptList[(int)screen2FieldPt.easting].altitude - centerY) * altitudeWindowGain) + centerY), 0);
+                        gl.Vertex(screen2FieldPt.easting + .5, (((ct.ptList[(int)screen2FieldPt.easting].cutAltitude - centerY)) * altitudeWindowGain) + centerY, 0);
+                        gl.End();
+
+                    }
+
 
 
 
@@ -1821,8 +1843,8 @@ namespace OpenGrade
             screen2FieldPt.northing += centerY;
 
             //stripTopoLocation.Text = ((int)(screen2FieldPt.easting)).ToString() + ": " + screen2FieldPt.northing.ToString("N3");
-            
-            if (ct.ptList.Count > 0 && !ct.isContourOn)
+            int index = (int)Math.Round(screen2FieldPt.easting);
+            if (index >= 0 && index < ct.ptList.Count && !ct.isContourOn)
             {                 
                 int pnt = (int)screen2FieldPt.easting;
                 double x = ct.ptList[pnt].altitude - ct.ptList[pnt].cutAltitude;
@@ -2446,7 +2468,7 @@ namespace OpenGrade
             //every time the section turns off and on is a new patch
             int cnt = ct.ptList.Count;
 
-            if (cnt > 0)
+            if (cnt > 0 && cnt > BackwardPnts)
             {
                 if (closestPnt - BackwardPnts >= 0 && closestPnt + ForwardPnts <= cnt)//  
                 {
@@ -2520,7 +2542,6 @@ namespace OpenGrade
             {
                 //Max horizontal
                 cameraDistanceZ = Math.Abs(minFieldX - maxFieldX);
-                cameraDistanceZ *= 2;
 
                 if (cameraDistanceZ < 10) cameraDistanceZ = 10;
                 if (cameraDistanceZ > 6000) cameraDistanceZ = 6000;

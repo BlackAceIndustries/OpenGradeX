@@ -1244,6 +1244,93 @@ namespace OpenGrade
             }
         }
 
+        public void AutoDrainSimplified()
+        {
+            drawList.Clear();
+
+            int pointCount = ptList.Count;
+            if (pointCount == 0)
+            {
+                return;
+            }
+
+            FormGPS.gradeMode mode = mf.curMode;
+            if (mode != FormGPS.gradeMode.surface &&
+                mode != FormGPS.gradeMode.ditch &&
+                mode != FormGPS.gradeMode.tile)
+            {
+                return;
+            }
+
+            int startIndex = 0;
+            if (mode == FormGPS.gradeMode.ditch)
+            {
+                int lowestPoint = 0;
+                int uphillCount = 0;
+
+                for (int i = 1; i < pointCount; i++)
+                {
+                    if (ptList[i].altitude <= ptList[i - 1].altitude)
+                    {
+                        lowestPoint = i;
+                    }
+                    else if (++uphillCount == 2)
+                    {
+                        startIndex = lowestPoint;
+                        break;
+                    }
+                }
+            }
+
+            double coverOrCut = 0;
+            if (mode == FormGPS.gradeMode.ditch)
+            {
+                coverOrCut = mf.vehicle.minDitchCut;
+            }
+            else if (mode == FormGPS.gradeMode.tile)
+            {
+                coverOrCut = mf.vehicle.minTileCover;
+            }
+
+            double initialAltitude = ptList[startIndex].altitude;
+            if (mode == FormGPS.gradeMode.tile)
+            {
+                initialAltitude -= coverOrCut;
+            }
+            drawList.Add(new vec2(startIndex, initialAltitude));
+
+            double slopePerDistance = -(mf.vehicle.minSlope / 100.0);
+            double distanceFromLastPoint = 0;
+            const double minimumPointDistance = 2.0;
+
+            for (int i = startIndex + 1; i < pointCount; i++)
+            {
+                distanceFromLastPoint += ptList[i - 1].distance;
+                double minimumHeightChange = slopePerDistance * distanceFromLastPoint;
+                vec2 lastDrawPoint = drawList[drawList.Count - 1];
+                bool isFinalPoint = i == pointCount - 1;
+
+                if (!isFinalPoint)
+                {
+                    double candidateAltitude = ptList[i].altitude - coverOrCut;
+                    bool meetsSlope = mode == FormGPS.gradeMode.surface
+                        ? candidateAltitude < lastDrawPoint.northing + minimumHeightChange
+                        : candidateAltitude <= lastDrawPoint.northing + minimumHeightChange;
+
+                    if (distanceFromLastPoint > minimumPointDistance && meetsSlope)
+                    {
+                        drawList.Add(new vec2(i, candidateAltitude));
+                        distanceFromLastPoint = 0;
+                    }
+                }
+                else if (mode == FormGPS.gradeMode.tile || distanceFromLastPoint > minimumPointDistance)
+                {
+                    double endpointAltitude = lastDrawPoint.northing + minimumHeightChange;
+                    drawList.Add(new vec2(i, endpointAltitude));
+                }
+            }
+        }
+
         public class SimpleMovingAverage
         {
             private readonly int _k;

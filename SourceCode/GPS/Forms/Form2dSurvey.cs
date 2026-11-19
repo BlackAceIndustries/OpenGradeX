@@ -662,7 +662,9 @@ namespace OpenGrade
 
             //stripTopoLocation.Text = ((int)(screen2FieldPt.easting)).ToString() + ": " + screen2FieldPt.northing.ToString("N3");
 
-            if (mf.ct.ptList.Count > 0 && !mf.ct.isContourOn)
+            int index = (int)Math.Round(screen2FieldPt.easting);
+
+            if (index >= 0 && index < mf.ct.ptList.Count && !mf.ct.isContourOn)
             {
                 int pnt = (int)screen2FieldPt.easting;
                 double x =0;
@@ -674,13 +676,6 @@ namespace OpenGrade
                     y = screen2FieldPt.northing - mf.ct.ptList[pnt].cutAltitude;
 
                 }
-
-                
-               
-                
-
-                   
-
                 x *= 100;
                 y *= 100;
 
@@ -1221,7 +1216,8 @@ namespace OpenGrade
 
         private void btnAutoDrain_Click(object sender, EventArgs e)
         {
-            mf.ct.AutoDrain();
+            //mf.ct.AutoDrain();
+            mf.ct.AutoDrainSimplified();
         }
 
         private void vrbSave_Click(object sender, EventArgs e)

@@ -124,7 +124,6 @@ C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGrade_V3.0.1\Black
 C:\Users\auzzy\Documents\7.Software Development\OpenGrade\OpenGrade_V3.0.1\BlackAce_OpenGrade\Application\OpenGrade.pdb
 C:\Users\Austin\Documents\7.Software Development\OpenGrade\OpenGradeX_3D\Application\Dependencies\Landscape.png
 C:\Users\Austin\Documents\7.Software Development\OpenGrade\OpenGradeX_3D\SourceCode\GPS\obj\x86\Debug\OpenGrade.csproj.AssemblyReference.cache
-C:\Users\Austin\Documents\7.Software Development\OpenGrade\OpenGradeX_3D\SourceCode\GPS\obj\x86\Debug\OpenGrade.csproj.SuggestedBindingRedirects.cache
 C:\Users\Austin\Documents\7.Software Development\OpenGrade\OpenGradeX_3D\SourceCode\GPS\obj\x86\Debug\OpenGrade.FormAltSet.resources
 C:\Users\Austin\Documents\7.Software Development\OpenGrade\OpenGradeX_3D\SourceCode\GPS\obj\x86\Debug\OpenGrade.FormCutDir.resources
 C:\Users\Austin\Documents\7.Software Development\OpenGrade\OpenGradeX_3D\SourceCode\GPS\obj\x86\Debug\OpenGrade.FormFieldDir.resources
@@ -147,7 +146,6 @@ C:\Users\Austin\Documents\7.Software Development\OpenGrade\OpenGradeX_3D\SourceC
 C:\Users\Austin\Documents\7.Software Development\OpenGrade\OpenGradeX_3D\SourceCode\GPS\obj\x86\Debug\OpenGrade.Properties.Resources.resources
 C:\Users\Austin\Documents\7.Software Development\OpenGrade\OpenGradeX_3D\SourceCode\GPS\obj\x86\Debug\OpenGrade.csproj.GenerateResource.cache
 C:\Users\Austin\Documents\7.Software Development\OpenGrade\OpenGradeX_3D\SourceCode\GPS\obj\x86\Debug\OpenGrade.csproj.CoreCompileInputs.cache
-C:\Users\Austin\Documents\7.Software Development\OpenGrade\OpenGradeX_3D\SourceCode\GPS\obj\x86\Debug\OpenGrade.csproj.CopyComplete
 C:\Users\Austin\Documents\7.Software Development\OpenGrade\OpenGradeX_3D\SourceCode\GPS\obj\x86\Debug\OpenGrade.Form2dSurvey.resources
 C:\Users\Austin\Documents\7.Software Development\OpenGrade\OpenGradeX_3D\SourceCode\GPS\obj\x86\Debug\OpenGrade.Form3dSurvey.resources
 C:\Users\Austin\Documents\7.Software Development\OpenGrade\OpenGradeX_3D\Application\OXG_3D.exe.config
@@ -160,3 +158,4 @@ C:\Users\Austin\Documents\7.Software Development\OpenGrade\OpenGradeX_3D\SourceC
 C:\Users\Austin\Documents\7.Software Development\OpenGrade\OpenGradeX_3D\SourceCode\GPS\obj\x86\Debug\OXG_3D.exe
 C:\Users\Austin\Documents\7.Software Development\OpenGrade\OpenGradeX_3D\SourceCode\GPS\obj\x86\Debug\OXG_3D.pdb
 C:\Users\Austin\Documents\7.Software Development\OpenGrade\OpenGradeX_3D\SourceCode\GPS\obj\x86\Debug\OpenGrade.FormManualCtrl.resources
+C:\Users\Austin\Documents\7.Software Development\OpenGrade\OpenGradeX_3D\SourceCode\GPS\obj\x86\Debug\OpenGrade.csproj.Up2Date

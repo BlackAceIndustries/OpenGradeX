@@ -1,0 +1,127 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Austin\\Documents\\7.Software Development\\OpenGrade\\OpenGradeX_3D\\SourceCode\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{73933709-370E-43B3-8563-CC0F48FF587B}|GPS\\OpenGrade.csproj|c:\\users\\austin\\documents\\7.software development\\opengrade\\opengradex_3d\\sourcecode\\gps\\forms\\form2dsurvey.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{73933709-370E-43B3-8563-CC0F48FF587B}|GPS\\OpenGrade.csproj|solutionrelative:gps\\forms\\form2dsurvey.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{73933709-370E-43B3-8563-CC0F48FF587B}|GPS\\OpenGrade.csproj|c:\\users\\austin\\documents\\7.software development\\opengrade\\opengradex_3d\\sourcecode\\gps\\forms\\formgps.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{73933709-370E-43B3-8563-CC0F48FF587B}|GPS\\OpenGrade.csproj|solutionrelative:gps\\forms\\formgps.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{73933709-370E-43B3-8563-CC0F48FF587B}|GPS\\OpenGrade.csproj|c:\\users\\austin\\documents\\7.software development\\opengrade\\opengradex_3d\\sourcecode\\gps\\classes\\ccontour.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{73933709-370E-43B3-8563-CC0F48FF587B}|GPS\\OpenGrade.csproj|solutionrelative:gps\\classes\\ccontour.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{73933709-370E-43B3-8563-CC0F48FF587B}|GPS\\OpenGrade.csproj|c:\\users\\austin\\documents\\7.software development\\opengrade\\opengradex_3d\\sourcecode\\gps\\forms\\formgps.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{73933709-370E-43B3-8563-CC0F48FF587B}|GPS\\OpenGrade.csproj|solutionrelative:gps\\forms\\formgps.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{73933709-370E-43B3-8563-CC0F48FF587B}|GPS\\OpenGrade.csproj|c:\\users\\austin\\documents\\7.software development\\opengrade\\opengradex_3d\\sourcecode\\gps\\classes\\csim.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{73933709-370E-43B3-8563-CC0F48FF587B}|GPS\\OpenGrade.csproj|solutionrelative:gps\\classes\\csim.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{73933709-370E-43B3-8563-CC0F48FF587B}|GPS\\OpenGrade.csproj|c:\\users\\austin\\documents\\7.software development\\opengrade\\opengradex_3d\\sourcecode\\gps\\forms\\gui.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{73933709-370E-43B3-8563-CC0F48FF587B}|GPS\\OpenGrade.csproj|solutionrelative:gps\\forms\\gui.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "GUI.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\Austin\\Documents\\7.Software Development\\OpenGrade\\OpenGradeX_3D\\SourceCode\\GPS\\Forms\\GUI.Designer.cs",
+              "RelativeDocumentMoniker": "GPS\\Forms\\GUI.Designer.cs",
+              "ToolTip": "C:\\Users\\Austin\\Documents\\7.Software Development\\OpenGrade\\OpenGradeX_3D\\SourceCode\\GPS\\Forms\\GUI.Designer.cs",
+              "RelativeToolTip": "GPS\\Forms\\GUI.Designer.cs",
+              "ViewState": "AgIAAHIEAAAAAAAAAABBwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-19T00:42:00.03Z",
+              "EditorCaption": "",
+              "OwnerCaption": "%2"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CSim.cs",
+              "DocumentMoniker": "C:\\Users\\Austin\\Documents\\7.Software Development\\OpenGrade\\OpenGradeX_3D\\SourceCode\\GPS\\Classes\\CSim.cs",
+              "RelativeDocumentMoniker": "GPS\\Classes\\CSim.cs",
+              "ToolTip": "C:\\Users\\Austin\\Documents\\7.Software Development\\OpenGrade\\OpenGradeX_3D\\SourceCode\\GPS\\Classes\\CSim.cs",
+              "RelativeToolTip": "GPS\\Classes\\CSim.cs",
+              "ViewState": "AgIAADkAAAAAAAAAAABQwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-19T00:41:59.942Z",
+              "EditorCaption": "",
+              "OwnerCaption": "%2"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form2dSurvey.cs",
+              "DocumentMoniker": "C:\\Users\\Austin\\Documents\\7.Software Development\\OpenGrade\\OpenGradeX_3D\\SourceCode\\GPS\\Forms\\Form2dSurvey.cs",
+              "RelativeDocumentMoniker": "GPS\\Forms\\Form2dSurvey.cs",
+              "ToolTip": "C:\\Users\\Austin\\Documents\\7.Software Development\\OpenGrade\\OpenGradeX_3D\\SourceCode\\GPS\\Forms\\Form2dSurvey.cs",
+              "RelativeToolTip": "GPS\\Forms\\Form2dSurvey.cs",
+              "ViewState": "AgIAALAEAAAAAAAAAAAowMIEAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-19T00:05:59.333Z",
+              "EditorCaption": "",
+              "OwnerCaption": "%2"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FormGPS.cs",
+              "DocumentMoniker": "C:\\Users\\Austin\\Documents\\7.Software Development\\OpenGrade\\OpenGradeX_3D\\SourceCode\\GPS\\Forms\\FormGPS.cs",
+              "RelativeDocumentMoniker": "GPS\\Forms\\FormGPS.cs",
+              "ToolTip": "C:\\Users\\Austin\\Documents\\7.Software Development\\OpenGrade\\OpenGradeX_3D\\SourceCode\\GPS\\Forms\\FormGPS.cs",
+              "RelativeToolTip": "GPS\\Forms\\FormGPS.cs",
+              "ViewState": "AgIAAJcJAAAAAAAAAAAAAKYJAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-19T00:05:30.805Z",
+              "EditorCaption": "",
+              "OwnerCaption": "%2"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CContour.cs",
+              "DocumentMoniker": "C:\\Users\\Austin\\Documents\\7.Software Development\\OpenGrade\\OpenGradeX_3D\\SourceCode\\GPS\\Classes\\CContour.cs",
+              "RelativeDocumentMoniker": "GPS\\Classes\\CContour.cs",
+              "ToolTip": "C:\\Users\\Austin\\Documents\\7.Software Development\\OpenGrade\\OpenGradeX_3D\\SourceCode\\GPS\\Classes\\CContour.cs",
+              "RelativeToolTip": "GPS\\Classes\\CContour.cs",
+              "ViewState": "AgIAAA8FAAAAAAAAAAAmwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-19T00:02:07.533Z",
+              "EditorCaption": "",
+              "OwnerCaption": "%2"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "FormGPS.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Austin\\Documents\\7.Software Development\\OpenGrade\\OpenGradeX_3D\\SourceCode\\GPS\\Forms\\FormGPS.cs",
+              "RelativeDocumentMoniker": "GPS\\Forms\\FormGPS.cs",
+              "ToolTip": "C:\\Users\\Austin\\Documents\\7.Software Development\\OpenGrade\\OpenGradeX_3D\\SourceCode\\GPS\\Forms\\FormGPS.cs [Design]",
+              "RelativeToolTip": "GPS\\Forms\\FormGPS.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-18T23:58:56.717Z",
+              "EditorCaption": " [Design]",
+              "OwnerCaption": "%2"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

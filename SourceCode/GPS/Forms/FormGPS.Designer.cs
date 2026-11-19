@@ -30,18 +30,18 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormGPS));
-            ProgBar.cBlendItems cBlendItems7 = new ProgBar.cBlendItems();
-            ProgBar.cFocalPoints cFocalPoints7 = new ProgBar.cFocalPoints();
-            ProgBar.cBlendItems cBlendItems8 = new ProgBar.cBlendItems();
-            ProgBar.cFocalPoints cFocalPoints8 = new ProgBar.cFocalPoints();
-            ProgBar.cBlendItems cBlendItems9 = new ProgBar.cBlendItems();
-            ProgBar.cFocalPoints cFocalPoints9 = new ProgBar.cFocalPoints();
-            ProgBar.cBlendItems cBlendItems10 = new ProgBar.cBlendItems();
-            ProgBar.cFocalPoints cFocalPoints10 = new ProgBar.cFocalPoints();
-            ProgBar.cBlendItems cBlendItems11 = new ProgBar.cBlendItems();
-            ProgBar.cFocalPoints cFocalPoints11 = new ProgBar.cFocalPoints();
-            ProgBar.cBlendItems cBlendItems12 = new ProgBar.cBlendItems();
-            ProgBar.cFocalPoints cFocalPoints12 = new ProgBar.cFocalPoints();
+            ProgBar.cBlendItems cBlendItems1 = new ProgBar.cBlendItems();
+            ProgBar.cFocalPoints cFocalPoints1 = new ProgBar.cFocalPoints();
+            ProgBar.cBlendItems cBlendItems2 = new ProgBar.cBlendItems();
+            ProgBar.cFocalPoints cFocalPoints2 = new ProgBar.cFocalPoints();
+            ProgBar.cBlendItems cBlendItems3 = new ProgBar.cBlendItems();
+            ProgBar.cFocalPoints cFocalPoints3 = new ProgBar.cFocalPoints();
+            ProgBar.cBlendItems cBlendItems4 = new ProgBar.cBlendItems();
+            ProgBar.cFocalPoints cFocalPoints4 = new ProgBar.cFocalPoints();
+            ProgBar.cBlendItems cBlendItems5 = new ProgBar.cBlendItems();
+            ProgBar.cFocalPoints cFocalPoints5 = new ProgBar.cFocalPoints();
+            ProgBar.cBlendItems cBlendItems6 = new ProgBar.cBlendItems();
+            ProgBar.cFocalPoints cFocalPoints6 = new ProgBar.cFocalPoints();
             this.openGLControl = new SharpGL.OpenGLControl();
             this.contextMenuStripOpenGL = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.deleteFlagToolOpenGLContextMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -775,17 +775,17 @@
             this.voltageBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.voltageBar.BarBackColor = System.Drawing.Color.Black;
-            cBlendItems7.iColor = new System.Drawing.Color[] {
+            cBlendItems1.iColor = new System.Drawing.Color[] {
         System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))),
         System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))),
         System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(0))))),
         System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))))};
-            cBlendItems7.iPoint = new float[] {
+            cBlendItems1.iPoint = new float[] {
         0F,
         0.4378882F,
         0.5031056F,
         1F};
-            this.voltageBar.BarColorBlend = cBlendItems7;
+            this.voltageBar.BarColorBlend = cBlendItems1;
             this.voltageBar.BarColorSolid = System.Drawing.Color.White;
             this.voltageBar.BarColorSolidB = System.Drawing.Color.RoyalBlue;
             this.voltageBar.BarLength = ProgBar.ProgBarPlus.eBarLength.Fixed;
@@ -803,9 +803,9 @@
             this.voltageBar.Corners.UpperRight = ((short)(0));
             this.voltageBar.CylonInterval = ((short)(1));
             this.voltageBar.CylonMove = 1F;
-            cFocalPoints7.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints7.CenterPoint")));
-            cFocalPoints7.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints7.FocusScales")));
-            this.voltageBar.FocalPoints = cFocalPoints7;
+            cFocalPoints1.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints1.CenterPoint")));
+            cFocalPoints1.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints1.FocusScales")));
+            this.voltageBar.FocalPoints = cFocalPoints1;
             this.voltageBar.Location = new System.Drawing.Point(12, 12);
             this.voltageBar.Max = 4096;
             this.voltageBar.Name = "voltageBar";
@@ -836,17 +836,17 @@
             this.voltageBar2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.voltageBar2.BarBackColor = System.Drawing.Color.Black;
-            cBlendItems8.iColor = new System.Drawing.Color[] {
+            cBlendItems2.iColor = new System.Drawing.Color[] {
         System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))),
         System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))),
         System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(0))))),
         System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))))};
-            cBlendItems8.iPoint = new float[] {
+            cBlendItems2.iPoint = new float[] {
         0F,
         0.4378882F,
         0.5031056F,
         1F};
-            this.voltageBar2.BarColorBlend = cBlendItems8;
+            this.voltageBar2.BarColorBlend = cBlendItems2;
             this.voltageBar2.BarColorSolid = System.Drawing.Color.White;
             this.voltageBar2.BarColorSolidB = System.Drawing.Color.White;
             this.voltageBar2.BarLength = ProgBar.ProgBarPlus.eBarLength.Fixed;
@@ -864,9 +864,9 @@
             this.voltageBar2.Corners.UpperRight = ((short)(0));
             this.voltageBar2.CylonInterval = ((short)(1));
             this.voltageBar2.CylonMove = 1F;
-            cFocalPoints8.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints8.CenterPoint")));
-            cFocalPoints8.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints8.FocusScales")));
-            this.voltageBar2.FocalPoints = cFocalPoints8;
+            cFocalPoints2.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints2.CenterPoint")));
+            cFocalPoints2.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints2.FocusScales")));
+            this.voltageBar2.FocalPoints = cFocalPoints2;
             this.voltageBar2.Location = new System.Drawing.Point(1171, 12);
             this.voltageBar2.Max = 4096;
             this.voltageBar2.Name = "voltageBar2";
@@ -1546,13 +1546,13 @@
             // pbarCutBelowL
             // 
             this.pbarCutBelowL.BarBackColor = System.Drawing.Color.Black;
-            cBlendItems9.iColor = new System.Drawing.Color[] {
+            cBlendItems3.iColor = new System.Drawing.Color[] {
         System.Drawing.Color.Navy,
         System.Drawing.Color.Blue};
-            cBlendItems9.iPoint = new float[] {
+            cBlendItems3.iPoint = new float[] {
         0F,
         1F};
-            this.pbarCutBelowL.BarColorBlend = cBlendItems9;
+            this.pbarCutBelowL.BarColorBlend = cBlendItems3;
             this.pbarCutBelowL.BarColorSolid = System.Drawing.Color.Black;
             this.pbarCutBelowL.BarColorSolidB = System.Drawing.Color.RoyalBlue;
             this.pbarCutBelowL.BarLengthValue = ((short)(40));
@@ -1570,9 +1570,9 @@
             this.pbarCutBelowL.CylonInterval = ((short)(1));
             this.pbarCutBelowL.CylonMove = 5F;
             this.pbarCutBelowL.FillDirection = ProgBar.ProgBarPlus.eFillDirection.Down_Left;
-            cFocalPoints9.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints9.CenterPoint")));
-            cFocalPoints9.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints9.FocusScales")));
-            this.pbarCutBelowL.FocalPoints = cFocalPoints9;
+            cFocalPoints3.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints3.CenterPoint")));
+            cFocalPoints3.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints3.FocusScales")));
+            this.pbarCutBelowL.FocalPoints = cFocalPoints3;
             this.pbarCutBelowL.Location = new System.Drawing.Point(30, 307);
             this.pbarCutBelowL.Name = "pbarCutBelowL";
             this.pbarCutBelowL.Orientation = ProgBar.ProgBarPlus.eOrientation.Vertical;
@@ -1586,13 +1586,13 @@
             // pbarCutAboveL
             // 
             this.pbarCutAboveL.BarBackColor = System.Drawing.Color.Black;
-            cBlendItems10.iColor = new System.Drawing.Color[] {
+            cBlendItems4.iColor = new System.Drawing.Color[] {
         System.Drawing.Color.Navy,
         System.Drawing.Color.Blue};
-            cBlendItems10.iPoint = new float[] {
+            cBlendItems4.iPoint = new float[] {
         0F,
         1F};
-            this.pbarCutAboveL.BarColorBlend = cBlendItems10;
+            this.pbarCutAboveL.BarColorBlend = cBlendItems4;
             this.pbarCutAboveL.BarColorSolid = System.Drawing.Color.Black;
             this.pbarCutAboveL.BarColorSolidB = System.Drawing.Color.Red;
             this.pbarCutAboveL.BarLengthValue = ((short)(40));
@@ -1609,9 +1609,9 @@
             this.pbarCutAboveL.Corners.UpperRight = ((short)(0));
             this.pbarCutAboveL.CylonInterval = ((short)(1));
             this.pbarCutAboveL.CylonMove = 5F;
-            cFocalPoints10.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints10.CenterPoint")));
-            cFocalPoints10.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints10.FocusScales")));
-            this.pbarCutAboveL.FocalPoints = cFocalPoints10;
+            cFocalPoints4.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints4.CenterPoint")));
+            cFocalPoints4.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints4.FocusScales")));
+            this.pbarCutAboveL.FocalPoints = cFocalPoints4;
             this.pbarCutAboveL.Location = new System.Drawing.Point(30, 12);
             this.pbarCutAboveL.Name = "pbarCutAboveL";
             this.pbarCutAboveL.Orientation = ProgBar.ProgBarPlus.eOrientation.Vertical;
@@ -1757,13 +1757,13 @@
             // 
             this.pbarCutAboveR.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pbarCutAboveR.BarBackColor = System.Drawing.Color.Black;
-            cBlendItems11.iColor = new System.Drawing.Color[] {
+            cBlendItems5.iColor = new System.Drawing.Color[] {
         System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))),
         System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))))};
-            cBlendItems11.iPoint = new float[] {
+            cBlendItems5.iPoint = new float[] {
         0F,
         1F};
-            this.pbarCutAboveR.BarColorBlend = cBlendItems11;
+            this.pbarCutAboveR.BarColorBlend = cBlendItems5;
             this.pbarCutAboveR.BarColorSolid = System.Drawing.Color.Black;
             this.pbarCutAboveR.BarColorSolidB = System.Drawing.Color.Red;
             this.pbarCutAboveR.BarLengthValue = ((short)(40));
@@ -1780,9 +1780,9 @@
             this.pbarCutAboveR.Corners.UpperRight = ((short)(0));
             this.pbarCutAboveR.CylonInterval = ((short)(1));
             this.pbarCutAboveR.CylonMove = 5F;
-            cFocalPoints11.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints11.CenterPoint")));
-            cFocalPoints11.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints11.FocusScales")));
-            this.pbarCutAboveR.FocalPoints = cFocalPoints11;
+            cFocalPoints5.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints5.CenterPoint")));
+            cFocalPoints5.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints5.FocusScales")));
+            this.pbarCutAboveR.FocalPoints = cFocalPoints5;
             this.pbarCutAboveR.Location = new System.Drawing.Point(1122, 12);
             this.pbarCutAboveR.Name = "pbarCutAboveR";
             this.pbarCutAboveR.Orientation = ProgBar.ProgBarPlus.eOrientation.Vertical;
@@ -1796,13 +1796,13 @@
             this.pbarCutBelowR.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pbarCutBelowR.AutoSize = true;
             this.pbarCutBelowR.BarBackColor = System.Drawing.Color.Black;
-            cBlendItems12.iColor = new System.Drawing.Color[] {
+            cBlendItems6.iColor = new System.Drawing.Color[] {
         System.Drawing.Color.Navy,
         System.Drawing.Color.Blue};
-            cBlendItems12.iPoint = new float[] {
+            cBlendItems6.iPoint = new float[] {
         0F,
         1F};
-            this.pbarCutBelowR.BarColorBlend = cBlendItems12;
+            this.pbarCutBelowR.BarColorBlend = cBlendItems6;
             this.pbarCutBelowR.BarColorSolid = System.Drawing.Color.Black;
             this.pbarCutBelowR.BarColorSolidB = System.Drawing.Color.RoyalBlue;
             this.pbarCutBelowR.BarLengthValue = ((short)(40));
@@ -1820,9 +1820,9 @@
             this.pbarCutBelowR.CylonInterval = ((short)(1));
             this.pbarCutBelowR.CylonMove = 5F;
             this.pbarCutBelowR.FillDirection = ProgBar.ProgBarPlus.eFillDirection.Down_Left;
-            cFocalPoints12.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints12.CenterPoint")));
-            cFocalPoints12.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints12.FocusScales")));
-            this.pbarCutBelowR.FocalPoints = cFocalPoints12;
+            cFocalPoints6.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints6.CenterPoint")));
+            cFocalPoints6.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints6.FocusScales")));
+            this.pbarCutBelowR.FocalPoints = cFocalPoints6;
             this.pbarCutBelowR.Location = new System.Drawing.Point(1122, 288);
             this.pbarCutBelowR.Name = "pbarCutBelowR";
             this.pbarCutBelowR.Orientation = ProgBar.ProgBarPlus.eOrientation.Vertical;
@@ -2066,7 +2066,7 @@
             // 
             this.tStripToDesign.AutoSize = false;
             this.tStripToDesign.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tStripToDesign.ForeColor = System.Drawing.Color.White;
+            this.tStripToDesign.ForeColor = System.Drawing.Color.Cyan;
             this.tStripToDesign.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
             this.tStripToDesign.Name = "tStripToDesign";
             this.tStripToDesign.Size = new System.Drawing.Size(150, 60);
@@ -2099,7 +2099,7 @@
             // 
             this.tStriptoSurvey.AutoSize = false;
             this.tStriptoSurvey.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tStriptoSurvey.ForeColor = System.Drawing.Color.White;
+            this.tStriptoSurvey.ForeColor = System.Drawing.Color.Yellow;
             this.tStriptoSurvey.Margin = new System.Windows.Forms.Padding(-4, 0, 0, 0);
             this.tStriptoSurvey.Name = "tStriptoSurvey";
             this.tStriptoSurvey.Size = new System.Drawing.Size(150, 60);

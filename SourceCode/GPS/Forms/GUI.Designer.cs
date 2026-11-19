@@ -1133,8 +1133,10 @@ namespace OpenGrade
             //if a GPS is connected disable sim
             if (a1Timeout > 10)  // Need to change this
             {
-                if (isGradeControlBtnOn) sim.DoSimTick(guidanceLineSteerAngle / 10.0, cutDeltaCenter,   0);
-                else sim.DoSimTick(sim.steerAngleScrollBar, cutDeltaCenter, 0);//
+                double altitudeCorrectionCm = mc.gcData.deltaA;
+                bool hasValidAltitudeCorrection = cutDeltaCenter != 9999;
+                if (isGradeControlBtnOn) sim.DoSimTick(guidanceLineSteerAngle / 10.0, altitudeCorrectionCm, hasValidAltitudeCorrection);
+                else sim.DoSimTick(sim.steerAngleScrollBar, altitudeCorrectionCm, hasValidAltitudeCorrection);
             }
             else
             {
